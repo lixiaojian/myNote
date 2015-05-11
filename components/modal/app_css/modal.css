@@ -1,0 +1,22 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors ex-lixiaojian002 (EX-LIXIAOJIAN002@pingan.com.cn)
+ * @date    2015-01-13 10:24:15
+ * @version $Id$
+ */
+.myBasemodal {
+    display: none;
+    z-index: 100;
+    background-color: #fff;
+}
+
+.modal_mask {
+    background-color: #000000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    z-index: 99;
+}
