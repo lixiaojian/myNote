@@ -1,0 +1,57 @@
+.code-highlight {
+    margin: 10px 0;
+}
+
+.code-highlight pre {
+    width: 90%;
+    background-color: #3A3A3A;
+    margin: 1em auto;
+    -webkit-border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+    margin: 0;
+}
+
+.code-highlight code {
+    font-family: Consolas, "Courier New", Courier, FreeMono, monospace;
+    font-size: 120%;
+    line-height: 120%;
+    color: #FFF;
+}
+
+.code-highlight code .keyword, .code-highlight code .support, .code-highlight code .storage {
+    color: #66d9ef;
+}
+
+.code-highlight code .operator, .code-highlight code .tag-name {
+    color: #f92672;
+}
+
+.code-highlight code .call, .code-highlight code .attribute {
+    color: #a6e22e;
+}
+
+.code-highlight code .string {
+    color: #e6db74;
+}
+
+.code-highlight code .comment {
+    color: #75715e;
+}
+
+.code-highlight code .entity {
+    color: #99FF99
+}
+
+.code-highlight code .numeric, .code-highlight code .constant {
+    color: #ae81ff;
+}
+
+.code-highlight code .my-names {
+    color: #f00;
+}
+
+.code-highlight code .tag {
+    color: #FFF;
+}
+
