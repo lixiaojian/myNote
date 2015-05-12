@@ -408,7 +408,143 @@
             </article>
         </section>
     </section>
+    <section id="CSSRule">
+        <h1>css规范</h1>
+        <section>
+            <h3>css属性顺序</h3>
+            <ol>
+                <li>显示属性；</li>
+                <li>元素位置；</li>
+                <li>元素属性；</li>
+                <li>元素内容属性；</li>
+                <li>css书写顺序：</li>
+            </ol>
+            <div class="code-highlight">
+                <pre>
+                    <code data-language="css">
+    .header {
+        /* 显示属性 */
+        display || visibility
+        list-style
+        position
+        top || right || bottom || left
+        z-index
+        clear
+        float
+
+        /* 自身属性 */
+        width
+        max-width || min-width
+        height
+        max-height || min-height
+        overflow || clip
+        margin
+        padding
+        outline
+        border
+        background
+
+        /* 文本属性 */
+        color
+        font
+        text-overflow
+        text-align
+        text-indent
+        line-height
+        white-space
+        vertical-align
+        cursor
+        content
+    }
+                    </code>
+                </pre>
+            </div>
+        </section>
+        <section>
+            <h3>css写法</h3>
+            <article>
+                <ol>
+                    <li>小图片（必须）sprite 合并</li>
+                    <li>每个样式属性后加 ";"</li>
+                    <li>禁止将样式写为单行
+                        <div class="code-highlight">
+                            <pre>
+                                <code data-language="css">
+    /*如*/
+    .hotel-content{margin:10px;background-color:#efefef;}
+    /*单行显示不好注释，不好备注，这应该是压缩工具的活儿~*/
+                                </code>
+                            </pre>
+                        </div>
+                    </li>
+                    <li>禁止使用行内（inline）样式</li>
+                    <li>禁止使用"*"来选择元素
+                        <div class="code-highlight">
+                            <pre>
+                                <code data-language="css">
+    /*别这样写*/
+    * {
+        margin: 0;
+        padding: 0;
+    }
+                                </code>
+                            </pre>
+                        </div>
+                        这样写是没有必要的，一些元素在浏览器中默认有margin或padding值，但是只是部分元素，没有必要将所有元素的margin、padding值都置为0。
+                    </li>
+                    <li>带前缀的属性<br>
+                        当使用特定浏览器带有前缀的属性时，通过缩进的方式，让每个属性的值在垂直方向对齐，这样便于多行编辑。如：
+                        <div class="code-highlight">
+                            <pre>
+                                <code data-language="css">
+    .selector {
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+        box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    }
+                                </code>
+                            </pre>
+                        </div>
+                    </li>
+                    <li>优化css选择器<br>
+                        css选择器是从右边到左边进行匹配的。如：
+                        <div class="code-highlight">
+                            <pre>
+                                <code data-language="css">
+    #header a {
+        color: #444;
+    }
+                                </code>
+                            </pre>
+                        </div>
+                        浏览器会检查整个文档中的<strong>所有链接</strong>，然后浏览器并不仅仅检查每个链接的父元素，还要遍历文档树去查找 id 为 header 的祖先元素，如果被评估的链接不是 header 的后代，那么浏览器就要向上一级遍历知道文档的根节点。针对此问题，有以下几个解决方法：
+                        <ol>
+                            <li>避免使用通配规则<br>
+                                除了传统意义的通配选择符之外还包括相邻兄弟选择符, 子选择符, 后代选择符和属性选择符。推荐id、class和标签选择符。
+                            </li>
+                            <li>不要限定id选择符<br>
+                                页面中指定一个id只能对应一个元素，所以没有必要添加额外添加限定符，如： div#header ，应该简化为： #header <strong>（提权的除外）</strong>。
+                            </li>
+                            <li>不要限定类选择器<br>
+                                不要用具体的标签限定类选择符，而是根据实际情况对类名进行扩展。例如： ul.recommend ，改成 .recommend-list 或者 .list-recommend。
+                            </li>
+                            <li>让规则越具体越好<br>
+                                尽量不要使用 ul li a 这样长的选择符，最好使用  .list-anchor 之类的选择符。
+                            </li>
+                            <li>避免使用后代选择符<br>
+                                通常处理后代选择符开销最高，使用字选择符更高效，最好使用下一条代替。
+                            </li>
+                            <li>避免使用标签子选择符<br>
+                                如果有如： #header > li > a，这样基于子标签的自选择符，那么应该使用一个class来关联每个元素如： .header-anchor。尽量使用具体的类代替子选择符。
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+
+            </article>
+        </section>
+    </section>
 </section>
+
 <nav>
 
 </nav>
