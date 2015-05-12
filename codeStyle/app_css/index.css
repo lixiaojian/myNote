@@ -42,6 +42,10 @@ blockquote{
     right: 20px;
     float: left;
 }
+.main-nav a{
+    color: #d3d3d3;
+    text-decoration: none;
+}
 .main-nav li{
     line-height: 50px;
     float: left;
