@@ -543,6 +543,387 @@
             </article>
         </section>
     </section>
+    <section id="JAVASCRIPTRule">
+        <h1>前端规范之JavaScript</h1>
+        <section>
+            <h3>命名规范</h3>
+            <article>
+                <ol>
+                    <li>文件命名可读性强<br>
+                        文件夹、文件的命名与命名空间应能代表代码功能，可读性强。
+                    </li>
+                    <li>函数命名<br>
+                        驼峰命名方式
+                        <div class="code-highlight">
+                            <pre>
+                                <code data-language="javascript">
+    function funName() {}
+                                </code>
+                            </pre>
+                        </div>
+                    </li>
+                    <li>常量<br>
+                        大写
+                        <div class="code-highlight">
+                            <pre>
+                                <code data-language="javascript">
+    var VARIABLENAME
+                                </code>
+                            </pre>
+                        </div>
+                    </li>
+                    <li>变量<br>
+                        驼峰命名
+                        <div class="code-highlight">
+                            <pre>
+                                <code data-language="javascript">
+    var variableName
+                                </code>
+                            </pre>
+                        </div>
+                    </li>
+                </ol>
+            </article>
+        </section>
+        <section>
+            <h3>编码规则</h3>
+            <article>
+                <ol>
+                    <li>排版缩进<br>
+                        采用统一的缩进方式排版代码。缩进为2个ASCII空格
+                        <div class="code-highlight">
+                            <pre>
+                                <code data-language="javascript">
+    if(condition1 || condition2) {
+        action1;
+    } else if (condition3 && condition4) {
+        action2;
+    } else if (condition5
+      && condition6
+      && condition7
+      && condition8){
+        action2;
+    } else {
+        default action;
+    }
+                                </code>
+                            </pre>
+                        </div>
+                    </li>
+                    <li>关键词、条件括弧后面使用空格；运算操作符号两侧使用空格；语句分割符‘,’后面使用空格
+                        <div class="code-highlight">
+                        <pre>
+                            <code data-language="javascript">
+    var name[空格]=[空格]value;
+    if[空格](a,[空格]b) {
+
+    }
+                            </code>
+                        </pre>
+                        </div>
+                    </li>
+                    <li>左大括号"{"可以居行尾，也可写在下行首（独自一行）；右大括号"}"单独占一行，居行首
+                        <div class="code-highlight">
+                            <pre>
+                                <code data-language="javascript">
+    if (a && b) {
+
+    }
+   // ------------------------
+    if (a && b)
+    {
+
+    }
+                                </code>
+                            </pre>
+                        </div>
+                    </li>
+                    <li>句末必须用分号结尾
+                        <div class="code-highlight">
+                            <pre>
+                                <code data-language="javascript">
+    var fn = function () {
+
+    };//这里没有分号的话，脚本解析器会报错！！！
+    (function () {
+        alert(1);
+    })();
+                                </code>
+                            </pre>
+                        </div>
+                    </li>
+                    <li>单行过长应在适当位置予以换行,增强可读性<br>
+                        if 语句括号中的条件若过多过长，应予以折行；折行后，||、&& 等符号应与 “(” 后的第一个字母纵向对齐
+                        <div class="code-highlight">
+                            <pre>
+                                <code data-language="javascript">
+    if (condition1
+      && condition2
+      || condition3) {
+
+    }
+                                </code>
+                            </pre>
+                        </div>
+                    </li>
+                    <li>if、while、for、do语句的执行体总是用"{"和"}"括起来，即使在其结构体内只有一条语句
+                        <div class="code-highlight">
+                        <pre>
+                            <code data-language="javascript">
+    if (s==100) {
+        alert('shit!');
+    }
+                            </code>
+                        </pre>
+                        </div>
+                    </li>
+                    <li>语法意义相互独立的代码将用空行分隔
+                        <div class="code-highlight">
+                        <pre>
+                            <code data-language="javascript">
+    a++; b++;   //！！！避免同一行书写两个表达式
+    if (a > b) {
+        value = a;  //行间不用空行间隔
+    }
+
+    var variableName = value;   //与上一代码行使用空行间隔
+                            </code>
+                        </pre>
+                        </div>
+                    </li>
+                </ol>
+            </article>
+        </section>
+        <section>
+            <h3>注释规范</h3>
+            <section>
+                <h4>文件注释</h4>
+                <article>
+                    <ol>
+                        <li>文件注释要标明作者、文件版本、创建/修改时间、重大版本修改记录</li>
+                        <li>函数描述</li>
+                        <li>文件版本、创建或者修改时间、功能、作者
+                            <div class="code-highlight">
+                            <pre>
+                                <code data-language="javascript">
+    /**
+    * @file Image.js
+    * @description 功能详细描述
+    */
+                                </code>
+                            </pre>
+                            </div>
+                        </li>
+                        <li>函数或者类等都要添加头描述
+                            <div class="code-highlight">
+                            <pre>
+                                <code data-language="javascript">
+    /**
+    * 简述
+    *
+    * 功能详细描述
+    *
+    * @param &lt;String&gt; arg1 参数1
+    * @param &lt;Number&gt; arg2 参数2，默认为0
+    * @return &lt;Boolean&gt; 看xxx是否成功
+    */
+    function fooFunction (arg1, arg2) {
+
+    }
+                                </code>
+                            </pre>
+                            </div>
+                        </li>
+                    </ol>
+                </article>
+            </section>
+        </section>
+        <section>
+            <h3>操作注释</h3>
+            <article>
+                <ol>
+                    <li>单行注释,写在代码上面</li>
+                    <li>多行注释
+                        <div class="code-highlight">
+                        <pre>
+                            <code data-language="javascript">
+    /*
+    * 注释操作说明
+    */
+    for( var i = 0; i < obj.lenght; i++) {
+
+    }
+                            </code>
+                        </pre>
+                        </div>
+                    </li>
+                    <li>注释标签参考
+                        <ul class="mark-table clear">
+                            <li class="t-title left">标签</li>
+                            <li class="t-title right">描述</li>
+                            <li class="left line-two">@addon</li>
+                            <li class="right">把一个函数标记为另一个函数的扩张，另一个函数的定义不在源文件中。</li>
+                            <li class="left">@argument</li>
+                            <li class="right">用大括号中的自变量类型描述一个自变量。</li>
+                            <li class="left">@author</li>
+                            <li class="right">函数/类作者的姓名。</li>
+                            <li class="left">@base</li>
+                            <li class="right">如果类是继承得来，定义提供的类名称。</li>
+                            <li class="left">@class</li>
+                            <li class="right">用来给一个类提供描述，不能用于构造器的文档中。</li>
+                            <li class="left">@constructor</li>
+                            <li class="right">描述一个类的构造器。</li>
+                            <li class="left">@deprecated</li>
+                            <li class="right">表示函数/类已被忽略。</li>
+                            <li class="left">@exception</li>
+                            <li class="right">描述函数/类产生的一个错误。</li>
+                            <li class="left">@exec</li>
+                            <li class="right">&nbsp;</li>
+                            <li class="left">@extends</li>
+                            <li class="right">表示派生出当前类的另一个类。</li>
+                            <li class="left line-two">@fileoverview</li>
+                            <li class="right">表示文档块将用于描述当前文件。这个标签应该放在其它任何标签之前。</li>
+                            <li class="left">@final</li>
+                            <li class="right">指出函数/类。</li>
+                            <li class="left">@ignore</li>
+                            <li class="right">让jsdoc忽视随后的代码。</li>
+                            <li class="left">@link</li>
+                            <li class="right">类似于@link标签，用于连接许多其它页面。</li>
+                            <li class="left">@member</li>
+                            <li class="right">定义随后的函数为提供的类名称的一个成员。</li>
+                            <li class="left">@param</li>
+                            <li class="right">用大括号中的参数类型描述一个参数。</li>
+                            <li class="left">@private</li>
+                            <li class="right">表示函数/类为私有，不应包含在生成的文档中。</li>
+                            <li class="left">@requires</li>
+                            <li class="right">表示需要另一个函数/类。</li>
+                            <li class="left">@return</li>
+                            <li class="right">描述一个函数的返回值。</li>
+                            <li class="left">@returns</li>
+                            <li class="right">描述一个函数的返回值。</li>
+                            <li class="left">@see</li>
+                            <li class="right">连接到另一个函数/类。</li>
+                            <li class="left">@throws</li>
+                            <li class="right">描述函数/类可能产生的错误。</li>
+                            <li class="left">@type</li>
+                            <li class="right">指定函数/成员的返回类型。</li>
+                            <li class="left">@version</li>
+                            <li class="right">函数/类的版本号。</li>
+                        </ul>
+                    </li>
+                </ol>
+            </article>
+        </section>
+        <section>
+            <h3>条件判断的陷阱</h3>
+            <article>
+                在if判断中，使用===作比较,避免掉入==造成的陷阱
+                <ol>
+                    <li>在条件判断时，这样的一些值表示false：null，undefined，字符串''，数字0，NaN</li>
+                    <li>而在==时，则会有一些让人难以理解的陷阱,如：
+                        <div class="code-highlight">
+                        <pre>
+                            <code data-language="javascript">
+    (function () {
+        var undefined;
+        undefined == null; // true
+        1 == true; //true
+        2 == true; // false
+        0 == false; // true
+        0 == ''; // true
+        NaN == NaN;// false
+        [] == false; // true
+        [] == ![]; // true
+    })();
+                            </code>
+                        </pre>
+                        </div>
+                    </li>
+                    <li>对于不同类型的 == 判断，有这样一些规则，顺序自上而下：
+                        <blockquote>
+                            <ol>
+                                <li>undefined与null相等</li>
+                                <li>一个是number一个是string时，会尝试将string转换为number</li>
+                                <li>尝试将boolean转换为number，0或1</li>
+                                <li>尝试将Object转换成number或string，取决于另外一个对比量的类型</li>
+                            </ol>
+                        </blockquote>
+                    </li>
+                </ol>
+                所以，对于0、空字符串的判断，建议使用 === 。===会先判断两边的值类型，类型不匹配时为false。
+            </article>
+        </section>
+        <section>
+            <h3>简单类型转换</h3>
+            <article>
+                <ol>
+                    <li>number to string的转换，建议使用 1 + ''或String(1)，不使用new String(1)或1.toString()的方式。</li>
+                    <li>string to number的转换，建议使用parseInt，必须显式指定第二个参数的进制。下面的例子展示了不指定进制的风险：
+                        <div class="code-highlight">
+                        <pre>
+                            <code data-language="javascript">
+    parseInt('08'); // 0
+    parseInt('08', 10); //8
+                            </code>
+                        </pre>
+                        </div>
+                    </li>
+                    <li>loat to integer的转换，建议使用Math.floor/Math.round/Math.ceil方法，不使用parseInt。</li>
+                </ol>
+            </article>
+        </section>
+
+        <section>
+            <h3>字符串拼接</h3>
+            <article>
+                字符串拼接，应使用数组保存字符串片段，使用时调用join方法。避免使用+或+=的方式拼接较长的字符串，每个字符串都会使用一个小的内存片段，过多的内存片段会影响性能。如:
+                <div class="code-highlight">
+                    <pre>
+                        <code data-language="javascript">
+    //不好的拼接方式，+=
+
+    var str = '';
+    for (var i = 0, len = list.length; i < len; i++) {
+        str+= '&lt;div&gt;' + list[i] + '&lt;/div&gt;';
+    }
+    dom.innerHTML = str;
+
+    //正确拼接方式，Array的push+join
+
+    var str = [];
+        for (var i = 0, len = list.length; i < len; i++) {
+        str.puzh('&lt;div&gt;'+ list[i] + '&lt;/div&gt;');
+    }
+    dom.innerHTML = str.join('');
+                        </code>
+                    </pre>
+                </div>
+            </article>
+        </section>
+
+        <section>
+            <h3>获取单个元素</h3>
+            <article>
+                通常，我们使用document.getElementById来获取dom元素，避免使用document.all。document.getElementById是标准方法，兼容所有浏览器
+                <div class="code-highlight">
+                    <pre>
+                        <code data-language="html">
+    <!-- ie浏览器会混淆元素的id和name属性，
+            document.getElementById可能获得不期望的元素。
+    在对元素的id与name属性的命名需要非常小心，应使用不同的命名法。
+    下面是一个name与id冲突的例子：-->
+
+    &lt;input type="text" name="test"&gt; &lt;div id="test"&gt;&lt;/div&gt;
+    &lt;button onclick="
+        alert(document.getElementById('test').tagName)"&gt;
+    &lt;/button&gt;
+    <!-- ie6下为INPUT -->
+                        </code>
+                    </pre>
+                </div>
+            </article>
+        </section>
+    </section>
 </section>
 
 <nav>

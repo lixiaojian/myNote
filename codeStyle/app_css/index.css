@@ -19,13 +19,20 @@ header h1 {
     line-height: 50px;
     color: #fff;
 }
+blockquote{
+    background-color: #ccc;
+    border-left: 6px solid #3E87E3;
+}
+.code-highlight {
+    margin: 10px 5px;
+}
 
 .code-highlight pre {
     width: 100%;
 }
 
 .main-warp {
-    width: 765px;
+    width: 800px;
     margin: 10px auto;
     background-color: rgb(245, 245, 245);
     padding: 5px;
@@ -53,7 +60,7 @@ header h1 {
     padding-left: 2em;
 }
 
-.main-warp ol li {
+.main-warp ol>li {
     margin-bottom: 1em;
 }
 
@@ -71,4 +78,22 @@ header h1 {
     text-indent: 10px;
     border: 1px solid #ccc;
     margin: 0 0 -1px -1px;
+}
+
+.mark-table li{
+    padding: 8px;
+    float: left;
+    border: 1px solid #ccc;
+    margin: 0 0 -1px -1px;
+}
+.mark-table .left{
+    width: 20%;
+    padding: 8px;
+}
+.mark-table .right{
+    width: 75%;
+}
+
+.line-two{
+    line-height: 56px;
 }
