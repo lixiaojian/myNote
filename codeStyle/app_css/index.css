@@ -1,0 +1,58 @@
+body {
+    background: url("../app_img/bg.gif") repeat;
+    font-size: 18px;
+    line-height: 28px;
+}
+
+body input {
+    box-sizing: content-box;
+}
+
+header {
+    text-align: center;
+    background-color: #2175bc;
+    height: 50px;
+}
+
+header h1 {
+    font-size: 30px;
+    line-height: 50px;
+    color: #fff;
+}
+
+.code-highlight pre {
+    width: 100%;
+}
+
+.main-warp {
+    width: 765px;
+    margin: 10px auto;
+    background-color: rgb(245, 245, 245);
+    padding: 5px;
+    -webkit-box-shadow: 0 0 8px #999;
+    -moz-box-shadow: 0 0 8px #999;
+    box-shadow: 0 0 8px #999;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.main-warp > section {
+    border-bottom: 2px dashed #ccc;
+}
+
+.main-warp h1 {
+    padding: 10px 5px;
+}
+
+.main-warp h3 {
+    padding: 0 5px 10px 5px;
+}
+
+.main-warp ol {
+    padding-left: 2em;
+}
+
+.main-warp ol li {
+    margin-bottom: 1em;
+}
