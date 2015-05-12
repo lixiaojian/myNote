@@ -268,6 +268,105 @@
             </article>
         </section>
     </section>
+
+    <section>
+        <h3>文件和目录命名约定</h3>
+        <article>
+            <ol>
+                <li>一律小写，必须是英文单词或者汉语拼音，以英语单词优先，多个单词以连字符 ( - ) 连接。 只能出现小写引文字母，数字和连字符。</li>
+                <li>很多浏览器会将含有这些词的作为广告拦截： ad、ads、adv、banner、sponsor、gg、guangg、guanggao等 页面中尽量避免采用以上词汇来命名。</li>
+                <li>该命令规范适用于所有前端维护的内容和相关目录。(html, css, js, png, gif, jpg, ico)。</li>
+            </ol>
+        </article>
+    </section>
+
+    <section>
+        <h3>空格/标签/注释</h3>
+        <article>
+            <ol>
+                <li>用两个空格来代替制表符（tab） —— 这是唯一能保证在所有环境下获得一致展现的方法；</li>
+                <li>嵌套元素应当缩进一次 —— 即两个空格；</li>
+                <li>对于属性的定义，确保全部使用双引号，绝不要使用单引号；</li>
+                <li>不要省略可选的结束标签，如：&lt;/li&gt;,&lt;/body&gt;；</li>
+                <li>习惯性书写注释，方便日后维护；</li>
+            </ol>
+        </article>
+    </section>
+
+    <section>
+        <h3>文件编码约定</h3>
+        <article>
+            所有文件统一采用UTF-8无BOM编码。换行格式为 unix 格式。
+        </article>
+    </section>
+
+    <section>
+        <h3>id和class命名约定</h3>
+        <article>
+            <ol>
+                <li>id 和 class 的命名基本原则: 内容优先，表现为辅。首先根据内容来命名，如:#header,#footer,.main-nav.如根据内容无法找到合适的命名，可以再结合表现进行命名，如：col-main, col-sub, col-extra,blue-box</li>
+                <li>id 和 class 的名称一律小写，多个单词以连字符连接，如： main-wrap</li>
+                <li>id 和 class 的名称只能出现，小写字母，数字和连字符( - )(js钩子除外)</li>
+                <li>id 和 class 的名称尽量使用英文单词命名,如确实找不到合适的单词，可以使用拼音，如：zhidao-com</li>
+                <li>在不影响语意的情况下，id 和 class 的名称 可以适当使用缩写，如: col, nav, hd, bd, fd( 缩写只用来表示结构，不允许写任何样式)。不要自造缩写。</li>
+                <li>class 对于选中命名.selected;对于hover，支持伪类使用:hover，不支持的使用 .hover，隐藏使用.hide 。</li>
+                <li>id 和 class 的选择，如果只使用一次，使用id,如果使用多次使用class，如果需要和js交互，使用id,如果需要交互并且页面中有大量重复，请参见下一条。</li>
+                <li>对于作为js钩子的 id 和 class 命名规则为以”J_“开头(J,象形钩子的形状)，后面加上原应有的命名，在使用class的时候需要放在最前面。如:class="J_tab-content some-mod-content"。（注意：钩子，不允许在css中定义任何的样式效果）</li>
+                <li>很多浏览器会将含有这些词的作为广告拦截： ad、ads、adv、banner、sponsor、gg、guangg、guanggao等 页面中尽量避免采用以上词汇来命名。</li>
+            </ol>
+        </article>
+    </section>
+
+    <section>
+        <h3>文件引用</h3>
+        <article>
+            <ol>
+                <li>页面中不允许出现css内容(包括行内样式和style)</li>
+                <li>每个页面中至多包括3个css文件，1个 产品级 1个模块级 1个页面级别</li>
+            </ol>
+        </article>
+    </section>
+
+    <section>
+        <h3>选择器</h3>
+        <article>
+            <ol>
+                <li>命名比较短的词，或者缩写的不允许直接定义样式，如：.title,.hd,.bd,.body.必须用上级节点进行限定,如：.recommend-mod .title</li>
+            </ol>
+        </article>
+    </section>
+
+    <section>
+        <h3>通用结构</h3>
+        <article>
+            页面中的块采用如下结构
+            <div class="code-highlight">
+                <pre>
+                    <code data-language="html">
+    &lt;div class="mod recommend-mod"&gt;
+        &lt;div class="hd recommend-title"&gt;Tilte &lt;/div&gt;
+        &lt;div class="bd recommend-body"&gt;contents&lt;/div&gt;
+        &lt;div class="ft recommend-footer"&gt;footer &lt;/div&gt;
+    &lt;/div&gt;
+                    </code>
+                </pre>
+            </div>
+            没有内容的部分可以省略，其中用来表示结构的 mod hd bd ft 不允许直接定义样式（避免嵌套带来样式问题）,需要定义样式的时候需要另外增加class以控制样式如：
+            <div class="code-highlight">
+                <pre>
+                    <code data-language="html">
+    &lt;div class="mod recommend-mod"&gt;
+        &lt;div class="hd recommend-title"&gt;Tilte &lt;/div&gt;
+        &lt;div class="bd recommend-body"&gt;contents&lt;/div&gt;
+        &lt;div class="ft recommend-footer"&gt;footer &lt;/div&gt;
+    &lt;/div&gt;
+                    </code>
+                </pre>
+            </div>
+            当2个以上的结构不存在的时候可以不是采用此结构，如，没有hd和ft,bd也可以省略
+        </article>
+    </section>
+
 </section>
 <nav>
 
