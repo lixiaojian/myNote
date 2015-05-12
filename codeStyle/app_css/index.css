@@ -56,3 +56,19 @@ header h1 {
 .main-warp ol li {
     margin-bottom: 1em;
 }
+
+.t-title{
+    font-weight: bold;
+    text-align: center;
+    padding: 5px 0;
+}
+.zindex-table{
+    margin-bottom: 10px;
+}
+.zindex-table li{
+    width: 33.2%;
+    float: left;
+    text-indent: 10px;
+    border: 1px solid #ccc;
+    margin: 0 0 -1px -1px;
+}

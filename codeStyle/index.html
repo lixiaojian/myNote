@@ -363,7 +363,47 @@
                     </code>
                 </pre>
             </div>
-            当2个以上的结构不存在的时候可以不是采用此结构，如，没有hd和ft,bd也可以省略
+            当2个以上的结构不存在的时候可以不用采用此结构，如，没有hd和ft,bd也可以省略
+        </article>
+    </section>
+
+    <section>
+        <h3>多选择器规则之间换行</h3>
+        <article>
+            当样式针对多个选择器时每个选择器占一行
+            <div class="code-highlight">
+                <pre>
+                    <code data-language="css">
+    /**推荐的写法*/
+    a.btn,
+    input.btn,
+    input[type="button"] {
+        ......
+    }
+                    </code>
+                </pre>
+            </div>
+        </article>
+    </section>
+
+    <section>
+        <h3>z-index</h3>
+        <article>
+            <ol>
+                <li>自己写的z-index的值不能超过 100 (通用组的除外)</li>
+                <li>页面中的元素内容的z-index不能超过10(popup poptip除外)，需要按照内容定义1 2 3 4不允许直接使用如1000，9999</li>
+                <li>popup poptip的z-index需要按照内容使用 99以下，10以上的值（11,12,13，也可以小于10），不允许直接使用1000，9999之类大值</li>
+            </ol>
+            现在通用z-index记录,使用时请避开和灵活使用
+            <ul class="zindex-table clear">
+                <li class="t-title">z-index</li><li class="t-title">使用者</li>        <li class="t-title">类型</li>
+                <li>&lt;10</li>                 <li>page-content</li>                 <li>页面级别</li>
+                <li>&gt;10, &lt;99</li>         <li>page-popup</li>                   <li>页面级别</li>
+                <li>20</li>                     <li>usercard用户名片</li>              <li>common通用</li>
+                <li>&nbsp;</li>                       <li>MSG气泡消息</li>                   <li>common通用</li>
+                <li>&nbsp;</li>                       <li>Dialog-Cover</li>                 <li>common通用</li>
+                <li>&nbsp;</li>                       <li>Dialog</li>                       <li>common通用</li>
+            </ul>
         </article>
     </section>
 
