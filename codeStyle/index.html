@@ -118,6 +118,156 @@
             </div>
         </article>
     </section>
+
+    <section>
+        <h3>元素</h3>
+        <section>
+            <h4>一、html5元素</h4>
+            <article>
+                <ol>
+                    <li>section 表示文档中的节、区段，可以和h1-h6一起来显示文档结构</li>
+                    <li>article 表示一块比较独立的内容或者主题内容，块级元素，比如blog的内容，报纸的文章</li>
+                    <li>aside 表示article以外的内容，而且应该和article有一定的关系，块级元素</li>
+                    <li>hgroup 表示一个文档、区段(section)的标题组合</li>
+                    <li>header 表示页眉,页头</li>
+                    <li>footer 表示页脚</li>
+                    <li>nav 表示导航内容</li>
+                    <li>figure 表示以相对独立的或外引的元素，如img video</li>
+                    <li>figcaption 表示 figure内容的标题</li>
+                </ol>
+                <div class="code-highlight">
+                        <pre>
+                            <code data-language="html">
+    &lt;!-- hgroup 示例 --&gt;
+    &lt;hgroup&gt;
+        &lt;h1&gt;文档主标题&lt;/h1&gt;
+        &lt;h2&gt;文档副标题&lt;/h2&gt;
+    &lt;/hgroup&gt;
+
+    &lt;!-- figure 示例 --&gt;
+    &lt;figure&gt;
+        &lt;video src="ogg"&gt;&lt;/video&gt;
+        &lt;figcaption&gt;Example&lt;/figcaption&gt;
+    &lt;/figure&gt;
+
+    &lt;figure&gt;
+        &lt;img src="img" alt="Example image" /&gt;
+        &lt;figcaption&gt;Example image&lt;/figcaption&gt;
+    &lt;/figure&gt;
+                            </code>
+                        </pre>
+                </div>
+            </article>
+        </section>
+        <section>
+            <h4>二、结构性元素</h4>
+            <article>
+                <ol>
+                    <li>p 表示段落。只能包含内联元素，不能包含块级元素;</li>
+                    <li>div 本身无特殊含义，可用于布局。几乎可以包含任何元素;</li>
+                    <li>br 表示换行符;</li>
+                    <li>hr 表示水平分割线;</li>
+                    <li>h1-h6 表示标题。其中 h1 用于表示当前页面最重要的内容的标题;</li>
+                    <li>blockquote 表示引用，可以包含多个段落。请勿纯粹为了缩进而使用 blockquote，大部分浏览器默认将 blockquote 渲染为带有左右缩进;</li>
+                    <li>pre 表示一段格式化好的文本;</li>
+                </ol>
+            </article>
+        </section>
+
+        <section>
+            <h4>三、头部元素</h4>
+            <article>
+                <ol>
+                    <li>title 每个页面必须有且仅有一个 title 元素;</li>
+                    <li>base 可用场景：首页、频道等大部分链接都为新窗口打开的页面;</li>
+                    <li>link link 用于引入 css 资源时，可省去 media(默认为all) 和 type(默认为text/css) 属性;</li>
+                    <li>style type 默认为 text/css，可以省去;</li>
+                    <li>script type 属性可以省去; 不赞成使用lang属性; 不要使用古老的&lt;!– //–&gt;这种hack脚本, 它用于阻止第一代浏览器（Netscape 1和Mosaic）将脚本显示成文字;</li>
+                    <li>noscript 在用户代理不支持 JavaScript 的情况下提供说明;</li>
+                </ol>
+            </article>
+        </section>
+
+        <section>
+            <h4>四、文本元素</h4>
+            <article>
+                <ol>
+                    <li>a a 存在 href 属性时表示链接，无 href 属性但有 name 属性表示锚点;</li>
+                    <li>em,strong em 表示句意强调，加与不加会引起语义变化，可用于表示不同的心情或语调; strong 表示重要性强调，可用于局部或全局，strong强调的是重要性，不会改变句意;</li>
+                    <li>abbr 表示缩写;</li>
+                    <li>sub,sup 主要用于数学和化学公式，sup还可用于脚注;</li>
+                    <li>span 本身无特殊含义;</li>
+                    <li>ins,del 分别表示从文档中增加(插入)和删除</li>
+                </ol>
+            </article>
+        </section>
+
+        <section>
+            <h4>五、媒体元素</h4>
+            <article>
+                <ol>
+                    <li>img 请勿将img元素作为定位布局的工具，不要用他显示空白图片; 必要时给img元素增加alt属性;</li>
+                    <li>object 可以用来插入Flash;</li>
+                </ol>
+            </article>
+        </section>
+
+        <section>
+            <h4>六、列表元素</h4>
+            <article>
+                <ol>
+                    <li>dl 表示关联列表，dd是对dt的解释; dt和dd的对应关系比较随意：一个dt对应多个dd、多个dt对应一个dd、多个dt对应多个dd，都合法; 可用于名词/单词解释、日程列表、站点目录;</li>
+                    <li>ul 表示无序列表;</li>
+                    <li>ol 表示有序列表, 可用于排行榜等;</li>
+                    <li>li 表示列表项，必须是ul/ol的子元素;</li>
+                </ol>
+            </article>
+        </section>
+
+        <section>
+            <h4>七、表单元素</h4>
+            <article>
+                <ol>
+                    <li>推荐使用 button 代替 input，但必须声明 type;</li>
+                    <li>表单元素的 name 不能设定为 action, enctype, method, novalidate, target, submit 会导致表单提交混乱</li>
+                </ol>
+            </article>
+        </section>
+    </section>
+
+    <section>
+        <h3>属性顺序</h3>
+        <section>
+            <h4>一、HTML 属性应当按照以下给出的顺序依次排列，确保代码的易读性。</h4>
+            <article>
+                <ol>
+                    <li>class</li>
+                    <li>id 、 name</li>
+                    <li>data-*</li>
+                    <li>src、for、 type、 href</li>
+                    <li>title、alt</li>
+                    <li>aria-*、 role</li>
+                </ol>
+            </article>
+        </section>
+
+        <section>
+            <h4>二、class用于标识高度可复用组件，因此应该排在首位。id 用于标识具体组件，应当谨慎使用（例如，页面内的书签），因此排在第二位。如：</h4>
+            <article>
+                <div class="code-highlight">
+                    <pre>
+                        <code data-language="html">
+    &lt;a class="..." id="..." data-modal="toggle" href="#"&gt;
+        Example link
+    &lt;/a&gt;
+    &lt;input class="form-control" type="text"&gt;
+    &lt;img src="..." alt="..."&gt;
+                        </code>
+                    </pre>
+                </div>
+            </article>
+        </section>
+    </section>
 </section>
 <nav>
 
