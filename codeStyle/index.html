@@ -4,8 +4,128 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>前端编程规范</title>
+    <link rel="stylesheet" href="../vendor/css/reset.css"/>
+    <link rel="stylesheet" href="../vendor/codehighlight/themes/sublime.css"/>
+    <link rel="stylesheet" href="app_css/index.css"/>
 </head>
 <body>
-<header><h2>前端编程规范</h2></header>
+<header><h1>前端编程规范</h1></header>
+<section class="main-warp">
+    <section id="commonRule">
+        <h1>通用规范</h1>
+        <article>
+            <ol>
+                <li>
+                    tab键用两个空格代替
+                    <p>
+                        因为在不同系统的编辑工具对tab解析不一样，windows下的tab键是占四个空格的位置，而在linux下会变成占八个空格的位置（除非你 自己设定了tab键所占的位置长度）。
+                    </p>
+                </li>
+                <li>
+                    每个样式属性或者每句代码后加 ";" <br/>
+                    方便压缩工具"断句"。
+                </li>
+            </ol>
+        </article>
+    </section>
+    <section id="HTMLRule">
+        <h1>HTML规范</h1>
+        <section>
+            <h3>HTML5 doctype</h3>
+            <article>
+                <p>为每个 HTML 页面的第一行添加标准模式（standard mode）的声明，这样能够确保在每个浏览器中拥有一致的展现。</p>
+
+                <div class="code-highlight">
+                        <pre>
+                            <code data-language="html">
+                                &lt;!DOCTYPE html&gt;
+                                &lt;html&gt;
+                                &lt;head&gt;
+                                &lt;/head&gt;
+                                &lt;/html&gt;
+                            </code>
+                        </pre>
+                </div>
+            </article>
+        </section>
+
+        <section>
+            <h3>字符编码</h3>
+            <article>
+                <p>通过明确声明字符编码，能够确保浏览器快速并容易的判断页面内容的渲染方式。这样做的好处是，可以避免在 HTML 中使用字符实体标记（character
+                    entity），从而全部与文档编码一致（约定一致采用UTF-8编码）。</p>
+
+                <div class="code-highlight">
+                        <pre>
+                            <code data-language="html">
+                                &lt;head&gt;
+                                &lt;meta charset="UTF-8"&gt;
+                                &lt;/head&gt;
+                            </code>
+                        </pre>
+                </div>
+            </article>
+        </section>
+
+        <section>
+            <h3>文档模板</h3>
+            <article>
+                <div class="code-highlight">
+                        <pre>
+                            <code data-language="html">
+                                &lt;!DOCTYPE HTML&gt;
+                                &lt;html&gt;
+                                &lt;head&gt;
+                                &lt;meta charset="utf-8" /&gt;
+                                &lt;title&gt;Sample page&lt;/title&gt;
+                                &lt;link rel="stylesheet" href="css_url" /&gt;
+                                &lt;script src="js_example_url"&gt;&lt;/script&gt;
+                                &lt;/head&gt;
+                                &lt;body&gt;
+                                &lt;section id="page"&gt;
+                                &lt;header id="header"&gt;
+                                页头
+                                &lt;/header&gt;
+                                &lt;section id="body"&gt;
+                                主体
+                                &lt;/section&gt;
+                                &lt;footer id="footer"&gt;
+                                页尾
+                                &lt;/footer&gt;
+                                &lt;/section&gt;
+                                &lt;script&gt;
+                                // 你的代码
+                                &lt;/script&gt;
+                                &lt;/body&gt;
+                                &lt;/html&gt;
+                            </code>
+                        </pre>
+                </div>
+            </article>
+        </section>
+    </section>
+    <section>
+        <h3>IE 兼容模式</h3>
+        <article>
+            <p>IE 支持通过特定的 &lt;meta&gt; 标签来确定绘制当前页面所应该采用的 IE 版本。除非有强烈的特殊需求，否则最好是设置为 edge mode，从而通知 IE 采用其所支持的最新的模式。</p>
+
+            <div class="code-highlight">
+                        <pre>
+                            <code data-language="html">
+                                &lt;meta http-equiv="X-UA-Compatible" content="IE=Edge"&gt;
+                            </code>
+                        </pre>
+            </div>
+        </article>
+    </section>
+</section>
+<nav>
+
+</nav>
+<script src="../vendor/codehighlight/rainbow.js"></script>
+<script src="../vendor/codehighlight/language/generic.js"></script>
+<script src="../vendor/codehighlight/language/javascript.js"></script>
+<script src="../vendor/codehighlight/language/html.js"></script>
+<script src="../vendor/codehighlight/language/css.js"></script>
 </body>
 </html>
