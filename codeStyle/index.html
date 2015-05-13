@@ -291,7 +291,7 @@
             <h3>文件和目录命名约定</h3>
             <article>
                 <ol>
-                    <li>一律小写，必须是英文单词或者汉语拼音，以英语单词优先，多个单词以连字符 ( - ) 连接。 只能出现小写引文字母，数字和连字符。</li>
+                    <li>一律小写，必须是英文单词或者汉语拼音，以英语单词优先，多个单词以连字符 ( - ) 连接。 只能出现小写英文字母，数字和连字符。</li>
                     <li>很多浏览器会将含有这些词的作为广告拦截： ad、ads、adv、banner、sponsor、gg、guangg、guanggao等 页面中尽量避免采用以上词汇来命名。</li>
                     <li>该命令规范适用于所有前端维护的内容和相关目录。(html, css, js, png, gif, jpg, ico)。</li>
                 </ol>
@@ -302,8 +302,8 @@
             <h3>空格/标签/注释</h3>
             <article>
                 <ol>
-                    <li>用两个空格来代替制表符（tab） —— 这是唯一能保证在所有环境下获得一致展现的方法；</li>
-                    <li>嵌套元素应当缩进一次 —— 即两个空格；</li>
+                    <li>用四个空格来代替制表符（tab） —— 这是唯一能保证在所有环境下获得一致展现的方法；</li>
+                    <li>嵌套元素应当缩进一次 —— 即四个空格；</li>
                     <li>对于属性的定义，确保全部使用双引号，绝不要使用单引号；</li>
                     <li>不要省略可选的结束标签，如：&lt;/li&gt;,&lt;/body&gt;；</li>
                     <li>习惯性书写注释，方便日后维护；</li>
@@ -517,7 +517,7 @@
                                 <code data-language="css">
     .selector {
         -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-        box-shadow: 0 1px 2px rgba(0,0,0,.15);
+                box-shadow: 0 1px 2px rgba(0,0,0,.15);
     }
                                 </code>
                             </pre>
@@ -609,7 +609,7 @@
             <article>
                 <ol>
                     <li>排版缩进<br>
-                        采用统一的缩进方式排版代码。缩进为2个ASCII空格
+                        采用统一的缩进方式排版代码。缩进为4个ASCII空格
                         <div class="code-highlight">
                             <pre>
                                 <code data-language="javascript">
@@ -677,8 +677,8 @@
                             <pre>
                                 <code data-language="javascript">
     if (condition1
-      && condition2
-      || condition3) {
+        && condition2
+        || condition3) {
 
     }
                                 </code>
@@ -781,7 +781,7 @@
                             <li class="t-title left">标签</li>
                             <li class="t-title right">描述</li>
                             <li class="left">@addon</li>
-                            <li class="right">把一个函数标记为另一个函数的扩张，另一个函数的定义不在源文件中。</li>
+                            <li class="right">把一个函数标记为另一个函数的扩展，另一个函数的定义不在源文件中。</li>
                             <li class="left">@argument</li>
                             <li class="right">用大括号中的自变量类型描述一个自变量。</li>
                             <li class="left">@author</li>
@@ -793,7 +793,7 @@
                             <li class="left">@constructor</li>
                             <li class="right">描述一个类的构造器。</li>
                             <li class="left">@deprecated</li>
-                            <li class="right">表示函数/类已被忽略。</li>
+                            <li class="right">表示函数/类已被废弃。</li>
                             <li class="left">@exception</li>
                             <li class="right">描述函数/类产生的一个错误。</li>
                             <li class="left">@exec</li>
@@ -887,7 +887,7 @@
                         </pre>
                         </div>
                     </li>
-                    <li>loat to integer的转换，建议使用Math.floor/Math.round/Math.ceil方法，不使用parseInt。</li>
+                    <li>float to integer的转换，建议使用Math.floor/Math.round/Math.ceil方法，不使用parseInt。</li>
                 </ol>
             </article>
         </section>
@@ -910,7 +910,7 @@
     //正确拼接方式，Array的push+join
 
     var str = [];
-        for (var i = 0, len = list.length; i < len; i++) {
+    for (var i = 0, len = list.length; i < len; i++) {
         str.puzh('&lt;div&gt;'+ list[i] + '&lt;/div&gt;');
     }
     dom.innerHTML = str.join('');
