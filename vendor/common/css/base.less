@@ -1,0 +1,96 @@
+/**
+@size:实际大小 单位：px
+@unit:转换后有单位 默认rem
+@step:转换基数 默认32
+*/
+@base_step:32;
+.width(@size,@unit:rem,@step:@base_step){
+	width: unit(@size/@step,@unit);
+}
+.height(@size,@unit:rem,@step:@base_step){
+	height: unit(@size/@step,@unit);
+}
+
+.font-size(@size,@unit:rem,@step:@base_step){
+	font-size: unit(@size/@step,@unit);
+}
+
+.left(@size,@unit:rem,@step:@base_step){
+	left: unit(@size/@step,@unit);
+}
+.right(@size,@unit:rem,@step:@base_step){
+	right: unit(@size/@step,@unit);
+}
+
+/**
+	padding
+*/
+.padding-top(@size,@unit:rem,@step:@base_step){
+	padding-top: unit(@size/@step,@unit);
+}
+
+.padding-bottom(@size,@unit:rem,@step:@base_step){
+	padding-bottom: unit(@size/@step,@unit);
+}
+
+.padding-left(@size,@unit:rem,@step:@base_step){
+	padding-left: unit(@size/@step,@unit);
+}
+
+.padding-right(@size,@unit:rem,@step:@base_step){
+	padding-right: unit(@size/@step,@unit);
+}
+
+.padding(@size,@unit:rem,@step:@base_step){
+	padding: unit(@size/@step,@unit);
+}
+
+.padding(@size1,@size2,@unit:rem,@step:@base_step){
+	padding: unit(@size1/@step,@unit) unit(@size2/@step,@unit);
+}
+
+.padding(@size1,@size2,@size3,@unit:rem,@step:@base_step){
+	padding: unit(@size1/@step,@unit) unit(@size2/@step,@unit) unit(@size3/@step,@unit);
+}
+
+.padding(@size1,@size2,@size3,@size4,@unit:rem,@step:@base_step){
+	padding: unit(@size1/@step,@unit) unit(@size2/@step,@unit) unit(@size3/@step,@unit) unit(@size4/@step,@unit);
+}
+/**
+	margin
+*/
+.margin-top(@size,@unit:rem,@step:@base_step){
+	margin-top: unit(@size/@step,@unit);
+}
+
+.margin-bottom(@size,@unit:rem,@step:@base_step){
+	margin-bottom: unit(@size/@step,@unit);
+}
+
+.margin-left(@size,@unit:rem,@step:@base_step){
+	margin-left: unit(@size/@step,@unit);
+}
+
+.margin-right(@size,@unit:rem,@step:@base_step){
+	margin-right: unit(@size/@step,@unit);
+}
+
+.margin(@size,@unit:rem,@step:@base_step){
+	margin: unit(@size/@step,@unit);
+}
+
+.margin(@size1,@size2,@unit:rem,@step:@base_step){
+	margin: unit(@size1/@step,@unit) unit(@size2/@step,@unit);
+}
+
+.margin(@size1,@size2,@size3,@unit:rem,@step:@base_step){
+	margin: unit(@size1/@step,@unit) unit(@size2/@step,@unit) unit(@size3/@step,@unit);
+}
+
+.margin(@size1,@size2,@size3,@size4,@unit:rem,@step:@base_step){
+	margin: unit(@size1/@step,@unit) unit(@size2/@step,@unit) unit(@size3/@step,@unit) unit(@size4/@step,@unit);
+}
+
+.boeder(@size,@shape:solid,@color:#000,@unit:rem,@step:@base_step){
+	border: unit(@size/@step,@unit) @shape @color;
+}
