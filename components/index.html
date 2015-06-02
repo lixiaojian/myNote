@@ -4,8 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>自定义组件</title>
+    <script src="../vendor/jquery/jquery-1.8.3.min.js"></script>
+    <script src="pingan/app_js/pingan-life-new.js"></script>
+
+
 </head>
 <body>
+    <div class="myDiv"></div>
 
+
+    <script>
+        //        var obj = {
+        //            name:'张三',
+        //            age:20
+        //        };
+        //        var nobj = $.clone(obj);
+        //        nobj.age=40;
+        //        console.log(obj);
+        //        console.log(nobj);
+
+        var dobj = $('.myDiv');
+        var ndobj = $.clone(dobj);
+        //dobj.html('00000');
+        ndobj.html('1111');
+        console.log(ndobj);
+    </script>
 </body>
 </html>
