@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="backStage">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>管理控制台</title>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="styles/layout.css"/>
+    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css"/>
+</head>
+<body>
+<div id="wrapper" class="wrapper qwess qwweqwe">
+    <!--header-->
+    <header id="main_header" class="main-header">
+        <a href="javascript:" class="logo" id="sidebar_toggle">菜单导航 <span class="glyphicon glyphicon-th-list"></span></a>
+        <nav class="navbar navbar-static-top">
+            <ul>
+                <li>
+                    <img src="img/user.png" alt=""/>
+                    <span>欢迎管理员：dongxiaoli</span>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!--header end-->
+
+    <!-- Left side-->
+    <aside class="main-sidebar" ng-controller="menuCtr">
+        <section id="sidebar" class="sidebar">
+            <div ui-tree="options" data-drag-enabled="false">
+                <ol ui-tree-nodes ng-model="menuList" >
+                    <li collapsed="true" ng-repeat="item in menuList" ui-tree-node ng-include="'views/LeftNav.html'"></li>
+                </ol>
+            </div>
+        </section>
+    </aside>
+    <!-- Left side end-->
+
+    <!-- Content Wrapper -->
+    <div id="content_wrapper" class="content-wrapper">
+        <div class="main-content" data-ui-view="">
+
+        </div>
+    </div>
+    <!-- Content Wrapper end-->
+</div>
+
+<!--布局文件-->
+<script src="scripts/Layout.js" type="text/javascript"></script>
+<!--ng 文件-->
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-resource/angular-resource.min.js"></script>
+<script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<!--模块文件-->
+<script src="scripts/app.js"></script>
+<!--左边导航文件-->
+<script src="scripts/controllers/menuController.js"></script>
+<script src="scripts/services/menuService.js"></script>
+</body>
+</html>
