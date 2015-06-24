@@ -1,1 +1,87 @@
-产品管理
+<div class="container-fluid" data-ng-controller="cpglCtr">
+    <h4 class="sub-title">{{modileTitle}}</h4>
+    <!--表单-->
+    <form class="form-inline">
+        <div class="form-group col-sm-4">
+            <label for="productName">产品名称</label>
+            <input type="text" class="form-control" id="productName" placeholder="请输入产品名称">
+        </div>
+        <div class="form-group col-sm-4">
+            <label for="productPeriods">产品期数</label>
+            <input type="text" class="form-control" id="productPeriods" placeholder="请输入产品期数">
+        </div>
+        <div class="form-group col-sm-4">
+            <label for="productStatus">产品状态</label>
+            <select class="form-control" id="productStatus">
+                <option>全部</option>
+                <option>初始化</option>
+                <option>已上架</option>
+                <option>募集中</option>
+                <option>募集完成</option>
+                <option>已下架</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-6 collectDate">
+            <label for="collectDate">募集日期</label>
+            <div class="input-group" id="collectDate">
+                <input type="text" data-ng-model="bdt" class="form-control" data-datepicker-popup="{{format}}" data-is-open="bopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="bopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+            --
+            <div class="input-group" id="collectDate">
+                <input type="text" data-ng-model="edt" class="form-control" data-datepicker-popup="{{format}}" data-is-open="eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" data-ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+    </form>
+
+    <div class="btn-box col-sm-11 clearfix">
+        <a class="btn btn-default pull-right" href="javascript:" role="button">排 序</a>
+        <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
+    </div>
+
+    <table class="table product-table">
+        <thead class="t_head">
+            <tr>
+                <th width="9%">产品名称</th>
+                <th width="5%">期数</th>
+                <th width="7%">产品类型</th>
+                <th width="7%">是否精品</th>
+                <th width="9%">募集总额（元）</th>
+                <th width="9%">起投金额（元）</th>
+                <th width="6%">预期年化收益率</th>
+                <th width="7%">产品状态</th>
+                <th width="7%">已售百分比</th>
+                <th width="6%">发布渠道</th>
+                <th width="8%">募集开始时间</th>
+                <th width="8%">募集完成时间</th>
+                <th width="12%">操作</th>
+
+            </tr>
+        </thead>
+        <tbody class="t_body">
+            <tr data-ng-repeat="data in datas">
+                <td>{{data.name}}</td>
+                <td>{{data.periods}}</td>
+                <td>{{data.type}}</td>
+                <td>{{data.isGood}}</td>
+                <td>{{data.total}}</td>
+                <td>{{data.minNum}}</td>
+                <td>{{data.annualized}}</td>
+                <td>{{data.status}}</td>
+                <td>{{data.saled}}</td>
+                <td>{{data.publishChannel}}</td>
+                <td>{{data.startTime}}</td>
+                <td>{{data.finishTime}}</td>
+                <td>
+                    <a class="btn btn-default" href="javascript:" data-ng-click="openNew('select')" role="button">查 看</a>
+                    <a class="btn btn-default" href="javascript:" data-ng-click="openNew('edit')" role="button">编 辑</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

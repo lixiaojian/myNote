@@ -1,0 +1,44 @@
+[
+  {
+    "name":"财富优加计划30天-08期",
+    "periods":"08期",
+    "type":"新手标",
+    "isGood":"---",
+    "total":2000000,
+    "minNum":500,
+    "annualized":"7.02%",
+    "status":"募集中",
+    "saled":"43%",
+    "publishChannel":"APP",
+    "startTime":"2015-05-15 09:00:00",
+    "finishTime":"2015-05-15 09:00:00"
+  },
+  {
+    "name":"财富优加计划90天-07期",
+    "periods":"07期",
+    "type":"财富优加",
+    "isGood":"精品",
+    "total":500000,
+    "minNum":500,
+    "annualized":"8%",
+    "status":"募集中",
+    "saled":"90%",
+    "publishChannel":"APP;微信",
+    "startTime":"2015-06-15 09:00:00",
+    "finishTime":"2015-06-15 09:00:00"
+  },
+  {
+    "name":"财富优加计划180天-08期",
+    "periods":"08期",
+    "type":"财富优加",
+    "isGood":"---",
+    "total":500000,
+    "minNum":500,
+    "annualized":"10%",
+    "status":"募集中",
+    "saled":"99%",
+    "publishChannel":"APP",
+    "startTime":"2015-07-15 09:00:00",
+    "finishTime":"2015-05-15 09:00:00"
+  }
+]

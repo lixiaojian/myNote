@@ -27,6 +27,9 @@ th,td{
 .t_c_r{
     color: red;
 }
+/**
+角色管理
+*/
 .authority-list ul ul{
     border-left: 1px dashed #ccc;
 }
@@ -37,7 +40,18 @@ th,td{
 .authority-list .pull-left{
     padding-right: 16px;
 }
-
+/**
+分页
+*/
 .pagination{
     float: right;
+}
+/**
+产品管理
+*/
+.collectDate{
+    margin-top: 20px;
+}
+.product-table .t_head th,.product-table .t_body td{
+    padding: 8px 0;
 }
