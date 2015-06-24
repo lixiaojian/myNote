@@ -4,10 +4,33 @@
 ;(function(app){
     app.controller('jsglCtr',['$scope','$modal','roleService',function($scope,$modal,roleService){
         $scope.modileTitle='角色管理';
+        //分页
+        $scope.page = {
+            //总记录数
+            totalItems:120,
+            //当前页 default:1
+            curPage:1,
+            //每页条数 default:10
+            itemsPerPage:10,
+            //显示页数
+            maxSize:10,
+            previousText:'上一页',
+            nextText:'下一页',
+            //是否显示首页和末页
+            boundaryLinks:true,
+            firstText:'首页',
+            lastText:'末页'
+        };
+        //翻页
+        $scope.changePage = function(){
+            console.log($scope.page.curPage);
+        };
         //获取所有角色
         roleService.getAll({},function(data){
             $scope.datas = data;
         });
+
+
 
         //打开弹层
         $scope.openNew = function(type,id){

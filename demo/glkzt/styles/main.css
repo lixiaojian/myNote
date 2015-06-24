@@ -37,3 +37,7 @@ th,td{
 .authority-list .pull-left{
     padding-right: 16px;
 }
+
+.pagination{
+    float: right;
+}

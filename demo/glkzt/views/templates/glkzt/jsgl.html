@@ -38,6 +38,13 @@
         </tbody>
     </table>
 
+    <!--分页-->
+    <div class="clearfix">
+        <div data-pagination data-total-items="page.totalItems" data-ng-model="page.curPage" data-max-size="page.maxSize" data-boundary-links="page.boundaryLinks" data-ng-change="changePage()"
+                    data-previous-text="{{page.previousText}}" data-next-text="{{page.nextText}}" data-first-text="{{page.firstText}}" data-last-text="{{page.lastText}}"></div>
+    </div>
+
+
     <!--弹出层-->
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
