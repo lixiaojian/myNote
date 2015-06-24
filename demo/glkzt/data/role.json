@@ -1,0 +1,37 @@
+{
+  "id":1,
+  "roleName":"管理员",
+  "roleDesc":"具有最高权限",
+  "authoritys":[
+    {
+      "moduleName":"操作员管理",
+      "subModule":[
+        {
+          "subName":"操作员管理",
+          "select":{"name":"查看","has":false},
+          "add":{"name":"新增","has":true},
+          "edit":{"name":"编辑","has":false},
+          "delete":{"name":"删除","has":false}
+        },
+        {
+          "subName":"角色管理",
+          "select":{"name":"查看","has":false},
+          "add":{"name":"新增","has":true},
+          "edit":{"name":"编辑","has":false},
+          "delete":{"name":"删除","has":true}
+        }
+      ]
+    },
+    {
+      "moduleName":"用户管理",
+      "subModule":[
+        {
+          "subName":"用户信息",
+          "select":{"name":"查看","has":false},
+          "edit":{"name":"编辑","has":false},
+          "export":{"name":"导出","has":true}
+        }
+      ]
+    }
+  ]
+}

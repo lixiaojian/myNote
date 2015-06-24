@@ -29,8 +29,8 @@
     <aside class="main-sidebar" ng-controller="menuCtr">
         <section id="sidebar" class="sidebar">
             <div ui-tree="options" data-drag-enabled="false">
-                <ol ui-tree-nodes ng-model="menuList" >
-                    <li collapsed="true" ng-repeat="item in menuList" ui-tree-node ng-include="'views/LeftNav.html'"></li>
+                <ol ui-tree-nodes data-ng-model="menuList" >
+                    <li data-collapsed="true" ng-repeat="item in menuList" ui-tree-node ng-include="'views/LeftNav.html'"></li>
                 </ol>
             </div>
         </section>
@@ -62,6 +62,7 @@
 <!--管理控制台文件-->
 <script src="scripts/controllers/czyglController.js"></script>
 <!--角色管理-->
-<script src="scripts/controllers/jsglController.js"></script>
+<script src="scripts/controllers/roleController.js"></script>
+<script src="scripts/services/roleService.js"></script>
 </body>
 </html>

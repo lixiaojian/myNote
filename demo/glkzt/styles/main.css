@@ -27,3 +27,13 @@ th,td{
 .t_c_r{
     color: red;
 }
+.authority-list ul ul{
+    border-left: 1px dashed #ccc;
+}
+.authority-list li{
+    padding-top: 10px;
+    list-style: none;
+}
+.authority-list .pull-left{
+    padding-right: 16px;
+}

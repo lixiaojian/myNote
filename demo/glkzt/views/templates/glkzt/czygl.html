@@ -54,66 +54,64 @@
     </table>
 
     <!--弹层-->
-    <div>
-        <script type="text/ng-template" id="myModalContent.html">
-            <div class="modal-header">
-                <h3 class="modal-title">{{title}}</h3>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="realNameModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>真实姓名</label>
-                        <div class="col-sm-6">
-                            <input type="text" ng-disabled="isCheck" ng-model="user.realName" class="form-control" id="realNameModal" placeholder="请输入真实姓名">
-                        </div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">{{title}}</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="realNameModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>真实姓名</label>
+                    <div class="col-sm-6">
+                        <input type="text" ng-disabled="isCheck" ng-model="user.realName" class="form-control" id="realNameModal" placeholder="请输入真实姓名">
                     </div>
-                    <div class="form-group">
-                        <label for="emailModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>邮箱</label>
-                        <div class="col-sm-9">
-                            <div class="input-group">
-                                <input type="email" ng-disabled="isCheck" ng-model="user.email" class="form-control" id="emailModal" placeholder="请输入邮箱">
-                                <div class="input-group-addon">@quarkfinance.com</div>
-                            </div>
-                            <div><span class="t_c_r">*</span>此邮箱为登录账号</div>
+                </div>
+                <div class="form-group">
+                    <label for="emailModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>邮箱</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <input type="email" ng-disabled="isCheck" ng-model="user.email" class="form-control" id="emailModal" placeholder="请输入邮箱">
+                            <div class="input-group-addon">@quarkfinance.com</div>
                         </div>
+                        <div><span class="t_c_r">*</span>此邮箱为登录账号</div>
                     </div>
-                    <div class="form-group">
-                        <label for="roleModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>角色</label>
-                        <div class="col-sm-6">
-                            <select class="form-control" ng-disabled="isCheck" ng-model="user.role" id="roleModal">
-                                <option>全部</option>
-                                <option>管理员</option>
-                                <option>运营</option>
-                                <option>产品</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="roleModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>角色</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" data-ng-disabled="isCheck" data-ng-model="user.role" id="roleModal">
+                            <option>全部</option>
+                            <option>管理员</option>
+                            <option>运营</option>
+                            <option>产品</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label for="passwordModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>密码</label>
-                        <div class="col-sm-6">
-                            <input type="password" ng-disabled="isCheck" ng-model="user.password" class="form-control" id="passwordModal" placeholder="请输入密码">
-                            <div><span class="t_c_r">*</span>请输入6-14位密码、包含字母数字</div>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="passwordModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>密码</label>
+                    <div class="col-sm-6">
+                        <input type="password" ng-disabled="isCheck" ng-model="user.password" class="form-control" id="passwordModal" placeholder="请输入密码">
+                        <div><span class="t_c_r">*</span>请输入6-14位密码、包含字母数字</div>
                     </div>
-                    <div class="form-group">
-                        <label for="repasswordModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>确认密码</label>
-                        <div class="col-sm-6">
-                            <input type="password" ng-disabled="isCheck" ng-model="user.repassword" class="form-control" id="repasswordModal" placeholder="请再次输入密码">
-                            <div><span class="t_c_r">*</span>请输入6-14位密码、包含字母数字</div>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="repasswordModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>确认密码</label>
+                    <div class="col-sm-6">
+                        <input type="password" ng-disabled="isCheck" ng-model="user.repassword" class="form-control" id="repasswordModal" placeholder="请再次输入密码">
+                        <div><span class="t_c_r">*</span>请输入6-14位密码、包含字母数字</div>
                     </div>
+                </div>
 
-                </form>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div ng-if="!isCheck">
+                <a class="btn btn-primary" ng-click="ok()">保 存</a>
+                <a class="btn btn-warning" ng-click="cancel()">返 回</a>
             </div>
-            <div class="modal-footer">
-                <div ng-if="!isCheck">
-                    <a class="btn btn-primary" ng-click="ok()">保 存</a>
-                    <a class="btn btn-warning" ng-click="cancel()">返 回</a>
-                </div>
-                <div ng-if="isCheck">
-                    <a class="btn btn-warning" ng-click="cancel()">关 闭</a>
-                </div>
+            <div ng-if="isCheck">
+                <a class="btn btn-warning" ng-click="cancel()">关 闭</a>
             </div>
-        </script>
-    </div>
+        </div>
+    </script>
 </div>

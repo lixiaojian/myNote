@@ -1,17 +1,16 @@
-<div ui-tree-handle>
-
-
-    <a class="btn btn-success btn-xs" ng-click="toggle(this)">
+<div data-ui-tree-handle>
+    <a class="btn btn-success btn-xs" data-ng-click="toggle(this)">
         <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
     </a>
-    <span ng-if="item.href" class="nav-link" ui-sref="{{item.href}}">
+    <span data-ng-if="item.href" class="nav-link" data-ui-sref="{{item.href}}">
         {{item.title}}
     </span>
 
-    <span ng-if="!item.href" class="nav-link">
+    <span data-ng-if="!item.href" class="nav-link">
         {{item.title}}
     </span>
 </div>
-<ol ui-tree-nodes="options" ng-model="item.items" ng-class="{'hidden': collapsed}">
-    <li collapsed="true" ng-repeat="item in item.items" ui-tree-node ng-include="'views/LeftNav.html'"></li>
+
+<ol data-ui-tree-nodes="options" data-ng-model="item.items" data-ng-class="{'hidden': collapsed}">
+    <li data-collapsed="true" ng-repeat="item in item.items" data-ui-tree-node data-ng-include="'views/LeftNav.html'"></li>
 </ol>

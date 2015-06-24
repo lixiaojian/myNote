@@ -30,12 +30,80 @@
             <td>{{data.updateTime}}</td>
             <td>{{data.updater}}</td>
             <td>
-                <a class="btn btn-default" href="javascript:" ng-click="openNew('select')" role="button">查 看</a>
-                <a class="btn btn-default" href="javascript:" ng-click="openNew('edit')" role="button">编 辑</a>
+                <a class="btn btn-default" href="javascript:" ng-click="openNew('select',data.id)" role="button">查 看</a>
+                <a class="btn btn-default" href="javascript:" ng-click="openNew('edit',data.id)" role="button">编 辑</a>
                 <a class="btn btn-default" href="javascript:" role="button">删 除</a>
             </td>
         </tr>
         </tbody>
     </table>
 
+    <!--弹出层-->
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">{{title}}</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="roleNameModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>角色名称:</label>
+                    <div class="col-sm-8">
+                        <input type="text" ng-disabled="isCheck" ng-model="role.roleName" class="form-control" id="roleNameModal" placeholder="请输入角色名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="roleDescModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>角色描述:</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" data-ng-disabled="isCheck" data-ng-model="role.roleDesc" id="roleDescModal" placeholder="请输入角色描述" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span class="t_c_r">*</span>权限分配:</label>
+                </div>
+                <div class="authority-list">
+                    <ul>
+                        <li ng-repeat="authority in role.authoritys">
+                            <input data-ng-disabled="isCheck" type="checkbox"/>{{authority.moduleName}}
+                            <ul>
+                                <li ng-repeat="module in authority.subModule">
+                                    <input data-ng-disabled="isCheck" type="checkbox"/>{{module.subName}}
+                                    <ul class="clearfix">
+                                        <li class="pull-left" ng-if="module.select">
+                                            <input data-ng-disabled="isCheck" ng-model="module.select.has" type="checkbox"/>{{module.select.name}}
+                                        </li>
+                                        <li class="pull-left" ng-if="module.add">
+                                            <input data-ng-disabled="isCheck" ng-model="module.add.has" type="checkbox"/>{{module.add.name}}
+                                        </li>
+                                        <li class="pull-left" ng-if="module.edit">
+                                            <input data-ng-disabled="isCheck" ng-model="module.edit.has" type="checkbox"/>{{module.edit.name}}
+                                        </li>
+                                        <li class="pull-left" ng-if="module.delete">
+                                            <input data-ng-disabled="isCheck" ng-model="module.delete.has" type="checkbox"/>{{module.delete.name}}
+                                        </li>
+                                        <li class="pull-left" ng-if="module.export">
+                                        <input data-ng-disabled="isCheck" ng-model="module.export.has" type="checkbox"/>{{module.export.name}}
+                                    </li>
+
+
+                                        <!--<li class="pull-left" ng-repeat="auth in module.authoritys">-->
+                                            <!--<input ng-disabled="isCheck" type="checkbox"/>{{auth.name}}-->
+                                        <!--</li>-->
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div ng-if="!isCheck">
+                <a class="btn btn-primary" ng-click="ok()">保 存</a>
+                <a class="btn btn-warning" ng-click="cancel()">返 回</a>
+            </div>
+            <div ng-if="isCheck">
+                <a class="btn btn-warning" ng-click="cancel()">关 闭</a>
+            </div>
+        </div>
+    </script>
 </div>
