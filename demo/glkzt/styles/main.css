@@ -11,12 +11,15 @@
 }
 
 .btn-box{
-    padding: 0 20px;
+    padding: 20px;
 }
 .btn-box a{
     margin-left: 20px;
 }
 
+th{
+    background-color: #ddd;
+}
 th,td{
     text-align: center;
 }

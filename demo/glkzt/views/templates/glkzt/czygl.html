@@ -1,8 +1,7 @@
 <div class="container-fluid" ng-controller="czyglCtr">
-    <h4 class="sub-title">操作员管理</h4>
-
+    <h4 class="sub-title">{{modileTitle}}</h4>
     <!--表单-->
-    <form class="form-inline row">
+    <form class="form-inline">
         <div class="form-group col-sm-3">
             <label for="realName">真实姓名</label>
             <input type="text" class="form-control" id="realName" placeholder="请输入真实姓名">
@@ -22,12 +21,12 @@
         </div>
     </form>
 
-    <div class="btn-box">
+    <div class="btn-box col-sm-11 clearfix">
         <a class="btn btn-default pull-right" href="javascript:" ng-click="openNew('add')" role="button">新 增</a>
         <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
     </div>
 
-    <table class="table row">
+    <table class="table">
         <thead>
             <tr>
                 <th>真实姓名</th>

@@ -1,7 +1,7 @@
 /**
  * Created by lixj(872458899@qq.com) on 15/6/22.
  */
-(function(app){
+;(function(app){
     app.controller('menuCtr',['$scope','menuService',function($scope,menuService){
         //获取菜单列表
         $scope.options = {

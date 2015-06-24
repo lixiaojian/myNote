@@ -2,7 +2,7 @@
  * Created by lixj(872458899@qq.com) on 15/6/22.
  */
 
-(function () {
+;(function () {
     //根据id获取元素
     var getById = function(id){
         return document.getElementById(id);

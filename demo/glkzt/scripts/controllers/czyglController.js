@@ -1,8 +1,9 @@
 /**
  * Created by lixj(872458899@qq.com) on 15/6/24.
  */
-(function(app){
+;(function(app){
     app.controller('czyglCtr',['$scope','$modal',function($scope,$modal){
+        $scope.modileTitle = '操作员管理';
         $scope.datas=[
             {
                 id:'1',

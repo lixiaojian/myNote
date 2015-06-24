@@ -1,1 +1,41 @@
-角色管理
+<div class="container-fluid" ng-controller="jsglCtr">
+    <h4 class="sub-title">{{modileTitle}}</h4>
+    <!--表单-->
+    <form class="form-inline">
+        <div class="form-group col-sm-12">
+            <label for="roleName">角色名称</label>
+            <input type="text" class="form-control" id="roleName" placeholder="请输入角色名称">
+        </div>
+    </form>
+
+    <div class="btn-box clearfix">
+        <a class="btn btn-default pull-right" href="javascript:" ng-click="openNew('add')" role="button">新 增</a>
+        <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>角色名称</th>
+            <th>角色描述</th>
+            <th>操作时间</th>
+            <th>操作者</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in datas">
+            <td>{{data.roleName}}</td>
+            <td>{{data.roleDesc}}</td>
+            <td>{{data.updateTime}}</td>
+            <td>{{data.updater}}</td>
+            <td>
+                <a class="btn btn-default" href="javascript:" ng-click="openNew('select')" role="button">查 看</a>
+                <a class="btn btn-default" href="javascript:" ng-click="openNew('edit')" role="button">编 辑</a>
+                <a class="btn btn-default" href="javascript:" role="button">删 除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
