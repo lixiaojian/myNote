@@ -4,7 +4,7 @@
 ;(function(){
     'use strict';
     //定义一个模块
-    var backStage = angular.module('backStage',['ui.tree','ngResource','ui.router']);
+    var backStage = angular.module('backStage',['ui.tree','ngResource','ui.router','ui.bootstrap']);
     //配置路由
     backStage.config(function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.when("", "/glkzt");
