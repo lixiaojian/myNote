@@ -27,7 +27,10 @@
         };
         //获取所有角色
         roleService.getAll({},function(data){
-            $scope.datas = data;
+            console.log(data);
+            $scope.page.totalItems = data.iTotalRecords;
+            $scope.page.itemsPerPage = data.pageSize;
+            $scope.datas = data.recordList;
         });
 
 

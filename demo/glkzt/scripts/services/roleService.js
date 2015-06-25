@@ -8,8 +8,8 @@
             //获取所有角色
             getAll:{
                 url:'data/roles.json',
-                method:'get',
-                isArray:true
+                method:'get'
+                //isArray:true
             },
             findById:{
                 url:'data/role.json?id=:id',

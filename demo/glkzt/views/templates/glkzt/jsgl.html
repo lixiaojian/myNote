@@ -27,8 +27,8 @@
         <tr ng-repeat="data in datas">
             <td>{{data.roleName}}</td>
             <td>{{data.roleDesc}}</td>
-            <td>{{data.updateTime}}</td>
-            <td>{{data.updater}}</td>
+            <td>{{data.createTime | date : 'yyyy-MM-dd hh:mm'}}</td>
+            <td>{{data.createUserName}}</td>
             <td>
                 <a class="btn btn-default" href="javascript:" ng-click="openNew('select',data.id)" role="button">查 看</a>
                 <a class="btn btn-default" href="javascript:" ng-click="openNew('edit',data.id)" role="button">编 辑</a>
