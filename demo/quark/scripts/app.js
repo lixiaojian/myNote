@@ -7,8 +7,17 @@
     var backStage = angular.module('backStage',['ui.tree','ngResource','ui.router','ui.bootstrap']);
     //配置路由
     backStage.config(function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.when("", "/glkzt");
+        // 路由配置
+        $urlRouterProvider.otherwise("/login");
+        //$urlRouterProvider.when("", "/glkzt");
         $stateProvider
+        /**
+         * 登录
+         */
+            .state('login', {
+                url: '/login',
+                templateUrl:'views/login.html'
+            })
         /**
          * 管理控台
          */

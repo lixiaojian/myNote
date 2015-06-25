@@ -30,7 +30,7 @@
                 </span>
             </div>
             --
-            <div class="input-group" id="collectDate">
+            <div class="input-group">
                 <input type="text" data-ng-model="edt" class="form-control" data-datepicker-popup="{{format}}" data-is-open="eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" data-ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -40,7 +40,7 @@
     </form>
 
     <div class="btn-box col-sm-11 clearfix">
-        <a class="btn btn-default pull-right" href="javascript:" role="button">排 序</a>
+        <a class="btn btn-default pull-right" ng-click="openNew()" href="javascript:" role="button">排 序</a>
         <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
     </div>
 
@@ -84,4 +84,61 @@
             </tr>
         </tbody>
     </table>
+
+    <!--弹出层-->
+    <script type="text/ng-template" id="myModalContent.html">
+
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="publishChannelModal" class="col-sm-2 control-label">发布渠道:</label>
+                    <div class="col-sm-3">
+                        <select data-ng-model="filterName" class="form-control" id="publishChannelModal">
+                            <option value="">全部</option>
+                            <option value="APP">APP</option>
+                            <option value="WX">微信</option>
+                            <option value="PC">PC</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div class="move-product-list">
+                <div class="left">
+                    <div class="btn-up-down">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                    </div>
+                    <ul>
+                        <li ng-repeat="p in productsOrder.allProducts | filter:filterName | orderBy:'orderByName'">
+                            <input type="radio" id="p_{{p.id}}" name="allProduct"/>&nbsp; <label for="p_{{p.id}}">{{p.name}}{{p.orderNumber}}&nbsp;&nbsp;{{p.status}}</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="center">
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </div>
+                <div class="right">
+                    <div class="btn-up-down">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                    </div>
+                    <ul>
+                        <li ng-repeat="gp in productsOrder.goodProduct | filter:filterName | orderBy:'orderByName2'">
+                            <input type="radio" id="g_p_{{gp.id}}" name="goodProduct"/>&nbsp;<label for="g_p_{{gp.id}}">{{gp.name}}{{gp.orderNumber}}&nbsp;&nbsp;{{gp.status}}</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div ng-if="!isCheck">
+                <a class="btn btn-primary" ng-click="ok()">保 存</a>
+                <a class="btn btn-warning" ng-click="cancel()">返 回</a>
+            </div>
+            <div ng-if="isCheck">
+                <a class="btn btn-warning" ng-click="cancel()">关 闭</a>
+            </div>
+        </div>
+    </script>
 </div>
+

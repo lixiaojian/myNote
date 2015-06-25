@@ -10,6 +10,10 @@
                 url:'data/products.json',
                 method:'get',
                 isArray:true
+            },
+            getOrders:{
+                url:'data/product2.json',
+                method:'get',
             }
         };
         return $resource(url,{},actions);
