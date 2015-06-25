@@ -13,7 +13,7 @@
         <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
     </div>
 
-    <table class="table">
+    <table class="table table-striped table-bordered">
         <thead>
         <tr>
             <th>角色名称</th>
@@ -30,9 +30,9 @@
             <td>{{data.createTime | date : 'yyyy-MM-dd hh:mm'}}</td>
             <td>{{data.createUserName}}</td>
             <td>
-                <a class="btn btn-default" href="javascript:" ng-click="openNew('select',data.id)" role="button">查 看</a>
-                <a class="btn btn-default" href="javascript:" ng-click="openNew('edit',data.id)" role="button">编 辑</a>
-                <a class="btn btn-default" href="javascript:" role="button">删 除</a>
+                <a class="btn btn-sm btn-default" href="javascript:" ng-click="openNew('select',data.id)" role="button">查 看</a>
+                <a class="btn btn-sm btn-default" href="javascript:" ng-click="openNew('edit',data.id)" role="button">编 辑</a>
+                <a class="btn btn-sm btn-default" href="javascript:" role="button">删 除</a>
             </td>
         </tr>
         </tbody>

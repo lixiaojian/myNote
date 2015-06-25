@@ -23,6 +23,10 @@ th{
 th,td{
     text-align: center;
 }
+.table>tbody>tr>td{
+    vertical-align: middle;
+}
+
 
 .t_c_r{
     color: red;
