@@ -105,26 +105,26 @@
             <div class="move-product-list">
                 <div class="left">
                     <div class="btn-up-down">
-                        <span class="glyphicon glyphicon-arrow-up"></span>
-                        <span class="glyphicon glyphicon-arrow-down"></span>
+                        <span class="glyphicon glyphicon-arrow-up" data-ng-click="moveOrder('left','up')"></span>
+                        <span class="glyphicon glyphicon-arrow-down" data-ng-click="moveOrder('left','down')"></span>
                     </div>
                     <ul>
-                        <li ng-repeat="p in productsOrder.allProducts | filter:filterName | orderBy:'orderByName'">
-                            <input type="radio" id="p_{{p.id}}" name="allProduct"/>&nbsp; <label for="p_{{p.id}}">{{p.name}}{{p.orderNumber}}&nbsp;&nbsp;{{p.status}}</label>
+                        <li ng-repeat="p in productsOrder.allProducts | filter:filterName | orderBy:'orderNumber'">
+                            <input type="radio" data-pre="{{productsOrder.allProducts[$index-1].id}}" data-next="{{productsOrder.allProducts[$index+1].id}}" data-ng-click="setCurr($event,p,'left')" id="p_{{p.id}}" name="allProduct"/>&nbsp; <label for="p_{{p.id}}">{{p.name}}&nbsp;&nbsp;{{p.status}}</label>
                         </li>
                     </ul>
                 </div>
                 <div class="center">
-                    <span class="glyphicon glyphicon-arrow-right"></span>
+                    <span class="glyphicon glyphicon-arrow-right" data-ng-click="moveOrder('center')"></span>
                 </div>
                 <div class="right">
                     <div class="btn-up-down">
-                        <span class="glyphicon glyphicon-arrow-up"></span>
-                        <span class="glyphicon glyphicon-arrow-down"></span>
+                        <span class="glyphicon glyphicon-arrow-up" data-ng-click="moveOrder('right','up')"></span>
+                        <span class="glyphicon glyphicon-arrow-down" data-ng-click="moveOrder('right','down')"></span>
                     </div>
                     <ul>
-                        <li ng-repeat="gp in productsOrder.goodProduct | filter:filterName | orderBy:'orderByName2'">
-                            <input type="radio" id="g_p_{{gp.id}}" name="goodProduct"/>&nbsp;<label for="g_p_{{gp.id}}">{{gp.name}}{{gp.orderNumber}}&nbsp;&nbsp;{{gp.status}}</label>
+                        <li ng-repeat="gp in productsOrder.goodProduct | filter:filterName | orderBy:'orderNumber2'">
+                            <input type="radio" id="g_p_{{gp.id}}" data-ng-click="setCurr(gp,'right')" name="goodProduct"/>&nbsp;<label for="g_p_{{gp.id}}">{{gp.name}}&nbsp;&nbsp;{{gp.status}}</label>
                         </li>
                     </ul>
                 </div>
