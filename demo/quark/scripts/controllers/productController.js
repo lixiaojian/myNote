@@ -27,11 +27,14 @@
                 animation: true,
                 templateUrl: 'myModalContent.html',
                 size:'lg',
-                controller: ['$scope','$modalInstance',function(scope, $modalInstance){
+                controller: ['$scope','$modalInstance','$timeout','$filter',function(scope, $modalInstance,$timeout,$filter){
                     //获取排序的产品列表
                     if(!scope.productsOrder){
                         productService.getOrders({},function(data){
                             scope.productsOrder = data;
+                            //排序
+                            scope.productsOrder.allProducts = $filter('orderBy')(scope.productsOrder.allProducts,'orderNumber');
+                            scope.productsOrder.goodProduct = $filter('orderBy')(scope.productsOrder.goodProduct,'orderNumber2');
                         })
                     }
                     //点击确定
@@ -42,45 +45,75 @@
                     scope.cancel = function () {
                         $modalInstance.dismiss('cancel');
                     };
+                    //当前选中的标签
+                    var curLeftElement = null;
+                    var curRightElement = null;
+                    //是否可以点击  防止点击过快
+                    var canClick=true;
                     //排序事件
                     scope.moveOrder = scope.moveOrder || function(po,ver){
+                            if(!canClick){
+                                return;
+                            }
+                            canClick = false;
                             if('left' === po){
                                 if('up' === ver){
                                     setOrder(scope.productsOrder.allProducts,scope.leftCurtId,scope.leftPreId,'orderNumber');
                                 }else if('down' === ver){
                                     setOrder(scope.productsOrder.allProducts,scope.leftCurtId,scope.leftNextId,'orderNumber');
                                 }
+                                //更改顺序后重新排序
+                                scope.productsOrder.allProducts = $filter('orderBy')(scope.productsOrder.allProducts,'orderNumber');
+                                $timeout(function(){
+                                    curLeftElement = document.getElementById('p_'+scope.leftCurtId);
+                                    setAllId(curLeftElement,po);
+                                },0);
                             }else if('right' === po){
                                 if('up' === ver){
                                     setOrder(scope.productsOrder.goodProduct,scope.rightCurId,scope.rightPreId,'orderNumber2');
                                 }else if('down' === ver){
                                     setOrder(scope.productsOrder.goodProduct,scope.rightCurId,scope.rightNextId,'orderNumber2');
                                 }
+                                //更改顺序后重新排序
+                                scope.productsOrder.goodProduct = $filter('orderBy')(scope.productsOrder.goodProduct,'orderNumber2');
+                                $timeout(function(){
+                                    curRightElement = document.getElementById('g_p_'+scope.rightCurId);
+                                    setAllId(curRightElement,po);
+                                },0);
                             }else if('center' === po){
                                 console.log('中间');
                             }
-                            console.log(scope.productsOrder.allProducts);
+                            $timeout(function(){canClick = true;},200);
                         };
                     //设置选中事件
                     scope.setCurr = scope.setCurr || function(t,cur,po){
-                            var dataset = t.target.dataset;
-                            //前面一个的ID
-                            var preId = parseInt(dataset.pre);
-                            //后面一个的ID
-                            var nextId = parseInt(dataset.next);
                             //当前id
                             var curId = cur.id;
                             if('left' === po){
-                                scope.leftPreId = preId;
-                                scope.leftNextId = nextId;
                                 scope.leftCurtId = curId;
                             }else{
-                                scope.rightPreId = preId;
-                                scope.rightNextId = nextId;
                                 scope.rightCurId = curId;
                             }
+                            setAllId(t.target,po);
                     };
-
+                    //设置所有的id 当前选中的  选中的前一个的  选中的后一个的
+                    function setAllId(ele,po){
+                        if(!ele){
+                            return;
+                        }
+                        var dataset = ele.dataset;
+                        //前面一个的ID
+                        var preId = parseInt(dataset.pre);
+                        //后面一个的ID
+                        var nextId = parseInt(dataset.next);
+                        if('left' === po){
+                            scope.leftPreId = preId;
+                            scope.leftNextId = nextId;
+                        }else if('right' === po){
+                            scope.rightPreId = preId;
+                            scope.rightNextId = nextId;
+                        }
+                    }
                     //交换两个产中的排序数字
                     function setOrder(arr,id1,id2,attrName){
                         if(id1 && id2){
@@ -94,15 +127,11 @@
                                     tep2 = arr[i];
                                 }
                             }
-                            console.log(tep1);
-                            console.log(tep2);
                             if(tep1 && tep2){
                                 var temp;
                                 temp = tep1[attrName];
                                 tep1[attrName] = tep2[attrName];
                                 tep2[attrName] = temp;
-                                console.log(tep1);
-                                console.log(tep2);
                             }
                         }
                     }

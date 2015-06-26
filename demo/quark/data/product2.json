@@ -1,14 +1,6 @@
 {
   "allProducts":[
     {
-      "id":1,
-      "name":"财富优加计划30天-08期",
-      "status":"募集中",
-      "orderNumber":1,
-      "orderNumber2":1,
-      "publishChannel":"APP"
-    },
-    {
       "id":2,
       "name":"财富优加计划90天-09期 ",
       "status":"募集中",
@@ -17,12 +9,28 @@
       "publishChannel":"PC"
     },
     {
+      "id":1,
+      "name":"财富优加计划30天-08期",
+      "status":"募集中",
+      "orderNumber":1,
+      "orderNumber2":1,
+      "publishChannel":"APP"
+    },
+    {
       "id":3,
       "name":"财富优加计划180天-10期",
       "status":"募集中",
       "orderNumber":3,
       "orderNumber2":3,
       "publishChannel":"WX"
+    },
+    {
+      "id":10,
+      "name":"财富优加计划90天-11期",
+      "status":"初始化",
+      "orderNumber":10,
+      "orderNumber2":10,
+      "publishChannel":"APP"
     },
     {
       "id":4,
@@ -70,14 +78,6 @@
       "orderNumber":9,
       "orderNumber2":9,
       "publishChannel":"PC"
-    },
-    {
-      "id":10,
-      "name":"财富优加计划90天-11期",
-      "status":"初始化",
-      "orderNumber":10,
-      "orderNumber2":10,
-      "publishChannel":"APP"
     },
     {
       "id":11,
