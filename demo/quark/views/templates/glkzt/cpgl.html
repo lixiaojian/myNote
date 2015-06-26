@@ -73,10 +73,10 @@
                 <td>{{data.lowestAmt }}</td>
                 <td>{{data.preProfitRate}}</td>
                 <td>{{data.raiseState==0?'募集中':(data.raiseState==1?'初始化':(data.raiseState==2?'募集完':(data.raiseState==3?'已上架':'已下架')))}}</td>
-                <td>{{data.saled}}</td>
-                <td>{{data.publishChannel}}</td>
-                <td>{{data.startTime}}</td>
-                <td>{{data.finishTime}}</td>
+                <td>{{(data.completedAmt/data.realeaseLimitAmt)*100 | number : 2}} %</td>
+                <td>{{data.channelName}}</td>
+                <td>{{data.raiseStartingTime}}</td>
+                <td>{{data.raiseEndingTime}}</td>
                 <td>
                     <a class="btn btn-default" href="javascript:" data-ng-click="openNew('select')" role="button">查 看</a>
                     <a class="btn btn-default" href="javascript:" data-ng-click="openNew('edit')" role="button">编 辑</a>

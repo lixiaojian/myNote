@@ -11,7 +11,7 @@
             //当前页 default:1
             curPage:1,
             //每页条数 default:10
-            itemsPerPage:10,
+            itemsPerPage:3,
             //显示页数
             maxSize:10,
             previousText:'上一页',
@@ -23,10 +23,14 @@
         };
         //翻页
         $scope.changePage = function(){
-            console.log($scope.page.curPage);
+            roleService.getAll({start:($scope.page.curPage-1)*$scope.page.itemsPerPage,length:$scope.page.itemsPerPage},function(data){
+                $scope.page.totalItems = data.iTotalRecords;
+                $scope.page.itemsPerPage = data.pageSize;
+                $scope.datas = data.recordList;
+            });
         };
         //获取所有角色
-        roleService.getAll({userid:12,ewr:"wqeq"},function(data){
+        roleService.getAll({start:($scope.page.curPage-1)*$scope.page.itemsPerPage,length:$scope.page.itemsPerPage},function(data){
             $scope.page.totalItems = data.iTotalRecords;
             $scope.page.itemsPerPage = data.pageSize;
             $scope.datas = data.recordList;

@@ -1,5 +1,5 @@
 {
-  "pageSize": 10,
+  "pageSize": 3,
   "pageNum": 1,
   "pageSum": 2,
   "recordList": [
@@ -31,61 +31,6 @@
       "roleDesc": null,
       "channelCode": "999999",
       "createTime": 1435202564501,
-      "createUser": "1",
-      "createUserName": "管理员",
-      "isActive": "0",
-      "userChecked": false
-    },
-    {
-      "id": "CF1D7B0064F54C6D8D123D41B10E9259",
-      "roleName": "操作员",
-      "roleDesc": "平台使用者",
-      "channelCode": "999999",
-      "createTime": 1435202478140,
-      "createUser": "1",
-      "createUserName": "管理员",
-      "isActive": "0",
-      "userChecked": false
-    },
-    {
-      "id": "B5A8254500A54D878C65D9E2AB7E9B92",
-      "roleName": "检查员",
-      "roleDesc": "系统检查者",
-      "channelCode": "999999",
-      "createTime": 1435202509359,
-      "createUser": "1",
-      "createUserName": "管理员",
-      "isActive": "0",
-      "userChecked": false
-    },
-    {
-      "id": "1",
-      "roleName": "管理员",
-      "roleDesc": "最高权限",
-      "channelCode": "999999",
-      "createTime": null,
-      "createUser": "1",
-      "createUserName": "管理员",
-      "isActive": "0",
-      "userChecked": false
-    },
-    {
-      "id": "5F52540B6AA14B0FAACA42F9993E361E",
-      "roleName": "运维人员",
-      "roleDesc": null,
-      "channelCode": "999999",
-      "createTime": 1435202551531,
-      "createUser": "1",
-      "createUserName": "管理员",
-      "isActive": "0",
-      "userChecked": false
-    },
-    {
-      "id": "E8E5B7CB34E04EC8A140F7EB04F16984",
-      "roleName": "部门领导",
-      "roleDesc": null,
-      "channelCode": "999999",
-      "createTime": 1435202520284,
       "createUser": "1",
       "createUserName": "管理员",
       "isActive": "0",

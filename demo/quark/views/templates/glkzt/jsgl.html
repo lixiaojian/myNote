@@ -40,7 +40,7 @@
 
     <!--分页-->
     <div class="clearfix">
-        <div data-pagination data-total-items="page.totalItems" data-ng-model="page.curPage" data-max-size="page.maxSize" data-boundary-links="page.boundaryLinks" data-ng-change="changePage()"
+        <div data-pagination data-total-items="page.totalItems" data-ng-model="page.curPage" data-max-size="page.maxSize" data-items-per-page="page.itemsPerPage" data-boundary-links="page.boundaryLinks" data-ng-change="changePage()"
                     data-previous-text="{{page.previousText}}" data-next-text="{{page.nextText}}" data-first-text="{{page.firstText}}" data-last-text="{{page.lastText}}"></div>
     </div>
 
@@ -88,13 +88,8 @@
                                             <input data-ng-disabled="isCheck" ng-model="module.delete.has" type="checkbox"/>{{module.delete.name}}
                                         </li>
                                         <li class="pull-left" ng-if="module.export">
-                                        <input data-ng-disabled="isCheck" ng-model="module.export.has" type="checkbox"/>{{module.export.name}}
-                                    </li>
-
-
-                                        <!--<li class="pull-left" ng-repeat="auth in module.authoritys">-->
-                                            <!--<input ng-disabled="isCheck" type="checkbox"/>{{auth.name}}-->
-                                        <!--</li>-->
+                                            <input data-ng-disabled="isCheck" ng-model="module.export.has" type="checkbox"/>{{module.export.name}}
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>

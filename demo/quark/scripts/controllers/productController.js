@@ -2,7 +2,7 @@
  * Created by lixj(872458899@qq.com) on 15/6/24.
  */
 ;(function(app){
-    app.controller('cpglCtr',['$scope','productService','$modal',function($scope,productService,$modal){
+    app.controller('cpglCtr',['$scope','productService','$modal','$filter',function($scope,productService,$modal,$filter){
         $scope.modileTitle = '产品管理';
         //日历相关
         $scope.bopen = function($event) {
@@ -17,13 +17,27 @@
         };
         $scope.format = 'yyyy-MM-dd';
         //全部数据
-        productService.findAll({},function(data){
+        productService.search({},function(data){
             $scope.datas=data;
         });
 
+        //搜索时的参数
+        $scope.searchProduct = {
+            raiseState:''
+        };
+        //搜索产品
+        $scope.search = function(){
+            //将日期转成字符串提交
+            $scope.searchProduct.raiseStartingTime = $filter('date')($scope.searchProduct.raiseStartingTime,'yyyy-MM-dd');
+            $scope.searchProduct.raiseEndingTime = $filter('date')($scope.searchProduct.raiseEndingTime,'yyyy-MM-dd');
+            productService.search($scope.searchProduct,function(data){
+                $scope.datas=data;
+            });
+        };
+
         //弹出层
         $scope.openNew = function(){
-            var modalInstance = $modal.open({
+            $modal.open({
                 animation: true,
                 controller: ['$scope','$modalInstance','$timeout','$filter',function(scope, $modalInstance,$timeout,$filter){
                     //获取排序的产品列表
