@@ -4,34 +4,34 @@
     <form class="form-inline">
         <div class="form-group col-sm-4">
             <label for="productName">产品名称</label>
-            <input type="text" class="form-control" id="productName" placeholder="请输入产品名称">
+            <input data-ng-model="searchProduct.productName" type="text" class="form-control" id="productName" placeholder="请输入产品名称">
         </div>
         <div class="form-group col-sm-4">
             <label for="productPeriods">产品期数</label>
-            <input type="text" class="form-control" id="productPeriods" placeholder="请输入产品期数">
+            <input type="text" data-ng-model="searchProduct.periodCore" class="form-control" id="productPeriods" placeholder="请输入产品期数">
         </div>
         <div class="form-group col-sm-4">
             <label for="productStatus">产品状态</label>
-            <select class="form-control" id="productStatus">
+            <select data-ng-model="searchProduct.raiseState" class="form-control" id="productStatus">
                 <option>全部</option>
-                <option>初始化</option>
-                <option>已上架</option>
-                <option>募集中</option>
-                <option>募集完成</option>
-                <option>已下架</option>
+                <option value="0">募集中</option>
+                <option value="1">初始化</option>
+                <option value="2">募集完成</option>
+                <option value="3">已上架</option>
+                <option value="4">已下架</option>
             </select>
         </div>
-        <div class="form-group col-sm-6 collectDate">
+        <div class="form-group col-sm-12 collectDate">
             <label for="collectDate">募集日期</label>
             <div class="input-group" id="collectDate">
-                <input type="text" data-ng-model="bdt" class="form-control" data-datepicker-popup="{{format}}" data-is-open="bopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                <input type="text" data-ng-model="searchProduct.raiseStartingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="bopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="bopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
             </div>
             --
             <div class="input-group">
-                <input type="text" data-ng-model="edt" class="form-control" data-datepicker-popup="{{format}}" data-is-open="eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                <input type="text" data-ng-model="searchProduct.raiseEndingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" data-ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -41,7 +41,7 @@
 
     <div class="btn-box col-sm-11 clearfix">
         <a class="btn btn-default pull-right" ng-click="openNew()" href="javascript:" role="button">排 序</a>
-        <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
+        <a class="btn btn-default pull-right" data-ng-click="search()" href="javascript:" role="button">查 询</a>
     </div>
 
     <table class="table product-table table-striped table-bordered">
@@ -65,14 +65,14 @@
         </thead>
         <tbody class="t_body">
             <tr data-ng-repeat="data in datas">
-                <td>{{data.name}}</td>
-                <td>{{data.periods}}</td>
-                <td>{{data.type}}</td>
-                <td>{{data.isGood}}</td>
-                <td>{{data.total}}</td>
-                <td>{{data.minNum}}</td>
-                <td>{{data.annualized}}</td>
-                <td>{{data.status}}</td>
+                <td>{{data.productName }}</td>
+                <td>{{data.periodCore}}</td>
+                <td>{{data.productType}}</td>
+                <td>{{data.recommendType==1?'精品':'---' }}</td>
+                <td>{{data.realeaseLimitAmt}}</td>
+                <td>{{data.lowestAmt }}</td>
+                <td>{{data.preProfitRate}}</td>
+                <td>{{data.raiseState==0?'募集中':(data.raiseState==1?'初始化':(data.raiseState==2?'募集完':(data.raiseState==3?'已上架':'已下架')))}}</td>
                 <td>{{data.saled}}</td>
                 <td>{{data.publishChannel}}</td>
                 <td>{{data.startTime}}</td>
