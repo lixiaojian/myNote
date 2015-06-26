@@ -26,13 +26,11 @@
             console.log($scope.page.curPage);
         };
         //获取所有角色
-        roleService.getAll({},function(data){
+        roleService.getAll({userid:12,ewr:"wqeq"},function(data){
             $scope.page.totalItems = data.iTotalRecords;
             $scope.page.itemsPerPage = data.pageSize;
             $scope.datas = data.recordList;
         });
-
-
 
         //打开弹层
         $scope.openNew = function(type,id){

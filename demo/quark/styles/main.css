@@ -88,13 +88,16 @@ th,td{
     padding: 0 20px;
     cursor: pointer;
 }
+.move-product-list .center{
+    position: relative;
+}
 .move-product-list .center span{
     font-size: 25px;
     cursor: pointer;
     text-align: center;
-    display: inline-block;
     width: 100%;
-    line-height: 400px;
+    position: absolute;
+    top:50%
 }
 .move-product-list ul{
     max-height: 360px;
@@ -104,5 +107,21 @@ th,td{
     list-style: none;
     font-size: 16px;
     line-height: 25px;
+}
+.glyphicon-remove{
+    cursor: pointer;
+    color: red;
+}
+/**
+禁止选中
+*/
+.no-select{
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
 }
 

@@ -10,7 +10,7 @@
                 url:'data/login.json',
                 method:'post',
                 headers:{
-                    'content-type':'application/x-www-form-urlencoded'
+                    'content-type':'application/x-www-form-urlencoded;charset=UTF-8'
                 }
             }
         };

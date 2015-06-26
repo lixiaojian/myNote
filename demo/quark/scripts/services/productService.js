@@ -11,6 +11,7 @@
                 method:'get',
                 isArray:true
             },
+            //获取排序的列表
             getOrders:{
                 url:'data/product2.json',
                 method:'get',

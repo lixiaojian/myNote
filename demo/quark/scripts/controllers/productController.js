@@ -25,8 +25,6 @@
         $scope.openNew = function(){
             var modalInstance = $modal.open({
                 animation: true,
-                templateUrl: 'myModalContent.html',
-                size:'lg',
                 controller: ['$scope','$modalInstance','$timeout','$filter',function(scope, $modalInstance,$timeout,$filter){
                     //获取排序的产品列表
                     if(!scope.productsOrder){
@@ -50,6 +48,10 @@
                     var curRightElement = null;
                     //是否可以点击  防止点击过快
                     var canClick=true;
+                    //当前选中的产品
+                    var curLeftProduct=null;
+                    var curRightProduct=null;
+
                     //排序事件
                     scope.moveOrder = scope.moveOrder || function(po,ver){
                             if(!canClick){
@@ -81,7 +83,16 @@
                                     setAllId(curRightElement,po);
                                 },0);
                             }else if('center' === po){
-                                console.log('中间');
+                                //左边添加到右边
+                                canClick = true;
+                                //先判断是不是已包含
+                                for(var i=0;i<scope.productsOrder.goodProduct.length;i++){
+                                    if(curLeftProduct == scope.productsOrder.goodProduct[i]){
+                                        return;
+                                    }
+                                }
+                                scope.productsOrder.goodProduct.push(curLeftProduct);
+                                scope.productsOrder.goodProduct = $filter('orderBy')(scope.productsOrder.goodProduct,'orderNumber2');
                             }
                             $timeout(function(){canClick = true;},200);
                         };
@@ -90,12 +101,17 @@
                             //当前id
                             var curId = cur.id;
                             if('left' === po){
+                                curLeftProduct = cur;
                                 scope.leftCurtId = curId;
                             }else{
+                                curRightProduct = cur;
                                 scope.rightCurId = curId;
                             }
                             setAllId(t.target,po);
-                    };
+                        };
+                    scope.removeProduct = scope.removeProduct || function(cur,index){
+                            scope.productsOrder.goodProduct.splice(index,1);
+                        };
                     //设置所有的id 当前选中的  选中的前一个的  选中的后一个的
                     function setAllId(ele,po){
                         if(!ele){
@@ -135,7 +151,9 @@
                             }
                         }
                     }
-                }]
+                }],
+                templateUrl: 'myModalContent.html',
+                size:'lg'
             });
         };
 
