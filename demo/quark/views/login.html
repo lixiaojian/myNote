@@ -1,0 +1,93 @@
+<div role="main" class="account-background" data-ng-controller="UserLoginCtrl">
+
+    <!-- MAIN CONTENT -->
+
+    <form class="client-form lockscreen animated flipInY ng-pristine ng-valid" id="login-form" name="loginForm">
+        <div class="logo">
+            <h1 class="semi-bold"> I<SUP> 2</SUP>多渠道管理平台</h1>
+        </div>
+        <div class="account-box">
+            <img src="img/sunny-big.png" alt="" width="120" height="120">
+
+            <div>
+                <h1><i class="text-muted air air-top-right hidden-mobile"></i>用户登录</h1>
+                <fieldset>
+                    <section
+                            ng-class="{'state-error':loginForm.username.$dirty && loginForm.username.$invalid,'form-group':true}">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa  fa-user"></i></span>
+                            <input type="text" name="username" class="form-control" ng-model="user.username"  data-required
+                                   ng-class="{'state-error':loginForm.username.$dirty && loginForm.username.$invalid}"
+                                   placeholder="用户名" data-minlength="3">
+                            <div ng-if="loginForm.username.$dirty && loginForm.username.$invalid" class="popover bottom" style="top: 32px; left: 79.5px; display: block;">
+                                <div class="arrow"></div>
+                                <div class="popover-inner">
+                                    <h3 class="popover-title ng-binding ng-hide" ng-show="title"></h3>
+                                    <div class="popover-content ng-binding">{{loginForm.username.$error.required ? '请输入用户名':(loginForm.username.$error.minlength?'至少输入3位':'')}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="form-group"
+                             ng-class="{'state-error':loginForm.password.$dirty && loginForm.password.$invalid}">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                            <input type="password" class="form-control" name="password" ng-model="user.password"
+                                   data-required
+                                   data-minlength="3"
+                                   data-maxnlength="20"
+                                   placeholder="密码">
+                            <div ng-if="loginForm.password.$dirty && loginForm.password.$invalid" class="popover bottom" style="top: 32px; left: 79.5px; display: block;">
+                                <div class="arrow"></div>
+                                <div class="popover-inner">
+                                    <h3 class="popover-title ng-binding ng-hide" ng-show="title"></h3>
+                                    <div class="popover-content ng-binding">{{loginForm.password.$error.required ? '请输入密码':(loginForm.password.$error.minlength?'密码至少输入3位':(loginForm.password.$error.maxnlength?'密码至多输入20位':''))}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="form-group"
+                             ng-class="{'state-error':loginForm.captcha.$dirty && loginForm.captcha.$invalid}">
+                        <div class="input-group">
+                            <span class="input-group-addon"> <i class="fa fa-qrcode "></i></span>
+                            <input type="text" class="form-control" name="captcha"  placeholder="验证码"
+                                   ng-model="user.captcha" data-required >
+                            <div ng-if="loginForm.captcha.$dirty && loginForm.captcha.$invalid" class="popover bottom" style="top: 32px; left: 79.5px; display: block;">
+                                <div class="arrow"></div>
+                                <div class="popover-inner">
+                                    <h3 class="popover-title ng-binding ng-hide" ng-show="title"></h3>
+                                    <div class="popover-content ng-binding">{{loginForm.captcha.$error.required ? '请输入验证码':''}}</div>
+                                </div>
+                            </div>
+                             </label>
+
+                                    <span class="input-group-addon" style="width:65px;padding:0px">
+                                            <img style="cursor: pointer;" ng-src="{{imgUrl}}" height="32" title="点击换一个"
+                                                 ng-click="changeVailCode();">
+                                    </span>
+                        </div>
+                    </section>
+                    <div id="message" class="alert alert-danger fade in " ng-if="!login_result.flag">
+                        <button class="close" data-dismiss="alert" ng-click="closeErrorDlg();">
+                            ×
+                        </button>
+                        <i class="fa-fw fa fa-times"></i>
+                        <strong ng-bind="login_result.ecode"></strong> {{login_result.emsg}}
+                    </div>
+                </fieldset>
+
+                <footer>
+                    <button class="btn btn-primary btn-lg btn-block" ng-disabled="!loginForm.$valid" ng-click="login();"
+                            type="submit">登录
+                    </button>
+                </footer>
+            </div>
+
+        </div>
+        <p class="font-xs margin-top-5">
+            Copyright hxhK 2014-2020.
+
+        </p>
+    </form>
+
+</div>
