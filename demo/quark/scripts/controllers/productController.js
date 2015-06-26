@@ -85,17 +85,17 @@
                                     setAllId(curLeftElement,po);
                                 },0);
                             }else if('right' === po){
-                                if('up' === ver){
-                                    setOrder(scope.productsOrder.goodProduct,scope.rightCurId,scope.rightPreId,'orderNumber2');
-                                }else if('down' === ver){
-                                    setOrder(scope.productsOrder.goodProduct,scope.rightCurId,scope.rightNextId,'orderNumber2');
-                                }
-                                //更改顺序后重新排序
-                                scope.productsOrder.goodProduct = $filter('orderBy')(scope.productsOrder.goodProduct,'orderNumber2');
-                                $timeout(function(){
-                                    curRightElement = document.getElementById('g_p_'+scope.rightCurId);
-                                    setAllId(curRightElement,po);
-                                },0);
+                                //if('up' === ver){
+                                //    setOrder(scope.productsOrder.goodProduct,scope.rightCurId,scope.rightPreId,'orderNumber2');
+                                //}else if('down' === ver){
+                                //    setOrder(scope.productsOrder.goodProduct,scope.rightCurId,scope.rightNextId,'orderNumber2');
+                                //}
+                                ////更改顺序后重新排序
+                                //scope.productsOrder.goodProduct = $filter('orderBy')(scope.productsOrder.goodProduct,'orderNumber2');
+                                //$timeout(function(){
+                                //    curRightElement = document.getElementById('g_p_'+scope.rightCurId);
+                                //    setAllId(curRightElement,po);
+                                //},0);
                             }else if('center' === po){
                                 //左边添加到右边
                                 canClick = true;
@@ -123,9 +123,20 @@
                             }
                             setAllId(t.target,po);
                         };
-                    scope.removeProduct = scope.removeProduct || function(cur,index){
-                            scope.productsOrder.goodProduct.splice(index,1);
-                        };
+
+                    //删除选中的精品
+                    scope.deleteGood = function(){
+                        if(!curRightProduct){
+                            return;
+                        }
+                        var cid = curRightProduct.id;
+                        var gp = scope.productsOrder.goodProduct;
+                        for(var i=0;i<gp.length;i++){
+                            if(gp[i].id === cid){
+                                gp.splice(i,1);
+                            }
+                        }
+                    };
                     //设置所有的id 当前选中的  选中的前一个的  选中的后一个的
                     function setAllId(ele,po){
                         if(!ele){

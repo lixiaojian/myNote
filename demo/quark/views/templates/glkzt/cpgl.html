@@ -118,14 +118,13 @@
                     <span class="glyphicon glyphicon-arrow-right" data-ng-click="moveOrder('center')"></span>
                 </div>
                 <div class="right">
-                    <div class="btn-up-down no-select">
-                        <span class="glyphicon glyphicon-arrow-up" data-ng-click="moveOrder('right','up')"></span>
-                        <span class="glyphicon glyphicon-arrow-down" data-ng-click="moveOrder('right','down')"></span>
+                    <div class="btn-up-down no-select clearfix">
+                        <a href="javascript:" data-ng-click="deleteGood()">删除</a>
+                        精品
                     </div>
                     <ul>
                         <li ng-repeat="gp in productsOrder.goodProduct | filter:filterName | orderBy:'orderNumber2'">
                             <input type="radio" data-pre="{{productsOrder.goodProduct[$index-1].id}}" data-next="{{productsOrder.goodProduct[$index+1].id}}" id="g_p_{{gp.id}}" data-ng-click="setCurr($event,gp,'right')" name="goodProduct"/>&nbsp;<label for="g_p_{{gp.id}}">{{gp.name}}&nbsp;&nbsp;&nbsp;{{gp.status}}</label>
-                            <span class="glyphicon glyphicon-remove" data-ng-click="removeProduct(gp,$index)"></span>
                         </li>
                     </ul>
                 </div>

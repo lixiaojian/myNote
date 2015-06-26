@@ -79,6 +79,16 @@ th,td{
     width: 44%;
     border: 1px solid #ccc;
     height: 100%;
+    position: relative;
+}
+.move-product-list .right .btn-up-down{
+    padding-top: 30px;
+}
+.move-product-list .right .btn-up-down a{
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    font-size: 18px;
 }
 .move-product-list .btn-up-down{
     font-size: 25px;
