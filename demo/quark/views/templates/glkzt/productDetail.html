@@ -112,7 +112,9 @@
                     <input data-ng-model="product.raiseEndingTime" data-ng-disabled="disabled" type="text" class="form-control" id="mjwcsj">
                 </div>
                 <div class="btn-box col-sm-11 clearfix">
-                    <a class="btn btn-default pull-right" href="javascript:" ng-click="cancel()" role="button">关闭</a>
+                    <a data-ng-if="disabled" class="btn btn-default pull-right" href="javascript:" ng-click="cancel()" role="button">关闭</a>
+                    <a data-ng-if="!disabled" class="btn btn-primary pull-right" ng-click="ok()">保 存</a>
+                    <a data-ng-if="!disabled" class="btn btn-warning pull-right" ng-click="cancel()">返 回</a>
                 </div>
             </form>
         </tab>
@@ -198,7 +200,9 @@
                     </div>
                 </div>
                 <div class="btn-box col-sm-11 clearfix">
-                    <a class="btn btn-default pull-right" href="javascript:" ng-click="cancel()" role="button">关闭</a>
+                    <a data-ng-if="disabled" class="btn btn-default pull-right" href="javascript:" ng-click="cancel()" role="button">关闭</a>
+                    <a data-ng-if="!disabled" class="btn btn-primary pull-right" ng-click="ok()">保 存</a>
+                    <a data-ng-if="!disabled" class="btn btn-warning pull-right" ng-click="cancel()">返 回</a>
                 </div>
             </form>
         </tab>
