@@ -18,7 +18,7 @@
             },
             //通过id获取
             findById:{
-                url:'data/product3.json',
+                url:'data/product3.json?pid=:pid',
                 method:'get'
             }
         };

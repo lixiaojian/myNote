@@ -47,27 +47,27 @@
                         <li class="center">
                             <label>发布渠道：</label>
                             <span>
-                                <input data-ng-disabled="disabled" type="checkbox"/>APP &nbsp;&nbsp;
-                                <input data-ng-disabled="disabled" type="checkbox"/>微信 &nbsp;&nbsp;
-                                <input data-ng-disabled="disabled" type="checkbox"/>PC
+                                <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/>APP &nbsp;&nbsp;
+                                <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/>微信 &nbsp;&nbsp;
+                                <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled" type="checkbox"/>PC
                             </span>
                         </li>
                         <li class="right">
                             <label>补贴收益率：</label>
                             <div class="btsyl">
                                 <span>
-                                    <input data-ng-disabled="disabled" type="checkbox"/><label>APP</label>
-                                    <input data-ng-disabled="disabled" type="text" class="form-control"> %
+                                    <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/><label>APP</label>
+                                    <input data-ng-model="product.channel[0].subsidyRate" data-ng-disabled="disabled" type="text" class="form-control"> %
                                 </span>
                                     <br/>
                                 <span>
-                                    <input data-ng-disabled="disabled" type="checkbox"/><label>微信</label>
-                                    <input data-ng-disabled="disabled" type="text" class="form-control"> %
+                                    <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/><label>微信</label>
+                                    <input data-ng-model="product.channel[1].subsidyRate" data-ng-disabled="disabled" type="text" class="form-control"> %
                                 </span>
                                     <br/>
                                 <span>
-                                    <input data-ng-disabled="disabled" type="checkbox"/><label>PC</label>
-                                    <input data-ng-disabled="disabled" type="text" class="form-control"> %
+                                    <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled" type="checkbox"/><label>PC</label>
+                                    <input data-ng-model="product.channel[2].subsidyRate" data-ng-disabled="disabled" type="text" class="form-control"> %
                                 </span>
                             </div>
                         </li>
@@ -155,17 +155,17 @@
                     <div class="product-desc-div">
                         <ul class="clearfix">
                             <li>
-                                APP：<img src="img/u250.png" alt=""/>
+                                APP：<img data-ng-src="{{product.channel[0].descriptionUrl || 'img/u250.png'}}" alt=""/>
                                 <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
                                 <input data-ng-if="!disabled" type="file" class="file-input"/>
                             </li>
                             <li>
-                                微信：<img src="img/u250.png" alt=""/>
+                                微信：<img data-ng-src="{{product.channel[1].descriptionUrl || 'img/u250.png'}}" alt=""/>
                                 <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
                                 <input data-ng-if="!disabled" type="file" class="file-input"/>
                             </li>
                             <li>
-                                PC：<img src="img/u250.png" alt=""/>
+                                PC：<img data-ng-src="{{product.channel[2].descriptionUrl || 'img/u250.png'}}" alt=""/>
                                 <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
                                 <input data-ng-if="!disabled" type="file" class="file-input"/>
                             </li>
@@ -179,17 +179,17 @@
                     <div class="product-desc-div">
                         <ul class="clearfix">
                             <li>
-                                APP：<img src="img/u250.png" alt=""/>
+                                APP：<img data-ng-src="{{product.channel[0].guarContextUrl || 'img/u250.png'}}" alt=""/>
                                 <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
                                 <input data-ng-if="!disabled" type="file" class="file-input"/>
                             </li>
                             <li>
-                                微信：<img src="img/u250.png" alt=""/>
+                                微信：<img data-ng-src="{{product.channel[1].guarContextUrl || 'img/u250.png'}}" alt=""/>
                                 <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
                                 <input data-ng-if="!disabled" type="file" class="file-input"/>
                             </li>
                             <li>
-                                PC：<img src="img/u250.png" alt=""/>
+                                PC：<img data-ng-src="{{product.channel[2].guarContextUrl || 'img/u250.png'}}" alt=""/>
                                 <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
                                 <input data-ng-if="!disabled" type="file" class="file-input"/>
                             </li>

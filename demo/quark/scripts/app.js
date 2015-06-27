@@ -31,8 +31,7 @@
                         innerObj[fullSubName] = subValue;
                         query += param(innerObj) + '&';
                     }
-                }
-                else if (value instanceof Object) {
+                }else if (value instanceof Object) {
                     for (subName in value) {
                         subValue = value[subName];
                         fullSubName = name + '[' + subName + ']';

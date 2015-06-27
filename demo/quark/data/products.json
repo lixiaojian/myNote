@@ -1,5 +1,6 @@
 [
   {
+    "pid":1,
     "productName":"财富优加计划30天-08期",
     "periodCore":"08期",
     "productType":"新手标",
@@ -14,6 +15,7 @@
     "raiseEndingTime":"2015-05-15 09:00:00"
   },
   {
+    "pid":2,
     "productName":"财富优加计划90天-07期",
     "periodCore":"07期",
     "productType":"财富优加",
@@ -28,6 +30,7 @@
     "raiseEndingTime":"2015-06-15 09:00:00"
   },
   {
+    "pid":3,
     "productName":"财富优加计划180天-08期",
     "periodCore":"08期",
     "productType":"财富优加",

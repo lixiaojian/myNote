@@ -11,13 +11,22 @@
   "displayParameter2":"500元起投",
   "displayParameter3":"零费用",
   "preProfitRate":"7.02%",
-  "channel":{
-    "channelCode":"app",
-    "channelName":"APP",
-    "subsidyRate":0,
-    "descriptionUrl":"img/u250.png",
-    "guarContextUrl":"img/u250.png"
-  },
+  "channel":[
+    {
+      "channelCode":"app",
+      "channelName":"APP",
+      "subsidyRate":0,
+      "descriptionUrl":"img/u250.png",
+      "guarContextUrl":"img/u250.png"
+    },
+    {
+      "channelCode":"pc",
+      "channelName":"PC",
+      "subsidyRate":0,
+      "descriptionUrl":"img/u250.png",
+      "guarContextUrl":"img/u250.png"
+    }
+  ],
   "raiseState":0,
   "upTime":"2015-04-15 23:00:00",
   "downTime":"2015-06-15 23:00:00",

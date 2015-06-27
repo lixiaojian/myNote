@@ -113,7 +113,7 @@
                     //设置选中事件
                     scope.setCurr = scope.setCurr || function(t,cur,po){
                             //当前id
-                            var curId = cur.id;
+                            var curId = cur.pid;
                             if('left' === po){
                                 curLeftProduct = cur;
                                 scope.leftCurtId = curId;
@@ -129,10 +129,10 @@
                         if(!curRightProduct){
                             return;
                         }
-                        var cid = curRightProduct.id;
+                        var cid = curRightProduct.pid;
                         var gp = scope.productsOrder.goodProduct;
                         for(var i=0;i<gp.length;i++){
-                            if(gp[i].id === cid){
+                            if(gp[i].pid === cid){
                                 gp.splice(i,1);
                             }
                         }
@@ -161,10 +161,10 @@
                             var tep1=null;
                             var tep2=null;
                             for(var i=0;i<arr.length;i++){
-                                if(arr[i].id === id1){
+                                if(arr[i].pid === id1){
                                     tep1 = arr[i];
                                 }
-                                if(arr[i].id === id2){
+                                if(arr[i].pid === id2){
                                     tep2 = arr[i];
                                 }
                             }
@@ -198,6 +198,19 @@
                     //获取产品详情
                     productService.findById({pid:id},function(data){
                         scope.product = data;
+                        //重新处理一下产品渠道
+                        var channel = scope.product.channel;
+                        var newChannel = [];
+                        for(var i=0;i<channel.length;i++){
+                            if(channel[i].channelCode == 'app'){
+                                newChannel[0] = channel[i];
+                            }else if(channel[i].channelCode == 'wx'){
+                                newChannel[1] = channel[i];
+                            }else if(channel[i].channelCode == 'pc'){
+                                newChannel[2] = channel[i];
+                            }
+                        }
+                        scope.product.channel = newChannel;
                     });
                     if('select' === type){
                         scope.disabled = true;
