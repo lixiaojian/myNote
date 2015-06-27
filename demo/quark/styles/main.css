@@ -118,9 +118,46 @@ th,td{
     font-size: 16px;
     line-height: 25px;
 }
-.glyphicon-remove{
-    cursor: pointer;
-    color: red;
+.product-detail{
+    font-size: 16px;
+    padding: 10px 5px;
+}
+.product-detail .form-group{
+    padding-bottom: 8px;
+}
+.product-detail .detail-list{
+    padding-top: 5px;
+}
+.product-detail .detail-list ul{
+    padding: 0;
+    margin: 0;
+}
+.product-detail .detail-list li{
+    float: left;
+    list-style: none;
+}
+.product-detail .detail-list .left{
+    width: 26%;
+}
+.product-detail .detail-list .center{
+    width: 36%;
+}
+.product-detail .detail-list .right{
+    position: relative;
+    width: 38%;
+    height: 102px;
+}
+.product-detail .detail-list .right .form-control{
+    width: 25%;
+}
+.product-detail .detail-list .right .btsyl{
+    position: absolute;
+    top: -5px;
+    right: 0;
+    padding-left: 90px;
+}
+.product-detail .detail-list .right .btsyl label{
+    width: 40px;
 }
 /**
 禁止选中

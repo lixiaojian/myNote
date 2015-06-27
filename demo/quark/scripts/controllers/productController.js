@@ -35,7 +35,7 @@
             });
         };
 
-        //弹出层
+        //弹出产品排序层
         $scope.openNew = function(){
             $modal.open({
                 animation: true,
@@ -59,7 +59,7 @@
                     };
                     //当前选中的标签
                     var curLeftElement = null;
-                    var curRightElement = null;
+                   // var curRightElement = null;
                     //是否可以点击  防止点击过快
                     var canClick=true;
                     //当前选中的产品
@@ -178,6 +178,26 @@
                     }
                 }],
                 templateUrl: 'myModalContent.html',
+                size:'lg'
+            });
+        };
+
+        //弹出产品详情层
+        $scope.openDetail = function(){
+            $modal.open({
+                animation: true,
+                controller: ['$scope','$modalInstance',function(scope, $modalInstance){
+                    //点击确定
+                    scope.ok = function () {
+                        $modalInstance.close();
+                    };
+                    //点击取消
+                    scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+
+                }],
+                templateUrl: 'views/templates/glkzt/productDetail.html',
                 size:'lg'
             });
         };
