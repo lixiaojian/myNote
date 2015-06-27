@@ -8,7 +8,7 @@
             //搜索产品
             search:{
                 url:'data/products.json',
-                method:'post',
+                method:'get',
                 isArray:true
             },
             //获取排序的列表
