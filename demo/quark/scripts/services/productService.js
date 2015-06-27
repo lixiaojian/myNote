@@ -15,6 +15,11 @@
             getOrders:{
                 url:'data/product2.json',
                 method:'get'
+            },
+            //通过id获取
+            findById:{
+                url:'data/product3.json',
+                method:'get'
             }
         };
         return $resource(url,{},actions);

@@ -183,7 +183,7 @@
         };
 
         //弹出产品详情层
-        $scope.openDetail = function(){
+        $scope.openDetail = function(type,id){
             $modal.open({
                 animation: true,
                 controller: ['$scope','$modalInstance',function(scope, $modalInstance){
@@ -195,7 +195,15 @@
                     scope.cancel = function () {
                         $modalInstance.dismiss('cancel');
                     };
-
+                    //获取产品详情
+                    productService.findById({pid:id},function(data){
+                        scope.product = data;
+                    });
+                    if('select' === type){
+                        scope.disabled = true;
+                    }else{
+                        scope.disabled = false;
+                    }
                 }],
                 templateUrl: 'views/templates/glkzt/productDetail.html',
                 size:'lg'

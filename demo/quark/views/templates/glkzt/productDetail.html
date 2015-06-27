@@ -4,70 +4,70 @@
             <form class="form-inline top-form clearfix">
                 <div class="form-group col-lg-12">
                     <label>产品名称：</label>
-                    <span> 财富优加计划30天-08期</span>
+                    <span> {{product.productName}}</span>
                 </div>
                 <div class="form-group col-lg-12">
                     <label>产品类型：</label>
-                    <span> 新手标</span>
+                    <span> {{product.productType}}</span>
                 </div>
                 <div class="form-group col-lg-4">
                     <label>产品期数：</label>
-                    <span> 08期</span>
+                    <span> {{product.periodCore}}</span>
                 </div>
                 <div class="form-group col-lg-8">
                     <label>发行天数：</label>
-                    <span> 30天</span>
+                    <span> {{product.period}}</span>
                 </div>
 
                 <div class="form-group col-lg-12">
                     <label>募集总额：</label>
-                    <span> 2000000元</span>
+                    <span> {{product.realeaseLimitAmt}}元</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <label for="lowest_amt_form">起投金额：</label>
-                    <input type="text" class="form-control" id="lowest_amt_form" placeholder="请输入起投金额">元
+                    <input type="text" data-ng-model="product.lowestAmt" data-ng-disabled="disabled" class="form-control" id="lowest_amt_form" placeholder="请输入起投金额">元
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <label for="accumulate_amt_form">递增金额：</label>
-                    <input type="text" class="form-control" id="accumulate_amt_form" placeholder="请输入递增金额">元
+                    <input type="text" data-ng-model="product.accumulateAmt" data-ng-disabled="disabled" class="form-control" id="accumulate_amt_form" placeholder="请输入递增金额">元
                 </div>
 
                 <div class="form-group col-lg-12">
                     <label for="display_parameter1_form">首页展示参数：</label>
-                    <input type="text" class="form-control" id="display_parameter1_form" placeholder="请输入展示参数1">
+                    <input type="text" data-ng-model="product.displayParameter1" data-ng-disabled="disabled" class="form-control" id="display_parameter1_form" placeholder="请输入展示参数1">
                     -
-                    <input type="text" class="form-control" id="display_parameter2_form" placeholder="请输入展示参数2">
+                    <input type="text" data-ng-model="product.displayParameter2" data-ng-disabled="disabled" class="form-control" id="display_parameter2_form" placeholder="请输入展示参数2">
                     -
-                    <input type="text" class="form-control" id="display_parameter3_form" placeholder="请输入展示参数3">
+                    <input type="text" data-ng-model="product.displayParameter3" data-ng-disabled="disabled" class="form-control" id="display_parameter3_form" placeholder="请输入展示参数3">
                 </div>
                 <div class="form-group detail-list col-lg-12">
                     <ul class="clearfix">
                         <li class="left">
                             <label>预期年化收益率：</label>
-                            <span> 7.02%</span>
+                            <span> {{product.preProfitRate}}%</span>
                         </li>
                         <li class="center">
                             <label>发布渠道：</label>
                             <span>
-                                <input type="checkbox"/>APP &nbsp;&nbsp;
-                                <input type="checkbox"/>微信 &nbsp;&nbsp;
-                                <input type="checkbox"/>PC
+                                <input data-ng-disabled="disabled" type="checkbox"/>APP &nbsp;&nbsp;
+                                <input data-ng-disabled="disabled" type="checkbox"/>微信 &nbsp;&nbsp;
+                                <input data-ng-disabled="disabled" type="checkbox"/>PC
                             </span>
                         </li>
                         <li class="right">
                             <label>补贴收益率：</label>
                             <div class="btsyl">
                                 <span>
-                                    <input type="checkbox"/><label>APP</label>
-                                    <input type="text" class="form-control"> %
+                                    <input data-ng-disabled="disabled" type="checkbox"/><label>APP</label>
+                                    <input data-ng-disabled="disabled" type="text" class="form-control"> %
                                 </span>
                                     <br/>
                                 <span>
-                                    <input type="checkbox"/><label>微信</label>
-                                    <input type="text" class="form-control"> %
+                                    <input data-ng-disabled="disabled" type="checkbox"/><label>微信</label>
+                                    <input data-ng-disabled="disabled" type="text" class="form-control"> %
                                 </span>
                                     <br/>
                                 <span>
-                                    <input type="checkbox"/><label>PC</label>
-                                    <input type="text" class="form-control"> %
+                                    <input data-ng-disabled="disabled" type="checkbox"/><label>PC</label>
+                                    <input data-ng-disabled="disabled" type="text" class="form-control"> %
                                 </span>
                             </div>
                         </li>
@@ -77,7 +77,7 @@
             <form class="form-inline clearfix">
                 <div class="form-group col-lg-5">
                     <label for="productStatus-form">产品状态：</label>
-                    <select class="form-control" id="productStatus-form">
+                    <select data-ng-model="product.raiseState" data-ng-disabled="disabled" class="form-control" id="productStatus-form">
                         <option value="0">募集中</option>
                         <option value="1">初始化</option>
                         <option value="2">募集完成</option>
@@ -88,7 +88,7 @@
 
                 <div class="form-group">
                     <label for="mjwcx">募集完成线：</label>
-                    <input type="text" class="form-control" id="mjwcx"> %
+                    <input type="text" data-ng-disabled="disabled" class="form-control" id="mjwcx"> %
                     <br/>
                     <span>* 已售43%</span>
                 </div>
@@ -97,19 +97,19 @@
                 </div>
                 <div class="form-group col-lg-5">
                     <label for="sjsj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上架时间：</label>
-                    <input type="text" class="form-control" id="sjsj">
+                    <input data-ng-model="product.upTime" data-ng-disabled="disabled" type="text" class="form-control" id="sjsj">
                 </div>
                 <div class="form-group col-lg-7">
                     <label for="xjsj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下架时间：</label>
-                    <input type="text" class="form-control" id="xjsj">
+                    <input data-ng-model="product.downTime" data-ng-disabled="disabled" type="text" class="form-control" id="xjsj">
                 </div>
                 <div class="form-group col-lg-5">
                     <label for="mjkssj">募集开始时间：</label>
-                    <input type="text" class="form-control" id="mjkssj">
+                    <input data-ng-model="product.raiseStartingTime" data-ng-disabled="disabled" type="text" class="form-control" id="mjkssj">
                 </div>
                 <div class="form-group col-lg-7">
                     <label for="mjwcsj">募集完成时间：</label>
-                    <input type="text" class="form-control" id="mjwcsj">
+                    <input data-ng-model="product.raiseEndingTime" data-ng-disabled="disabled" type="text" class="form-control" id="mjwcsj">
                 </div>
                 <div class="btn-box col-sm-11 clearfix">
                     <a class="btn btn-default pull-right" href="javascript:" ng-click="cancel()" role="button">关闭</a>
@@ -120,35 +120,35 @@
             <form class="form-inline clearfix product-desc">
                 <div class="form-group col-lg-12">
                     <label>合同协议路径：</label>
-                    <span> XXXXXXXXXXXXXXXXXXXXXXX</span>
+                    <span> {{product.contractPath}}</span>
                 </div>
                 <div class="form-group col-lg-12">
                     <label>风险补偿金：</label>
-                    <span> 逾期风险补偿金</span>
+                    <span> {{product.riskCompensation}}</span>
                 </div>
                 <div class="form-group col-lg-12">
                     <label>出借咨询服务费：</label>
-                    <span> 出借咨询服务费为0</span>
+                    <span> 一一一一不知道一一一一一</span>
                 </div>
                 <div class="form-group col-lg-12">
                     <label>资金监管机构：</label>
-                    <span> 资金安全有中金支付全程托管</span>
+                    <span> {{product.superviseOrg}}</span>
                 </div>
                 <div class="form-group col-lg-12">
                     <label>起息日说明：</label>
-                    <span> T（购买日）+1日</span>
+                    <span> 一一一一不知道一一一一一</span>
                 </div>
                 <div class="form-group col-lg-12">
                     <label>还款方式：</label>
-                    <span> 到期一次还本付息</span>
+                    <span> {{product.repaymentType}}</span>
                 </div>
                 <div class="form-group col-lg-12">
                     <label>退出方式：</label>
-                    <span> 30天后自动退出</span>
+                    <span> {{product.qiutDescribe}}</span>
                 </div>
                 <div class="form-group col-lg-12">
                     <label>资金回款：</label>
-                    <span> 到期后1-2个工作日自动回款至付款银行卡，到账时间以银行清算时间为准</span>
+                    <span> {{product.repatmentDescribe}}</span>
                 </div>
                 <div class="form-group col-lg-12">
                     <label>项目描述：</label>
@@ -156,21 +156,21 @@
                         <ul class="clearfix">
                             <li>
                                 APP：<img src="img/u250.png" alt=""/>
-                                <span class="delete-btn glyphicon glyphicon-remove"></span>
-                                <input type="file" class="file-input"/>
+                                <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
+                                <input data-ng-if="!disabled" type="file" class="file-input"/>
                             </li>
                             <li>
                                 微信：<img src="img/u250.png" alt=""/>
-                                <span class="delete-btn glyphicon glyphicon-remove"></span>
-                                <input type="file" class="file-input"/>
+                                <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
+                                <input data-ng-if="!disabled" type="file" class="file-input"/>
                             </li>
                             <li>
                                 PC：<img src="img/u250.png" alt=""/>
-                                <span class="delete-btn glyphicon glyphicon-remove"></span>
-                                <input type="file" class="file-input"/>
+                                <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
+                                <input data-ng-if="!disabled" type="file" class="file-input"/>
                             </li>
                         </ul>
-                        <textarea class="form-control" rows="3">财富优加计划是夸客金额为移动互联网...................</textarea>
+                        <textarea data-ng-model="product.description" data-ng-disabled="disabled" class="form-control" rows="3">财富优加计划是夸客金额为移动互联网...................</textarea>
                     </div>
                 </div>
                 <br/>
@@ -180,21 +180,21 @@
                         <ul class="clearfix">
                             <li>
                                 APP：<img src="img/u250.png" alt=""/>
-                                <span class="delete-btn glyphicon glyphicon-remove"></span>
-                                <input type="file" class="file-input"/>
+                                <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
+                                <input data-ng-if="!disabled" type="file" class="file-input"/>
                             </li>
                             <li>
                                 微信：<img src="img/u250.png" alt=""/>
-                                <span class="delete-btn glyphicon glyphicon-remove"></span>
-                                <input type="file" class="file-input"/>
+                                <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
+                                <input data-ng-if="!disabled" type="file" class="file-input"/>
                             </li>
                             <li>
                                 PC：<img src="img/u250.png" alt=""/>
-                                <span class="delete-btn glyphicon glyphicon-remove"></span>
-                                <input type="file" class="file-input"/>
+                                <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
+                                <input data-ng-if="!disabled" type="file" class="file-input"/>
                             </li>
                         </ul>
-                        <textarea class="form-control" rows="3">1、夸客平台不接受客户资金，整个资金流转由央行发牌的第三方支付独立完成..................</textarea>
+                        <textarea data-ng-model="product.guarContext" data-ng-disabled="disabled" class="form-control" rows="3">1、夸客平台不接受客户资金，整个资金流转由央行发牌的第三方支付独立完成..................</textarea>
                     </div>
                 </div>
                 <div class="btn-box col-sm-11 clearfix">
