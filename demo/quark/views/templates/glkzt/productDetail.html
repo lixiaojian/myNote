@@ -1,7 +1,7 @@
 <div class="product-detail">
     <tabset>
         <tab heading="基本信息">
-            <form class="form-inline">
+            <form class="form-inline top-form clearfix">
                 <div class="form-group col-lg-12">
                     <label>产品名称：</label>
                     <span> 财富优加计划30天-08期</span>
@@ -73,9 +73,134 @@
                         </li>
                     </ul>
                 </div>
-                <button type="submit" class="btn btn-default">关闭</button>
+            </form>
+            <form class="form-inline clearfix">
+                <div class="form-group col-lg-5">
+                    <label for="productStatus-form">产品状态：</label>
+                    <select class="form-control" id="productStatus-form">
+                        <option value="0">募集中</option>
+                        <option value="1">初始化</option>
+                        <option value="2">募集完成</option>
+                        <option value="3">已上架</option>
+                        <option value="4">已下架</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="mjwcx">募集完成线：</label>
+                    <input type="text" class="form-control" id="mjwcx"> %
+                    <br/>
+                    <span>* 已售43%</span>
+                </div>
+                <div class="form-group col-lg-12">
+                    <span>* 下架时间 >= 募集完成时间 > 募集开始时间 >= 上架时间</span>
+                </div>
+                <div class="form-group col-lg-5">
+                    <label for="sjsj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上架时间：</label>
+                    <input type="text" class="form-control" id="sjsj">
+                </div>
+                <div class="form-group col-lg-7">
+                    <label for="xjsj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下架时间：</label>
+                    <input type="text" class="form-control" id="xjsj">
+                </div>
+                <div class="form-group col-lg-5">
+                    <label for="mjkssj">募集开始时间：</label>
+                    <input type="text" class="form-control" id="mjkssj">
+                </div>
+                <div class="form-group col-lg-7">
+                    <label for="mjwcsj">募集完成时间：</label>
+                    <input type="text" class="form-control" id="mjwcsj">
+                </div>
+                <div class="btn-box col-sm-11 clearfix">
+                    <a class="btn btn-default pull-right" href="javascript:" ng-click="cancel()" role="button">关闭</a>
+                </div>
             </form>
         </tab>
-        <tab heading="产品描述">Short Labeled Justified content</tab>
+        <tab heading="产品描述">
+            <form class="form-inline clearfix product-desc">
+                <div class="form-group col-lg-12">
+                    <label>合同协议路径：</label>
+                    <span> XXXXXXXXXXXXXXXXXXXXXXX</span>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label>风险补偿金：</label>
+                    <span> 逾期风险补偿金</span>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label>出借咨询服务费：</label>
+                    <span> 出借咨询服务费为0</span>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label>资金监管机构：</label>
+                    <span> 资金安全有中金支付全程托管</span>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label>起息日说明：</label>
+                    <span> T（购买日）+1日</span>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label>还款方式：</label>
+                    <span> 到期一次还本付息</span>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label>退出方式：</label>
+                    <span> 30天后自动退出</span>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label>资金回款：</label>
+                    <span> 到期后1-2个工作日自动回款至付款银行卡，到账时间以银行清算时间为准</span>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label>项目描述：</label>
+                    <div class="product-desc-div">
+                        <ul class="clearfix">
+                            <li>
+                                APP：<img src="img/u250.png" alt=""/>
+                                <span class="delete-btn glyphicon glyphicon-remove"></span>
+                                <input type="file" class="file-input"/>
+                            </li>
+                            <li>
+                                微信：<img src="img/u250.png" alt=""/>
+                                <span class="delete-btn glyphicon glyphicon-remove"></span>
+                                <input type="file" class="file-input"/>
+                            </li>
+                            <li>
+                                PC：<img src="img/u250.png" alt=""/>
+                                <span class="delete-btn glyphicon glyphicon-remove"></span>
+                                <input type="file" class="file-input"/>
+                            </li>
+                        </ul>
+                        <textarea class="form-control" rows="3">财富优加计划是夸客金额为移动互联网...................</textarea>
+                    </div>
+                </div>
+                <br/>
+                <div class="form-group col-lg-12">
+                    <label>资金保障：</label>
+                    <div class="product-desc-div">
+                        <ul class="clearfix">
+                            <li>
+                                APP：<img src="img/u250.png" alt=""/>
+                                <span class="delete-btn glyphicon glyphicon-remove"></span>
+                                <input type="file" class="file-input"/>
+                            </li>
+                            <li>
+                                微信：<img src="img/u250.png" alt=""/>
+                                <span class="delete-btn glyphicon glyphicon-remove"></span>
+                                <input type="file" class="file-input"/>
+                            </li>
+                            <li>
+                                PC：<img src="img/u250.png" alt=""/>
+                                <span class="delete-btn glyphicon glyphicon-remove"></span>
+                                <input type="file" class="file-input"/>
+                            </li>
+                        </ul>
+                        <textarea class="form-control" rows="3">1、夸客平台不接受客户资金，整个资金流转由央行发牌的第三方支付独立完成..................</textarea>
+                    </div>
+                </div>
+                <div class="btn-box col-sm-11 clearfix">
+                    <a class="btn btn-default pull-right" href="javascript:" ng-click="cancel()" role="button">关闭</a>
+                </div>
+            </form>
+        </tab>
     </tabset>
 </div>

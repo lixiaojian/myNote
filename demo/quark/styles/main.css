@@ -122,6 +122,10 @@ th,td{
     font-size: 16px;
     padding: 10px 5px;
 }
+.product-detail .top-form{
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #888;
+}
 .product-detail .form-group{
     padding-bottom: 8px;
 }
@@ -159,6 +163,41 @@ th,td{
 .product-detail .detail-list .right .btsyl label{
     width: 40px;
 }
+.product-desc label{
+    width: 140px;
+    text-align: right;
+}
+.product-desc .product-desc-div{
+    padding-left: 140px;
+}
+.product-desc-div ul{
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+.product-desc-div li{
+    list-style: none;
+    float: left;
+    width: 33%;
+}
+.product-desc-div img{
+    width: 50px;
+    height: 50px;
+}
+.product-desc .product-desc-div textarea{
+    width: 556px;
+}
+.product-desc .file-input{
+    height: 24px;
+    margin: 0;
+    display: inline-block;
+    width: 70px;
+}
+.delete-btn{
+    color: #f00;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
 /**
 禁止选中
 */
