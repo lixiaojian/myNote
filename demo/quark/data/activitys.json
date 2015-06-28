@@ -1,0 +1,39 @@
+{
+  "pageSize": 10,
+  "pageNum": 1,
+  "pageSum": 4,
+  "iTotalRecords": 24,
+  "iTotalDisplayRecords": 24,
+  "recordList": [
+    {
+      "id":1,
+      "activityCode":"1111",
+      "activityName":"五一活动",
+      "createDate":"2015-04-15  11:00",
+      "activityDate":"2015-05-01 -- 2015-05-03",
+      "cardVolumeName":"五一卡券",
+      "cardVolumeCount":9999,
+      "cardVolumeDeadline":"2015-05-01 -- 2015-05-31"
+    },
+    {
+      "id":2,
+      "activityCode":"22222",
+      "activityName":"活动2",
+      "createDate":"2014-12-01 12:00",
+      "activityDate":"2014-01-01 -- 2014-01-03",
+      "cardVolumeName":"XXXX",
+      "cardVolumeCount":1000,
+      "cardVolumeDeadline":"2014-01-01 -- 2014-01-31"
+    },
+    {
+      "id":1,
+      "activityCode":"XXXX",
+      "activityName":"活动3",
+      "createDate":"2014-09-01 13:00",
+      "activityDate":"2014-10-01 -- 2014-10-07",
+      "cardVolumeName":"XXXX",
+      "cardVolumeCount":5000,
+      "cardVolumeDeadline":"2014-10-01 -- 2014-10-31"
+    }
+  ]
+}
