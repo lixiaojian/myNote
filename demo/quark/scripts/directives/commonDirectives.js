@@ -47,6 +47,7 @@
                         }
                     }).error(function () {
                         scope.progressing = false;
+                        console.log('上败');
                     });
                 };
             }
