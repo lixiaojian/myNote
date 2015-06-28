@@ -12,7 +12,7 @@
             },
             replace: true,
             template: '\
-                <div class="form-group"> \
+                <div class="form-group" style="width: 60%"> \
                     <div ng-show="progressing" class="progress progress-striped active">\
                         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{progress}}%">\
                             <span>{{progress}}%</span>\
