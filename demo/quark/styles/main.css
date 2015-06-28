@@ -199,6 +199,15 @@ th,td{
 }
 
 /**
+活动管理
+*/
+.activity-detail form{
+    padding-top: 10px;
+}
+.activity-detail .last-label{
+    line-height: 34px;
+}
+/**
 禁止选中
 */
 .no-select{
@@ -210,4 +219,5 @@ th,td{
     -ms-user-select:none;
     user-select:none;
 }
+
 

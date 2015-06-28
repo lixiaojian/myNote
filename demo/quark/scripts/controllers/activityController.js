@@ -40,5 +40,47 @@
             $scope.datas = data.recordList;
         });
 
+        //弹出层
+        $scope.modal = function(type,id){
+            $modal.open({
+                animation: true,
+                templateUrl: 'views/templates/glkzt/activity/activityModal.html',
+                size:'lg',
+                controller: ['$scope','$modalInstance',function(scope, $modalInstance){
+                    //点击确定
+                    scope.ok = function () {
+                        $modalInstance.close();
+                    };
+                    //点击取消
+                    scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                    if('select' === type){
+                        scope.disabled = true;
+                    }else{
+                        scope.disabled = false;
+                    }
+                    //选择的时间
+                    scope.dateTime=[
+                        "00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00",
+                        "08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00",
+                        "16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00"
+                    ];
+                    //日历相关
+                    scope.fbopen = function($event) {
+                        $event.preventDefault();
+                        $event.stopPropagation();
+                        scope.fbopened = !scope.fbopened;
+                    };
+                    scope.feopen = function($event) {
+                        $event.preventDefault();
+                        $event.stopPropagation();
+                        scope.feopened = !scope.feopened;
+                    };
+                    scope.format = 'yyyy-MM-dd';
+                }]
+
+            });
+        }
     }]);
 }(angular.module('backStage')));

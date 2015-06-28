@@ -1,0 +1,248 @@
+<div class="activity-detail">
+    <tabset>
+        <tab heading="活动属性">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="activityNameForm" class="col-sm-3 control-label"> <span class="t_c_r">*</span> 活动名称：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="activityNameForm" placeholder="活动名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="collectDateForm" class="control-label col-sm-3"> <span class="t_c_r">*</span> 活动日期：</label>
+                    <div class="col-sm-3">
+                        <div class="input-group " id="collectDateForm">
+                            <input type="text" data-ng-model="searchProduct.raiseStartingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="fbopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="fbopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input type="text" data-ng-model="searchProduct.raiseEndingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="feopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-ng-click="feopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"> <span class="t_c_r">*</span> 发放渠道：</label>
+                    <div class="col-sm-2">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value=""> APP
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value=""> 微信
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value=""> PC
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="activityLinkForm" class="col-sm-3 control-label">活动链接：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="activityLinkForm">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">活动图片：</label>
+                    <div class="col-sm-6">
+                        <span input-file title="活动图片" model="product.channel[0].descriptionUrl"></span>
+                        <p><span class="t_c_r">*</span> 需为JPG、PNG或GIF格式，大小不超过2M</p>
+                        <img width="50px" height="50px" src="img/u250.png" alt=""/>
+                        <span class="delete-btn glyphicon glyphicon-remove"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="activityLinkForm" class="col-sm-3 control-label">活动描述：</label>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" rows="3" placeholder="活动描述"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div ng-if="!isCheck">
+                        <a class="btn btn-primary" ng-click="ok()">保 存</a>
+                        <a class="btn btn-warning" ng-click="cancel()">返 回</a>
+                    </div>
+                    <div ng-if="isCheck">
+                        <a class="btn btn-warning" ng-click="cancel()">关 闭</a>
+                    </div>
+                </div>
+            </form>
+        </tab>
+        <tab heading="卡券规则">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="cardVolumeNameForm" class="col-sm-3 control-label"> <span class="t_c_r">*</span> 卡券名称：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="cardVolumeNameForm" placeholder="卡券名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="publishCountForm" class="col-sm-3 control-label"> <span class="t_c_r">*</span> 发行总量：</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="publishCountForm" placeholder="发行总量">
+                    </div>
+                    <span class="last-label">张</span>
+                </div>
+                <div class="form-group">
+                    <label for="publishCountDayForm" class="col-sm-3 control-label"> <span class="t_c_r">*</span> 单日最大发行量：</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="publishCountDayForm" placeholder="单日最大发行量">
+                    </div>
+                    <span class="last-label">张</span>
+                </div>
+                <div class="form-group">
+                    <label for="limitCountForm" class="col-sm-3 control-label"> <span class="t_c_r">*</span> 限领数量：</label>
+                    <span class="pull-left last-label"><input name="limit" type="radio"/> 每人可领取</span>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="limitCountForm">
+                    </div>
+                    <span class="last-label">张</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="limit"/> 不限制
+                </div>
+                <div class="form-group">
+                    <label for="limitDateForm" class="col-sm-3 control-label"> <span class="t_c_r">*</span> 领取时段：</label>
+                    <span class="pull-left last-label"> <input name="limit2" type="radio"/> 限制领取时间段 </span>
+                    <div class="col-sm-2">
+                        <select class="form-control" id="limitDateForm">
+                            <option ng-repeat="time in dateTime">{{time}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control">
+                            <option ng-repeat="time in dateTime">{{time}}</option>
+                        </select>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="last-label">
+                        <input type="radio" name="limit2"/> 不限制
+                    </span>
+
+                </div>
+                <div class="modal-footer">
+                    <div ng-if="!isCheck">
+                        <a class="btn btn-primary" ng-click="ok()">保 存</a>
+                        <a class="btn btn-warning" ng-click="cancel()">返 回</a>
+                    </div>
+                    <div ng-if="isCheck">
+                        <a class="btn btn-warning" ng-click="cancel()">关 闭</a>
+                    </div>
+                </div>
+            </form>
+        </tab>
+        <tab heading="卡券属性">
+            <br/>
+            <div data-accordion close-others="oneAtATime">
+                <div data-accordion-group heading="卡券属性一" is-open="true">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="cardVolumeNameForm" class="col-sm-2 control-label"> <span class="t_c_r">*</span> 发放比例：</label>
+                            <div class="col-sm-4">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="optionsRadios">
+                                        设置发放比例
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="optionsRadios">
+                                        不限制
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardVolumeNameForm" class="col-sm-2 control-label"> &nbsp;</label>
+                            <div class="col-sm-8">
+                                <span class="t_c_r">*</span> 发放总量10000张，剩余10000张（若发放比例不限，默认平均分配）
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardVolumeNameForm" class="col-sm-2 control-label"> <span class="t_c_r">*</span> 卡券面值：</label>
+                            <div class="col-sm-8">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>面值</th>
+                                        <th>发放数量（张）</th>
+                                        <th>占比（%）</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>3000</td>
+                                        <td>30%</td>
+                                        <td>
+                                            <a class="btn btn-sm btn-default" href="javascript:" data-ng-click="" role="button">新 增</a>
+                                            <a class="btn btn-sm btn-default" href="javascript:" data-ng-click="" role="button">删 除</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>3000</td>
+                                        <td>30%</td>
+                                        <td>
+                                            <a class="btn btn-sm btn-default" href="javascript:" data-ng-click="" role="button">新 增</a>
+                                            <a class="btn btn-sm btn-default" href="javascript:" data-ng-click="" role="button">删 除</a>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardVolumeNameForm" class="col-sm-2 control-label"> <span class="t_c_r">*</span> 权益类型：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control">
+                                    <option>请选择</option>
+                                    <option>体验金</option>
+                                    <option>抵扣劵</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardVolumeNameForm" class="col-sm-2 control-label"> <span class="t_c_r">*</span> 领取条件：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control">
+                                    <option>不限</option>
+                                    <option>推荐者待被推荐者成功使用体验金后领取</option>
+                                    <option>被推荐者注册后领取</option>
+                                    <option>导入用户</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div data-accordion-group heading="卡券属性二" is-disabled="status.isFirstDisabled">
+
+                </div>
+            </div>
+        </tab>
+        <tab heading="卡券查询">
+            卡券查询
+        </tab>
+    </tabset>
+</div>
