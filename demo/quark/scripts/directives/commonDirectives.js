@@ -14,7 +14,9 @@
             template: '\
                 <div class="form-group"> \
                     <div ng-show="progressing" class="progress progress-striped active">\
-                        <div class="progress-bar bg-color-darken" role="progressbar" style="width: {{progress}}%"></div>\
+                        <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{progress}}%">\
+                            <span>{{progress}}%</span>\
+                        </div>\
                     </div>\
                     <div ng-show="!progressing" class="input-group">\
                         <span style="cursor: pointer;" data-ng-file-change="fileChange($files)" ng-file-select>\
