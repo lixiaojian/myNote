@@ -158,18 +158,18 @@
                         <ul class="clearfix">
                             <li>
                                 APP：<img data-ng-src="{{product.channel[0].descriptionUrl || 'img/u250.png'}}" alt=""/>
-                                <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
-                                <input data-ng-if="!disabled" type="file" class="file-input"/>
+                                <span data-ng-if="!disabled && product.channel[0].descriptionUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
+                                <span data-ng-if="!disabled && product.channel[0].channelCode" input-file title="APP图片" model="product.channel[0].descriptionUrl"></span>
                             </li>
                             <li>
                                 微信：<img data-ng-src="{{product.channel[1].descriptionUrl || 'img/u250.png'}}" alt=""/>
-                                <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
-                                <input data-ng-if="!disabled" type="file" class="file-input"/>
+                                <span data-ng-if="!disabled && product.channel[1].descriptionUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
+                                <span data-ng-if="!disabled && product.channel[1].channelCode" input-file title="微信图片" model="product.channel[1].descriptionUrl"></span>
                             </li>
                             <li>
                                 PC：<img data-ng-src="{{product.channel[2].descriptionUrl || 'img/u250.png'}}" alt=""/>
-                                <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
-                                <input data-ng-if="!disabled" type="file" class="file-input"/>
+                                <span data-ng-if="!disabled && product.channel[2].descriptionUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
+                                <span data-ng-if="!disabled && product.channel[2].channelCode" input-file title="PC图片" model="product.channel[2].descriptionUrl"></span>
                             </li>
                         </ul>
                         <textarea data-ng-model="product.description" data-ng-disabled="disabled" class="form-control" rows="3">财富优加计划是夸客金额为移动互联网...................</textarea>
@@ -182,18 +182,18 @@
                         <ul class="clearfix">
                             <li>
                                 APP：<img data-ng-src="{{product.channel[0].guarContextUrl || 'img/u250.png'}}" alt=""/>
-                                <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
-                                <input data-ng-if="!disabled" type="file" class="file-input"/>
+                                <span data-ng-if="!disabled && product.channel[0].guarContextUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
+                                <span data-ng-if="!disabled && product.channel[0].channelCode" input-file title="APP图片" model="product.channel[0].guarContextUrl"></span>
                             </li>
                             <li>
                                 微信：<img data-ng-src="{{product.channel[1].guarContextUrl || 'img/u250.png'}}" alt=""/>
-                                <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
-                                <input data-ng-if="!disabled" type="file" class="file-input"/>
+                                <span data-ng-if="!disabled && product.channel[1].guarContextUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
+                                <span data-ng-if="!disabled && product.channel[1].channelCode" input-file title="微信图片" model="product.channel[1].guarContextUrl"></span>
                             </li>
                             <li>
                                 PC：<img data-ng-src="{{product.channel[2].guarContextUrl || 'img/u250.png'}}" alt=""/>
-                                <span data-ng-if="!disabled" class="delete-btn glyphicon glyphicon-remove"></span>
-                                <input data-ng-if="!disabled" type="file" class="file-input"/>
+                                <span data-ng-if="!disabled && product.channel[2].guarContextUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
+                                <span data-ng-if="!disabled && product.channel[2].channelCode" input-file title="PC图片"  model="product.channel[2].guarContextUrl"></span>
                             </li>
                         </ul>
                         <textarea data-ng-model="product.guarContext" data-ng-disabled="disabled" class="form-control" rows="3">1、夸客平台不接受客户资金，整个资金流转由央行发牌的第三方支付独立完成..................</textarea>

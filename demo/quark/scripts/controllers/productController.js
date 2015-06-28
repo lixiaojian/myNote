@@ -16,9 +16,36 @@
             $scope.eopened = !$scope.eopened;
         };
         $scope.format = 'yyyy-MM-dd';
+        //分页
+        $scope.page = {
+            //总记录数
+            totalItems:120,
+            //当前页 default:1
+            curPage:1,
+            //每页条数 default:10
+            itemsPerPage:3,
+            //显示页数
+            maxSize:10,
+            previousText:'上一页',
+            nextText:'下一页',
+            //是否显示首页和末页
+            boundaryLinks:true,
+            firstText:'首页',
+            lastText:'末页'
+        };
+        //翻页
+        $scope.changePage = function(){
+            productService.search({start:($scope.page.curPage-1)*$scope.page.itemsPerPage,length:$scope.page.itemsPerPage},function(data){
+                $scope.datas=data.recordList;
+                $scope.page.totalItems = data.iTotalRecords;
+                $scope.page.itemsPerPage = data.pageSize;
+            });
+        };
         //全部数据
         productService.search({},function(data){
-            $scope.datas=data;
+            $scope.datas=data.recordList;
+            $scope.page.totalItems = data.iTotalRecords;
+            $scope.page.itemsPerPage = data.pageSize;
         });
 
         //搜索时的参数

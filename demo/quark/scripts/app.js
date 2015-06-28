@@ -4,7 +4,7 @@
 ;(function(){
     'use strict';
     //定义一个模块
-    var backStage = angular.module('backStage',['ui.tree','ngResource','ui.router','ui.bootstrap']);
+    var backStage = angular.module('backStage',['ui.tree','ngResource','ui.router','ui.bootstrap','angularFileUpload']);
     //配置提交
     function initAjaxRequestType(httpProvider) {
         // Use x-www-form-urlencoded Content-Type

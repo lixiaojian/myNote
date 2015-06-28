@@ -71,7 +71,7 @@
                 <td>{{data.recommendType==1?'精品':'---' }}</td>
                 <td>{{data.realeaseLimitAmt}}</td>
                 <td>{{data.lowestAmt }}</td>
-                <td>{{data.preProfitRate}}</td>
+                <td>{{data.preProfitRate}} %</td>
                 <td>{{data.raiseState==0?'募集中':(data.raiseState==1?'初始化':(data.raiseState==2?'募集完':(data.raiseState==3?'已上架':'已下架')))}}</td>
                 <td>{{(data.completedAmt/data.realeaseLimitAmt)*100 | number : 2}} %</td>
                 <td>{{data.channelName}}</td>
@@ -84,6 +84,12 @@
             </tr>
         </tbody>
     </table>
+
+    <!--分页-->
+    <div class="clearfix">
+        <div data-pagination data-total-items="page.totalItems" data-ng-model="page.curPage" data-max-size="page.maxSize" data-items-per-page="page.itemsPerPage" data-boundary-links="page.boundaryLinks" data-ng-change="changePage()"
+             data-previous-text="{{page.previousText}}" data-next-text="{{page.nextText}}" data-first-text="{{page.firstText}}" data-last-text="{{page.lastText}}"></div>
+    </div>
 
     <!--弹出层-->
     <script type="text/ng-template" id="myModalContent.html">
