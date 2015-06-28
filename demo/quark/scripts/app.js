@@ -78,53 +78,49 @@
             //操作员管理
             .state("glkzt.czygl", {
                 url: "/czygl",
-                templateUrl: "views/templates/glkzt/czygl.html"
+                templateUrl: "views/templates/glkzt/operator/czygl.html"
             })
             //角色管理
             .state("glkzt.jsgl", {
                 url: "/jsgl",
-                templateUrl: "views/templates/glkzt/jsgl.html"
+                templateUrl: "views/templates/glkzt/operator/jsgl.html"
             })
             //产品管理
             .state("glkzt.cpgl", {
                 url: "/cpgl",
-                templateUrl: "views/templates/glkzt/cpgl.html"
+                templateUrl: "views/templates/glkzt/product/cpgl.html"
             })
             //活动查询
             .state("glkzt.hdcx", {
                 url: "/hdcx",
-                templateUrl: "views/templates/glkzt/hdcx.html"
+                templateUrl: "views/templates/glkzt/activity/hdcx.html"
             })
-            //活动查询
+            //新增活动
             .state("glkzt.xzhd", {
                 url: "/xzhd",
-                templateUrl: "views/templates/glkzt/xzhd.html"
+                templateUrl: "views/templates/glkzt/activity/xzhd.html"
             })
             //交易信息查询
             .state("glkzt.jyxxcx", {
                 url: "/jyxxcx",
-                templateUrl: "views/templates/glkzt/jyxxcx.html"
+                templateUrl: "views/templates/glkzt/select/jyxxcx.html"
             })
             //意见反馈查询
             .state("glkzt.yjfkcx", {
                 url: "/yjfkcx",
-                templateUrl: "views/templates/glkzt/yjfkcx.html"
+                templateUrl: "views/templates/glkzt/select/yjfkcx.html"
             })
             //广告管理
             .state("glkzt.gggl", {
                 url: "/gggl",
-                templateUrl: "views/templates/glkzt/gggl.html"
+                templateUrl: "views/templates/glkzt/common/gggl.html"
             })
             //银行信息
             .state("glkzt.yhxx", {
                 url: "/yhxx",
-                templateUrl: "views/templates/glkzt/yhxx.html"
+                templateUrl: "views/templates/glkzt/common/yhxx.html"
             })
-            //推送通知
-            .state("glkzt.tstz", {
-                url: "/tstz",
-                templateUrl: "views/templates/glkzt/tstz.html"
-            })
+
         /**
          * 用户管理
          */

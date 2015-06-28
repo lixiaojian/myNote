@@ -245,7 +245,7 @@
                         scope.disabled = false;
                     }
                 }],
-                templateUrl: 'views/templates/glkzt/productDetail.html',
+                templateUrl: 'views/templates/glkzt/product/productDetail.html',
                 size:'lg'
             });
         };
