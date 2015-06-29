@@ -68,33 +68,38 @@
                     <label class="col-sm-2 control-label"><span class="t_c_r">*</span>权限分配:</label>
                 </div>
                 <div class="authority-list">
-                    <ul>
-                        <li ng-repeat="authority in role.authoritys">
-                            <input data-ng-disabled="isCheck" type="checkbox"/>{{authority.moduleName}}
-                            <ul>
-                                <li ng-repeat="module in authority.subModule">
-                                    <input data-ng-disabled="isCheck" type="checkbox"/>{{module.subName}}
-                                    <ul class="clearfix">
-                                        <li class="pull-left" ng-if="module.select">
-                                            <input data-ng-disabled="isCheck" ng-model="module.select.has" type="checkbox"/>{{module.select.name}}
-                                        </li>
-                                        <li class="pull-left" ng-if="module.add">
-                                            <input data-ng-disabled="isCheck" ng-model="module.add.has" type="checkbox"/>{{module.add.name}}
-                                        </li>
-                                        <li class="pull-left" ng-if="module.edit">
-                                            <input data-ng-disabled="isCheck" ng-model="module.edit.has" type="checkbox"/>{{module.edit.name}}
-                                        </li>
-                                        <li class="pull-left" ng-if="module.delete">
-                                            <input data-ng-disabled="isCheck" ng-model="module.delete.has" type="checkbox"/>{{module.delete.name}}
-                                        </li>
-                                        <li class="pull-left" ng-if="module.export">
-                                            <input data-ng-disabled="isCheck" ng-model="module.export.has" type="checkbox"/>{{module.export.name}}
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <div class="tree">
+                        <ul>
+                            <li ng-repeat="country in role.authoritys" ng-class="{closed:tree.isFolded(country)}">
+                                <div>
+                                    <input type="checkbox" ng-model="country.checked" ng-change="tree.check(country, country.checked)"
+                                           ng-class="{intermediate: tree.isSemiChecked(country)}"/>
+                                      <span ng-click="tree.toggleFold(country)">
+                                        <span class="glyphicon" ng-class="tree.isFolded(country)?'glyphicon-plus':'glyphicon-minus'"></span>
+                                        {{country.label}}
+                                      </span>
+                                </div>
+                                <ul ng-class="{hidden: tree.isFolded(country)}">
+                                    <li ng-repeat="province in country.items" ng-class="{closed:tree.isFolded(province)}">
+                                        <input type="checkbox" ng-model="province.checked" ng-change="tree.check(province, province.checked)"
+                                               ng-class="{intermediate: tree.isSemiChecked(province)}"/>
+                                        <span ng-click="tree.toggleFold(province)">
+                                          <span class="glyphicon" ng-class="tree.isFolded(province)?'glyphicon-plus':'glyphicon-minus'"></span>
+                                          {{province.label}}
+                                        </span>
+                                        <ul class="clearfix" ng-class="{hidden: tree.isFolded(province)}">
+                                            <li class="pull-left" ng-repeat="city in province.items">
+                                                <label>
+                                                    <input type="checkbox" ng-model="city.checked" ng-change="tree.check(city, city.checked)"/>
+                                                    {{city.label}}
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </form>
         </div>

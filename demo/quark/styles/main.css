@@ -84,6 +84,20 @@ th,td{
 .authority-list .pull-left{
     padding-right: 16px;
 }
+
+.tree li {
+    cursor: pointer;
+    padding-left: 2em;
+}
+
+.tree ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.intermediate {
+    opacity: 0.2;
+}
 /**
 分页
 */

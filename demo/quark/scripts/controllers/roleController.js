@@ -41,7 +41,7 @@
             $modal.open({
                 animation: true,
                 templateUrl: 'myModalContent.html',
-                controller: ['$scope','$modalInstance',function($scope, $modalInstance){
+                controller: ['$scope','$modalInstance','TreeData',function($scope, $modalInstance,TreeData){
 
                     $scope.isCheck = false;
                     if('add' === type){
@@ -55,6 +55,7 @@
                     if(id){
                         roleService.findById({id:id},function(data){
                             $scope.role = data;
+                            $scope.tree = new TreeData($scope.role.authoritys);
                         });
                     }else{
                         $scope.role ={
