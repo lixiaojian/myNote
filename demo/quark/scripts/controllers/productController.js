@@ -58,7 +58,9 @@
             $scope.searchProduct.raiseStartingTime = $filter('date')($scope.searchProduct.raiseStartingTime,'yyyy-MM-dd');
             $scope.searchProduct.raiseEndingTime = $filter('date')($scope.searchProduct.raiseEndingTime,'yyyy-MM-dd');
             productService.search($scope.searchProduct,function(data){
-                $scope.datas=data;
+                $scope.datas=data.recordList;
+                $scope.page.totalItems = data.iTotalRecords;
+                $scope.page.itemsPerPage = data.pageSize;
             });
         };
 
@@ -133,7 +135,7 @@
                                     }
                                 }
                                 scope.productsOrder.goodProduct.push(curLeftProduct);
-                                scope.productsOrder.goodProduct = $filter('orderBy')(scope.productsOrder.goodProduct,'orderNumber2');
+                                //scope.productsOrder.goodProduct = $filter('orderBy')(scope.productsOrder.goodProduct,'orderNumber2');
                             }
                             $timeout(function(){canClick = true;},200);
                         };

@@ -129,7 +129,7 @@
                         精品
                     </div>
                     <ul>
-                        <li ng-repeat="gp in productsOrder.goodProduct | filter:filterName | orderBy:'orderNumber2'">
+                        <li ng-repeat="gp in productsOrder.goodProduct | filter:filterName">
                             <input type="radio" data-pre="{{productsOrder.goodProduct[$index-1].pid}}" data-next="{{productsOrder.goodProduct[$index+1].pid}}" id="g_p_{{gp.pid}}" data-ng-click="setCurr($event,gp,'right')" name="goodProduct"/>&nbsp;<label for="g_p_{{gp.pid}}">{{gp.name}}&nbsp;&nbsp;&nbsp;{{gp.status}}</label>
                         </li>
                     </ul>
