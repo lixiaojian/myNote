@@ -1,210 +1,214 @@
 <div class="product-detail">
     <tabset>
         <tab heading="基本信息">
-            <form class="form-inline top-form clearfix">
-                <div class="form-group col-lg-12">
-                    <label>产品名称：</label>
-                    <span> {{product.productName}}</span>
-                </div>
-                <div class="form-group col-lg-12">
-                    <label>产品类型：</label>
-                    <span> {{product.productType}}</span>
-                </div>
-                <div class="form-group col-lg-4">
-                    <label>产品期数：</label>
-                    <span> {{product.periodCore}}</span>
-                </div>
-                <div class="form-group col-lg-8">
-                    <label>发行天数：</label>
-                    <span> {{product.period}}</span>
-                </div>
+            <div class="modal-body">
+                <form class="form-inline top-form clearfix">
+                    <div class="form-group col-lg-12">
+                        <label>产品名称：</label>
+                        <span> {{product.productName}}</span>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>产品类型：</label>
+                        <span> {{product.productType}}</span>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>产品期数：</label>
+                        <span> {{product.periodCore}}</span>
+                    </div>
+                    <div class="form-group col-lg-8">
+                        <label>发行天数：</label>
+                        <span> {{product.period}}</span>
+                    </div>
 
-                <div class="form-group col-lg-12">
-                    <label>募集总额：</label>
-                    <span> {{product.realeaseLimitAmt}}元</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <label for="lowest_amt_form">起投金额：</label>
-                    <input type="text" data-ng-model="product.lowestAmt" data-ng-disabled="disabled" class="form-control" id="lowest_amt_form" placeholder="请输入起投金额">元
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <label for="accumulate_amt_form">递增金额：</label>
-                    <input type="text" data-ng-model="product.accumulateAmt" data-ng-disabled="disabled" class="form-control" id="accumulate_amt_form" placeholder="请输入递增金额">元
-                </div>
+                    <div class="form-group col-lg-12">
+                        <label>募集总额：</label>
+                        <span> {{product.realeaseLimitAmt}}元</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <label for="lowest_amt_form">起投金额：</label>
+                        <input type="text" data-ng-model="product.lowestAmt" data-ng-disabled="disabled" class="form-control" id="lowest_amt_form" placeholder="请输入起投金额">元
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <label for="accumulate_amt_form">递增金额：</label>
+                        <input type="text" data-ng-model="product.accumulateAmt" data-ng-disabled="disabled" class="form-control" id="accumulate_amt_form" placeholder="请输入递增金额">元
+                    </div>
 
-                <div class="form-group col-lg-12">
-                    <label for="display_parameter1_form">首页展示参数：</label>
-                    <input type="text" data-ng-model="product.displayParameter1" data-ng-disabled="disabled" class="form-control" id="display_parameter1_form" placeholder="请输入展示参数1">
-                    -
-                    <input type="text" data-ng-model="product.displayParameter2" data-ng-disabled="disabled" class="form-control" id="display_parameter2_form" placeholder="请输入展示参数2">
-                    -
-                    <input type="text" data-ng-model="product.displayParameter3" data-ng-disabled="disabled" class="form-control" id="display_parameter3_form" placeholder="请输入展示参数3">
-                </div>
-                <div class="form-group detail-list col-lg-12">
-                    <ul class="clearfix">
-                        <li class="left">
-                            <label>预期年化收益率：</label>
-                            <span> {{product.preProfitRate}}%</span>
-                        </li>
-                        <li class="center">
-                            <label>发布渠道：</label>
-                            <span>
-                                <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/>APP &nbsp;&nbsp;
-                                <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/>微信 &nbsp;&nbsp;
-                                <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled" type="checkbox"/>PC
-                            </span>
-                        </li>
-                        <li class="right">
-                            <label>补贴收益率：</label>
-                            <div class="btsyl">
+                    <div class="form-group col-lg-12">
+                        <label for="display_parameter1_form">首页展示参数：</label>
+                        <input type="text" data-ng-model="product.displayParameter1" data-ng-disabled="disabled" class="form-control" id="display_parameter1_form" placeholder="请输入展示参数1">
+                        -
+                        <input type="text" data-ng-model="product.displayParameter2" data-ng-disabled="disabled" class="form-control" id="display_parameter2_form" placeholder="请输入展示参数2">
+                        -
+                        <input type="text" data-ng-model="product.displayParameter3" data-ng-disabled="disabled" class="form-control" id="display_parameter3_form" placeholder="请输入展示参数3">
+                    </div>
+                    <div class="form-group detail-list col-lg-12">
+                        <ul class="clearfix">
+                            <li class="left">
+                                <label>预期年化收益率：</label>
+                                <span> {{product.preProfitRate}}%</span>
+                            </li>
+                            <li class="center">
+                                <label>发布渠道：</label>
                                 <span>
-                                    <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/><label>APP</label>
-                                    <input data-ng-model="product.channel[0].subsidyRate" data-ng-disabled="disabled" type="text" class="form-control"> %
+                                    <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/>APP &nbsp;&nbsp;
+                                    <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/>微信 &nbsp;&nbsp;
+                                    <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled" type="checkbox"/>PC
                                 </span>
-                                    <br/>
-                                <span>
-                                    <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/><label>微信</label>
-                                    <input data-ng-model="product.channel[1].subsidyRate" data-ng-disabled="disabled" type="text" class="form-control"> %
-                                </span>
-                                    <br/>
-                                <span>
-                                    <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled" type="checkbox"/><label>PC</label>
-                                    <input data-ng-model="product.channel[2].subsidyRate" data-ng-disabled="disabled" type="text" class="form-control"> %
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </form>
-            <form class="form-inline clearfix">
-                <div class="form-group col-lg-5">
-                    <label for="productStatus-form">产品状态：</label>
-                    <select data-ng-model="product.raiseState" data-ng-disabled="disabled" class="form-control" id="productStatus-form">
-                        <option value="0">募集中</option>
-                        <option value="1">初始化</option>
-                        <option value="2">募集完成</option>
-                        <option value="3">已上架</option>
-                        <option value="4">已下架</option>
-                    </select>
-                </div>
+                            </li>
+                            <li class="right">
+                                <label>补贴收益率：</label>
+                                <div class="btsyl">
+                                    <span>
+                                        <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/><label>APP</label>
+                                        <input data-ng-model="product.channel[0].subsidyRate" data-ng-disabled="disabled" type="text" class="form-control"> %
+                                    </span>
+                                        <br/>
+                                    <span>
+                                        <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/><label>微信</label>
+                                        <input data-ng-model="product.channel[1].subsidyRate" data-ng-disabled="disabled" type="text" class="form-control"> %
+                                    </span>
+                                        <br/>
+                                    <span>
+                                        <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled" type="checkbox"/><label>PC</label>
+                                        <input data-ng-model="product.channel[2].subsidyRate" data-ng-disabled="disabled" type="text" class="form-control"> %
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+                <form class="form-inline clearfix">
+                    <div class="form-group col-lg-5">
+                        <label for="productStatus-form">产品状态：</label>
+                        <select data-ng-model="product.raiseState" data-ng-disabled="disabled" class="form-control" id="productStatus-form">
+                            <option value="0">募集中</option>
+                            <option value="1">初始化</option>
+                            <option value="2">募集完成</option>
+                            <option value="3">已上架</option>
+                            <option value="4">已下架</option>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label for="mjwcx">募集完成线：</label>
-                    <input type="text" data-ng-disabled="disabled" class="form-control" id="mjwcx"> %
-                    <br/>
-                    <span>* 已售43%</span>
-                </div>
-                <div class="form-group col-lg-12">
-                    <span>* 下架时间 >= 募集完成时间 > 募集开始时间 >= 上架时间</span>
-                </div>
-                <div class="form-group col-lg-5">
-                    <label for="sjsj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上架时间：</label>
-                    <input data-ng-model="product.upTime" data-ng-disabled="disabled" type="text" class="form-control" id="sjsj">
-                </div>
-                <div class="form-group col-lg-7">
-                    <label for="xjsj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下架时间：</label>
-                    <input data-ng-model="product.downTime" data-ng-disabled="disabled" type="text" class="form-control" id="xjsj">
-                </div>
-                <div class="form-group col-lg-5">
-                    <label for="mjkssj">募集开始时间：</label>
-                    <input data-ng-model="product.raiseStartingTime" data-ng-disabled="disabled" type="text" class="form-control" id="mjkssj">
-                </div>
-                <div class="form-group col-lg-7">
-                    <label for="mjwcsj">募集完成时间：</label>
-                    <input data-ng-model="product.raiseEndingTime" data-ng-disabled="disabled" type="text" class="form-control" id="mjwcsj">
-                </div>
-                <div class="btn-box col-sm-11 clearfix">
-                    <a data-ng-if="disabled" class="btn btn-default pull-right" href="javascript:" ng-click="cancel()" role="button">关闭</a>
-                    <a data-ng-if="!disabled" class="btn btn-primary pull-right" ng-click="ok()">保 存</a>
-                    <a data-ng-if="!disabled" class="btn btn-warning pull-right" ng-click="cancel()">返 回</a>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label for="mjwcx">募集完成线：</label>
+                        <input type="text" data-ng-disabled="disabled" class="form-control" id="mjwcx"> %
+                        <br/>
+                        <span>* 已售43%</span>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <span>* 下架时间 >= 募集完成时间 > 募集开始时间 >= 上架时间</span>
+                    </div>
+                    <div class="form-group col-lg-5">
+                        <label for="sjsj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上架时间：</label>
+                        <input data-ng-model="product.upTime" data-ng-disabled="disabled" type="text" class="form-control" id="sjsj">
+                    </div>
+                    <div class="form-group col-lg-7">
+                        <label for="xjsj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下架时间：</label>
+                        <input data-ng-model="product.downTime" data-ng-disabled="disabled" type="text" class="form-control" id="xjsj">
+                    </div>
+                    <div class="form-group col-lg-5">
+                        <label for="mjkssj">募集开始时间：</label>
+                        <input data-ng-model="product.raiseStartingTime" data-ng-disabled="disabled" type="text" class="form-control" id="mjkssj">
+                    </div>
+                    <div class="form-group col-lg-7">
+                        <label for="mjwcsj">募集完成时间：</label>
+                        <input data-ng-model="product.raiseEndingTime" data-ng-disabled="disabled" type="text" class="form-control" id="mjwcsj">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a data-ng-if="!disabled" class="btn btn-primary" ng-click="ok()">保 存</a>
+                <a data-ng-if="!disabled" class="btn btn-warning" ng-click="cancel()">返 回</a>
+                <a data-ng-if="disabled" class="btn btn-default" href="javascript:" ng-click="cancel()" role="button">关闭</a>
+            </div>
         </tab>
         <tab heading="产品描述">
-            <form class="form-inline clearfix product-desc">
-                <div class="form-group col-lg-12">
-                    <label>合同协议路径：</label>
-                    <span> {{product.contractPath}}</span>
-                </div>
-                <div class="form-group col-lg-12">
-                    <label>风险补偿金：</label>
-                    <span> {{product.riskCompensation}}</span>
-                </div>
-                <div class="form-group col-lg-12">
-                    <label>出借咨询服务费：</label>
-                    <span> 一一一一不知道一一一一一</span>
-                </div>
-                <div class="form-group col-lg-12">
-                    <label>资金监管机构：</label>
-                    <span> {{product.superviseOrg}}</span>
-                </div>
-                <div class="form-group col-lg-12">
-                    <label>起息日说明：</label>
-                    <span> 一一一一不知道一一一一一</span>
-                </div>
-                <div class="form-group col-lg-12">
-                    <label>还款方式：</label>
-                    <span> {{product.repaymentType}}</span>
-                </div>
-                <div class="form-group col-lg-12">
-                    <label>退出方式：</label>
-                    <span> {{product.qiutDescribe}}</span>
-                </div>
-                <div class="form-group col-lg-12">
-                    <label>资金回款：</label>
-                    <span> {{product.repatmentDescribe}}</span>
-                </div>
-                <div class="form-group col-lg-12">
-                    <label>项目描述：</label>
-                    <div class="product-desc-div">
-                        <ul class="clearfix">
-                            <li>
-                                APP：<img data-ng-src="{{product.channel[0].descriptionUrl || 'img/u250.png'}}" alt=""/>
-                                <span data-ng-if="!disabled && product.channel[0].descriptionUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
-                                <span data-ng-if="!disabled && product.channel[0].channelCode" input-file title="APP图片" model="product.channel[0].descriptionUrl"></span>
-                            </li>
-                            <li>
-                                微信：<img data-ng-src="{{product.channel[1].descriptionUrl || 'img/u250.png'}}" alt=""/>
-                                <span data-ng-if="!disabled && product.channel[1].descriptionUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
-                                <span data-ng-if="!disabled && product.channel[1].channelCode" input-file title="微信图片" model="product.channel[1].descriptionUrl"></span>
-                            </li>
-                            <li>
-                                PC：<img data-ng-src="{{product.channel[2].descriptionUrl || 'img/u250.png'}}" alt=""/>
-                                <span data-ng-if="!disabled && product.channel[2].descriptionUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
-                                <span data-ng-if="!disabled && product.channel[2].channelCode" input-file title="PC图片" model="product.channel[2].descriptionUrl"></span>
-                            </li>
-                        </ul>
-                        <textarea data-ng-model="product.description" data-ng-disabled="disabled" class="form-control" rows="3">财富优加计划是夸客金额为移动互联网...................</textarea>
+            <div class="modal-body">
+                <form class="form-inline clearfix product-desc">
+                    <div class="form-group col-lg-12">
+                        <label>合同协议路径：</label>
+                        <span> {{product.contractPath}}</span>
                     </div>
-                </div>
-                <br/>
-                <div class="form-group col-lg-12">
-                    <label>资金保障：</label>
-                    <div class="product-desc-div">
-                        <ul class="clearfix">
-                            <li>
-                                APP：<img data-ng-src="{{product.channel[0].guarContextUrl || 'img/u250.png'}}" alt=""/>
-                                <span data-ng-if="!disabled && product.channel[0].guarContextUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
-                                <span data-ng-if="!disabled && product.channel[0].channelCode" input-file title="APP图片" model="product.channel[0].guarContextUrl"></span>
-                            </li>
-                            <li>
-                                微信：<img data-ng-src="{{product.channel[1].guarContextUrl || 'img/u250.png'}}" alt=""/>
-                                <span data-ng-if="!disabled && product.channel[1].guarContextUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
-                                <span data-ng-if="!disabled && product.channel[1].channelCode" input-file title="微信图片" model="product.channel[1].guarContextUrl"></span>
-                            </li>
-                            <li>
-                                PC：<img data-ng-src="{{product.channel[2].guarContextUrl || 'img/u250.png'}}" alt=""/>
-                                <span data-ng-if="!disabled && product.channel[2].guarContextUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
-                                <span data-ng-if="!disabled && product.channel[2].channelCode" input-file title="PC图片"  model="product.channel[2].guarContextUrl"></span>
-                            </li>
-                        </ul>
-                        <textarea data-ng-model="product.guarContext" data-ng-disabled="disabled" class="form-control" rows="3">1、夸客平台不接受客户资金，整个资金流转由央行发牌的第三方支付独立完成..................</textarea>
+                    <div class="form-group col-lg-12">
+                        <label>风险补偿金：</label>
+                        <span> {{product.riskCompensation}}</span>
                     </div>
-                </div>
-                <div class="btn-box col-sm-11 clearfix">
-                    <a data-ng-if="disabled" class="btn btn-default pull-right" href="javascript:" ng-click="cancel()" role="button">关闭</a>
-                    <a data-ng-if="!disabled" class="btn btn-primary pull-right" ng-click="ok()">保 存</a>
-                    <a data-ng-if="!disabled" class="btn btn-warning pull-right" ng-click="cancel()">返 回</a>
-                </div>
-            </form>
+                    <div class="form-group col-lg-12">
+                        <label>出借咨询服务费：</label>
+                        <span> 一一一一不知道一一一一一</span>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>资金监管机构：</label>
+                        <span> {{product.superviseOrg}}</span>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>起息日说明：</label>
+                        <span> 一一一一不知道一一一一一</span>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>还款方式：</label>
+                        <span> {{product.repaymentType}}</span>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>退出方式：</label>
+                        <span> {{product.qiutDescribe}}</span>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>资金回款：</label>
+                        <span> {{product.repatmentDescribe}}</span>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>项目描述：</label>
+                        <div class="product-desc-div">
+                            <ul class="clearfix">
+                                <li>
+                                    APP：<img data-ng-src="{{product.channel[0].descriptionUrl || 'img/u250.png'}}" alt=""/>
+                                    <span data-ng-if="!disabled && product.channel[0].descriptionUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
+                                    <span data-ng-if="!disabled && product.channel[0].channelCode" input-file title="APP图片" model="product.channel[0].descriptionUrl"></span>
+                                </li>
+                                <li>
+                                    微信：<img data-ng-src="{{product.channel[1].descriptionUrl || 'img/u250.png'}}" alt=""/>
+                                    <span data-ng-if="!disabled && product.channel[1].descriptionUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
+                                    <span data-ng-if="!disabled && product.channel[1].channelCode" input-file title="微信图片" model="product.channel[1].descriptionUrl"></span>
+                                </li>
+                                <li>
+                                    PC：<img data-ng-src="{{product.channel[2].descriptionUrl || 'img/u250.png'}}" alt=""/>
+                                    <span data-ng-if="!disabled && product.channel[2].descriptionUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
+                                    <span data-ng-if="!disabled && product.channel[2].channelCode" input-file title="PC图片" model="product.channel[2].descriptionUrl"></span>
+                                </li>
+                            </ul>
+                            <textarea data-ng-model="product.description" data-ng-disabled="disabled" class="form-control" rows="3">财富优加计划是夸客金额为移动互联网...................</textarea>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group col-lg-12">
+                        <label>资金保障：</label>
+                        <div class="product-desc-div">
+                            <ul class="clearfix">
+                                <li>
+                                    APP：<img data-ng-src="{{product.channel[0].guarContextUrl || 'img/u250.png'}}" alt=""/>
+                                    <span data-ng-if="!disabled && product.channel[0].guarContextUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
+                                    <span data-ng-if="!disabled && product.channel[0].channelCode" input-file title="APP图片" model="product.channel[0].guarContextUrl"></span>
+                                </li>
+                                <li>
+                                    微信：<img data-ng-src="{{product.channel[1].guarContextUrl || 'img/u250.png'}}" alt=""/>
+                                    <span data-ng-if="!disabled && product.channel[1].guarContextUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
+                                    <span data-ng-if="!disabled && product.channel[1].channelCode" input-file title="微信图片" model="product.channel[1].guarContextUrl"></span>
+                                </li>
+                                <li>
+                                    PC：<img data-ng-src="{{product.channel[2].guarContextUrl || 'img/u250.png'}}" alt=""/>
+                                    <span data-ng-if="!disabled && product.channel[2].guarContextUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
+                                    <span data-ng-if="!disabled && product.channel[2].channelCode" input-file title="PC图片"  model="product.channel[2].guarContextUrl"></span>
+                                </li>
+                            </ul>
+                            <textarea data-ng-model="product.guarContext" data-ng-disabled="disabled" class="form-control" rows="3">1、夸客平台不接受客户资金，整个资金流转由央行发牌的第三方支付独立完成..................</textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a data-ng-if="!disabled" class="btn btn-primary" ng-click="ok()">保 存</a>
+                <a data-ng-if="!disabled" class="btn btn-warning" ng-click="cancel()">返 回</a>
+                <a data-ng-if="disabled" class="btn btn-default" href="javascript:" ng-click="cancel()" role="button">关闭</a>
+            </div>
         </tab>
     </tabset>
 </div>

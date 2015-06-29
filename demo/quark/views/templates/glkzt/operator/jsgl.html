@@ -99,13 +99,9 @@
             </form>
         </div>
         <div class="modal-footer">
-            <div ng-if="!isCheck">
-                <a class="btn btn-primary" ng-click="ok()">保 存</a>
-                <a class="btn btn-warning" ng-click="cancel()">返 回</a>
-            </div>
-            <div ng-if="isCheck">
-                <a class="btn btn-warning" ng-click="cancel()">关 闭</a>
-            </div>
+            <a ng-if="!isCheck" class="btn btn-primary" ng-click="ok()">保 存</a>
+            <a ng-if="!isCheck" class="btn btn-warning" ng-click="cancel()">返 回</a>
+            <a ng-if="isCheck" class="btn btn-default" ng-click="cancel()">关 闭</a>
         </div>
     </script>
 </div>
