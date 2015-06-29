@@ -70,6 +70,10 @@ th,td{
 /**
 角色管理
 */
+.authority-list{
+    max-height: 400px;
+    overflow-y: auto;
+}
 .authority-list ul ul{
     border-left: 1px dashed #ccc;
 }
@@ -207,13 +211,7 @@ th,td{
 .product-detail .detail-list .right .btsyl label{
     width: 40px;
 }
-.product-desc label{
-    width: 140px;
-    text-align: right;
-}
-.product-desc .product-desc-div{
-    padding-left: 140px;
-}
+
 .product-desc-div ul{
     margin: 0;
     padding: 0 0 10px 0;

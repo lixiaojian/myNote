@@ -70,8 +70,8 @@
                         <label class="control-label col-sm-2">发布渠道：</label>
                         <div class="col-sm-2">
                             <span class="form-control-span">
-                                <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/>APP &nbsp;&nbsp;
-                                <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/>微信 &nbsp;&nbsp;
+                                <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/>APP &nbsp;
+                                <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/>微信 &nbsp;
                                 <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled" type="checkbox"/>PC
                             </span>
                         </div>
@@ -155,42 +155,66 @@
         </tab>
         <tab heading="产品描述">
             <div class="modal-body">
-                <form class="form-inline clearfix product-desc">
-                    <div class="form-group col-lg-12">
-                        <label>合同协议路径：</label>
-                        <span> {{product.contractPath}}</span>
+                <form class="form-horizontal product-desc">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">合同协议路径：</label>
+                        <div class="col-sm-8">
+                            <input data-ng-model="product.contractPath" data-ng-disabled="disabled" type="text" class="form-control">
+                        </div>
                     </div>
-                    <div class="form-group col-lg-12">
-                        <label>风险补偿金：</label>
-                        <span> {{product.riskCompensation}}</span>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">合同协议路径：</label>
+                        <div class="col-sm-8">
+                            <input data-ng-model="product.riskCompensation" data-ng-disabled="disabled" type="text" class="form-control">
+                        </div>
                     </div>
-                    <div class="form-group col-lg-12">
-                        <label>出借咨询服务费：</label>
-                        <span> 一一一一不知道一一一一一</span>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">出借咨询服务费：</label>
+                        <div class="col-sm-8">
+                            <input data-ng-model="" data-ng-disabled="disabled" type="text" class="form-control">
+                        </div>
                     </div>
-                    <div class="form-group col-lg-12">
-                        <label>资金监管机构：</label>
-                        <span> {{product.superviseOrg}}</span>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">资金监管机构：</label>
+                        <div class="col-sm-8">
+                            <input data-ng-model="product.superviseOrg" data-ng-disabled="disabled" type="text" class="form-control">
+                        </div>
                     </div>
-                    <div class="form-group col-lg-12">
-                        <label>起息日说明：</label>
-                        <span> 一一一一不知道一一一一一</span>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">起息日说明：</label>
+                        <div class="col-sm-8">
+                            <input data-ng-model="" data-ng-disabled="disabled" type="text" class="form-control">
+                        </div>
                     </div>
-                    <div class="form-group col-lg-12">
-                        <label>还款方式：</label>
-                        <span> {{product.repaymentType}}</span>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">还款方式：</label>
+                        <div class="col-sm-8">
+                            <input data-ng-model="product.repaymentType" data-ng-disabled="disabled" type="text" class="form-control">
+                        </div>
                     </div>
-                    <div class="form-group col-lg-12">
-                        <label>退出方式：</label>
-                        <span> {{product.qiutDescribe}}</span>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">退出方式：</label>
+                        <div class="col-sm-8">
+                            <input data-ng-model="product.qiutDescribe" data-ng-disabled="disabled" type="text" class="form-control">
+                        </div>
                     </div>
-                    <div class="form-group col-lg-12">
-                        <label>资金回款：</label>
-                        <span> {{product.repatmentDescribe}}</span>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">资金回款：</label>
+                        <div class="col-sm-8">
+                            <input data-ng-model="product.repatmentDescribe" data-ng-disabled="disabled" type="text" class="form-control">
+                        </div>
                     </div>
-                    <div class="form-group col-lg-12">
-                        <label>项目描述：</label>
-                        <div class="product-desc-div">
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">项目描述：</label>
+                        <div class="col-sm-10 product-desc-div">
                             <ul class="clearfix">
                                 <li>
                                     APP：<img data-ng-src="{{product.channel[0].descriptionUrl || 'img/u250.png'}}" alt=""/>
@@ -212,9 +236,9 @@
                         </div>
                     </div>
                     <br/>
-                    <div class="form-group col-lg-12">
-                        <label>资金保障：</label>
-                        <div class="product-desc-div">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">资金保障：</label>
+                        <div class="col-sm-10 product-desc-div">
                             <ul class="clearfix">
                                 <li>
                                     APP：<img data-ng-src="{{product.channel[0].guarContextUrl || 'img/u250.png'}}" alt=""/>
