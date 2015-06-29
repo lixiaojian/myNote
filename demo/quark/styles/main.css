@@ -1,9 +1,10 @@
-body{
+body,.btn{
     font-size: 13px;
 }
 label{
     font-weight: normal;
 }
+
 /**
 * 顶部导航
 */
