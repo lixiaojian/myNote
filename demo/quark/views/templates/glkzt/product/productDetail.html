@@ -2,115 +2,148 @@
     <tabset>
         <tab heading="基本信息">
             <div class="modal-body">
-                <form class="form-inline top-form clearfix">
-                    <div class="form-group col-lg-12">
-                        <label>产品名称：</label>
-                        <span> {{product.productName}}</span>
+                <form class="form-horizontal" style="border-bottom: 1px dashed #ccc;padding-bottom:10px">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">产品名称：</label>
+                        <div class="col-sm-10">
+                            <span class="form-control-span">{{product.productName}}</span>
+                        </div>
                     </div>
-                    <div class="form-group col-lg-12">
-                        <label>产品类型：</label>
-                        <span> {{product.productType}}</span>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">产品类型：</label>
+                        <div class="col-sm-10">
+                            <span class="form-control-span"> {{product.productType}}</span>
+                        </div>
                     </div>
-                    <div class="form-group col-lg-4">
-                        <label>产品期数：</label>
-                        <span> {{product.periodCore}}</span>
-                    </div>
-                    <div class="form-group col-lg-8">
-                        <label>发行天数：</label>
-                        <span> {{product.period}}</span>
-                    </div>
-
-                    <div class="form-group col-lg-12">
-                        <label>募集总额：</label>
-                        <span> {{product.realeaseLimitAmt}}元</span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <label for="lowest_amt_form">起投金额：</label>
-                        <input type="text" data-ng-model="product.lowestAmt" data-ng-disabled="disabled" class="form-control" id="lowest_amt_form" placeholder="请输入起投金额">元
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <label for="accumulate_amt_form">递增金额：</label>
-                        <input type="text" data-ng-model="product.accumulateAmt" data-ng-disabled="disabled" class="form-control" id="accumulate_amt_form" placeholder="请输入递增金额">元
-                    </div>
-
-                    <div class="form-group col-lg-12">
-                        <label for="display_parameter1_form">首页展示参数：</label>
-                        <input type="text" data-ng-model="product.displayParameter1" data-ng-disabled="disabled" class="form-control" id="display_parameter1_form" placeholder="请输入展示参数1">
-                        -
-                        <input type="text" data-ng-model="product.displayParameter2" data-ng-disabled="disabled" class="form-control" id="display_parameter2_form" placeholder="请输入展示参数2">
-                        -
-                        <input type="text" data-ng-model="product.displayParameter3" data-ng-disabled="disabled" class="form-control" id="display_parameter3_form" placeholder="请输入展示参数3">
-                    </div>
-                    <div class="form-group detail-list col-lg-12">
-                        <ul class="clearfix">
-                            <li class="left">
-                                <label>预期年化收益率：</label>
-                                <span> {{product.preProfitRate}}%</span>
-                            </li>
-                            <li class="center">
-                                <label>发布渠道：</label>
-                                <span>
-                                    <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/>APP &nbsp;&nbsp;
-                                    <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/>微信 &nbsp;&nbsp;
-                                    <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled" type="checkbox"/>PC
-                                </span>
-                            </li>
-                            <li class="right">
-                                <label>补贴收益率：</label>
-                                <div class="btsyl">
-                                    <span>
-                                        <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/><label>APP</label>
-                                        <input data-ng-model="product.channel[0].subsidyRate" data-ng-disabled="disabled" type="text" class="form-control"> %
-                                    </span>
-                                        <br/>
-                                    <span>
-                                        <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/><label>微信</label>
-                                        <input data-ng-model="product.channel[1].subsidyRate" data-ng-disabled="disabled" type="text" class="form-control"> %
-                                    </span>
-                                        <br/>
-                                    <span>
-                                        <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled" type="checkbox"/><label>PC</label>
-                                        <input data-ng-model="product.channel[2].subsidyRate" data-ng-disabled="disabled" type="text" class="form-control"> %
-                                    </span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
-                <form class="form-inline clearfix">
-                    <div class="form-group col-lg-5">
-                        <label for="productStatus-form">产品状态：</label>
-                        <select data-ng-model="product.raiseState" data-ng-disabled="disabled" class="form-control" id="productStatus-form">
-                            <option value="0">募集中</option>
-                            <option value="1">初始化</option>
-                            <option value="2">募集完成</option>
-                            <option value="3">已上架</option>
-                            <option value="4">已下架</option>
-                        </select>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">产品期数：</label>
+                        <div class="col-sm-2 m-r-80">
+                            <span class="form-control-span"> {{product.periodCore}}</span>
+                        </div>
+                        <div class="clearfix">
+                            <label class="control-label col-sm-2">发行天数：</label>
+                            <div class="col-sm-2">
+                                <span class="form-control-span"> {{product.period}}</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="mjwcx">募集完成线：</label>
-                        <input type="text" data-ng-disabled="disabled" class="form-control" id="mjwcx"> %
-                        <br/>
-                        <span>* 已售43%</span>
+                        <label class="control-label col-sm-2">募集总额：</label>
+                        <div class="col-sm-2 m-r-80">
+                            <span class="form-control-span"> {{product.realeaseLimitAmt}}元</span>
+                        </div>
+
+                        <label class="control-label col-sm-2">起投金额：</label>
+                        <div class="col-sm-2">
+                            <div class="input-group">
+                                <input type="text" data-ng-model="product.lowestAmt" data-ng-disabled="disabled" class="form-control" id="lowest_amt_form" placeholder="请输入起投金额">
+                                <span class="input-group-addon">元</span>
+                            </div>
+                        </div>
+                        <label class="control-label col-sm-2">递增金额：</label>
+                        <div class="col-sm-2">
+                            <div class="input-group">
+                                <input type="text" data-ng-model="product.accumulateAmt" data-ng-disabled="disabled" class="form-control" id="accumulate_amt_form" placeholder="请输入递增金额">
+                                <span class="input-group-addon">元</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group col-lg-12">
-                        <span>* 下架时间 >= 募集完成时间 > 募集开始时间 >= 上架时间</span>
+
+                    <div class="form-group">
+                        <label for="display_parameter1_form" class="control-label col-sm-2">首页展示参数：</label>
+                        <div class="col-sm-2">
+                            <input type="text" data-ng-model="product.displayParameter1" data-ng-disabled="disabled" class="form-control" id="display_parameter1_form" placeholder="请输入展示参数1">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" data-ng-model="product.displayParameter2" data-ng-disabled="disabled" class="form-control" id="display_parameter2_form" placeholder="请输入展示参数2">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" data-ng-model="product.displayParameter3" data-ng-disabled="disabled" class="form-control" id="display_parameter3_form" placeholder="请输入展示参数3">
+                        </div>
                     </div>
-                    <div class="form-group col-lg-5">
-                        <label for="sjsj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上架时间：</label>
-                        <input data-ng-model="product.upTime" data-ng-disabled="disabled" type="text" class="form-control" id="sjsj">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">预期年化收益率：</label>
+                        <div class="col-sm-2 m-r-80">
+                            <span class="form-control-span">{{product.preProfitRate}}</span>
+                        </div>
+                        <label class="control-label col-sm-2">发布渠道：</label>
+                        <div class="col-sm-2">
+                            <span class="form-control-span">
+                                <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/>APP &nbsp;&nbsp;
+                                <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/>微信 &nbsp;&nbsp;
+                                <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled" type="checkbox"/>PC
+                            </span>
+                        </div>
+                        <label class="control-label col-sm-2">补贴收益率：</label>
+                        <div class="col-sm-2">
+                            <div class="btsyl">
+                                    <span>
+                                        <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/><label class="p-5">APP</label>
+                                        <input data-ng-model="product.channel[0].subsidyRate" class="my-form-control w-60" data-ng-disabled="disabled" type="text"> %
+                                    </span>
+                                <br/>
+                                <br/>
+                                    <span>
+                                        <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/><label class="p-5">微信</label>
+                                        <input data-ng-model="product.channel[1].subsidyRate" data-ng-disabled="disabled" type="text" class="my-form-control w-60"> %
+                                    </span>
+                                <br/>
+                                <br/>
+                                    <span>
+                                        <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled" type="checkbox"/><label class="p-5">PC&nbsp;&nbsp;</label>
+                                        <input data-ng-model="product.channel[2].subsidyRate" data-ng-disabled="disabled" type="text" class="my-form-control w-60"> %
+                                    </span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group col-lg-7">
-                        <label for="xjsj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下架时间：</label>
-                        <input data-ng-model="product.downTime" data-ng-disabled="disabled" type="text" class="form-control" id="xjsj">
+                </form>
+                <form class="form-horizontal">
+                    <br/><br/>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">产品状态：</label>
+                        <div class="col-sm-2">
+                            <select data-ng-model="product.raiseState" data-ng-disabled="disabled" class="form-control" id="productStatus-form">
+                                <option value="0">募集中</option>
+                                <option value="1">初始化</option>
+                                <option value="2">募集完成</option>
+                                <option value="3">已上架</option>
+                                <option value="4">已下架</option>
+                            </select>
+                        </div>
+
+                        <label for="mjwcx" class="control-label col-sm-2">募集完成线：</label>
+                        <div class="col-sm-2">
+                            <input type="text" data-ng-disabled="disabled" class="my-form-control w-60" id="mjwcx"> %
+                            <p style="line-height:20px"><span class="t_c_r"> * </span>已售43%</p>
+                        </div>
                     </div>
-                    <div class="form-group col-lg-5">
-                        <label for="mjkssj">募集开始时间：</label>
-                        <input data-ng-model="product.raiseStartingTime" data-ng-disabled="disabled" type="text" class="form-control" id="mjkssj">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p><span class="t_c_r"> * </span>下架时间 >= 募集完成时间 > 募集开始时间 >= 上架时间</p>
+                        </div>
                     </div>
-                    <div class="form-group col-lg-7">
-                        <label for="mjwcsj">募集完成时间：</label>
-                        <input data-ng-model="product.raiseEndingTime" data-ng-disabled="disabled" type="text" class="form-control" id="mjwcsj">
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">上架时间：</label>
+                        <div class="col-sm-3">
+                            <input data-ng-model="product.upTime" data-ng-disabled="disabled" type="text" class="form-control" id="sjsj">
+                        </div>
+                        <label class="control-label col-sm-2">下架时间：</label>
+                        <div class="col-sm-3">
+                            <input data-ng-model="product.downTime" data-ng-disabled="true" type="text" class="form-control" id="xjsj">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">募集开始时间：</label>
+                        <div class="col-sm-3">
+                            <input data-ng-model="product.raiseStartingTime" data-ng-disabled="disabled" type="text" class="form-control" id="mjkssj">
+                        </div>
+                        <label class="control-label col-sm-2">募集完成时间：</label>
+                        <div class="col-sm-3">
+                            <input data-ng-model="product.raiseEndingTime" data-ng-disabled="true" type="text" class="form-control" id="mjwcsj">
+                        </div>
                     </div>
                 </form>
             </div>
