@@ -4,8 +4,10 @@ body,.btn,.form-control{
 label{
     font-weight: normal;
 }
-.my-form-control[disabled],.my-form-control {
+.my-form-control[disabled]{
     cursor: not-allowed;
+}
+.my-form-control[disabled],.my-form-control {
     background-color: #eee;
     opacity: 1;
 }
