@@ -1,6 +1,9 @@
 body,.btn,.form-control{
     font-size: 13px;
 }
+.msg-span{
+    line-height: 34px;
+}
 label{
     font-weight: normal;
 }
@@ -62,6 +65,9 @@ th,td{
 }
 .m-r-80{
     margin-right:-80px;
+}
+.m-r-40{
+    margin-right:-40px;
 }
 .w-60{
     width:60px;
@@ -267,6 +273,23 @@ th,td{
 }
 .product-labels label{
     margin-right: 20px;
+}
+/**
+查询管理
+*/
+.select-form .control-label{
+    padding-right: 0;
+}
+
+.jyxxList .table>thead>tr>th{
+    padding: 8px 1px;
+}
+.selectDetailForm .control-label{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.selectDetailForm th,.selectDetailForm td{
+    padding: 8px 4px;
 }
 /**
 禁止选中

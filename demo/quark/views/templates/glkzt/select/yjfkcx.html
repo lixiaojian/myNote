@@ -1,1 +1,72 @@
-意见反馈查询
+<div class="container-fluid" data-ng-controller="selectCtr">
+    <h4 class="sub-title">{{modileTitle2}}</h4>
+    <form class="form-horizontal select-form">
+        <div class="form-group">
+            <label class="control-label col-sm-1" for="phoneNumber">手机号：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="phoneNumber" placeholder="请输入手机号码">
+            </div>
+
+            <label class="control-label col-sm-1" for="userName">姓名：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="userName" placeholder="请输入姓名">
+            </div>
+
+            <label class="control-label col-sm-1" for="cardNumber">卡号：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="cardNumber" placeholder="请输入卡号">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-1" for="date">日期：</label>
+            <div class="col-sm-5">
+                <input type="text" class="my-form-control" id="date">
+                --
+                <input type="text" class="my-form-control">
+            </div>
+
+            <label class="control-label col-sm-1" for="issueType">意见类型：</label>
+            <div class="col-sm-2">
+                <select class="form-control" id="issueType">
+                    <option value="">全部</option>
+                    <option value="">xxx</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <div class="btn-box col-sm-11 clearfix">
+        <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
+    </div>
+
+    <table class="table product-table table-striped table-bordered">
+        <thead class="t_head">
+        <tr>
+            <th>留言时间</th>
+            <th>手机号</th>
+            <th>用户名</th>
+            <th>证件号</th>
+            <th>意见类型</th>
+            <th>留言内容</th>
+        </tr>
+        </thead>
+        <tbody class="t_body">
+        <tr>
+            <td>2015-04-22 13:00:09</td>
+            <td>18810693304</td>
+            <td>董小利</td>
+            <td>341202****2944</td>
+            <td>XXXX</td>
+            <td>客服电话打不通</td>
+        </tr>
+        <tr>
+            <td>2015-04-22 13:00:09</td>
+            <td>18722409040</td>
+            <td>XXXX</td>
+            <td>120209****2909</td>
+            <td>XXXX</td>
+            <td>还没收到50元话费</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
