@@ -256,21 +256,78 @@
                                 <label class="col-sm-2 control-label"> &nbsp;</label>
                                 <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 产品类型：</label>
                                 <div class="product-labels col-sm-6">
-                                    <label for="">
+                                    <label>
                                         <input type="checkbox"/> 新手标
                                     </label>
-                                    <label for="">
+                                    <label>
                                         <input type="checkbox"/> 财富优加30天
                                     </label>
-                                    <label for="">
+                                    <label>
                                         <input type="checkbox"/> 财富优加90天
                                     </label>
-                                    <label for="">
+                                    <label>
                                         <input type="checkbox"/> 财富优加180天
                                     </label>
-                                    <label for="">
+                                    <label>
                                         <input type="checkbox"/> 财富优加360天
                                     </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"> &nbsp;</label>
+                                <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 投资比例：</label>
+                                <div class="col-sm-4">
+                                    <input style="width: 100px" type="text" class="my-form-control"/>
+                                    -
+                                    <input style="width: 100px" type="text" class="my-form-control"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 单次使用量：</label>
+                                <div class="col-sm-2 radio">
+                                    <label>
+                                        <input type="radio"> 单张
+                                    </label>
+                                </div>
+
+                                <div class="col-sm-5 radio">
+                                    <label>
+                                        <input type="radio"> 叠加使用
+                                    </label>
+                                    <div>
+                                        叠加使用：<input style="width: 80px" class="my-form-control" type="text"/> 张 <br/>
+                                        累计金额：小于等于 <input style="width: 80px" class="my-form-control" type="text"/>元
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 卡券有效期：</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" style="width: 200px;display: inline-block">
+                                        <option>2015-05-01</option>
+                                    </select>
+                                    --
+                                    <select class="form-control" style="width: 200px;display: inline-block">
+                                        <option>2015-05-31</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"> 卡券图片：</label>
+                                <div class="col-sm-4">
+                                    <input type="file" class="form-control"/>
+                                    <span class="t_c_r">*</span> 需为JPG、PNG或GIF格式，大小不超过2M
+                                    <img src="img/u250.png" alt=""/> <span class="delete-btn glyphicon glyphicon-remove"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 活动描述：</label>
+                                <div class="col-sm-6">
+                                    <textarea class="form-control" rows="3"></textarea>
                                 </div>
                             </div>
 
@@ -281,9 +338,84 @@
                     </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <a ng-if="!isCheck" class="btn btn-primary" ng-click="ok()">保 存</a>
+                <a ng-if="!isCheck" class="btn btn-primary" ng-click="ok()">重 置</a>
+                <a ng-if="!isCheck" class="btn btn-warning" ng-click="cancel()">返 回</a>
+                <a ng-if="isCheck" class="btn btn-default" ng-click="cancel()">关 闭</a>
+            </div>
         </tab>
         <tab heading="卡券查询">
-            卡券查询
+            <div class="modal-body">
+                <p>五一卡券：10000张</p>
+                <table class="table table-striped">
+                    <thead class="t_head">
+                    <tr>
+                        <th>卡券类型</th>
+                        <th>面值</th>
+                        <th>卡券数量（张）</th>
+                        <th>待领取</th>
+                        <th>未领取</th>
+                        <th>未使用</th>
+                        <th>已使用</th>
+                        <th>已过期</th>
+                    </tr>
+                    </thead>
+                    <tbody class="t_body">
+                    <tr>
+                        <td rowspan="3">体验金 4000</td>
+                        <td>￥10</td>
+                        <td>1500</td>
+                        <td>59</td>
+                        <td>30</td>
+                        <td>300</td>
+                        <td>630</td>
+                        <td>630</td>
+                    </tr>
+                    <tr>
+                        <td>￥20</td>
+                        <td>1000</td>
+                        <td>20</td>
+                        <td>10</td>
+                        <td>390</td>
+                        <td>390</td>
+                        <td>390</td>
+                    </tr>
+                    <tr>
+                        <td>￥30</td>
+                        <td>500</td>
+                        <td>30</td>
+                        <td>12</td>
+                        <td>490</td>
+                        <td>490</td>
+                        <td>490</td>
+                    </tr>
+
+                    <tr>
+                        <td rowspan="2">抵扣券 6000</td>
+                        <td>￥100</td>
+                        <td>4000</td>
+                        <td>59</td>
+                        <td>30</td>
+                        <td>300</td>
+                        <td>630</td>
+                        <td>630</td>
+                    </tr>
+                    <tr>
+                        <td>￥200</td>
+                        <td>2000</td>
+                        <td>20</td>
+                        <td>10</td>
+                        <td>390</td>
+                        <td>390</td>
+                        <td>390</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-default" ng-click="cancel()">关 闭</a>
+            </div>
         </tab>
     </tabset>
 </div>
