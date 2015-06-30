@@ -79,20 +79,20 @@
                         <div class="col-sm-2">
                             <div class="btsyl">
                                     <span>
-                                        <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/><label class="p-5">APP</label>
-                                        <input data-ng-model="product.channel[0].subsidyRate" class="my-form-control w-60" data-ng-disabled="disabled" type="text"> %
+                                        <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled || !product.channel[0].channelCode" type="checkbox"/><label class="p-5">APP</label>
+                                        <input data-ng-model="product.channel[0].subsidyRate" class="my-form-control w-60" data-ng-disabled="disabled || !product.channel[0].channelCode" type="text"> %
                                     </span>
                                 <br/>
                                 <br/>
                                     <span>
-                                        <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/><label class="p-5">微信</label>
-                                        <input data-ng-model="product.channel[1].subsidyRate" data-ng-disabled="disabled" type="text" class="my-form-control w-60"> %
+                                        <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled || !product.channel[1].channelCode" type="checkbox"/><label class="p-5">微信</label>
+                                        <input data-ng-model="product.channel[1].subsidyRate" data-ng-disabled="disabled || !product.channel[1].channelCode" type="text" class="my-form-control w-60"> %
                                     </span>
                                 <br/>
                                 <br/>
                                     <span>
-                                        <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled" type="checkbox"/><label class="p-5">PC&nbsp;&nbsp;</label>
-                                        <input data-ng-model="product.channel[2].subsidyRate" data-ng-disabled="disabled" type="text" class="my-form-control w-60"> %
+                                        <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled || !product.channel[2].channelCode" type="checkbox"/><label class="p-5">PC&nbsp;&nbsp;</label>
+                                        <input data-ng-model="product.channel[2].subsidyRate" data-ng-disabled="disabled|| !product.channel[2].channelCode" type="text" class="my-form-control w-60"> %
                                     </span>
                             </div>
                         </div>
