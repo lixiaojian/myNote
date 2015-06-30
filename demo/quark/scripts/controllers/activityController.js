@@ -4,6 +4,7 @@
 ;(function(app){
     app.controller('hdglCtr',['$scope','$modal','activityService',function($scope,$modal,activityService){
         $scope.modileTitle = '活动查询';
+        $scope.modileTitle2 = '新增活动';
         //日历相关
         $scope.bopen = function($event) {
             $event.preventDefault();
