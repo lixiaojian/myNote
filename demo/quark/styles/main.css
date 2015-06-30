@@ -265,6 +265,9 @@ th,td{
 .activity-detail .last-label{
     line-height: 34px;
 }
+.product-labels label{
+    margin-right: 20px;
+}
 /**
 禁止选中
 */

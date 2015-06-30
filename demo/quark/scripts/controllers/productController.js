@@ -42,7 +42,7 @@
             });
         };
         //全部数据
-        productService.search({},function(data){
+        productService.search({pid:"1234"},function(data){
             $scope.datas=data.recordList;
             $scope.page.totalItems = data.iTotalRecords;
             $scope.page.itemsPerPage = data.pageSize;
