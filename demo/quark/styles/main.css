@@ -291,6 +291,13 @@ th,td{
 .selectDetailForm th,.selectDetailForm td{
     padding: 8px 4px;
 }
+
+/**
+通用管理
+*/
+.addBanner input[type=radio]{
+    margin: 2px 0 4px -20px;
+}
 /**
 禁止选中
 */
