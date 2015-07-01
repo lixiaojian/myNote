@@ -307,6 +307,11 @@ th,td{
     border-bottom: 1px dashed #ccc;
     padding-top: 10px;
 }
+
+.bankDetail .bankBox{
+    border-bottom: 1px dashed #ccc;
+    padding-top: 10px;
+}
 /**
 禁止选中
 */
