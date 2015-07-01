@@ -1,1 +1,400 @@
-用户信息
+<div class="container-fluid" data-ng-controller="userCtr">
+    <h4 class="sub-title">{{modileTitle1}}</h4>
+
+    <form class="form-horizontal select-form">
+        <div class="form-group">
+            <label class="control-label col-sm-1" for="phoneNumber">手机号：</label>
+
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="phoneNumber" placeholder="请输入手机号码">
+            </div>
+
+            <label class="control-label col-sm-1" for="userName">姓名：</label>
+
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="userName" placeholder="请输入姓名">
+            </div>
+
+            <label class="control-label col-sm-1" for="idCardNumber">证件号：</label>
+
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="idCardNumber" placeholder="请输入证件号">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-1" for="userStatus">用户状态：</label>
+
+            <div class="col-sm-2">
+                <select class="form-control" id="userStatus">
+                    <option value="">全部</option>
+                    <option value="">锁定</option>
+                    <option value="">未锁定</option>
+                </select>
+            </div>
+
+            <label class="control-label col-sm-1" for="registerType">注册渠道：</label>
+
+            <div class="col-sm-2">
+                <select class="form-control">
+                    <option value="">全部</option>
+                    <option value="">APP</option>
+                    <option value="">微信</option>
+                    <option value="">PC</option>
+                </select>
+            </div>
+
+            <label class="control-label col-sm-1" for="date">注册日期：</label>
+
+            <div class="col-sm-5">
+                <input type="text" class="my-form-control" id="date">
+                --
+                <input type="text" class="my-form-control">
+            </div>
+        </div>
+    </form>
+    <div class="btn-box col-sm-11 clearfix">
+        <a class="btn btn-default pull-right" href="javascript:" role="button">导 出</a>
+        <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
+    </div>
+
+    <table class="table product-table table-striped table-bordered">
+        <thead class="t_head">
+        <tr>
+            <th>手机号</th>
+            <th>用户名</th>
+            <th>证件号</th>
+            <th>注册时间</th>
+            <th>注册渠道</th>
+            <th>绑卡数</th>
+            <th>实名认证</th>
+            <th>安全问题</th>
+            <th>用户状态</th>
+            <th>首次交易日期</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody class="t_body">
+        <tr>
+            <td>188****3304</td>
+            <td>董小利</td>
+            <td>3412****2944</td>
+            <td>2015-04-21 11:00:00</td>
+            <td>APP</td>
+            <td>1</td>
+            <td>已认证</td>
+            <td>已设置</td>
+            <td>未锁定</td>
+            <td>2015-04-22</td>
+            <td>
+                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">查
+                    看</a>
+                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">编
+                    辑</a>
+            </td>
+        </tr>
+        <tr>
+            <td>188****3304</td>
+            <td>董小利</td>
+            <td>3412****2944</td>
+            <td>2015-04-21 11:00:00</td>
+            <td>APP</td>
+            <td>1</td>
+            <td>已认证</td>
+            <td>已设置</td>
+            <td>未锁定</td>
+            <td>2015-04-22</td>
+            <td>
+                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">查
+                    看</a>
+                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">编
+                    辑</a>
+            </td>
+        </tr>
+        <tr>
+            <td>188****3304</td>
+            <td>董小利</td>
+            <td>3412****2944</td>
+            <td>2015-04-21 11:00:00</td>
+            <td>APP</td>
+            <td>1</td>
+            <td>已认证</td>
+            <td>已设置</td>
+            <td>未锁定</td>
+            <td>2015-04-22</td>
+            <td>
+                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">查
+                    看</a>
+                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">编
+                    辑</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--弹出层-->
+    <script type="text/ng-template" id="myModalContent.html">
+        <tabset>
+            <tab heading="基本信息">
+                <div class="modal-body">
+                    <form class="form-horizontal selectDetailForm">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">手机号：</label>
+                            <div class="col-sm-3">
+                                <span class="msg-span">188****3304</span>
+                            </div>
+                            <label class="control-label col-sm-2">用户名：</label>
+                            <div class="col-sm-3">
+                                <span class="msg-span">董小利</span>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">证件类型：</label>
+
+                            <div class="col-sm-3">
+                                <span class="msg-span">身份证</span>
+                            </div>
+                            <label class="control-label col-sm-2">证件号：</label>
+                            <div class="col-sm-3">
+                                <span class="msg-span">3412****2944</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">用户状态：</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" id="registerType">
+                                    <option value="">全部</option>
+                                    <option value="">锁定</option>
+                                    <option value="">未锁定</option>
+                                </select>
+                            </div>
+                            <label class="control-label col-sm-2">锁定时间：</label>
+
+                            <div class="col-sm-3">
+                                <span class="msg-span">2015-04-21  11:00:00</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">注册渠道：</label>
+                            <div class="col-sm-3">
+                                <span class="msg-span">APP</span>
+                            </div>
+                            <label class="control-label col-sm-2">首次下载市场：</label>
+                            <div class="col-sm-3">
+                                <span class="msg-span">安智</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">注册时间：</label>
+                            <div class="col-sm-3">
+                                <span class="msg-span">2015-04-21  11:00:00</span>
+                            </div>
+                            <label class="control-label col-sm-2">首次注册市场：</label>
+                            <div class="col-sm-3">
+                                <span class="msg-span">安智</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">首次交易时间：</label>
+                            <div class="col-sm-3">
+                                <span class="msg-span">2015-04-21  11:00:00</span>
+                            </div>
+                            <label class="control-label col-sm-2">首次交易时间：</label>
+                            <div class="col-sm-3">
+                                <span class="msg-span">安智</span>
+                            </div>
+                        </div>
+                        <div style="border-top: 1px dashed #ccc;border-bottom: 1px dashed #ccc;padding: 10px 0">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">历史手机号1：</label>
+                                <div class="col-sm-3">
+                                    <span class="msg-span">187****2243</span>
+                                </div>
+                                <label class="control-label col-sm-2">解绑时间：</label>
+                                <div class="col-sm-3">
+                                    <span class="msg-span">2015-04-29  09:09:00</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">历史手机号2：</label>
+                                <div class="col-sm-3">
+                                    <span class="msg-span">158****4419</span>
+                                </div>
+                                <label class="control-label col-sm-2">解绑时间：</label>
+                                <div class="col-sm-3">
+                                    <span class="msg-span">2015-05-05  12:48:09</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">安全问题1：</label>
+                            <div class="col-sm-9">
+                                <span class="msg-span">最喜欢的一本书是什么？</span>
+                            </div>
+                            <label class="control-label col-sm-2">&nbsp;</label>
+                            <div class="col-sm-9">
+                                <span class="msg-span">答案： XXXXXX</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">安全问题2：</label>
+                            <div class="col-sm-9">
+                                <span class="msg-span">最喜欢的电影哪一部？</span>
+                            </div>
+                            <label class="control-label col-sm-2">&nbsp;</label>
+                            <div class="col-sm-9">
+                                <span class="msg-span">答案： XXXXXX</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-default" ng-click="cancel()">关 闭</a>
+                </div>
+            </tab>
+            <tab heading="绑卡信息">
+                <div class="modal-body">
+                    <form class="form-horizontal selectDetailForm">
+                        <div class="form-group">
+                            <label class="control-label col-sm-1">卡一：</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">银行类型：</label>
+                            <div class="col-sm-2">
+                                <select class="form-control">
+                                    <option value="">全部</option>
+                                    <option value="">中国银行</option>
+                                    <option value="">交通银行</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <span class="msg-span">* 绑卡成功</span>
+                            </div>
+
+                            <label class="control-label col-sm-2">银行预留手机号：</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" value="188****3304"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">卡类型：</label>
+                            <div class="col-sm-4">
+                                <span class="msg-span">借记卡</span>
+                            </div>
+
+                            <label class="control-label col-sm-2">银行卡号：</label>
+                            <div class="col-sm-2">
+                                <input type="text" value="6217****9802" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">验证渠道：</label>
+                            <div class="col-sm-4">
+                                <select class="form-control">
+                                    <option value="">快捷认证</option>
+                                </select>
+                            </div>
+
+                            <label class="control-label col-sm-2">委托划扣授权书号：</label>
+                            <div class="col-sm-2">
+                                <span class="msg-span">--</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">绑定时间：</label>
+                            <div class="col-sm-4">
+                                <span class="msg-span">2015-04-22  08:00:00</span>
+                            </div>
+                        </div>
+
+                        <div style="border-top: 1px dashed #ccc">
+                            <div class="form-group">
+                                <label class="control-label col-sm-1">卡二：</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">银行类型：</label>
+                                <div class="col-sm-2">
+                                    <select class="form-control">
+                                        <option value="">全部</option>
+                                        <option value="">中国银行</option>
+                                        <option value="">交通银行</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span class="msg-span">* 绑卡成功</span>
+                                </div>
+
+                                <label class="control-label col-sm-2">银行预留手机号：</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" value="188****3304"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">卡类型：</label>
+                                <div class="col-sm-4">
+                                    <span class="msg-span">借记卡</span>
+                                </div>
+
+                                <label class="control-label col-sm-2">银行卡号：</label>
+                                <div class="col-sm-2">
+                                    <input type="text" value="6217****9802" class="form-control"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">卡状态：</label>
+                                <div class="col-sm-2">
+                                    <select class="form-control">
+                                        <option value="">锁定</option>
+                                    </select>
+                                </div>
+
+                                <label class="control-label col-sm-2">认证次数：</label>
+                                <div class="col-sm-2">
+                                    <span class="msg-span">1</span>
+                                </div>
+
+                                <label class="control-label col-sm-2">实际认证次数：</label>
+                                <div class="col-sm-2">
+                                    <span class="msg-span">1</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">验证渠道：</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control">
+                                        <option value="">快捷认证</option>
+                                    </select>
+                                </div>
+
+                                <label class="control-label col-sm-2">委托划扣授权书号：</label>
+                                <div class="col-sm-2">
+                                    <span class="msg-span">--</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">绑定时间：</label>
+                                <div class="col-sm-4">
+                                    <span class="msg-span">2015-04-22  08:00:00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" ng-click="ok()">保 存</a>
+                    <a class="btn btn-warning" ng-click="cancel()">返 回</a>
+                </div>
+            </tab>
+        </tabset>
+
+    </script>
+</div>

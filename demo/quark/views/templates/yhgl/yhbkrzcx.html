@@ -1,1 +1,110 @@
-用户绑卡认证查询
+<div class="container-fluid" data-ng-controller="cardVolumeCtr">
+    <h4 class="sub-title">{{modileTitle}}</h4>
+
+    <form class="form-horizontal select-form">
+        <div class="form-group">
+            <label class="control-label col-sm-1" for="userName">用户名：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="userName" placeholder="请输入用户名">
+            </div>
+            <label class="control-label col-sm-1" for="idCardNumber">证件号：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="idCardNumber" placeholder="请输入证件号">
+            </div>
+            <label class="control-label col-sm-1">交易日期：</label>
+            <div class="col-sm-3">
+                <input type="text" style="width: 110px" value="2015-04-01" class="my-form-control">
+                --
+                <input type="text" style="width: 110px" value="2015-05-01" class="my-form-control">
+            </div>
+        </div>
+
+    </form>
+    <div class="btn-box col-sm-11 clearfix">
+        <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
+        <a class="btn btn-default pull-right" href="javascript:" data-ng-click="modal()" role="button">参数配置</a>
+    </div>
+
+    <table class="table product-table table-striped table-bordered">
+        <thead class="t_head">
+        <tr>
+            <th>流水号</th>
+            <th>用户名</th>
+            <th>证件号</th>
+            <th>手机号</th>
+            <th>银行类型</th>
+            <th>卡号</th>
+            <th>交易金额（元）</th>
+            <th>交易时间</th>
+            <th>验证渠道</th>
+        </tr>
+        </thead>
+        <tbody class="t_body">
+        <tr>
+            <td>XXXX</td>
+            <td>董小利</td>
+            <td>3412****2944</td>
+            <td>188****2944</td>
+            <td>中国工商银行</td>
+            <td>3412****2944</td>
+            <td>0.03</td>
+            <td>2015-05-06 18:26:09</td>
+            <td>代付认证</td>
+        </tr>
+        <tr>
+            <td>XXXX</td>
+            <td>董小利</td>
+            <td>3412****2944</td>
+            <td>188****2944</td>
+            <td>中国工商银行</td>
+            <td>3412****2944</td>
+            <td>0.03</td>
+            <td>2015-05-06 18:26:09</td>
+            <td>代付认证</td>
+        </tr>
+        <tr>
+            <td>XXXX</td>
+            <td>董小利</td>
+            <td>3412****2944</td>
+            <td>188****2944</td>
+            <td>中国工商银行</td>
+            <td>3412****2944</td>
+            <td>0.03</td>
+            <td>2015-05-06 18:26:09</td>
+            <td>代付认证</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--弹出层-->
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-body" style="overflow-x: scroll">
+            <form class="form-horizontal select-form">
+                <div class="form-group">
+                    <label class="control-label col-sm-6" for="userName">验证渠道：</label>
+                    <div class="col-sm-2">
+                        <label>
+                            <input type="checkbox" value="">
+                            代付认证
+                        </label>
+                    </div>
+                    <label class="control-label col-sm-1" for="idCardNumber">证件号：</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="idCardNumber" placeholder="请输入证件号">
+                    </div>
+                    <label class="control-label col-sm-1">交易日期：</label>
+                    <div class="col-sm-3">
+                        <input type="text" style="width: 110px" value="2015-04-01" class="my-form-control">
+                        --
+                        <input type="text" style="width: 110px" value="2015-05-01" class="my-form-control">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-default" ng-click="cancel()">关 闭</a>
+        </div>
+
+    </script>
+</div>

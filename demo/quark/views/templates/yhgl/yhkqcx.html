@@ -1,1 +1,170 @@
-用户卡券查询
+<div class="container-fluid" data-ng-controller="cardVolumeCtr">
+    <h4 class="sub-title">{{modileTitle}}</h4>
+
+    <form class="form-horizontal select-form">
+        <div class="form-group">
+            <label class="control-label col-sm-1" for="phoneNumber">手机号：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="phoneNumber" placeholder="请输入手机号码">
+            </div>
+
+            <label class="control-label col-sm-1" for="userName">用户名：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="userName" placeholder="请输入用户名">
+            </div>
+
+            <label class="control-label col-sm-1" for="idCardNumber">证件号：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="idCardNumber" placeholder="请输入证件号">
+            </div>
+        </div>
+
+    </form>
+    <div class="btn-box col-sm-11 clearfix">
+        <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
+    </div>
+
+    <table class="table product-table table-striped table-bordered">
+        <thead class="t_head">
+        <tr>
+            <th>手机号</th>
+            <th>用户名</th>
+            <th>证件号</th>
+            <th>卡券数量</th>
+            <th>未使用</th>
+            <th>已使用</th>
+            <th>已过期</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody class="t_body">
+        <tr>
+            <td>188****3304</td>
+            <td>董小利</td>
+            <td>3412****2944</td>
+            <td>4</td>
+            <td>2</td>
+            <td>1</td>
+            <td>2</td>
+            <td>
+                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">查
+                    看</a>
+            </td>
+        </tr>
+        <tr>
+            <td>188****3304</td>
+            <td>董小利</td>
+            <td>3412****2944</td>
+            <td>4</td>
+            <td>2</td>
+            <td>1</td>
+            <td>2</td>
+            <td>
+                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">查
+                    看</a>
+            </td>
+        </tr>
+        <tr>
+            <td>188****3304</td>
+            <td>董小利</td>
+            <td>3412****2944</td>
+            <td>4</td>
+            <td>2</td>
+            <td>1</td>
+            <td>2</td>
+            <td>
+                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">查
+                    看</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--弹出层-->
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-body" style="overflow-x: scroll">
+            <div style="width: 1100px;">
+                <table class="table product-table table-striped table-bordered">
+                    <thead class="t_head">
+                    <tr>
+                        <th>证件号</th>
+                        <th>活动标识码</th>
+                        <th>活动名称</th>
+                        <th>卡券码</th>
+                        <th>卡券类型</th>
+                        <th>面值</th>
+                        <th>领取时间</th>
+                        <th>卡券状态</th>
+                        <th>卡券有效期</th>
+                        <th>是否删除</th>
+                        <th>删除时间</th>
+                        <th>订单号</th>
+                    </tr>
+                    </thead>
+                    <tbody class="t_body">
+                    <tr>
+                        <td>3412****3304</td>
+                        <td>XXXX</td>
+                        <td>五一活动</td>
+                        <td>XXXXX</td>
+                        <td>抵扣券</td>
+                        <td>100</td>
+                        <td>2015-05-01 09:00:00</td>
+                        <td>已使用</td>
+                        <td>2015-05-01/2015-05-31</td>
+                        <td>已删除</td>
+                        <td>2015-05-01 09:00:00</td>
+                        <td>XXXXXXXXX0</td>
+                    </tr>
+                    <tr>
+                        <td>3412****3304</td>
+                        <td>XXXX</td>
+                        <td>五一活动</td>
+                        <td>XXXXX</td>
+                        <td>抵扣券</td>
+                        <td>100</td>
+                        <td>2015-05-01 09:00:00</td>
+                        <td>已使用</td>
+                        <td>2015-05-01/2015-05-31</td>
+                        <td>已删除</td>
+                        <td>2015-05-01 09:00:00</td>
+                        <td>XXXXXXXXX0</td>
+                    </tr>
+                    <tr>
+                        <td>3412****3304</td>
+                        <td>XXXX</td>
+                        <td>五一活动</td>
+                        <td>XXXXX</td>
+                        <td>抵扣券</td>
+                        <td>100</td>
+                        <td>2015-05-01 09:00:00</td>
+                        <td>已使用</td>
+                        <td>2015-05-01/2015-05-31</td>
+                        <td>已删除</td>
+                        <td>2015-05-01 09:00:00</td>
+                        <td>XXXXXXXXX0</td>
+                    </tr>
+                    <tr>
+                        <td>3412****3304</td>
+                        <td>XXXX</td>
+                        <td>五一活动</td>
+                        <td>XXXXX</td>
+                        <td>抵扣券</td>
+                        <td>100</td>
+                        <td>2015-05-01 09:00:00</td>
+                        <td>已使用</td>
+                        <td>2015-05-01/2015-05-31</td>
+                        <td>已删除</td>
+                        <td>2015-05-01 09:00:00</td>
+                        <td>XXXXXXXXX0</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-default" ng-click="cancel()">关 闭</a>
+        </div>
+
+    </script>
+</div>

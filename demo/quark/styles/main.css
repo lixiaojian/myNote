@@ -312,6 +312,10 @@ th,td{
     border-bottom: 1px dashed #ccc;
     padding-top: 10px;
 }
+
+.asset-list .asset-list{
+    width: 1100px ;
+}
 /**
 禁止选中
 */
