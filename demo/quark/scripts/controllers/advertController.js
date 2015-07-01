@@ -4,7 +4,7 @@
 ;(function(app){
     app.controller('adCtr',['$scope','$modal',function($scope,$modal){
         $scope.modileTitle = '广告管理';
-        $scope.addBanner = function(type){
+        $scope.addBanner = function(){
             var modalInstance = $modal.open({
                 animation: true,
                 templateUrl: 'addBanner.html',
@@ -22,5 +22,23 @@
                 }]
             });
         };
+        $scope.bannerDetail = function(){
+            var modalInstance = $modal.open({
+                animation: true,
+                templateUrl: 'bannerDetail.html',
+                size:'lg',
+                controller: ['$scope','$modalInstance',function($scope, $modalInstance){
+
+                    //点击确定
+                    $scope.ok = function () {
+                        $modalInstance.close();
+                    };
+                    //点击取消
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                }]
+            });
+        }
     }]);
 }(angular.module('backStage')));

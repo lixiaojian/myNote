@@ -295,8 +295,17 @@ th,td{
 /**
 通用管理
 */
-.addBanner input[type=radio]{
+.addBanner input[type=radio],.bannerDetail input[type=radio]{
     margin: 2px 0 4px -20px;
+}
+.bannerDetail .up-down-icno{
+    font-size: 22px;
+    color: #4F4FE5;
+    cursor: pointer;
+}
+.bannerDetail .adBox{
+    border-bottom: 1px dashed #ccc;
+    padding-top: 10px;
 }
 /**
 禁止选中

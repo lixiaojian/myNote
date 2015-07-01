@@ -226,7 +226,7 @@
                     };
                     //获取产品详情
                     productService.findById({pid:id},function(data){
-                        scope.product = data;
+                        scope.product = data.resInfo;
                         //重新处理一下产品渠道
                         var channel = scope.product.channel;
                         var newChannel = [];
