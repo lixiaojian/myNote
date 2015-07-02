@@ -218,7 +218,10 @@
                 controller: ['$scope','$modalInstance',function(scope, $modalInstance){
                     //点击确定
                     scope.ok = function () {
-                        $modalInstance.close();
+                        //更新产品
+                        productService.update(scope.product,function(data){
+                            $modalInstance.close();
+                        });
                     };
                     //点击取消
                     scope.cancel = function () {
@@ -246,6 +249,7 @@
                     }else{
                         scope.disabled = false;
                     }
+
                 }],
                 templateUrl: 'views/templates/glkzt/product/productDetail.html',
                 size:'lg'

@@ -10,6 +10,11 @@
                 url:'data/products.json',
                 method:'get'
             },
+            //更新产品
+            update:{
+                url:'data/products/update.json',
+                method:'post'
+            },
             //获取排序的列表
             getOrders:{
                 url:'data/product2.json',
