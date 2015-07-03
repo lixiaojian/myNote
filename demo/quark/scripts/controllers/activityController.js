@@ -41,12 +41,26 @@
             $scope.datas = data.recordList;
         });
         //新增活动领取时间
-        //选择的时间
         $scope.dateTime=[
             "00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00",
             "08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00",
             "16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00"
         ];
+        /**
+         * 卡劵属性
+         */
+        $scope.cardVolumes=[
+            {id:1,value:10,count:3000},
+            {id:2,value:20,count:2000}
+
+        ];
+        $scope.addCl = function(){
+            $scope.cardVolumes.push({});
+        };
+        $scope.removeCl = function(index,id){
+            console.log(id);
+            $scope.cardVolumes.splice(index,1);
+        };
         //弹出层
         $scope.modal = function(type,id){
             $modal.open({

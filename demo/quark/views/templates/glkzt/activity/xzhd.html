@@ -139,8 +139,8 @@
             <tab heading="卡券属性">
                 <div class="modal-body">
                     <br/>
-                    <div data-accordion close-others="oneAtATime">
-                        <div data-accordion-group heading="卡券属性一" is-open="true">
+                    <div data-accordion data-close-others="oneAtATime">
+                        <div data-accordion-group data-heading="卡券属性一" data-is-open="true">
                             <form class="form-horizontal">
                                 <div class="form-group">
                                     <label for="cardVolumeNameForm" class="col-sm-2 control-label"> <span class="t_c_r">*</span> 发放比例：</label>
@@ -152,14 +152,14 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="optionsRadios">
-                                                不限制
-                                            </label>
-                                        </div>
-                                    </div>
+                                    <!--<div class="col-sm-4">-->
+                                        <!--<div class="radio">-->
+                                            <!--<label>-->
+                                                <!--<input type="radio" name="optionsRadios">-->
+                                                <!--不限制-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
                                 </div>
                                 <div class="form-group">
                                     <label for="cardVolumeNameForm" class="col-sm-2 control-label"> &nbsp;</label>
@@ -175,30 +175,18 @@
                                             <tr>
                                                 <th>面值</th>
                                                 <th>发放数量（张）</th>
-                                                <th>占比（%）</th>
                                                 <th>操作</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>10</td>
-                                                <td>3000</td>
-                                                <td>30%</td>
+                                            <tr data-ng-repeat="cl in cardVolumes">
+                                                <td><input type="text" data-ng-model="cl.value"/></td>
+                                                <td><input type="text" data-ng-model="cl.count"/></td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-default" href="javascript:" data-ng-click="" role="button">新 增</a>
-                                                    <a class="btn btn-sm btn-default" href="javascript:" data-ng-click="" role="button">删 除</a>
+                                                    <a data-ng-if="$last" class="btn btn-sm btn-default" href="javascript:" data-ng-click="addCl()" role="button">新 增</a>
+                                                    <a data-ng-if="!$first" class="btn btn-sm btn-default" href="javascript:" data-ng-click="removeCl($index,cl.id)" role="button">删 除</a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>10</td>
-                                                <td>3000</td>
-                                                <td>30%</td>
-                                                <td>
-                                                    <a class="btn btn-sm btn-default" href="javascript:" data-ng-click="" role="button">新 增</a>
-                                                    <a class="btn btn-sm btn-default" href="javascript:" data-ng-click="" role="button">删 除</a>
-                                                </td>
-                                            </tr>
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -330,7 +318,7 @@
 
                             </form>
                         </div>
-                        <div data-accordion-group heading="卡券属性二" is-disabled="status.isFirstDisabled">
+                        <div data-accordion-group data-heading="卡券属性二" data-is-disabled="status.isFirstDisabled">
 
                         </div>
                     </div>
