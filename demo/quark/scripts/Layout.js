@@ -94,6 +94,9 @@
         return text == null ? "" : ( text + "" ).replace( rtrim, "" );
     }
     myLayout.activate();
+    var clientHeight = document.documentElement.clientHeight || document.body.offsetHeight;
+
+    getById('content_wrapper').style.minHeight=parseInt(clientHeight)+'px';
 }());
 
 
