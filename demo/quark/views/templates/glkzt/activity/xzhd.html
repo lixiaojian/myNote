@@ -287,14 +287,20 @@
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 卡券有效期：</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" style="width: 200px;display: inline-block">
-                                            <option>2015-05-01</option>
-                                        </select>
-                                        --
-                                        <select class="form-control" style="width: 200px;display: inline-block">
-                                            <option>2015-05-31</option>
-                                        </select>
+                                    <div class="col-sm-8 clearfix">
+                                        <div class="input-group pull-left" style="width: 230px;">
+                                            <input type="text" data-ng-model="searchProduct.raiseStartingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="bopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="bopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                        </div>
+                                        <span class="msg-span pull-left">&nbsp; -- &nbsp;</span>
+                                        <div class="input-group pull-left" style="width: 230px;">
+                                            <input type="text" data-ng-model="searchProduct.raiseEndingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" data-ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -303,14 +309,14 @@
                                     <div class="col-sm-4">
                                         <input type="file" class="form-control"/>
                                         <span class="t_c_r">*</span> 需为JPG、PNG或GIF格式，大小不超过2M
-                                        <div>
+                                        <div data-ng-if="searchProduct.imgUrl">
                                             <img src="img/u250.png" alt=""/> <span class="delete-btn glyphicon glyphicon-remove"></span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 活动描述：</label>
+                                    <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 卡劵描述：</label>
                                     <div class="col-sm-6">
                                         <textarea class="form-control" rows="3"></textarea>
                                     </div>

@@ -61,6 +61,19 @@
             console.log(id);
             $scope.cardVolumes.splice(index,1);
         };
+        //日历相关
+        $scope.bopen = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.bopened = !$scope.bopened;
+        };
+        $scope.eopen = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.eopened = !$scope.eopened;
+        };
+        $scope.format = 'yyyy-MM-dd';
+
         //弹出层
         $scope.modal = function(type,id){
             $modal.open({
