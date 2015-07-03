@@ -15,18 +15,19 @@
                             <label for="collectDateForm" class="control-label col-sm-3"> <span class="t_c_r">*</span> 活动日期：</label>
                             <div class="col-sm-3">
                                 <div class="input-group " id="collectDateForm">
-                                    <input type="text" data-ng-model="searchProduct.raiseStartingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="fbopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="fbopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                            </span>
+                                    <input type="text" data-ng-model="searchProduct.raiseStartingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="bopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="bopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
                                 </div>
                             </div>
+                            <div class="col-sm-1" style="width: 12px;padding: 0;"><span class="msg-span">--</span></div>
                             <div class="col-sm-3">
                                 <div class="input-group">
-                                    <input type="text" data-ng-model="searchProduct.raiseEndingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="feopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" data-ng-click="feopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                            </span>
+                                    <input type="text" data-ng-model="searchProduct.raiseEndingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" data-ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -57,18 +58,18 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">活动图片：</label>
                             <div class="col-sm-6">
-                                <span input-file title="活动图片" model="product.channel[0].descriptionUrl"></span>
+                                <span input-file title="活动图片"></span>
                                 <p><span class="t_c_r">*</span> 需为JPG、PNG或GIF格式，大小不超过2M</p>
-                                <div>
-                                    <img width="50px" height="50px" src="img/u250.png" alt=""/>
+                                <div data-ng-if="product.descriptionUrl">
+                                    <img width="50px" height="50px" data-ng-src="product.descriptionUrl" alt=""/>
                                     <span class="delete-btn glyphicon glyphicon-remove"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">卡券描述：</label>
+                            <label class="col-sm-3 control-label">活动描述：</label>
                             <div class="col-sm-6">
-                                <textarea class="form-control" rows="3" placeholder="卡券描述"></textarea>
+                                <textarea class="form-control" rows="3" placeholder="活动描述"></textarea>
                             </div>
                         </div>
                     </form>
@@ -132,7 +133,6 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-primary">保 存</a>
                     <a class="btn btn-primary">重 置</a>
                 </div>
             </tab>

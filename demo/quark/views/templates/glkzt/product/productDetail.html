@@ -159,7 +159,9 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">合同协议路径：</label>
                         <div class="col-sm-8">
-                            <input data-ng-model="product.contractPath" data-ng-disabled="disabled" type="text" class="form-control">
+                            <select data-ng-model="product.contractPath" data-ng-disabled="disabled" class="form-control">
+                                <option value="{{product.contractPath}}">{{product.contractPath}}</option>
+                            </select>
                         </div>
                     </div>
 
