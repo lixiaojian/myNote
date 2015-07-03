@@ -47,10 +47,8 @@
     backStage.config(['$stateProvider','$urlRouterProvider','$httpProvider',function ($stateProvider, $urlRouterProvider,httpProvider) {
         //请求配置
         initAjaxRequestType(httpProvider);
-        //console.log($resourceProvider.defaults);
         // 路由配置
         $urlRouterProvider.otherwise("/login");
-        //$urlRouterProvider.when("", "/glkzt");
         $stateProvider
         /**
          * 登录
