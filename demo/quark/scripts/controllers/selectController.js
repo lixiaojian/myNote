@@ -22,6 +22,18 @@
             firstText:'首页',
             lastText:'末页'
         };
+        //日历相关
+        $scope.bopen = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.bopened = !$scope.bopened;
+        };
+        $scope.eopen = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.eopened = !$scope.eopened;
+        };
+        $scope.format = 'yyyy-MM-dd';
 
         //打开弹层
         $scope.openDetail = function(type,id){

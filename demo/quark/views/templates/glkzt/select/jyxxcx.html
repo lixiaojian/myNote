@@ -12,11 +12,23 @@
                 <input type="text" class="form-control" id="userName" placeholder="请输入用户名">
             </div>
 
-            <label class="control-label col-sm-1" for="fdate">交易日期：</label>
-            <div class="col-sm-5">
-                <input type="text" class="my-form-control" value="2015-04-01" id="fdate">
-                --
-                <input type="text" class="my-form-control" value="2015-05-01">
+            <label class="control-label col-sm-1">交易日期：</label>
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <input type="text" data-ng-model="searchProduct.raiseStartingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="bopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="bopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-1" style="width: 14px;padding: 0"><span class="msg-span">--</span></div>
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <input type="text" data-ng-model="searchProduct.raiseEndTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
             </div>
         </div>
 
@@ -65,7 +77,7 @@
             <label class="control-label col-sm-1" for="cast">交易金额：</label>
             <div class="col-sm-5">
                 <input type="text" class="my-form-control" id="cast">
-                --
+                <span class="msg-span" style="padding: 0 10px">--</span>
                 <input type="text" class="my-form-control">
             </div>
         </div>
