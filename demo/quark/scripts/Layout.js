@@ -7,6 +7,8 @@
     var getById = function(id){
         return document.getElementById(id);
     };
+    //窗口的高度
+    var window_height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     myLayout = {
         activate: function () {
             var _this = this;
@@ -14,8 +16,7 @@
         },
         fix: function () {
             var neg = getById('main_header').offsetHeight;
-            //窗口的高度
-            var window_height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
             var sidebar_height = getById('sidebar').offsetHeight;
             if (hasClass(document.body,'fixed')) {
                 getById('content_wrapper').style.minHeight = window_height;
@@ -94,9 +95,7 @@
         return text == null ? "" : ( text + "" ).replace( rtrim, "" );
     }
     myLayout.activate();
-    var clientHeight = document.documentElement.clientHeight || document.body.offsetHeight;
-
-    getById('content_wrapper').style.minHeight=parseInt(clientHeight)+'px';
+    getById('content_wrapper').style.minHeight=parseInt(window_height)-50+'px';
 }());
 
 
