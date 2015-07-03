@@ -9,16 +9,9 @@
     //配置路由
     backStage.config(['$stateProvider','$urlRouterProvider','$httpProvider',function ($stateProvider, $urlRouterProvider,httpProvider) {
         // 路由配置
-        $urlRouterProvider.otherwise("/login");
+        $urlRouterProvider.otherwise("/glkzt");
         //$urlRouterProvider.when("", "/glkzt");
         $stateProvider
-        /**
-         * 登录
-         */
-            .state('login', {
-                url: '/login',
-                templateUrl:'views/login.html'
-            })
         /**
          * 管理控台
          */
