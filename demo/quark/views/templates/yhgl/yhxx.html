@@ -44,12 +44,24 @@
                 </select>
             </div>
 
-            <label class="control-label col-sm-1" for="date">注册日期：</label>
+            <label class="control-label col-sm-1">注册日期：</label>
+            <div class="col-sm-2">
+                <div class="input-group" id="collectDate">
+                    <input type="text" data-ng-model="searchProduct.raiseStartingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="bopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="bopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+                </div>
+            </div>
 
-            <div class="col-sm-5">
-                <input type="text" class="my-form-control" id="date">
-                --
-                <input type="text" class="my-form-control">
+            <div class="col-sm-1" style="width: 14px;padding: 0"><span class="msg-span">--</span></div>
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <input type="text" data-ng-model="searchProduct.raiseEndingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" data-ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+                </div>
             </div>
         </div>
     </form>
@@ -131,6 +143,12 @@
         </tr>
         </tbody>
     </table>
+
+    <!--分页-->
+    <div class="clearfix">
+        <div data-pagination data-total-items="page.totalItems" data-ng-model="page.curPage" data-max-size="page.maxSize" data-items-per-page="page.itemsPerPage" data-boundary-links="page.boundaryLinks" data-ng-change="changePage()"
+             data-previous-text="{{page.previousText}}" data-next-text="{{page.nextText}}" data-first-text="{{page.firstText}}" data-last-text="{{page.lastText}}"></div>
+    </div>
 
     <!--弹出层-->
     <script type="text/ng-template" id="myModalContent.html">
@@ -268,7 +286,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2">银行类型：</label>
                             <div class="col-sm-2">
-                                <select class="form-control">
+                                <select data-ng-disabled="true" class="form-control">
                                     <option value="">全部</option>
                                     <option value="">中国银行</option>
                                     <option value="">交通银行</option>
@@ -280,7 +298,7 @@
 
                             <label class="control-label col-sm-2">银行预留手机号：</label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" value="188****3304"/>
+                                <span class="msg-span">188****3304</span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -291,13 +309,13 @@
 
                             <label class="control-label col-sm-2">银行卡号：</label>
                             <div class="col-sm-2">
-                                <input type="text" value="6217****9802" class="form-control"/>
+                                <span class="msg-span">6217****9802</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2">验证渠道：</label>
                             <div class="col-sm-4">
-                                <select class="form-control">
+                                <select data-ng-disabled="true" class="form-control">
                                     <option value="">快捷认证</option>
                                 </select>
                             </div>
@@ -321,7 +339,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-2">银行类型：</label>
                                 <div class="col-sm-2">
-                                    <select class="form-control">
+                                    <select data-ng-disabled="true" class="form-control">
                                         <option value="">全部</option>
                                         <option value="">中国银行</option>
                                         <option value="">交通银行</option>
@@ -333,7 +351,7 @@
 
                                 <label class="control-label col-sm-2">银行预留手机号：</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" value="188****3304"/>
+                                    <span class="msg-span">188****3304</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -344,7 +362,7 @@
 
                                 <label class="control-label col-sm-2">银行卡号：</label>
                                 <div class="col-sm-2">
-                                    <input type="text" value="6217****9802" class="form-control"/>
+                                    <span class="msg-span">6217****9802</span>
                                 </div>
                             </div>
 
@@ -370,7 +388,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-2">验证渠道：</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control">
+                                    <select data-ng-disabled="true" class="form-control">
                                         <option value="">快捷认证</option>
                                     </select>
                                 </div>
