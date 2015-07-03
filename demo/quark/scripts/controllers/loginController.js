@@ -6,7 +6,7 @@
             emsg:''
         };
         $scope.user={
-
+            
         };
         //var url=config.data_serve_base_url
         $scope.login = function(){
