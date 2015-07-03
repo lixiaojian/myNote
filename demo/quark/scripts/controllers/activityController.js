@@ -90,9 +90,9 @@
                         $modalInstance.dismiss('cancel');
                     };
                     if('select' === type){
-                        scope.disabled = true;
+                        scope.isCheck = true;
                     }else{
-                        scope.disabled = false;
+                        scope.isCheck = false;
                     }
                     //选择的时间
                     scope.dateTime=[
