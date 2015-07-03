@@ -89,6 +89,12 @@
             "title":"银行信息",
             "href":"glkzt.yhxx",
             "items":[ ]
+          },
+          {
+            "id":153,
+            "title":"协议管理",
+            "href":"glkzt.xygl",
+            "items":[ ]
           }
         ]
       }

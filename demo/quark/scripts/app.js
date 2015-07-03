@@ -64,6 +64,11 @@
                 url: "/yhxx",
                 templateUrl: "views/templates/glkzt/common/yhxx.html"
             })
+            //协议管理
+            .state("glkzt.xygl", {
+                url: "/xygl",
+                templateUrl: "views/templates/glkzt/common/xygl.html"
+            })
 
         /**
          * 用户管理
