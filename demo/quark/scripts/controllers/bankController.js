@@ -2,8 +2,11 @@
  * Created by lixj(872458899@qq.com) on 15/7/1.
  */
 ;(function(app){
-    app.controller('bankCtr',['$scope','$modal',function($scope,$modal){
+    app.controller('bankCtr',['$scope','$modal','bankService',function($scope,$modal,bankService){
         $scope.modileTitle = '银行信息';
+        bankService.search({},function(data){
+            $scope.bankList = data.recordList;
+        });
         $scope.bankDetail = function(){
             var modalInstance = $modal.open({
                 animation: true,

@@ -15,9 +15,9 @@
             <div class="col-sm-2">
                 <select class="form-control" id="adType">
                     <option>全部</option>
-                    <option>快捷支付</option>
-                    <option>代付</option>
-                    <option>网银</option>
+                    <option value="0">快捷支付</option>
+                    <option value="1">代付</option>
+                    <option value="2">网银</option>
                 </select>
             </div>
         </div>
@@ -30,52 +30,39 @@
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
-            <th>银行名称</th>
-            <th>客服热线</th>
-            <th>支付方式</th>
-            <th>单笔限额（万元）</th>
-            <th>每日限额（万元）</th>
-            <th>备注</th>
-            <th>操作</th>
+            <th style="line-height: 34px">银行名称</th>
+            <th style="line-height: 34px">客服热线</th>
+            <th>
+                <table class="table" style="margin: 0;background-color:transparent;">
+                    <tr>
+                        <td style="width: 10%">支付方式</td>
+                        <td style="width: 20%">单笔限额（万元）</td>
+                        <td style="width: 20%">每日限额（万元）</td>
+                        <td>备注</td>
+                    </tr>
+                </table>
+            </th>
+            <th style="line-height: 34px">操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td rowspan="2">中国工商银行</td>
-            <td rowspan="2">95588</td>
-            <td>快捷支付</td>
-            <td>5</td>
-            <td>5</td>
-            <td>柜面、网银开通银联在线支付</td>
-            <td rowspan="2">
+        <tr data-ng-repeat="bank in bankList">
+            <td>{{bank.bankName}}</td>
+            <td>{{bank.hotLine}}</td>
+            <td style="padding: 0">
+                <table class="table table-bordered" style="margin: 0;background-color:transparent;">
+                    <tr data-ng-repeat="pay in bank.payWays">
+                        <td style="width: 10%">{{pay.payWay == '0'?'快捷支付':pay.payWay == '1'?'代付':'网银'}}</td>
+                        <td style="width: 20%">{{pay.dealsLimitDescribe}}</td>
+                        <td style="width: 20%">{{pay.limitDescribe}}</td>
+                        <td>{{pay.descn}}</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
                 <a class="btn btn-default" href="javascript:" ng-click="bankDetail()" role="button">编 辑</a>
                 <a class="btn btn-default" href="javascript:" role="button">删 除</a>
             </td>
-        </tr>
-        <tr>
-            <td>代扣</td>
-            <td>3</td>
-            <td>6</td>
-            <td>XXXXXXXXXXXXXXXXX</td>
-        </tr>
-
-        <tr>
-            <td rowspan="2">中国银行</td>
-            <td rowspan="2">95566</td>
-            <td>快捷支付</td>
-            <td>10</td>
-            <td>50</td>
-            <td>XXXXXXXXXXXXXXXXX</td>
-            <td rowspan="2">
-                <a class="btn btn-default" href="javascript:" ng-click="bankDetail()" role="button">编 辑</a>
-                <a class="btn btn-default" href="javascript:" role="button">删 除</a>
-            </td>
-        </tr>
-        <tr>
-            <td>代扣</td>
-            <td>3</td>
-            <td>6</td>
-            <td>XXXXXXXXXXXXXXXXX</td>
         </tr>
         </tbody>
     </table>
