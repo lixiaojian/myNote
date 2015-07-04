@@ -33,9 +33,15 @@
             firstText:'首页',
             lastText:'末页'
         };
+        //搜索时的参数
+        $scope.searchProduct = {
+            start:($scope.page.curPage-1)*$scope.page.itemsPerPage,
+            length:$scope.page.itemsPerPage,
+            raiseState:''
+        };
         //翻页
         $scope.changePage = function(){
-            productService.search({start:($scope.page.curPage-1)*$scope.page.itemsPerPage,length:$scope.page.itemsPerPage},function(data){
+            productService.search($scope.searchProduct,function(data){
                 $scope.datas=data.recordList;
                 $scope.page.totalItems = data.iTotalRecords;
                 $scope.page.itemsPerPage = data.pageSize;
@@ -48,10 +54,6 @@
             $scope.page.itemsPerPage = data.pageSize;
         });
 
-        //搜索时的参数
-        $scope.searchProduct = {
-            raiseState:''
-        };
         //搜索产品
         $scope.search = function(){
             //将日期转成字符串提交

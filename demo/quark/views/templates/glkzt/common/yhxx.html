@@ -32,10 +32,10 @@
         <tr>
             <th style="line-height: 34px">银行名称</th>
             <th style="line-height: 34px;width: 12%;">客服热线</th>
-            <th>
+            <th style="width: 60%">
                 <table class="table" style="margin: 0;background-color:transparent;">
                     <tr>
-                        <td style="width: 10%">支付方式</td>
+                        <td style="width: 12%">支付方式</td>
                         <td style="width: 20%">单笔限额（万元）</td>
                         <td style="width: 20%">每日限额（万元）</td>
                         <td>备注</td>
@@ -52,7 +52,7 @@
             <td style="padding: 0">
                 <table class="table table-bordered" style="margin: 0;background-color:transparent;">
                     <tr data-ng-repeat="pay in bank.payWays">
-                        <td style="width: 10%">{{pay.payWay == '0'?'快捷支付':pay.payWay == '1'?'代付':'网银'}}</td>
+                        <td style="width: 12%">{{pay.payWay == '0'?'快捷支付':pay.payWay == '1'?'代付':'网银'}}</td>
                         <td style="width: 20%">{{pay.dealsLimitDescribe}}</td>
                         <td style="width: 20%">{{pay.limitDescribe}}</td>
                         <td>{{pay.descn}}</td>

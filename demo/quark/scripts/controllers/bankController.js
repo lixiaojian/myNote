@@ -22,9 +22,13 @@
             firstText:'首页',
             lastText:'末页'
         };
+        $scope.searchBank={
+            start:($scope.page.curPage-1)*$scope.page.itemsPerPage,
+            length:$scope.page.itemsPerPage
+        };
         //翻页
         $scope.changePage = function(){
-            bankService.search({start:($scope.page.curPage-1)*$scope.page.itemsPerPage,length:$scope.page.itemsPerPage},function(data){
+            bankService.search($scope.searchBank,function(data){
                 $scope.bankList=data.recordList;
                 $scope.page.totalItems = data.iTotalRecords;
                 $scope.page.itemsPerPage = data.pageSize;
