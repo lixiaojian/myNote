@@ -32,7 +32,7 @@
       {
         "id": 1001,
         "pid": "27",
-        "channelCode": null,
+        "channelCode": "wx",
         "channelName": "微信",
         "recommendType": 0,
         "subsidyRate": null,
@@ -44,7 +44,7 @@
       {
         "id": 1002,
         "pid": "28",
-        "channelCode": null,
+        "channelCode": "app",
         "channelName": "App",
         "recommendType": 0,
         "subsidyRate": null,
@@ -56,7 +56,7 @@
       {
         "id": 1003,
         "pid": "27",
-        "channelCode": null,
+        "channelCode": "app",
         "channelName": "App",
         "recommendType": 0,
         "subsidyRate": null,

@@ -112,6 +112,31 @@
                         scope.feopened = !scope.feopened;
                     };
                     scope.format = 'yyyy-MM-dd';
+                    //日历相关
+                    scope.bopen = function($event) {
+                        $event.preventDefault();
+                        $event.stopPropagation();
+                        scope.bopened = !scope.bopened;
+                    };
+                    scope.eopen = function($event) {
+                        $event.preventDefault();
+                        $event.stopPropagation();
+                        scope.eopened = !scope.eopened;
+                    };
+                    /**
+                     * 卡劵属性
+                     */
+                    scope.cardVolumes=[
+                        {id:1,value:10,count:3000},
+                        {id:2,value:20,count:2000}
+
+                    ];
+                    scope.addCl = function(){
+                        scope.cardVolumes.push({});
+                    };
+                    scope.removeCl = function(index,id){
+                        scope.cardVolumes.splice(index,1);
+                    };
                 }]
 
             });

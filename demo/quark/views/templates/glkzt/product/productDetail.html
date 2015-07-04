@@ -231,7 +231,7 @@
                                 <li>
                                     PC：<img data-ng-src="{{product.channel[2].descriptionUrl || 'img/u250.png'}}" alt=""/>
                                     <span data-ng-if="!disabled && product.channel[2].descriptionUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
-                                    <span data-ng-if="!disabled && product.channel[2].channelCode" input-file title="PC图片" model="product.channel[2].descriptionUrl"></span>
+                                    <span data-ng-if="!disabled" input-file title="PC图片" model="product.channel[2].descriptionUrl"></span>
                                 </li>
                             </ul>
                             <textarea data-ng-model="product.description" data-ng-disabled="disabled" class="form-control" rows="3">财富优加计划是夸客金额为移动互联网...................</textarea>

@@ -180,27 +180,16 @@
                                         <tr>
                                             <th>面值</th>
                                             <th>发放数量（张）</th>
-                                            <th>占比（%）</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>10</td>
-                                            <td>3000</td>
-                                            <td>30%</td>
+                                        <tr data-ng-repeat="cv in cardVolumes">
+                                            <td><input type="text" data-ng-model="cv.value"/></td>
+                                            <td><input type="text" data-ng-model="cv.count"/></td>
                                             <td>
-                                                <a class="btn btn-sm btn-default" href="javascript:" data-ng-click="" role="button">新 增</a>
-                                                <a class="btn btn-sm btn-default" href="javascript:" data-ng-click="" role="button">删 除</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>10</td>
-                                            <td>3000</td>
-                                            <td>30%</td>
-                                            <td>
-                                                <a class="btn btn-sm btn-default" href="javascript:" data-ng-click="" role="button">新 增</a>
-                                                <a class="btn btn-sm btn-default" href="javascript:" data-ng-click="" role="button">删 除</a>
+                                                <a data-ng-if="$last" class="btn btn-sm btn-default" href="javascript:" data-ng-click="addCl()" role="button">新 增</a>
+                                                <a data-ng-if="!$first" class="btn btn-sm btn-default" href="javascript:" data-ng-click="removeCl($index,cv.id)" role="button">删 除</a>
                                             </td>
                                         </tr>
 
@@ -304,14 +293,20 @@
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 卡券有效期：</label>
-                                <div class="col-sm-8">
-                                    <select class="form-control" style="width: 200px;display: inline-block">
-                                        <option>2015-05-01</option>
-                                    </select>
-                                    --
-                                    <select class="form-control" style="width: 200px;display: inline-block">
-                                        <option>2015-05-31</option>
-                                    </select>
+                                <div class="col-sm-8 clearfix">
+                                    <div class="input-group pull-left" style="width: 230px;">
+                                        <input type="text" data-ng-model="searchProduct.raiseStartingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="bopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="bopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                    </div>
+                                    <span class="msg-span pull-left">&nbsp; -- &nbsp;</span>
+                                    <div class="input-group pull-left" style="width: 230px;">
+                                        <input type="text" data-ng-model="searchProduct.raiseEndingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" data-ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                    </div>
                                 </div>
                             </div>
 
