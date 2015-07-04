@@ -31,7 +31,7 @@
         <thead>
         <tr>
             <th style="line-height: 34px">银行名称</th>
-            <th style="line-height: 34px">客服热线</th>
+            <th style="line-height: 34px;width: 12%;">客服热线</th>
             <th>
                 <table class="table" style="margin: 0;background-color:transparent;">
                     <tr>
@@ -67,6 +67,11 @@
         </tbody>
     </table>
 
+    <!--分页-->
+    <div class="clearfix">
+        <div data-pagination data-total-items="page.totalItems" data-ng-model="page.curPage" data-max-size="page.maxSize" data-items-per-page="page.itemsPerPage" data-boundary-links="page.boundaryLinks" data-ng-change="changePage()"
+             data-previous-text="{{page.previousText}}" data-next-text="{{page.nextText}}" data-first-text="{{page.firstText}}" data-last-text="{{page.lastText}}"></div>
+    </div>
     <!--弹出层-->
     <script type="text/ng-template" id="addBank.html">
         <div class="modal-body">

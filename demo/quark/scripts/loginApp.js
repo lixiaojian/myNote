@@ -87,7 +87,7 @@
         $scope.login = function(){
             loginService.add($scope.user,function(data){
                 if(data.resCode=='0000') {
-                    window.location.href="index.html";
+                    window.location.href="aa.html";
                     $state.go('glkzt');
                 } else {
                     $scope.changeVailCode();
