@@ -117,9 +117,11 @@
                             <input type="text" style="width: 80px" class="my-form-control"/> 万元
                         </div>
 
-                        <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 每日限额：</label>
+                        <label class="col-sm-2 control-label" style="margin-left: -20px"><span class="t_c_r">*</span> 每日限额：</label>
                         <div class="col-sm-2">
-                            <input type="text" style="width: 80px" class="my-form-control"/> 万元
+                            <input type="text" style="width: 60px" class="my-form-control"/>
+                            <span style="padding-right: 6px">万元</span>
+                            <span class="delete-btn glyphicon glyphicon-remove" data-ng-click="removeBpay($index)"></span>
                         </div>
                     </div>
 
@@ -127,9 +129,6 @@
                         <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 备注：</label>
                         <div class="col-sm-4">
                             <textarea rows="3" class="form-control"></textarea>
-                        </div>
-                        <div class="col-sm-5 clearfix">
-                            <a class="btn btn-default pull-right" data-ng-click="removeBpay($index)">删 除</a>
                         </div>
                     </div>
                 </div>
