@@ -99,11 +99,8 @@
                 <div class="form-group">
                     <label for="publishChannelModal" class="col-sm-2 control-label">发布渠道:</label>
                     <div class="col-sm-3">
-                        <select data-ng-model="filterName" class="form-control" id="publishChannelModal">
-                            <option value="">全部</option>
-                            <option value="APP">APP</option>
-                            <option value="WX">微信</option>
-                            <option value="PC">PC</option>
+                        <select data-ng-model="filterName" data-ng-change="filterApps()" data-ng-options="o.value as o.name for o in optionsData" class="form-control" id="publishChannelModal">
+
                         </select>
                     </div>
                 </div>

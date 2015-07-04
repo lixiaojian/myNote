@@ -1,4 +1,8 @@
+
 {
+  "resCode":"0000",
+  "resMsg":"操作成功",
+"resInfo":{
   "allProducts":[
     {
       "pid":2,
@@ -138,4 +142,4 @@
       "publishChannel":"PC"
     }
   ]
-}
+}}

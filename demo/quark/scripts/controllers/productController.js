@@ -69,15 +69,45 @@
             $modal.open({
                 animation: true,
                 controller: ['$scope','$modalInstance','$timeout','$filter',function(scope, $modalInstance,$timeout,$filter){
+                    scope.filterName = 'app';
+                    scope.optionsData = [
+                        {
+                            value:'app',
+                            name:'APP'
+                        },
+                        {
+                            value:'wx',
+                            name:'微信'
+                        },{
+                            value:'pc',
+                            name:'PC'
+                        }
+
+                    ];
                     //获取排序的产品列表
                     if(!scope.productsOrder){
-                        productService.getOrders({},function(data){
-                            scope.productsOrder = data;
-                            //排序
-                            scope.productsOrder.allProducts = $filter('orderBy')(scope.productsOrder.allProducts,'orderNumber');
-                            scope.productsOrder.goodProduct = $filter('orderBy')(scope.productsOrder.goodProduct,'orderNumber2');
+                        productService.getOrders({channelCode:scope.filterName},function(data){
+                            if('0000' === data.resCode){
+                                scope.productsOrder = data.resInfo;
+                                //排序
+                                scope.productsOrder.allProducts = $filter('orderBy')(scope.productsOrder.allProducts,'orderNumber');
+                                scope.productsOrder.goodProduct = $filter('orderBy')(scope.productsOrder.goodProduct,'orderNumber2');
+                            }
+
                         })
                     }
+                    //重新获取产品列表
+                    scope.filterApps = function(){
+                        productService.getOrders({channelCode:scope.filterName},function(data){
+                            if('0000' === data.resCode){
+                                scope.productsOrder = data.resInfo;
+                                //排序
+                                scope.productsOrder.allProducts = $filter('orderBy')(scope.productsOrder.allProducts,'orderNumber');
+                                scope.productsOrder.goodProduct = $filter('orderBy')(scope.productsOrder.goodProduct,'orderNumber2');
+                            }
+
+                        })
+                    };
                     //点击确定
                     scope.ok = function () {
                         $modalInstance.close();
