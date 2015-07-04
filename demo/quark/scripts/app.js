@@ -103,6 +103,12 @@
             .state("grmmxg", {
                 url: "/grmmxg",
                 templateUrl: "views/grmmxg.html"
-            })
+            });
+    }])
+        //这里做事件监听  主要用于提示信息
+    .run(['$rootScope',function($rootScope) {
+        $rootScope.$on('notLogin',function(data1,data2){
+            console.log(data1);
+        });
     }]);
 }());

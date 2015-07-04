@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="backStage">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>管理控制台</title>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="styles/layout.css"/>
+    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css"/>
+    <link rel="stylesheet" href="styles/main.css"/>
+</head>
+<body>
+<div id="wrapper" class="wrapper">
+    <!--header-->
+    <header id="main_header" class="main-header">
+        <a href="javascript:" class="logo" id="sidebar_toggle">菜单导航 <span class="glyphicon glyphicon-th-list"></span></a>
+        <nav class="navbar navbar-static-top">
+            <ul>
+                <li>
+                    <img src="img/user.png" alt=""/>
+                    <span>欢迎管理员：dongxiaoli</span>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!--header end-->
+
+    <!-- Left side-->
+    <aside class="main-sidebar" ng-controller="menuCtr">
+        <section id="sidebar" class="sidebar">
+            <div ui-tree="options" data-drag-enabled="false">
+                <ol ui-tree-nodes data-ng-model="menuList" >
+                    <li data-collapsed="true" ng-repeat="item in menuList" ui-tree-node ng-include="'views/LeftNav.html'"></li>
+                </ol>
+            </div>
+        </section>
+    </aside>
+    <!-- Left side end-->
+
+    <!-- Content Wrapper -->
+    <div id="content_wrapper" class="content-wrapper">
+        <div class="main-content" data-ui-view="">
+
+        </div>
+    </div>
+    <!-- Content Wrapper end-->
+</div>
+
+<!--布局文件-->
+<script src="scripts/Layout.js" type="text/javascript"></script>
+<script src="bower_components/underscore/underscore.js"></script>
+<!--ng 文件-->
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="scripts/angular-locale_zh-cn.js"></script>
+<script src="bower_components/angular-resource/angular-resource.min.js"></script>
+<script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-file-upload/angular-file-upload.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<!--模块文件-->
+<script src="scripts/app.js"></script>
+<script src="scripts/directives/commonDirectives.js"></script>
+<!--左边导航文件-->
+<script src="scripts/controllers/menuController.js"></script>
+<script src="scripts/services/menuService.js"></script>
+<!--管理控制台文件-->
+<script src="scripts/controllers/czyglController.js"></script>
+<!--角色管理文件-->
+<script src="scripts/controllers/roleController.js"></script>
+<script src="scripts/services/roleService.js"></script>
+<script src="scripts/services/treeService.js"></script>
+<!--产品管理文件-->
+<script src="scripts/controllers/productController.js"></script>
+<script src="scripts/services/productService.js"></script>
+<!--活动管理文件-->
+<script src="scripts/controllers/activityController.js"></script>
+<script src="scripts/services/activityService.js"></script>
+<!--查询管理-->
+<script src="scripts/controllers/selectController.js"></script>
+<!--通用管理-->
+<script src="scripts/controllers/advertController.js"></script>
+<script src="scripts/controllers/bankController.js"></script>
+<!--用户管理-->
+<script src="scripts/controllers/userController.js"></script>
+<!--资产信息-->
+<script src="scripts/controllers/assetController.js"></script>
+<!--用户卡劵查询-->
+<script src="scripts/controllers/cardVolumeController.js"></script>
+<!--用户绑卡认证查询--->
+<script src="scripts/controllers/bindCardController.js"></script>
+<!--协议管理-->
+<script src="scripts/controllers/protocolController.js"></script>
+</body>
+</html>
