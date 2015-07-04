@@ -110,7 +110,11 @@
                     };
                     //点击确定
                     scope.ok = function () {
-                        $modalInstance.close();
+                        productService.saveOrder(scope.productsOrder,function(data){
+                            if('0000' === data.resCode){
+                                $modalInstance.close();
+                            }
+                        })
                     };
                     //点击取消
                     scope.cancel = function () {

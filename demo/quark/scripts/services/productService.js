@@ -24,6 +24,10 @@
             findById:{
                 url:'data/product3.json',
                 method:'get'
+            },
+            saveOrder:{
+                url:'data/saveOrder.json',
+                method:'put'
             }
         };
         return $resource(url,{},actions);
