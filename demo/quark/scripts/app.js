@@ -106,9 +106,23 @@
             });
     }])
         //这里做事件监听  主要用于提示信息
-    .run(['$rootScope',function($rootScope) {
-        $rootScope.$on('notLogin',function(data1,data2){
-            console.log(data1);
-        });
+    .run(['$rootScope','$modal',function($rootScope,$modal) {
+            //没有登录
+            $rootScope.$on('notLogin',function(data1){
+                console.log(data1);
+            });
+            //数据加载中
+            $rootScope.$on('loadding',function(data1){
+                $rootScope.modal = $modal.open({
+                    animation: true,
+                    backdrop:'static',
+                    template: '<div style="padding: 15px 0;text-align: center;">数据加载中，请稍后。。。</div>',
+                    size:'sm'
+                });
+            });
+            //关闭提示
+            $rootScope.$on('colseModal',function(data1){
+                $rootScope.modal && $rootScope.modal.close();
+            });
     }]);
 }());
