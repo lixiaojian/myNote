@@ -59,7 +59,7 @@
             </td>
             <td>
                 <a class="btn btn-default" href="javascript:" ng-click="bankDetail(bank.id)" role="button">编 辑</a>
-                <a class="btn btn-default" href="javascript:" role="button">删 除</a>
+                <a class="btn btn-default" href="javascript:" data-ng-click="delete(bank.id,$index)" role="button">删 除</a>
             </td>
         </tr>
         </tbody>
@@ -130,5 +130,4 @@
             </form>
         </div>
     </script>
-
 </div>

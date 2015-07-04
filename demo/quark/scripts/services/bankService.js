@@ -25,6 +25,11 @@
             findById:{
                 url:'data/bankDetail.json',
                 method:'get'
+            },
+            //删除银行
+            deleteBank:{
+                url:'data/saveBank.json',
+                method:'get'
             }
         };
         return $resource(url,{},actions);

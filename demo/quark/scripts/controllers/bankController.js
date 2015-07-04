@@ -40,7 +40,29 @@
                 $scope.page.itemsPerPage = data.pageSize;
             });
         };
-
+        //删除
+        $scope.delete = function(id,index){
+            $modal.open({
+                animation: true,
+                templateUrl: 'views/templates/deleteConfirm.html',
+                size:'sm',
+                controller: ['$scope','$modalInstance',function(scope, $modalInstance){
+                    //点击确定
+                    scope.ok = function () {
+                        bankService.deleteBank({id:id},function(data){
+                            if('0000' === data.resCode){
+                                $modalInstance.close();
+                                $scope.bankList.splice(index,1);
+                            }
+                        });
+                    };
+                    //点击取消
+                    scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                }]
+            });
+        };
         $scope.changePage();
 
         $scope.search = function(){
@@ -49,7 +71,7 @@
         };
 
         $scope.bankDetail = function(id){
-            var modalInstance = $modal.open({
+            $modal.open({
                 animation: true,
                 templateUrl: 'addBank.html',
                 size:'lg',
