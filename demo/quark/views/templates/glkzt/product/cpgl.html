@@ -112,8 +112,8 @@
                         <span class="glyphicon glyphicon-arrow-down" data-ng-click="moveOrder('left','down')"></span>
                     </div>
                     <ul>
-                        <li ng-repeat="p in productsOrder.allProducts | filter:filterName">
-                            <input type="radio" data-pre="{{productsOrder.allProducts[$index-1].pid}}" data-next="{{productsOrder.allProducts[$index+1].pid}}" data-ng-click="setCurr($event,p,'left')" id="p_{{p.pid}}" name="allProduct"/>&nbsp; <label for="p_{{p.pid}}">{{p.name}}&nbsp;&nbsp;&nbsp;{{p.status}}</label>
+                        <li ng-repeat="p in productsOrder.allProducts">
+                            <input type="radio" data-pre="{{productsOrder.allProducts[$index-1].pid}}" data-next="{{productsOrder.allProducts[$index+1].pid}}" data-ng-click="setCurr($event,p,'left')" id="p_{{p.pid}}" name="allProduct"/>&nbsp; <label for="p_{{p.pid}}">{{p.productName}}&nbsp;&nbsp;&nbsp;{{p.raiseState===0?'募集中':p.raiseState===1?'初始化':p.raiseState===2?'募集完':p.raiseState===3?'已上架':'已下架'}}</label>
                         </li>
                     </ul>
                 </div>
@@ -126,8 +126,8 @@
                         精品
                     </div>
                     <ul>
-                        <li ng-repeat="gp in productsOrder.goodProduct | filter:filterName">
-                            <input type="radio" data-pre="{{productsOrder.goodProduct[$index-1].pid}}" data-next="{{productsOrder.goodProduct[$index+1].pid}}" id="g_p_{{gp.pid}}" data-ng-click="setCurr($event,gp,'right')" name="goodProduct"/>&nbsp;<label for="g_p_{{gp.pid}}">{{gp.name}}&nbsp;&nbsp;&nbsp;{{gp.status}}</label>
+                        <li ng-repeat="gp in productsOrder.goodProducts">
+                            <input type="radio" data-pre="{{productsOrder.goodProduct[$index-1].pid}}" data-next="{{productsOrder.goodProduct[$index+1].pid}}" id="g_p_{{gp.pid}}" data-ng-click="setCurr($event,gp,'right')" name="goodProduct"/>&nbsp;<label for="g_p_{{gp.pid}}">{{gp.productName}}&nbsp;&nbsp;&nbsp;{{p.raiseState===0?'募集中':p.raiseState===1?'初始化':p.raiseState===2?'募集完':p.raiseState===3?'已上架':'已下架'}}</label>
                         </li>
                     </ul>
                 </div>

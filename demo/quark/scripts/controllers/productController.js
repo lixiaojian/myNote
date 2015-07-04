@@ -90,8 +90,8 @@
                             if('0000' === data.resCode){
                                 scope.productsOrder = data.resInfo;
                                 //排序
-                                scope.productsOrder.allProducts = $filter('orderBy')(scope.productsOrder.allProducts,'orderNumber');
-                                scope.productsOrder.goodProduct = $filter('orderBy')(scope.productsOrder.goodProduct,'orderNumber2');
+                                scope.productsOrder.allProducts = $filter('orderBy')(scope.productsOrder.allProducts,'priority');
+                                //scope.productsOrder.goodProduct = scope.productsOrder.goodProduct;
                             }
 
                         })
@@ -102,8 +102,8 @@
                             if('0000' === data.resCode){
                                 scope.productsOrder = data.resInfo;
                                 //排序
-                                scope.productsOrder.allProducts = $filter('orderBy')(scope.productsOrder.allProducts,'orderNumber');
-                                scope.productsOrder.goodProduct = $filter('orderBy')(scope.productsOrder.goodProduct,'orderNumber2');
+                                scope.productsOrder.allProducts = $filter('orderBy')(scope.productsOrder.allProducts,'priority');
+                                //scope.productsOrder.goodProduct = scope.productsOrder.goodProduct;
                             }
 
                         })
@@ -133,12 +133,12 @@
                             canClick = false;
                             if('left' === po){
                                 if('up' === ver){
-                                    setOrder(scope.productsOrder.allProducts,scope.leftCurtId,scope.leftPreId,'orderNumber');
+                                    setOrder(scope.productsOrder.allProducts,scope.leftCurtId,scope.leftPreId,'priority');
                                 }else if('down' === ver){
-                                    setOrder(scope.productsOrder.allProducts,scope.leftCurtId,scope.leftNextId,'orderNumber');
+                                    setOrder(scope.productsOrder.allProducts,scope.leftCurtId,scope.leftNextId,'priority');
                                 }
                                 //更改顺序后重新排序
-                                scope.productsOrder.allProducts = $filter('orderBy')(scope.productsOrder.allProducts,'orderNumber');
+                                scope.productsOrder.allProducts = $filter('orderBy')(scope.productsOrder.allProducts,'priority');
                                 $timeout(function(){
                                     curLeftElement = document.getElementById('p_'+scope.leftCurtId);
                                     setAllId(curLeftElement,po);
