@@ -15,6 +15,11 @@
                 url:'data/banks.json',
                 method:'get',
                 isArray:true
+            },
+            //添加银行
+            saveBank:{
+                url:'data/saveBank.json',
+                method:'post'
             }
         };
         return $resource(url,{},actions);

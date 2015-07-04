@@ -77,7 +77,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 银行名称：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control"/>
+                        <input data-ng-model="curBank.bankName" type="text" class="form-control"/>
                     </div>
                     <div class="col-sm-5 clearfix">
                         <a class="btn btn-default pull-right" data-ng-click="addBpay()">新 增</a>
@@ -87,29 +87,29 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 客服热线：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control"/>
+                        <input type="text" data-ng-model="curBank.hotLine" class="form-control"/>
                     </div>
                 </div>
 
-                <div class="bankBox" data-ng-repeat="bpay in bpays">
+                <div class="bankBox" data-ng-repeat="bpay in curBank.payWays">
                     <div class="form-group">
                         <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 支付方式：</label>
                         <div class="col-sm-2">
-                            <select class="form-control" id="payType">
-                                <option>全部</option>
-                                <option>快捷支付</option>
-                                <option>代付</option>
-                                <option>网银</option>
+                            <select class="form-control" data-ng-model="bpay.payWay" id="payType">
+                                <option value="">全部</option>
+                                <option value="0">快捷支付</option>
+                                <option value="1">代付</option>
+                                <option value="2">网银</option>
                             </select>
                         </div>
                         <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 单笔限额：</label>
                         <div class="col-sm-2">
-                            <input type="text" style="width: 80px" class="my-form-control"/> 万元
+                            <input type="text" data-ng-model="bpay.dealsLimitDescribe" style="width: 80px" class="my-form-control"/> 万元
                         </div>
 
                         <label class="col-sm-2 control-label" style="margin-left: -20px"><span class="t_c_r">*</span> 每日限额：</label>
                         <div class="col-sm-2">
-                            <input type="text" style="width: 60px" class="my-form-control"/>
+                            <input type="text" style="width: 60px" data-ng-model="bpay.limitDescribe" class="my-form-control"/>
                             <span style="padding-right: 6px">万元</span>
                             <span class="delete-btn glyphicon glyphicon-remove" data-ng-click="removeBpay($index)"></span>
                         </div>
@@ -118,7 +118,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 备注：</label>
                         <div class="col-sm-4">
-                            <textarea rows="3" class="form-control"></textarea>
+                            <textarea rows="3" data-ng-model="bpay.descn" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>

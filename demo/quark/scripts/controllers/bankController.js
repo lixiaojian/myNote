@@ -41,19 +41,11 @@
             });
         };
 
-        bankService.search({},function(data){
-            $scope.bankList = data.recordList;
-            $scope.page.totalItems = data.iTotalRecords;
-            $scope.page.itemsPerPage = data.pageSize;
-        });
+        $scope.changePage();
 
         $scope.search = function(){
             $scope.page.curPage = 1;
-            bankService.search($scope.searchBank,function(data){
-                $scope.bankList=data.recordList;
-                $scope.page.totalItems = data.iTotalRecords;
-                $scope.page.itemsPerPage = data.pageSize;
-            });
+            $scope.changePage();
         };
 
         $scope.bankDetail = function(){
@@ -62,18 +54,24 @@
                 templateUrl: 'addBank.html',
                 size:'lg',
                 controller: ['$scope','$modalInstance',function($scope, $modalInstance){
-                    $scope.bpays=[{}];
+                    $scope.curBank={
+                        payWays:[{}]
+                    };
                     //添加支付
                     $scope.addBpay=function(){
-                        $scope.bpays.push({});
+                        $scope.curBank.payWays.push({});
                     };
                     //删除支付
                     $scope.removeBpay = function(index){
-                        $scope.bpays.splice(index,1);
+                        $scope.curBank.payWays.splice(index,1);
                     };
                     //点击确定
                     $scope.ok = function () {
-                        $modalInstance.close();
+                        bankService.saveBank($scope.curBank,function(data){
+                            if('0000' === data.resCode){
+                                $modalInstance.close();
+                            }
+                        })
                     };
                     //点击取消
                     $scope.cancel = function () {
