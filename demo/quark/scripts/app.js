@@ -109,7 +109,7 @@
     .run(['$rootScope','$modal',function($rootScope,$modal) {
             //没有登录
             $rootScope.$on('notLogin',function(data1){
-                console.log(data1);
+                location.href='index.html#/login';
             });
             //数据加载中
             $rootScope.$on('loadding',function(data1){
