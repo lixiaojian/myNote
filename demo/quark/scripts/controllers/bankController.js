@@ -48,15 +48,21 @@
             $scope.changePage();
         };
 
-        $scope.bankDetail = function(){
+        $scope.bankDetail = function(id){
             var modalInstance = $modal.open({
                 animation: true,
                 templateUrl: 'addBank.html',
                 size:'lg',
                 controller: ['$scope','$modalInstance',function($scope, $modalInstance){
-                    $scope.curBank={
-                        payWays:[{}]
-                    };
+                    if(id){
+                        bankService.findById({id:id},function(data){
+                            $scope.curBank = data;
+                        })
+                    }else{
+                        $scope.curBank={
+                            payWays:[{}]
+                        };
+                    }
                     //添加支付
                     $scope.addBpay=function(){
                         $scope.curBank.payWays.push({});

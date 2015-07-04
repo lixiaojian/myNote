@@ -20,6 +20,11 @@
             saveBank:{
                 url:'data/saveBank.json',
                 method:'post'
+            },
+            //通过id查询
+            findById:{
+                url:'data/bankDetail.json',
+                method:'get'
             }
         };
         return $resource(url,{},actions);

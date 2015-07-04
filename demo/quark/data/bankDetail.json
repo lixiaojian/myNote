@@ -1,0 +1,40 @@
+{
+  "id": "9923977DF985469C812749473867D773",
+  "channelCode": "kuake",
+  "bankSerial": "102",
+  "bankName": "中国工商银行",
+  "capitalMode": null,
+  "bindWay": "0",
+  "supportAutoPay": "1",
+  "discountRate": 0,
+  "limitDescribe": "5",
+  "contentDescribe": "2",
+  "priority": "2",
+  "createUser": "1",
+  "createTime": 1425375268188,
+  "isActive": "0",
+  "dealsLimitDescribe": "5",
+  "hotLine": "400-300-1120",
+  "payWays": [
+    {
+      "id": "122",
+      "limitDescribe": "5",
+      "bankId": "9923977DF985469C812749473867D773",
+      "createUser": null,
+      "createTime": null,
+      "dealsLimitDescribe": "5",
+      "payWay": "1",
+      "descn": "65"
+    },
+    {
+      "id": "767887",
+      "limitDescribe": "7",
+      "bankId": "9923977DF985469C812749473867D773",
+      "createUser": null,
+      "createTime": null,
+      "dealsLimitDescribe": "6",
+      "payWay": "0",
+      "descn": null
+    }
+  ]
+}
