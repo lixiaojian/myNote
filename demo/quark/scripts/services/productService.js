@@ -27,7 +27,7 @@
             },
             saveOrder:{
                 url:'data/saveOrder.json',
-                method:'put'
+                method:'post'
             }
         };
         return $resource(url,{},actions);

@@ -10,7 +10,15 @@
                 templateUrl: 'addBank.html',
                 size:'lg',
                 controller: ['$scope','$modalInstance',function($scope, $modalInstance){
-
+                    $scope.bpays=[{}];
+                    //添加支付
+                    $scope.addBpay=function(){
+                        $scope.bpays.push({});
+                    };
+                    //删除支付
+                    $scope.removeBpay = function(index){
+                        $scope.bpays.splice(index,1);
+                    };
                     //点击确定
                     $scope.ok = function () {
                         $modalInstance.close();
