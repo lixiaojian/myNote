@@ -9,6 +9,12 @@
             search:{
                 url:'data/bankList.json',
                 method:'get'
+            },
+            //获取所有银行列表
+            findAllBank:{
+                url:'data/banks.json',
+                method:'get',
+                isArray:true
             }
         };
         return $resource(url,{},actions);

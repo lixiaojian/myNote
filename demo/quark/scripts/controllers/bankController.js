@@ -22,9 +22,15 @@
             firstText:'首页',
             lastText:'末页'
         };
+        if(!$scope.banks){
+            bankService.findAllBank({},function(data){
+                $scope.banks = data;
+            })
+        }
         $scope.searchBank={
             start:($scope.page.curPage-1)*$scope.page.itemsPerPage,
-            length:$scope.page.itemsPerPage
+            length:$scope.page.itemsPerPage,
+            id:''
         };
         //翻页
         $scope.changePage = function(){
@@ -40,6 +46,16 @@
             $scope.page.totalItems = data.iTotalRecords;
             $scope.page.itemsPerPage = data.pageSize;
         });
+
+        $scope.search = function(){
+            $scope.page.curPage = 1;
+            bankService.search($scope.searchBank,function(data){
+                $scope.bankList=data.recordList;
+                $scope.page.totalItems = data.iTotalRecords;
+                $scope.page.itemsPerPage = data.pageSize;
+            });
+        };
+
         $scope.bankDetail = function(){
             var modalInstance = $modal.open({
                 animation: true,
