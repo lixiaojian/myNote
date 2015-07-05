@@ -21,8 +21,8 @@ angular.module("w5c.validator", ["ng"])
             if(elem[0].tagName === "FORM" || elem[0].nodeType == 11){
                 return null;
             }
-            if(elem && elem.hasClass("form-group")){
-                return elem;
+            if(elem && elem.parent() && elem.parent().parent()){
+                return elem.parent().parent();
             }else{
                 return getParentGroup(elem.parent())
             }
@@ -49,7 +49,7 @@ angular.module("w5c.validator", ["ng"])
 
                 }
                 if($elem.next(".w5c-error").length <= 0){
-                    $elem.after('<span class="w5c-error">' + errorMessages[0] + '</span>');
+                    $elem.parent().append('<div class="w5c-error">' + errorMessages[0] + '</div>');
                 }
             };
             this.defaultRemoveError = function (elem) {

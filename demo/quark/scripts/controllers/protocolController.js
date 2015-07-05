@@ -2,24 +2,26 @@
  * Created by lixj(872458899@qq.com) on 15/7/3.
  */
 ;(function(app){
-    app.controller('protocolCtr',['$scope','$modal',function($scope,$modal){
+    app.controller('protocolCtr',['$scope','$modal','protocolService',function($scope,$modal,protocolService){
         $scope.modileTitle = '协议管理';
-        $scope.rules=[
-            {
-                url:'123.txt'
-            },
-            {
-                url:'1234.txt'
-            },
-            {
-                url:'1235.txt'
-            }
-        ];
+
+        protocolService.findAll({},function(data){
+            $scope.protocols = data;
+        });
+
         $scope.addRule = function(){
-            $scope.rules.push({});
+            $scope.protocols.loopAgreementDocList.push({agreementCode:'sell_book'});
         };
         $scope.removeRule = function(index){
-            $scope.rules.splice(index,1);
+            $scope.protocols.loopAgreementDocList.splice(index,1);
+        };
+
+        $scope.save = function(){
+            protocolService.save($scope.protocols,function(data){
+                if('0000' === data.resCode){
+                    alert('保存成功！');
+                }
+            });
         }
     }]);
 }(angular.module('backStage')));

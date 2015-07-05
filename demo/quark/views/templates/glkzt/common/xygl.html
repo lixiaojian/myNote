@@ -4,10 +4,10 @@
         <div class="form-group">
             <label class="control-label col-sm-3"><span class="t_c_r">*</span> 委托划扣授权书：</label>
             <div class="col-sm-3">
-                <input type="text" data-ng-model="product.descriptionUrl" class="form-control"/>
+                <input type="text" data-ng-model="protocols.delegateDoc.docPath" class="form-control"/>
             </div>
             <div class="col-sm-2">
-                <span input-file title="委托划扣授权书" model="product.descriptionUrl"></span>
+                <span input-file title="委托划扣授权书" model="protocols.delegateDoc.docPath"></span>
             </div>
             <div class="col-sm-2">
                 <a class="btn btn-default" href="javascript:" role="button">下 载</a>
@@ -16,10 +16,10 @@
         <div class="form-group">
             <label class="control-label col-sm-3"><span class="t_c_r">*</span> 体验金规则：</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control"/>
+                <input type="text" data-ng-model="protocols.experienceDoc.docPath" class="form-control"/>
             </div>
             <div class="col-sm-2">
-                <span input-file title="体验金规则" model="product.descriptionUrl"></span>
+                <span input-file title="体验金规则" model="protocols.experienceDoc.docPath"></span>
             </div>
             <div class="col-sm-2">
                 <a class="btn btn-default" href="javascript:" role="button">下 载</a>
@@ -28,23 +28,23 @@
         <div class="form-group">
             <label class="control-label col-sm-3"><span class="t_c_r">*</span> 卡券使用规则：</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control"/>
+                <input type="text" data-ng-model="protocols.counponDoc.docPath" class="form-control"/>
             </div>
             <div class="col-sm-2">
-                <span input-file title="卡券使用规则" model="product.descriptionUrl"></span>
+                <span input-file title="卡券使用规则" model="protocols.counponDoc.docPath"></span>
             </div>
             <div class="col-sm-2">
                 <a class="btn btn-default" href="javascript:" role="button">下 载</a>
             </div>
         </div>
 
-        <div class="form-group" data-ng-repeat="rule in rules">
+        <div class="form-group" data-ng-repeat="rule in protocols.loopAgreementDocList">
             <label class="control-label col-sm-3">&nbsp;<span data-ng-if="$first"><span class="t_c_r">*</span> 卡出借咨询与服务协议：</span></label>
             <div class="col-sm-3">
-                <input type="text" data-ng-model="rule.url" class="form-control"/>
+                <input type="text" data-ng-model="rule.docPath" class="form-control"/>
             </div>
             <div class="col-sm-2">
-                <span input-file title="出借咨询与服务协议" model="product.descriptionUrl"></span>
+                <span input-file title="出借咨询与服务协议" model="rule.docPath"></span>
             </div>
             <div class="col-sm-1">
                 <a class="btn btn-default" href="javascript:" role="button">下 载</a>
@@ -57,6 +57,6 @@
         </div>
     </form>
     <div class="btn-box clearfix col-sm-10">
-        <a class="btn btn-primary pull-right" href="javascript:" role="button">保 存</a>
+        <a class="btn btn-primary pull-right" href="javascript:" data-ng-click="save()" role="button">保 存</a>
     </div>
 </div>

@@ -1,0 +1,24 @@
+{
+  "delegateDoc": {
+    "agreementId": "1",
+    "agreementCode": "delegate_book",
+    "docPath": "/opt/aa/a.doc"
+  },
+  "experienceDoc": {
+    "agreementId": "2",
+    "agreementCode": "experience_book",
+    "docPath": "/opt/aa/b.doc"
+  },
+  "counponDoc": {
+    "agreementId": "3",
+    "agreementCode": "coupon_book",
+    "docPath": "/opt/aa/c.doc"
+  },
+  "loopAgreementDocList": [
+    {
+      "agreementId": "4",
+      "agreementCode": "sell_book",
+      "docPath": "/opt/aa/d.doc"
+    }
+  ]
+}

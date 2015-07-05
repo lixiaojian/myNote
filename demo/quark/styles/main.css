@@ -75,6 +75,12 @@ th,td{
 .p-5{
     padding:0 5px;
 }
+.w5c-form input.error, .w5c-form textarea.error, .w5c-form select.error {
+    border-color: #b94a48;
+    -webkit-box-shadow: 0 0 6px #f8b9b7;
+    -moz-box-shadow: 0 0 6px #f8b9b7;
+    box-shadow: 0 0 6px #f8b9b7;
+}
 /**
 角色管理
 */

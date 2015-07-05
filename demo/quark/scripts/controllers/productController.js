@@ -253,7 +253,18 @@
                 animation: true,
                 controller: ['$scope','$modalInstance',function(scope, $modalInstance){
                     //点击确定
-                    scope.ok = function () {
+                    scope.ok = function (valid) {
+                        var hasChannel = false;
+                        angular.forEach(scope.product.channel,function(item,index){
+                            if(item.channelCode){
+                                hasChannel = true;
+                            }
+                        });
+                        if(!hasChannel){
+                            alert('发布渠道不能为空');
+                            return;
+                        }
+                        console.log(valid);
                         //更新产品
                         productService.update(scope.product,function(data){
                             $modalInstance.close();

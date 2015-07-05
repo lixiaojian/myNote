@@ -12,7 +12,7 @@
             },
             //更新产品
             update:{
-                url:'data/products/update.json',
+                url:'data/ok.json',
                 method:'post'
             },
             //获取排序的列表
