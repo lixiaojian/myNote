@@ -34,6 +34,7 @@
         };
         //翻页
         $scope.changePage = function(){
+            $scope.searchBank.start = ($scope.page.curPage-1)*$scope.page.itemsPerPage;
             bankService.search($scope.searchBank,function(data){
                 $scope.bankList=data.recordList;
                 $scope.page.totalItems = data.iTotalRecords;

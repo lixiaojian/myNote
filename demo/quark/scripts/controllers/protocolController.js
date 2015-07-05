@@ -10,7 +10,7 @@
         });
 
         $scope.addRule = function(){
-            $scope.protocols.loopAgreementDocList.push({agreementCode:'sell_book'});
+            $scope.protocols.loopAgreementDocList.push({});
         };
         $scope.removeRule = function(index){
             $scope.protocols.loopAgreementDocList.splice(index,1);
