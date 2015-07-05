@@ -12,14 +12,14 @@
             },
             replace: true,
             template: '\
-                <div class="form-group" style="width: 60%"> \
+                <div class="form-group""> \
                     <div ng-show="progressing" class="progress progress-striped active">\
                         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{progress}}%">\
                             <span>{{progress}}%</span>\
                         </div>\
                     </div>\
                     <div ng-show="!progressing" class="input-group">\
-                        <span style="cursor: pointer;" data-ng-file-change="fileChange($files)" ng-file-select>\
+                        <span class="btn btn-default" data-ng-file-change="fileChange($files)" ng-file-select>\
                             <i class="glyphicon glyphicon-upload"></i> 上传{{title}} </span> \
                     </div> \
                 </div>',
