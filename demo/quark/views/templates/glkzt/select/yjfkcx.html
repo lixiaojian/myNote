@@ -4,17 +4,17 @@
         <div class="form-group">
             <label class="control-label col-sm-1" for="phoneNumber">手机号：</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="phoneNumber" placeholder="请输入手机号码">
+                <input type="text" data-ng-model="searchSuggestion.mobile" class="form-control" id="phoneNumber" placeholder="请输入手机号码">
             </div>
 
             <label class="control-label col-sm-1" for="userName">姓名：</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="userName" placeholder="请输入姓名">
+                <input type="text" data-ng-model="searchSuggestion.customerName" class="form-control" id="userName" placeholder="请输入姓名">
             </div>
 
-            <label class="control-label col-sm-1" for="cardNumber">卡号：</label>
+            <label class="control-label col-sm-1" for="cardNumber">证件号：</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="cardNumber" placeholder="请输入卡号">
+                <input type="text" data-ng-model="searchSuggestion.deviceNo" class="form-control" id="cardNumber" placeholder="请输入卡号">
             </div>
         </div>
 
@@ -23,9 +23,9 @@
 
             <div class="col-sm-2">
                 <div class="input-group" id="collectDate">
-                    <input type="text" data-ng-model="searchProduct.raiseStartingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="bopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                    <input type="text" data-ng-model="searchSuggestion.bdate" class="form-control" data-datepicker-popup="{{format}}" data-is-open="sbopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="bopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    <button type="button" class="btn btn-default" ng-click="sbopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
                 </div>
             </div>
@@ -33,24 +33,16 @@
             <div class="col-sm-1" style="width: 14px;padding: 0"><span class="msg-span">--</span></div>
             <div class="col-sm-2">
                 <div class="input-group">
-                    <input type="text" data-ng-model="searchProduct.raiseEndingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                    <input type="text" data-ng-model="searchSuggestion.edate" class="form-control" data-datepicker-popup="{{format}}" data-is-open="seopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" data-ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    <button type="button" class="btn btn-default" data-ng-click="seopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
                 </div>
-            </div>
-
-            <label style="margin-left: -15px;" class="control-label col-sm-2" for="issueType">意见类型：</label>
-            <div class="col-sm-2">
-                <select class="form-control" id="issueType">
-                    <option value="">全部</option>
-                    <option value="">xxx</option>
-                </select>
             </div>
         </div>
     </form>
     <div class="btn-box col-sm-11 clearfix">
-        <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
+        <a class="btn btn-default pull-right" data-ng-click="searchSuggestions()" href="javascript:" role="button">查 询</a>
     </div>
 
     <table class="table product-table table-striped table-bordered">
@@ -60,32 +52,22 @@
             <th>手机号</th>
             <th>用户名</th>
             <th>证件号</th>
-            <th>意见类型</th>
-            <th>留言内容</th>
+            <th style="width: 40%">留言内容</th>
         </tr>
         </thead>
         <tbody class="t_body">
-        <tr>
-            <td>2015-04-22 13:00:09</td>
-            <td>18810693304</td>
-            <td>董小利</td>
-            <td>341202****2944</td>
-            <td>XXXX</td>
-            <td>客服电话打不通</td>
-        </tr>
-        <tr>
-            <td>2015-04-22 13:00:09</td>
-            <td>18722409040</td>
-            <td>XXXX</td>
-            <td>120209****2909</td>
-            <td>XXXX</td>
-            <td>还没收到50元话费</td>
+        <tr data-ng-repeat="su in suggestionList">
+            <td>{{su.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{su.mobile}}</td>
+            <td>{{su.customerName}}</td>
+            <td>{{su.idNo}}</td>
+            <td>{{su.comments}}</td>
         </tr>
         </tbody>
     </table>
     <!--分页-->
     <div class="clearfix">
-        <div data-pagination data-total-items="page.totalItems" data-ng-model="page.curPage" data-max-size="page.maxSize" data-items-per-page="page.itemsPerPage" data-boundary-links="page.boundaryLinks" data-ng-change="changePage()"
-             data-previous-text="{{page.previousText}}" data-next-text="{{page.nextText}}" data-first-text="{{page.firstText}}" data-last-text="{{page.lastText}}"></div>
+        <div data-pagination data-total-items="suggestionPage.totalItems" data-ng-model="suggestionPage.curPage" data-max-size="suggestionPage.maxSize" data-items-per-page="suggestionPage.itemsPerPage" data-boundary-links="suggestionPage.boundaryLinks" data-ng-change="changePage()"
+             data-previous-text="{{suggestionPage.previousText}}" data-next-text="{{suggestionPage.nextText}}" data-first-text="{{suggestionPage.firstText}}" data-last-text="{{suggestionPage.lastText}}"></div>
     </div>
 </div>

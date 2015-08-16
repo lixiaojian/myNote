@@ -5,23 +5,23 @@
         <div class="form-group">
             <label class="control-label col-sm-1" for="phoneNumber">手机号：</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="phoneNumber" placeholder="请输入手机号码">
+                <input type="text" class="form-control" data-ng-model="searchCV.mobile" id="phoneNumber" placeholder="请输入手机号码">
             </div>
 
             <label class="control-label col-sm-1" for="userName">用户名：</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="userName" placeholder="请输入用户名">
+                <input type="text" class="form-control" data-ng-model="searchCV.loginName" id="userName" placeholder="请输入用户名">
             </div>
 
             <label class="control-label col-sm-1" for="idCardNumber">证件号：</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="idCardNumber" placeholder="请输入证件号">
+                <input type="text" class="form-control"  data-ng-model="searchCV.idNo" id="idCardNumber" placeholder="请输入证件号">
             </div>
         </div>
 
     </form>
     <div class="btn-box col-sm-11 clearfix">
-        <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
+        <a class="btn btn-default pull-right" href="javascript:" data-ng-click="search()" role="button">查 询</a>
     </div>
 
     <table class="table product-table table-striped table-bordered">
@@ -34,137 +34,30 @@
             <th>未使用</th>
             <th>已使用</th>
             <th>已过期</th>
+            <th>锁定中</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody class="t_body">
-        <tr>
-            <td>188****3304</td>
-            <td>董小利</td>
-            <td>3412****2944</td>
-            <td>4</td>
-            <td>2</td>
-            <td>1</td>
-            <td>2</td>
+        <tr data-ng-repeat="cv in cardVolumes">
+            <td>{{cv.mobile|hideWord:3:4}}</td>
+            <td>{{cv.loginName}}</td>
+            <td>{{cv.idNo|hideWord:4:4:4}}</td>
+            <td>{{cv.couponNum}}</td>
+            <td>{{cv.unUseNum}}</td>
+            <td>{{cv.useNum}}</td>
+            <td>{{cv.expNum}}</td>
+            <td>{{cv.lockstate}}</td>
             <td>
-                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">查
-                    看</a>
-            </td>
-        </tr>
-        <tr>
-            <td>188****3304</td>
-            <td>董小利</td>
-            <td>3412****2944</td>
-            <td>4</td>
-            <td>2</td>
-            <td>1</td>
-            <td>2</td>
-            <td>
-                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">查
-                    看</a>
-            </td>
-        </tr>
-        <tr>
-            <td>188****3304</td>
-            <td>董小利</td>
-            <td>3412****2944</td>
-            <td>4</td>
-            <td>2</td>
-            <td>1</td>
-            <td>2</td>
-            <td>
-                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">查
-                    看</a>
+                <a class="btn btn-default" href="javascript:" data-ui-sref="yhgl.yhkqcxxq({id:cv.userNo})" role="button">查看</a>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <!--弹出层-->
-    <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-body" style="overflow-x: scroll">
-            <div style="width: 1100px;">
-                <table class="table product-table table-striped table-bordered">
-                    <thead class="t_head">
-                    <tr>
-                        <th>证件号</th>
-                        <th>活动标识码</th>
-                        <th>活动名称</th>
-                        <th>卡券码</th>
-                        <th>卡券类型</th>
-                        <th>面值</th>
-                        <th>领取时间</th>
-                        <th>卡券状态</th>
-                        <th>卡券有效期</th>
-                        <th>是否删除</th>
-                        <th>删除时间</th>
-                        <th>订单号</th>
-                    </tr>
-                    </thead>
-                    <tbody class="t_body">
-                    <tr>
-                        <td>3412****3304</td>
-                        <td>XXXX</td>
-                        <td>五一活动</td>
-                        <td>XXXXX</td>
-                        <td>抵扣券</td>
-                        <td>100</td>
-                        <td>2015-05-01 09:00:00</td>
-                        <td>已使用</td>
-                        <td>2015-05-01/2015-05-31</td>
-                        <td>已删除</td>
-                        <td>2015-05-01 09:00:00</td>
-                        <td>XXXXXXXXX0</td>
-                    </tr>
-                    <tr>
-                        <td>3412****3304</td>
-                        <td>XXXX</td>
-                        <td>五一活动</td>
-                        <td>XXXXX</td>
-                        <td>抵扣券</td>
-                        <td>100</td>
-                        <td>2015-05-01 09:00:00</td>
-                        <td>已使用</td>
-                        <td>2015-05-01/2015-05-31</td>
-                        <td>已删除</td>
-                        <td>2015-05-01 09:00:00</td>
-                        <td>XXXXXXXXX0</td>
-                    </tr>
-                    <tr>
-                        <td>3412****3304</td>
-                        <td>XXXX</td>
-                        <td>五一活动</td>
-                        <td>XXXXX</td>
-                        <td>抵扣券</td>
-                        <td>100</td>
-                        <td>2015-05-01 09:00:00</td>
-                        <td>已使用</td>
-                        <td>2015-05-01/2015-05-31</td>
-                        <td>已删除</td>
-                        <td>2015-05-01 09:00:00</td>
-                        <td>XXXXXXXXX0</td>
-                    </tr>
-                    <tr>
-                        <td>3412****3304</td>
-                        <td>XXXX</td>
-                        <td>五一活动</td>
-                        <td>XXXXX</td>
-                        <td>抵扣券</td>
-                        <td>100</td>
-                        <td>2015-05-01 09:00:00</td>
-                        <td>已使用</td>
-                        <td>2015-05-01/2015-05-31</td>
-                        <td>已删除</td>
-                        <td>2015-05-01 09:00:00</td>
-                        <td>XXXXXXXXX0</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <a class="btn btn-default" ng-click="cancel()">关 闭</a>
-        </div>
-
-    </script>
+    <!--分页-->
+    <div class="clearfix">
+        <div data-pagination data-total-items="page.totalItems" data-ng-model="page.curPage" data-max-size="page.maxSize" data-items-per-page="page.itemsPerPage" data-boundary-links="page.boundaryLinks" data-ng-change="changePage()"
+             data-previous-text="{{page.previousText}}" data-next-text="{{page.nextText}}" data-first-text="{{page.firstText}}" data-last-text="{{page.lastText}}"></div>
+    </div>
 </div>

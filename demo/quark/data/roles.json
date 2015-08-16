@@ -1,42 +1,145 @@
-{
-  "pageSize": 3,
-  "pageNum": 1,
-  "pageSum": 2,
-  "recordList": [
-    {
-      "id": "2F0A25C7613E4B7AA43F4AA4801EBFC5",
-      "roleName": "事业部经理",
-      "roleDesc": null,
-      "channelCode": "999999",
-      "createTime": 1435202558750,
-      "createUser": "1",
-      "createUserName": "管理员",
-      "isActive": "0",
-      "userChecked": false
-    },
-    {
-      "id": "FB0F537283324B448DB661DD5CDDFC17",
-      "roleName": "产品经理",
-      "roleDesc": null,
-      "channelCode": "999999",
-      "createTime": 1435202542409,
-      "createUser": "1",
-      "createUserName": "管理员",
-      "isActive": "0",
-      "userChecked": false
-    },
-    {
-      "id": "D1ADA2CFF1B848AE8B4EB230410D5753",
-      "roleName": "客户经理",
-      "roleDesc": null,
-      "channelCode": "999999",
-      "createTime": 1435202564501,
-      "createUser": "1",
-      "createUserName": "管理员",
-      "isActive": "0",
-      "userChecked": false
-    }
-  ],
-  "iTotalRecords": 8,
-  "iTotalDisplayRecords": 8
-}
+[
+  {
+    "id": "1",
+    "roleName": "管理员",
+    "roleDesc": "最高权限",
+    "channelCode": "999999",
+    "createTime": null,
+    "createUser": "1",
+    "createUserName": "管理员",
+    "isActive": "0",
+    "userChecked": false
+  },
+  {
+    "id": "28C93FE801E945AF9E097A0B9EF1D348",
+    "roleName": "f",
+    "roleDesc": "roleName=f&roleDesc=d",
+    "channelCode": "999999",
+    "createTime": 1425369879293,
+    "createUser": "1",
+    "createUserName": "管理员",
+    "isActive": "1",
+    "userChecked": false
+  },
+  {
+    "id": "D579276E136D47F0B9703E011A7B5C32",
+    "roleName": "3",
+    "roleDesc": "roleName=3&roleDesc=444",
+    "channelCode": "999999",
+    "createTime": 1425371539612,
+    "createUser": "1",
+    "createUserName": "管理员",
+    "isActive": "1",
+    "userChecked": false
+  },
+  {
+    "id": "17894CE5202948A1BFF1B2314536B7BC",
+    "roleName": "33",
+    "roleDesc": "roleName=33&roleDesc=333",
+    "channelCode": "999999",
+    "createTime": 1425371583075,
+    "createUser": "1",
+    "createUserName": "管理员",
+    "isActive": "1",
+    "userChecked": false
+  },
+  {
+    "id": "4D75F7F160AA40F8B31E4670708B738A",
+    "roleName": "r",
+    "roleDesc": "roleName=r&roleDesc=e",
+    "channelCode": "999999",
+    "createTime": 1425372010140,
+    "createUser": "1",
+    "createUserName": "管理员",
+    "isActive": "1",
+    "userChecked": false
+  },
+  {
+    "id": "BECB079A19AD4FECBDC874A103A6BF57",
+    "roleName": "5",
+    "roleDesc": "roleName=5&roleDesc=555",
+    "channelCode": "999999",
+    "createTime": 1425372108211,
+    "createUser": "1",
+    "createUserName": "管理员",
+    "isActive": "1",
+    "userChecked": false
+  },
+  {
+    "id": "CF1D7B0064F54C6D8D123D41B10E9259",
+    "roleName": "操作员",
+    "roleDesc": "平台使用者",
+    "channelCode": "999999",
+    "createTime": 1435202478140,
+    "createUser": "1",
+    "createUserName": "管理员",
+    "isActive": "0",
+    "userChecked": false
+  },
+  {
+    "id": "B5A8254500A54D878C65D9E2AB7E9B92",
+    "roleName": "检查员",
+    "roleDesc": "系统检查者",
+    "channelCode": "999999",
+    "createTime": 1435202509359,
+    "createUser": "1",
+    "createUserName": "管理员",
+    "isActive": "0",
+    "userChecked": false
+  },
+  {
+    "id": "E8E5B7CB34E04EC8A140F7EB04F16984",
+    "roleName": "部门领导",
+    "roleDesc": null,
+    "channelCode": "999999",
+    "createTime": 1435202520284,
+    "createUser": "1",
+    "createUserName": "管理员",
+    "isActive": "0",
+    "userChecked": false
+  },
+  {
+    "id": "FB0F537283324B448DB661DD5CDDFC17",
+    "roleName": "产品经理",
+    "roleDesc": null,
+    "channelCode": "999999",
+    "createTime": 1435202542409,
+    "createUser": "1",
+    "createUserName": "管理员",
+    "isActive": "0",
+    "userChecked": false
+  },
+  {
+    "id": "5F52540B6AA14B0FAACA42F9993E361E",
+    "roleName": "运维人员",
+    "roleDesc": null,
+    "channelCode": "999999",
+    "createTime": 1435202551531,
+    "createUser": "1",
+    "createUserName": "管理员",
+    "isActive": "0",
+    "userChecked": false
+  },
+  {
+    "id": "2F0A25C7613E4B7AA43F4AA4801EBFC5",
+    "roleName": "事业部经理",
+    "roleDesc": null,
+    "channelCode": "999999",
+    "createTime": 1435202558750,
+    "createUser": "1",
+    "createUserName": "管理员",
+    "isActive": "0",
+    "userChecked": false
+  },
+  {
+    "id": "D1ADA2CFF1B848AE8B4EB230410D5753",
+    "roleName": "客户经理",
+    "roleDesc": null,
+    "channelCode": "999999",
+    "createTime": 1435202564501,
+    "createUser": "1",
+    "createUserName": "管理员",
+    "isActive": "0",
+    "userChecked": false
+  }
+]

@@ -7,29 +7,37 @@
         var actions = {
             //搜索产品
             search:{
-                url:'data/bankList.json',
+                url:'bank',
+                //url:'data/bankList.json',
                 method:'get'
             },
             //获取所有银行列表
             findAllBank:{
-                url:'data/banks.json',
+                url:'bank/getAll',
+                //url:'data/banks.json',
                 method:'get',
                 isArray:true
             },
             //添加银行
             saveBank:{
-                url:'data/saveBank.json',
+                url:'bank/add',
                 method:'post'
+            },
+            //修改银行
+            updateBank:{
+                url:'bank/update',
+                method:'put'
             },
             //通过id查询
             findById:{
-                url:'data/bankDetail.json',
+                url:'bank/getDetail',
+                //url:'data/bankDetail.json',
                 method:'get'
             },
             //删除银行
             deleteBank:{
-                url:'data/saveBank.json',
-                method:'get'
+                url:'bank/del',
+                method:'put'
             }
         };
         return $resource(url,{},actions);

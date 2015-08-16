@@ -10,6 +10,12 @@
                 url:'data/menu.json',
                 method:'get',
                 isArray:true
+            },
+            getPermissions:{
+                //url:'user/permissions',
+                url:'data/permissions.json',
+                method:'get',
+                isArray:true
             }
         };
         return $resource(url,{},actions);

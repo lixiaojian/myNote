@@ -1,39 +1,39 @@
 {
   "pageSize": 10,
   "pageNum": 1,
-  "pageSum": 4,
-  "iTotalRecords": 24,
-  "iTotalDisplayRecords": 24,
+  "pageSum": 2,
   "recordList": [
     {
-      "id":1,
-      "activityCode":"1111",
-      "activityName":"五一活动",
-      "createDate":"2015-04-15  11:00",
-      "activityDate":"2015-05-01 -- 2015-05-03",
-      "cardVolumeName":"五一卡券",
-      "cardVolumeCount":9999,
-      "cardVolumeDeadline":"2015-05-01 -- 2015-05-31"
+      "activityNo": 1001,
+      "description": null,
+      "couponsNum": 1,
+      "couponsName": null,
+      "activityName": "五一活动",
+      "reciveWays": null,
+      "begDate": 1436630400000,
+      "endDate": 1437494400000,
+      "activityLink": null,
+      "activityImg": null,
+      "activeStatus": null,
+      "createDate": null,
+      "isExpired":true
     },
     {
-      "id":2,
-      "activityCode":"22222",
-      "activityName":"活动2",
-      "createDate":"2014-12-01 12:00",
-      "activityDate":"2014-01-01 -- 2014-01-03",
-      "cardVolumeName":"XXXX",
-      "cardVolumeCount":1000,
-      "cardVolumeDeadline":"2014-01-01 -- 2014-01-31"
-    },
-    {
-      "id":1,
-      "activityCode":"XXXX",
-      "activityName":"活动3",
-      "createDate":"2014-09-01 13:00",
-      "activityDate":"2014-10-01 -- 2014-10-07",
-      "cardVolumeName":"XXXX",
-      "cardVolumeCount":5000,
-      "cardVolumeDeadline":"2014-10-01 -- 2014-10-31"
+      "activityNo": 1002,
+      "description": null,
+      "couponsNum": 1,
+      "couponsName": null,
+      "activityName": "五一活动",
+      "reciveWays": null,
+      "begDate": 1436630400000,
+      "endDate": 1437494400000,
+      "activityLink": null,
+      "activityImg": null,
+      "activeStatus": null,
+      "createDate": null,
+      "isExpired":false
     }
-  ]
+  ],
+  "iTotalRecords": 1,
+  "iTotalDisplayRecords": 1
 }

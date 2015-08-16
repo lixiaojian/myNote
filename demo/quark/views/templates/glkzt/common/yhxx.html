@@ -13,9 +13,9 @@
             <div class="col-sm-2">
                 <select data-ng-model="searchBank.payWay" class="form-control" id="adType">
                     <option value="">全部</option>
-                    <option value="0">快捷支付</option>
-                    <option value="1">代付</option>
-                    <option value="2">网银</option>
+                    <option value="1">快捷支付</option>
+                    <option value="2">代付</option>
+                    <option value="3">网银</option>
                 </select>
             </div>
         </div>
@@ -29,13 +29,14 @@
         <thead>
         <tr>
             <th style="line-height: 34px">银行名称</th>
-            <th style="line-height: 34px;width: 12%;">客服热线</th>
-            <th style="width: 60%">
+            <th style="line-height: 34px;width: 10%;">客服热线</th>
+            <th style="line-height: 34px;width: 8%;">银行编码</th>
+            <th style="width: 54%">
                 <table class="table" style="margin: 0;background-color:transparent;">
                     <tr>
-                        <td style="width: 12%">支付方式</td>
-                        <td style="width: 22%">单笔限额（万元）</td>
-                        <td style="width: 22%">每日限额（万元）</td>
+                        <td style="width: 14%">支付方式</td>
+                        <td style="width: 24%">单笔限额（万元）</td>
+                        <td style="width: 24%">每日限额（万元）</td>
                         <td>备注</td>
                     </tr>
                 </table>
@@ -47,19 +48,20 @@
         <tr data-ng-repeat="bank in bankList">
             <td>{{bank.bankName}}</td>
             <td>{{bank.hotLine}}</td>
+            <td>{{bank.bankSerial}}</td>
             <td style="padding: 0">
                 <table class="table table-bordered" style="margin: 0;background-color:transparent;">
                     <tr data-ng-repeat="pay in bank.payWays">
-                        <td style="width: 12%">{{pay.payWay == '0'?'快捷支付':pay.payWay == '1'?'代付':'网银'}}</td>
-                        <td style="width: 22%">{{pay.dealsLimitDescribe}}</td>
-                        <td style="width: 22%">{{pay.limitDescribe}}</td>
+                        <td style="width: 14%">{{pay.payWay == '1'?'快捷支付':pay.payWay == '2'?'代付':'网银'}}</td>
+                        <td style="width: 24%">{{pay.dealsLimitDescribe}}</td>
+                        <td style="width: 24%">{{pay.limitDescribe}}</td>
                         <td>{{pay.descn}}</td>
                     </tr>
                 </table>
             </td>
             <td>
                 <a class="btn btn-default" href="javascript:" ng-click="bankDetail(bank.id)" role="button">编 辑</a>
-                <a class="btn btn-default" href="javascript:" data-ng-click="delete(bank.id,$index)" role="button">删 除</a>
+                <a class="btn btn-default" href="javascript:" data-ng-click="delete(bank,$index)" role="button">删 除</a>
             </td>
         </tr>
         </tbody>
@@ -73,11 +75,11 @@
     <!--弹出层-->
     <script type="text/ng-template" id="addBank.html">
         <div class="modal-body">
-            <form class="form-horizontal bankDetail">
+            <form class="form-horizontal bankDetail w5c-form"  w5c-form-validate novalidate name="bankDetailForm">
                 <div class="form-group">
                     <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 银行名称：</label>
                     <div class="col-sm-4">
-                        <input data-ng-model="curBank.bankName" type="text" class="form-control"/>
+                        <input data-ng-model="curBank.bankName" name="bankName" required type="text" class="form-control"/>
                     </div>
                     <div class="col-sm-5 clearfix">
                         <a class="btn btn-default pull-right" data-ng-click="addBpay()">新 增</a>
@@ -85,49 +87,65 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 客服热线：</label>
+                    <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 银行编码：</label>
                     <div class="col-sm-4">
-                        <input type="text" data-ng-model="curBank.hotLine" class="form-control"/>
+                        <input data-ng-model="curBank.bankSerial" name="bankSerial" required ng-pattern="/^[0-9]*$/"  type="text" class="form-control"/>
                     </div>
                 </div>
 
-                <div class="bankBox" data-ng-repeat="bpay in curBank.payWays">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 客服热线：</label>
+                    <div class="col-sm-4">
+                        <input type="text" data-ng-model="curBank.hotLine" name="hotLine" required class="form-control"/>
+                    </div>
+                </div>
+            </form>
+
+            <div class="bankBox" data-ng-repeat="bpay in curBank.payWays" style="border-top: 1px dashed #ccc">
+                <form class="form-horizontal bankDetail w5c-form"  w5c-form-validate novalidate name="bankDetailForm2">
+                    <div class="form-group">
+                        <div class="col-sm-12 clearfix" data-ng-if="$index!=0">
+                            <span class="delete-btn glyphicon glyphicon-remove pull-right" data-ng-click="removeBpay($index)"></span>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 支付方式：</label>
                         <div class="col-sm-2">
                             <select class="form-control" data-ng-model="bpay.payWay" id="payType">
-                                <option value="">全部</option>
-                                <option value="0">快捷支付</option>
-                                <option value="1">代付</option>
-                                <option value="2">网银</option>
+                                <option value="">请选择</option>
+                                <option value="1">快捷支付</option>
+                                <option value="2">代付</option>
+                                <option value="3">网银</option>
                             </select>
                         </div>
-                        <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 单笔限额：</label>
-                        <div class="col-sm-2">
-                            <input type="text" data-ng-model="bpay.dealsLimitDescribe" style="width: 80px" class="my-form-control"/> 万元
+                        <div>
+                            <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 单笔限额：</label>
+                            <div class="col-sm-2">
+                                <input type="text" data-ng-model="bpay.dealsLimitDescribe" name="dealsLimitDescribe" required ng-pattern="/^[0-9]+(.[0-9]{1,6})?$/" style="width: 80px" class="my-form-control"/> 万元
+                            </div>
                         </div>
-
-                        <label class="col-sm-2 control-label" style="margin-left: -20px"><span class="t_c_r">*</span> 每日限额：</label>
-                        <div class="col-sm-2">
-                            <input type="text" style="width: 60px" data-ng-model="bpay.limitDescribe" class="my-form-control"/>
-                            <span style="padding-right: 6px">万元</span>
-                            <span class="delete-btn glyphicon glyphicon-remove" data-ng-click="removeBpay($index)"></span>
+                        <div>
+                            <label class="col-sm-2 control-label" style="margin-left: -20px"><span class="t_c_r">*</span> 每日限额：</label>
+                            <div class="col-sm-2">
+                                <input type="text" style="width: 60px" name="limitDescribe" required ng-pattern="/^[0-9]+(.[0-9]{1,6})?$/" data-ng-model="bpay.limitDescribe" class="my-form-control"/> 万元
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label"><span class="t_c_r">*</span> 备注：</label>
+                        <label class="col-sm-2 control-label"> 备注：</label>
                         <div class="col-sm-4">
-                            <textarea rows="3" data-ng-model="bpay.descn" class="form-control"></textarea>
+                            <textarea rows="3" data-ng-model="bpay.descn" name="descn" class="form-control"></textarea>
                         </div>
                     </div>
-                </div>
+                </form>
+            </div>
 
-                <div class="modal-footer">
-                    <a class="btn btn-primary" ng-click="ok()">保 存</a>
-                    <a class="btn btn-warning" ng-click="cancel()">返 回</a>
-                </div>
-            </form>
+            <div class="modal-footer">
+                <a class="btn btn-primary" ng-click="ok(bankDetailForm.$valid)">保 存</a>
+                <a class="btn btn-warning" ng-click="cancel()">返 回</a>
+                {{formValid.valid}}
+            </div>
         </div>
     </script>
 </div>

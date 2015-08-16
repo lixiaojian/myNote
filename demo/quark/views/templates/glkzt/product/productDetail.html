@@ -11,14 +11,24 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2">产品类型：</label>
-                        <div class="col-sm-10">
-                            <span class="form-control-span"> {{product.productType}}</span>
+                        <div class="col-sm-3">
+ 							<select data-ng-model="product.productTypeId" data-ng-options="type.productTypeId as type.productTypeName for type in product.productTypeList" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" class="form-control">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+
+                        <label class="control-label col-sm-2">产品属性：</label>
+                        <div class="col-sm-2">
+                            <select data-ng-model="product.productProp" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" class="form-control">
+                                <option value="0">请选择</option>
+                                <option value="1">新手标</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2">产品期数：</label>
                         <div class="col-sm-2 m-r-80">
-                            <span class="form-control-span"> {{product.periodCore}}</span>
+                            <span class="form-control-span"> 0{{product.periodCore | number}}</span>
                         </div>
                         <div class="clearfix">
                             <label class="control-label col-sm-2">发行天数：</label>
@@ -38,84 +48,90 @@
                         <div>
                             <label class="control-label col-sm-2">起投金额：</label>
                             <div class="col-sm-2">
-                                <input type="text" ng-pattern="/^[0-9]*$/" required  name="lowestAmt" data-ng-model="product.lowestAmt" data-ng-disabled="disabled" style="width: 120px" class="my-form-control" placeholder="请输入起投金额"> 元
+                                <input type="text" ng-pattern="/^[0-9]*$/" required  name="lowestAmt" data-ng-model="product.lowestAmt" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" style="width: 120px" class="my-form-control" placeholder="请输入起投金额"> 元
                             </div>
                         </div>
                         <div>
                             <label class="control-label col-sm-2">递增金额：</label>
                             <div class="col-sm-2">
-                                <input type="text" ng-pattern="/^[0-9]*$/" required name="accumulateAmt" data-ng-model="product.accumulateAmt" data-ng-disabled="disabled" style="width: 120px" class="my-form-control" placeholder="请输入递增金额"> 元
+                                <input type="text" ng-pattern="/^[0-9]*$/" required name="accumulateAmt" data-ng-model="product.accumulateAmt" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" style="width: 120px" class="my-form-control" placeholder="请输入递增金额"> 元
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="display_parameter1_form" class="control-label col-sm-2">首页展示参数：</label>
+                        <label for="display_parameter1_form" class="control-label col-sm-2"><span class="t_c_r"> * </span>首页展示参数：</label>
                         <div class="col-sm-2">
-                            <input type="text" data-ng-model="product.displayParameter1" data-ng-disabled="disabled" class="form-control" id="display_parameter1_form" placeholder="请输入展示参数1">
+                            <input type="text" data-ng-model="product.displayParameter1" required name="displayParameter1" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" class="form-control" id="display_parameter1_form" placeholder="请输入展示参数1">
                         </div>
+                        <div style="width: 34px;padding: 7px;padding-left: 16px" class="col-sm-1">--</div>
                         <div class="col-sm-2">
-                            <input type="text" data-ng-model="product.displayParameter2" data-ng-disabled="disabled" class="form-control" id="display_parameter2_form" placeholder="请输入展示参数2">
+                            <input type="text" data-ng-model="product.displayParameter2" required name="displayParameter2" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" class="form-control" id="display_parameter2_form" placeholder="请输入展示参数2">
                         </div>
+                        <div style="width: 34px;padding: 7px;padding-left: 16px" class="col-sm-1">--</div>
                         <div class="col-sm-2">
-                            <input type="text" data-ng-model="product.displayParameter3" data-ng-disabled="disabled" class="form-control" id="display_parameter3_form" placeholder="请输入展示参数3">
+                            <input type="text" data-ng-model="product.displayParameter3" required name="displayParameter3" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" class="form-control" id="display_parameter3_form" placeholder="请输入展示参数3">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2">预期年化收益率：</label>
                         <div class="col-sm-2 m-r-80">
-                            <span class="form-control-span">{{product.preProfitRate}}</span>
+                            <span class="form-control-span">{{product.preProfitRate}} %</span>
                         </div>
-                        <label class="control-label col-sm-2">发布渠道：</label>
+                        <label class="control-label col-sm-2"><span class="t_c_r"> * </span>发布渠道：</label>
                         <div class="col-sm-2">
                             <span class="form-control-span">
-                                <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled" type="checkbox"/>APP &nbsp;
-                                <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled" type="checkbox"/>微信 &nbsp;
-                                <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled" type="checkbox"/>PC
+                                <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'100001'" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" type="checkbox"/>APP &nbsp;
+                                <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'100002'" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" type="checkbox"/>微信 &nbsp;
+                                <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'100003'" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" type="checkbox"/>PC
                             </span>
                         </div>
                         <label class="control-label col-sm-2">补贴收益率：</label>
                         <div class="col-sm-2">
                             <div class="btsyl">
                                     <span>
-                                        <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'app'" data-ng-disabled="disabled || !product.channel[0].channelCode" type="checkbox"/><label class="p-5">APP</label>
-                                        <input data-ng-model="product.channel[0].subsidyRate" class="my-form-control w-60" data-ng-disabled="disabled || !product.channel[0].channelCode" type="text"> %
+                                        <input data-ng-model="product.channel[0].channelCode" data-ng-true-value="'100001'" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0) || !product.channel[0].channelCode" type="checkbox"/><label class="p-5">APP</label>
+                                        <input data-ng-model="product.channel[0].subsidyRate" name="subsidyRate1" ng-pattern="/^[0-9]+(.[0-9]{1,2})?$/" class="my-form-control w-60" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0) || !product.channel[0].channelCode" type="text"> %
                                     </span>
                                 <br/>
                                 <br/>
                                     <span>
-                                        <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'wx'" data-ng-disabled="disabled || !product.channel[1].channelCode" type="checkbox"/><label class="p-5">微信</label>
-                                        <input data-ng-model="product.channel[1].subsidyRate" data-ng-disabled="disabled || !product.channel[1].channelCode" type="text" class="my-form-control w-60"> %
+                                        <input data-ng-model="product.channel[1].channelCode" data-ng-true-value="'100002'" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0) || !product.channel[1].channelCode" type="checkbox"/><label class="p-5">微信</label>
+                                        <input data-ng-model="product.channel[1].subsidyRate" name="subsidyRate2" ng-pattern="/^[0-9]+(.[0-9]{1,2})?$/" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0) || !product.channel[1].channelCode" type="text" class="my-form-control w-60"> %
                                     </span>
                                 <br/>
                                 <br/>
                                     <span>
-                                        <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'pc'" data-ng-disabled="disabled || !product.channel[2].channelCode" type="checkbox"/><label class="p-5">PC&nbsp;&nbsp;</label>
-                                        <input data-ng-model="product.channel[2].subsidyRate" data-ng-disabled="disabled|| !product.channel[2].channelCode" type="text" class="my-form-control w-60"> %
+                                        <input data-ng-model="product.channel[2].channelCode" data-ng-true-value="'100003'" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0) || !product.channel[2].channelCode" type="checkbox"/><label class="p-5">PC&nbsp;&nbsp;</label>
+                                        <input data-ng-model="product.channel[2].subsidyRate" name="subsidyRate3" ng-pattern="/^[0-9]+(.[0-9]{1,2})?$/" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0) || !product.channel[2].channelCode" type="text" class="my-form-control w-60"> %
                                     </span>
                             </div>
                         </div>
                     </div>
                 </form>
-                <form class="form-horizontal">
+                <form class="form-horizontal w5c-form"  w5c-form-validate novalidate name="productBaseForm2" >
                     <br/><br/>
                     <div class="form-group">
                         <label class="control-label col-sm-2">产品状态：</label>
                         <div class="col-sm-2">
                             <select data-ng-model="product.raiseState" data-ng-disabled="disabled" class="form-control" id="productStatus-form">
-                                <option value="0">募集中</option>
-                                <option value="1">初始化</option>
-                                <option value="2">募集完成</option>
-                                <option value="3">已上架</option>
+                                <option value="3" data-ng-disabled="currraiseState==4 || currraiseState==0 || currraiseState==2 ||currraiseState==1">初始化</option>
+                                <option value="0" data-ng-disabled="currraiseState==4 || currraiseState == 1 || currraiseState ==2">已上架</option>
+                                <option value="1" data-ng-disabled="currraiseState==4 || currraiseState==2">募集中</option>
+                                <option value="2" data-ng-disabled="currraiseState==4">募集完成</option>
                                 <option value="4">已下架</option>
                             </select>
                         </div>
-
-                        <label for="mjwcx" class="control-label col-sm-2">募集完成线：</label>
-                        <div class="col-sm-2">
-                            <input type="text" data-ng-disabled="disabled" class="my-form-control w-60" id="mjwcx"> %
-                            <p style="line-height:20px"><span class="t_c_r"> * </span>已售43%</p>
+                        <div>
+                            <label for="mjwcx" class="control-label col-sm-2">募集完成线：</label>
+                            <div class="col-sm-2">
+                                <input type="text" data-ng-model="product.raiseLine" name="raiseLine" required ng-pattern="/^[0-9]+(.[0-9]{1,6})?$/" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" class="my-form-control w-60" id="mjwcx"> %
+                            </div>
                         </div>
+                        <div class="col-sm-12"></div>
+                        <div class="col-sm-6"></div>
+                        <!--<div class="col-sm-2"><span class="t_c_r"> * </span>已售{{((data.completedAmt/data.realeaseLimitAmt)*100 | number : 2) ||0}} %</div>-->
+
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
@@ -124,42 +140,72 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-sm-2">上架时间：</label>
-                        <div class="col-sm-3">
-                            <input data-ng-model="product.upTime" data-ng-disabled="disabled" type="text" class="form-control" id="sjsj">
+                        <label class="control-label col-sm-2" style="line-height: 80px">上架时间：</label>
+                        <div data-ng-if="product.raiseState == 3">
+                            <div class="col-sm-2">
+                                <div class="input-group" style="padding-top: 32px">
+                                    <input type="text" data-ng-model="time.update" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" class="form-control" data-datepicker-popup="{{format}}" data-is-open="de.showB" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="bopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <span data-timepicker data-ng-model="time.upTime" data-show-meridian="false"></span>
+                            </div>
                         </div>
-                        <label class="control-label col-sm-2">下架时间：</label>
-                        <div class="col-sm-3">
-                            <input data-ng-model="product.downTime" data-ng-disabled="true" type="text" class="form-control" id="xjsj">
+                        <div class="col-sm-4" style="padding-top: 30px" data-ng-if="product.raiseState != 3">
+                            <span style="line-height: 32px">{{product.upTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                            <!--<input type="text" data-ng-model="product.upTime" data-ng-disabled="true" class="form-control"/>-->
+                        </div>
+
+
+                        <label class="control-label col-sm-2" style="line-height: 80px">下架时间：</label>
+                        <div class="col-sm-3" style="padding-top: 32px">
+                            <span style="line-height: 32px">{{product.downTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-sm-2">募集开始时间：</label>
-                        <div class="col-sm-3">
-                            <input data-ng-model="product.raiseStartingTime" data-ng-disabled="disabled" type="text" class="form-control" id="mjkssj">
+                        <label class="control-label col-sm-2" style="line-height: 80px">募集开始时间：</label>
+                        <div data-ng-if="product.raiseState == 0 || product.raiseState == 3">
+                            <div class="col-sm-2">
+                                <div class="input-group" style="padding-top: 32px">
+                                    <input type="text" data-ng-model="time.startDate" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" class="form-control" data-datepicker-popup="{{format}}" data-is-open="de.showE" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <span data-timepicker data-ng-model="time.startTime" data-show-meridian="false"></span>
+                            </div>
                         </div>
-                        <label class="control-label col-sm-2">募集完成时间：</label>
-                        <div class="col-sm-3">
-                            <input data-ng-model="product.raiseEndingTime" data-ng-disabled="true" type="text" class="form-control" id="mjwcsj">
+                        <div class="col-sm-4" style="padding-top: 30px" data-ng-if="product.raiseState != 0 && product.raiseState != 3">
+                            <span style="line-height: 32px">{{product.raiseStartingTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                            <!--<input type="text" data-ng-model="product.raiseStartingTime" data-ng-disabled="true" class="form-control"/>-->
+                        </div>
+                        <label class="control-label col-sm-2" style="line-height: 80px">募集完成时间：</label>
+                        <div class="col-sm-3" style="padding-top: 32px">
+                            <span style="line-height: 32px">{{product.raiseEndingTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <a data-ng-if="!disabled" class="btn btn-primary" ng-click="ok(productBaseForm.$valid)">保 存</a>
+                <a data-ng-if="!disabled" class="btn btn-primary" ng-click="ok()">保 存</a>
                 <a data-ng-if="!disabled" class="btn btn-warning" ng-click="cancel()">返 回</a>
                 <a data-ng-if="disabled" class="btn btn-default" href="javascript:" ng-click="cancel()" role="button">关闭</a>
             </div>
         </tab>
         <tab heading="产品描述">
             <div class="modal-body">
-                <form class="form-horizontal product-desc">
+                <form class="form-horizontal product-desc  w5c-form"  w5c-form-validate novalidate name="productDescForm">
                     <div class="form-group">
                         <label class="control-label col-sm-2">合同协议路径：</label>
                         <div class="col-sm-8">
-                            <select data-ng-model="product.contractPath" data-ng-disabled="disabled" class="form-control">
-                                <option value="{{product.contractPath}}">{{product.contractPath}}</option>
+                            <select data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" data-ng-options="pro.docPath as pro.docPath for pro in protocols" required data-ng-model="product.contractPath" class="form-control">
+                                <option value="">请选择</option>
                             </select>
                         </div>
                     </div>
@@ -167,99 +213,103 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">风险补偿金：</label>
                         <div class="col-sm-8">
-                            <input data-ng-model="product.riskCompensation" data-ng-disabled="disabled" type="text" class="form-control">
+                            <input data-ng-model="product.guarType" name="guarType" required  data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" type="text" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-sm-2">出借咨询服务费：</label>
                         <div class="col-sm-8">
-                            <input data-ng-disabled="disabled" type="text" class="form-control">
+                            <input data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)"
+                            	data-ng-model="product.boughtWard" name="boughtWard" required type="text" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-sm-2">资金监管机构：</label>
                         <div class="col-sm-8">
-                            <input data-ng-model="product.superviseOrg" data-ng-disabled="disabled" type="text" class="form-control">
+                            <input data-ng-model="product.superviseOrg" name="superviseOrg" required data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" type="text" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-sm-2">起息日说明：</label>
                         <div class="col-sm-8">
-                            <input data-ng-disabled="disabled" type="text" class="form-control">
+                            <input data-ng-model="product.intStartType" name="intStartType" 
+                            	data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" required type="text" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-sm-2">还款方式：</label>
                         <div class="col-sm-8">
-                            <input data-ng-model="product.repaymentType" data-ng-disabled="disabled" type="text" class="form-control">
+                            <input data-ng-model="product.repaymentType" name="repaymentType" required data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" type="text" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-sm-2">退出方式：</label>
                         <div class="col-sm-8">
-                            <input data-ng-model="product.qiutDescribe" data-ng-disabled="disabled" type="text" class="form-control">
+                            <input data-ng-model="product.qiutDescribe" name="qiutDescribe" required data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" type="text" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-sm-2">资金回款：</label>
                         <div class="col-sm-8">
-                            <input data-ng-model="product.repatmentDescribe" data-ng-disabled="disabled" type="text" class="form-control">
+                            <input data-ng-model="product.repatmentDescribe" name="repatmentDescribe" required data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)" type="text" class="form-control">
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">项目描述：</label>
-                        <div class="col-sm-10 product-desc-div">
-                            <ul class="clearfix">
-                                <li>
-                                    APP：<img data-ng-src="{{product.channel[0].descriptionUrl || 'img/u250.png'}}" alt=""/>
-                                    <span data-ng-if="!disabled && product.channel[0].descriptionUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
-                                    <span data-ng-if="!disabled && product.channel[0].channelCode" input-file title="APP图片" model="product.channel[0].descriptionUrl"></span>
-                                </li>
-                                <li>
-                                    微信：<img data-ng-src="{{product.channel[1].descriptionUrl || 'img/u250.png'}}" alt=""/>
-                                    <span data-ng-if="!disabled && product.channel[1].descriptionUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
-                                    <span data-ng-if="!disabled && product.channel[1].channelCode" input-file title="微信图片" model="product.channel[1].descriptionUrl"></span>
-                                </li>
-                                <li>
-                                    PC：<img data-ng-src="{{product.channel[2].descriptionUrl || 'img/u250.png'}}" alt=""/>
-                                    <span data-ng-if="!disabled && product.channel[2].descriptionUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
-                                    <span data-ng-if="!disabled" input-file title="PC图片" model="product.channel[2].descriptionUrl"></span>
-                                </li>
-                            </ul>
-                            <textarea data-ng-model="product.description" data-ng-disabled="disabled" class="form-control" rows="3">财富优加计划是夸客金额为移动互联网...................</textarea>
+                    <div style="border-top: 1px dashed #ccc">
+                        <div class="form-group">
+                            <label class="control-label col-sm-1">APP：</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">项目描述+资金保障：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" name="descnUrl" data-ng-model="product.channel[0].descnUrl" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)?true:(product.channel[0].channelCode)?false:true" type="text"/>
+                            </div>
+                            <div data-ng-if="disabled?false:!product.channel[0].channelCode?false:(currraiseState==3 || currraiseState==0)" class="col-sm-1">
+                                <span  input-file title="APP图片" model="product.channel[0].descnUrl"></span>
+                            </div>
+                            <div data-ng-if="disabled?true:product.channel[0].channelCode?false:(currraiseState==3)" class="col-sm-1">
+                                <a data-ng-disabled="true" class="btn btn-default">APP图片</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">产品分享链接：</label>
+                            <div class="col-sm-8">
+                                <input data-ng-model="product.channel[0].shareUrl" 
+                                	data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)?true:product.channel[0].channelCode?false:true" type="text" class="form-control">
+                            </div>
                         </div>
                     </div>
-                    <br/>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">资金保障：</label>
-                        <div class="col-sm-10 product-desc-div">
-                            <ul class="clearfix">
-                                <li>
-                                    APP：<img data-ng-src="{{product.channel[0].guarContextUrl || 'img/u250.png'}}" alt=""/>
-                                    <span data-ng-if="!disabled && product.channel[0].guarContextUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
-                                    <span data-ng-if="!disabled && product.channel[0].channelCode" input-file title="APP图片" model="product.channel[0].guarContextUrl"></span>
-                                </li>
-                                <li>
-                                    微信：<img data-ng-src="{{product.channel[1].guarContextUrl || 'img/u250.png'}}" alt=""/>
-                                    <span data-ng-if="!disabled && product.channel[1].guarContextUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
-                                    <span data-ng-if="!disabled && product.channel[1].channelCode" input-file title="微信图片" model="product.channel[1].guarContextUrl"></span>
-                                </li>
-                                <li>
-                                    PC：<img data-ng-src="{{product.channel[2].guarContextUrl || 'img/u250.png'}}" alt=""/>
-                                    <span data-ng-if="!disabled && product.channel[2].guarContextUrl" class="delete-btn glyphicon glyphicon-remove"></span><br/>
-                                    <span data-ng-if="!disabled && product.channel[2].channelCode" input-file title="PC图片"  model="product.channel[2].guarContextUrl"></span>
-                                </li>
-                            </ul>
-                            <textarea data-ng-model="product.guarContext" data-ng-disabled="disabled" class="form-control" rows="3">1、夸客平台不接受客户资金，整个资金流转由央行发牌的第三方支付独立完成..................</textarea>
+
+                    <div style="border-top: 1px dashed #ccc">
+                        <div class="form-group">
+                            <label class="control-label col-sm-1">微信：</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">项目描述：</label>
+                            <div class="col-sm-8">
+                                <textarea data-ng-model="product.channel[1].prjDescn" name="prjDescn" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)?true:(product.channel[1].channelCode)?false:true" class="form-control" rows="3">财富优加计划是夸客金额为移动互联网...................</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">资金保障：</label>
+                            <div class="col-sm-8">
+                                <textarea data-ng-model="product.channel[1].guarDescn" name="guarDescn" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)?true:(product.channel[1].channelCode)?false:true" class="form-control" rows="3">1、夸客平台不接受客户资金，整个资金流转由央行发牌的第三方支付独立完成..................</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">产品分享链接：</label>
+                            <div class="col-sm-8">
+                                <input data-ng-model="product.channel[1].shareUrl" data-ng-disabled="disabled?true:(currraiseState!=3&&currraiseState!=0)?true:(!product.channel[1].channelCode)?true:false" type="text" class="form-control">
+                            </div>
                         </div>
                     </div>
+
                 </form>
             </div>
             <div class="modal-footer">

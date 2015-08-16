@@ -5,23 +5,35 @@
         <div class="form-group">
             <label class="control-label col-sm-1" for="userName">用户名：</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="userName" placeholder="请输入用户名">
+                <input type="text" class="form-control" data-ng-model="searchBind.loginName" id="userName" placeholder="请输入用户名">
             </div>
             <label class="control-label col-sm-1" for="idCardNumber">证件号：</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="idCardNumber" placeholder="请输入证件号">
+                <input type="text" class="form-control" data-ng-model="searchBind.idNo" id="idCardNumber" placeholder="请输入证件号">
             </div>
             <label class="control-label col-sm-1">交易日期：</label>
-            <div class="col-sm-3">
-                <input type="text" style="width: 110px" value="2015-04-01" class="my-form-control">
-                --
-                <input type="text" style="width: 110px" value="2015-05-01" class="my-form-control">
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <input type="text" data-ng-model="searchBind.dealStartTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="date.ybopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="date.ybopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-1" style="width: 14px;padding: 0"><span class="msg-span">--</span></div>
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <input type="text" data-ng-model="searchBind.dealEndTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="date.yeopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="date.yeopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
             </div>
         </div>
 
     </form>
     <div class="btn-box col-sm-11 clearfix">
-        <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
+        <a class="btn btn-default pull-right" href="javascript:" data-ng-click="search()" role="button">查 询</a>
         <a class="btn btn-default pull-right" href="javascript:" data-ng-click="modal()" role="button">参数配置</a>
     </div>
 
@@ -34,66 +46,49 @@
             <th>手机号</th>
             <th>银行类型</th>
             <th>卡号</th>
-            <th>交易金额（元）</th>
+            <th>交易金额（分）</th>
             <th>交易时间</th>
             <th>验证渠道</th>
         </tr>
         </thead>
         <tbody class="t_body">
-        <tr>
-            <td>XXXX</td>
-            <td>董小利</td>
-            <td>3412****2944</td>
-            <td>188****2944</td>
-            <td>中国工商银行</td>
-            <td>3412****2944</td>
-            <td>0.03</td>
-            <td>2015-05-06 18:26:09</td>
-            <td>代付认证</td>
-        </tr>
-        <tr>
-            <td>XXXX</td>
-            <td>董小利</td>
-            <td>3412****2944</td>
-            <td>188****2944</td>
-            <td>中国工商银行</td>
-            <td>3412****2944</td>
-            <td>0.03</td>
-            <td>2015-05-06 18:26:09</td>
-            <td>代付认证</td>
-        </tr>
-        <tr>
-            <td>XXXX</td>
-            <td>董小利</td>
-            <td>3412****2944</td>
-            <td>188****2944</td>
-            <td>中国工商银行</td>
-            <td>3412****2944</td>
-            <td>0.03</td>
-            <td>2015-05-06 18:26:09</td>
-            <td>代付认证</td>
+        <tr data-ng-repeat="bl in bindList">
+            <td>{{bl.PAYMENT_NO}}</td>
+            <td>{{bl.REAL_NAME}}</td>
+            <td>{{bl.IDENTIFICATION_NO | hideWord:4:4:4}}</td>
+            <td>{{bl.MOBILE | hideWord:3:4}}</td>
+            <td>{{bl.BANK_NAME}}</td>
+            <td>{{bl.BANK_CARD_NO | hideWord:4:4:4}}</td>
+            <td>{{bl.AMT}}</td>
+            <td>{{bl.TX_TIME | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{bl.BIND_TYPE_NAME}}</td>
         </tr>
         </tbody>
     </table>
+    <!--分页-->
+    <div class="clearfix">
+        <div data-pagination data-total-items="page.totalItems" data-ng-model="page.curPage" data-max-size="page.maxSize" data-items-per-page="page.itemsPerPage" data-boundary-links="page.boundaryLinks" data-ng-change="changPage()"
+             data-previous-text="{{page.previousText}}" data-next-text="{{page.nextText}}" data-first-text="{{page.firstText}}" data-last-text="{{page.lastText}}"></div>
+    </div>
 
     <!--弹出层-->
     <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-body" style="overflow-x: scroll">
+        <div class="modal-body">
             <form class="form-horizontal select-form">
                 <div class="form-group">
                     <label class="control-label col-sm-4" for="userName">验证渠道：</label>
                     <div class="col-sm-8">
                         <label class="radio-inline">
-                            <input type="radio"> 代付认证
+                            <input value="1" data-ng-model="bindConfig.checkChannel" type="radio"> 代付认证
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-4">1、代付金额：</label>
                     <div class="col-sm-8">
-                        <input type="text" style="width: 110px" value="2015-04-01" class="my-form-control">
+                        <input type="text" style="width: 110px" data-ng-model="bindConfig.pay_for_another_from" class="my-form-control">
                         --
-                        <input type="text" style="width: 110px" value="2015-05-01" class="my-form-control"> 元
+                        <input type="text" style="width: 110px" data-ng-model="bindConfig.pay_for_another_to" class="my-form-control"> 元
                     </div>
                 </div>
                 <div class="form-group">
@@ -105,15 +100,39 @@
                 <div class="form-group">
                     <label class="control-label col-sm-4">2、输入金额失败次数：</label>
                     <div class="col-sm-8">
-                        <input type="text" style="width: 110px" value="2015-04-01" class="my-form-control">
+                        <input type="text" style="width: 110px" data-ng-model="bindConfig.failed_locked_num" class="my-form-control">
                         次后卡被锁定
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <label class="control-label col-sm-4">3、每张卡打款次数：</label>
+                    <div class="col-sm-8">
+                        <input type="text" style="width: 110px" data-ng-model="bindConfig.each_card_draw_num" class="my-form-control">
+                        次后卡被锁定
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4">图片资源服务器</label>
+                    <div class="col-sm-8">
+                        <input type="text" style="width: 230px" data-ng-model="bindConfig.img_resource_server" class="my-form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4">文件资源服务器</label>
+                    <div class="col-sm-8">
+                        <input type="text" style="width: 230px" data-ng-model="bindConfig.file_resource_server" class="my-form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4">资源服务器地址</label>
+                    <div class="col-sm-8">
+                        <input type="text" style="width: 230px" data-ng-model="bindConfig.server_url" class="my-form-control">
+                    </div>
+                </div>
             </form>
         </div>
         <div class="modal-footer">
-            <a class="btn btn-primary" ng-click="cancel()">保 存</a>
+            <a class="btn btn-primary" ng-click="ok()">保 存</a>
             <a class="btn btn-default" ng-click="cancel()">关 闭</a>
         </div>
 

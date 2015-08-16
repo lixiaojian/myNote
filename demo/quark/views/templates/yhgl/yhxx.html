@@ -6,48 +6,50 @@
             <label class="control-label col-sm-1" for="phoneNumber">手机号：</label>
 
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="phoneNumber" placeholder="请输入手机号码">
+                <input type="text" class="form-control" data-ng-model="searchUser.mobile" id="phoneNumber" placeholder="请输入手机号码">
             </div>
 
             <label class="control-label col-sm-1" for="userName">姓名：</label>
 
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="userName" placeholder="请输入姓名">
+                <input type="text" class="form-control" data-ng-model="searchUser.loginName" id="userName" placeholder="请输入姓名">
             </div>
 
             <label class="control-label col-sm-1" for="idCardNumber">证件号：</label>
 
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="idCardNumber" placeholder="请输入证件号">
+                <input type="text" class="form-control" data-ng-model="searchUser.idNo" id="idCardNumber" placeholder="请输入证件号">
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-sm-1" for="userStatus">用户状态：</label>
+            <label class="control-label col-sm-1" for="lockedState">用户状态：</label>
 
             <div class="col-sm-2">
-                <select class="form-control" id="userStatus">
+                <select class="form-control" data-ng-model="searchUser.lockedState" id="lockedState">
                     <option value="">全部</option>
-                    <option value="">锁定</option>
-                    <option value="">未锁定</option>
+                    <option value="1">锁定</option>
+                    <option value="0">未锁定</option>
                 </select>
             </div>
 
             <label class="control-label col-sm-1" for="registerType">注册渠道：</label>
 
             <div class="col-sm-2">
-                <select class="form-control">
+                <select class="form-control" data-ng-model="searchUser.channelCode">
                     <option value="">全部</option>
-                    <option value="">APP</option>
-                    <option value="">微信</option>
-                    <option value="">PC</option>
+                    <option value="qIOS">qIOS</option>
+                    <option value="qWechat">qWechat</option>
+                    <option value="qAndroid">qAndroid</option>
+                    <option value="mgm">mgm</option>
+                    <option value="PC">PC</option>
                 </select>
             </div>
 
             <label class="control-label col-sm-1">注册日期：</label>
             <div class="col-sm-2">
                 <div class="input-group" id="collectDate">
-                    <input type="text" data-ng-model="searchProduct.raiseStartingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="bopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                    <input type="text" data-ng-model="searchUser.registerStartDate" class="form-control" data-datepicker-popup="{{format}}" data-is-open="bopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="bopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -57,7 +59,7 @@
             <div class="col-sm-1" style="width: 14px;padding: 0"><span class="msg-span">--</span></div>
             <div class="col-sm-2">
                 <div class="input-group">
-                    <input type="text" data-ng-model="searchProduct.raiseEndingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                    <input type="text" data-ng-model="searchUser.registerEndDate" class="form-control" data-datepicker-popup="{{format}}" data-is-open="eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" data-ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -66,8 +68,8 @@
         </div>
     </form>
     <div class="btn-box col-sm-11 clearfix">
-        <a class="btn btn-default pull-right" href="javascript:" role="button">导 出</a>
-        <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
+        <!--  <a class="btn btn-default pull-right" href="javascript:" role="button">导 出</a> -->
+        <a class="btn btn-default pull-right" href="javascript:" data-ng-click="search()" role="button">查 询</a>
     </div>
 
     <table class="table product-table table-striped table-bordered">
@@ -87,58 +89,20 @@
         </tr>
         </thead>
         <tbody class="t_body">
-        <tr>
-            <td>188****3304</td>
-            <td>董小利</td>
-            <td>3412****2944</td>
-            <td>2015-04-21 11:00:00</td>
-            <td>APP</td>
-            <td>1</td>
-            <td>已认证</td>
-            <td>已设置</td>
-            <td>未锁定</td>
-            <td>2015-04-22</td>
+        <tr data-ng-repeat="user in userList">
+            <td>{{user.mobile | hideWord:3:4}}</td>
+            <td>{{user.loginName}}</td>
+            <td>{{user.idNo | hideWord:4:4}}</td>
+            <td>{{user.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{user.channelCode}}</td>
+            <td>{{user.bindNum}}</td>
+            <td>{{user.loginName!=null?'已认证':'未认证'}}</td>
+            <td>{{user.isSetQuestion==0?'已设置':'未设置'}}</td>
+            <td>{{user.lockedState==1?'锁定':user.lockedState==0?'未锁定':''}}</td>
+            <td>{{user.firstDealTime}}</td>
             <td>
-                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">查
-                    看</a>
-                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">编
-                    辑</a>
-            </td>
-        </tr>
-        <tr>
-            <td>188****3304</td>
-            <td>董小利</td>
-            <td>3412****2944</td>
-            <td>2015-04-21 11:00:00</td>
-            <td>APP</td>
-            <td>1</td>
-            <td>已认证</td>
-            <td>已设置</td>
-            <td>未锁定</td>
-            <td>2015-04-22</td>
-            <td>
-                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">查
-                    看</a>
-                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">编
-                    辑</a>
-            </td>
-        </tr>
-        <tr>
-            <td>188****3304</td>
-            <td>董小利</td>
-            <td>3412****2944</td>
-            <td>2015-04-21 11:00:00</td>
-            <td>APP</td>
-            <td>1</td>
-            <td>已认证</td>
-            <td>已设置</td>
-            <td>未锁定</td>
-            <td>2015-04-22</td>
-            <td>
-                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">查
-                    看</a>
-                <a class="btn btn-default" href="javascript:" data-ng-click="modal()" role="button">编
-                    辑</a>
+                <a class="btn btn-default" href="javascript:" data-ng-click="modal('select',user.id)" role="button">查看</a>
+                <a class="btn btn-default" href="javascript:" data-ng-click="modal('edit',user.id)" role="button">编辑</a>
             </td>
         </tr>
         </tbody>
@@ -159,11 +123,11 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2">手机号：</label>
                             <div class="col-sm-3">
-                                <span class="msg-span">188****3304</span>
+                                <span class="msg-span">{{curUser.mobile}}</span>
                             </div>
                             <label class="control-label col-sm-2">用户名：</label>
                             <div class="col-sm-3">
-                                <span class="msg-span">董小利</span>
+                                <span class="msg-span">{{curUser.loginName}}</span>
                             </div>
 
                         </div>
@@ -176,182 +140,128 @@
                             </div>
                             <label class="control-label col-sm-2">证件号：</label>
                             <div class="col-sm-3">
-                                <span class="msg-span">3412****2944</span>
+                                <span class="msg-span">{{curUser.idNo}}</span>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-sm-2">用户状态：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" id="registerType">
-                                    <option value="">全部</option>
-                                    <option value="">锁定</option>
-                                    <option value="">未锁定</option>
+                                <select data-ng-disabled="select" data-ng-model="curUser.lockedState" class="form-control" id="registerType">
+                                    <option value="1">锁定</option>
+                                    <option value="0">未锁定</option>
                                 </select>
                             </div>
                             <label class="control-label col-sm-2">锁定时间：</label>
 
                             <div class="col-sm-3">
-                                <span class="msg-span">2015-04-21  11:00:00</span>
+                                <span class="msg-span">{{curUser.lockedTime | date:'yyyy-MM-dd HH:ss:mm'}}</span>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-sm-2">注册渠道：</label>
                             <div class="col-sm-3">
-                                <span class="msg-span">APP</span>
+                                <span class="msg-span">{{curUser.channelCode}}</span>
                             </div>
                             <label class="control-label col-sm-2">首次下载市场：</label>
                             <div class="col-sm-3">
-                                <span class="msg-span">安智</span>
+                                <span class="msg-span">{{curUser.firstDownMarket}}</span>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-sm-2">注册时间：</label>
                             <div class="col-sm-3">
-                                <span class="msg-span">2015-04-21  11:00:00</span>
+                                <span class="msg-span">{{curUser.createTime | date:'yyyy-MM-dd HH:ss:mm'}}</span>
                             </div>
                             <label class="control-label col-sm-2">首次注册市场：</label>
                             <div class="col-sm-3">
-                                <span class="msg-span">安智</span>
+                                <span class="msg-span">{{curUser.firstRegisterMarket}}</span>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-sm-2">首次交易时间：</label>
                             <div class="col-sm-3">
-                                <span class="msg-span">2015-04-21  11:00:00</span>
+                                <span class="msg-span">{{curUser.firstDealTime}}</span>
                             </div>
-                            <label class="control-label col-sm-2">首次交易时间：</label>
+                            <label class="control-label col-sm-2">首次交易市场：</label>
                             <div class="col-sm-3">
-                                <span class="msg-span">安智</span>
+                                <span class="msg-span">{{curUser.firstDealMarket}}</span>
                             </div>
                         </div>
-                        <div style="border-top: 1px dashed #ccc;border-bottom: 1px dashed #ccc;padding: 10px 0">
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">历史手机号1：</label>
+                        <div style="border-top: 1px dashed #ccc;border-bottom: 1px dashed #ccc;padding: 10px 0"  data-ng-if="curUser.mobileLis.length > 1">
+                            <div class="form-group" data-ng-repeat="phone in curUser.mobileList">
+                                <label class="control-label col-sm-2">历史手机号{{$index+1}}：</label>
                                 <div class="col-sm-3">
-                                    <span class="msg-span">187****2243</span>
+                                    <span class="msg-span">{{phone.mobile}}</span>
                                 </div>
                                 <label class="control-label col-sm-2">解绑时间：</label>
                                 <div class="col-sm-3">
-                                    <span class="msg-span">2015-04-29  09:09:00</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">历史手机号2：</label>
-                                <div class="col-sm-3">
-                                    <span class="msg-span">158****4419</span>
-                                </div>
-                                <label class="control-label col-sm-2">解绑时间：</label>
-                                <div class="col-sm-3">
-                                    <span class="msg-span">2015-05-05  12:48:09</span>
+                                    <span class="msg-span">{{phone.updateTime}}</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" data-ng-if="curUser.customerSecurity.firstName">
                             <label class="control-label col-sm-2">安全问题1：</label>
                             <div class="col-sm-9">
-                                <span class="msg-span">最喜欢的一本书是什么？</span>
+                                <span class="msg-span">{{curUser.customerSecurity.firstName}}</span>
                             </div>
                             <label class="control-label col-sm-2">&nbsp;</label>
                             <div class="col-sm-9">
-                                <span class="msg-span">答案： XXXXXX</span>
+                                <span class="msg-span">答案： {{curUser.customerSecurity.firstAnswer}}</span>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" data-ng-if="curUser.customerSecurity.secondName">
                             <label class="control-label col-sm-2">安全问题2：</label>
                             <div class="col-sm-9">
-                                <span class="msg-span">最喜欢的电影哪一部？</span>
+                                <span class="msg-span">{{curUser.customerSecurity.secondName}}</span>
                             </div>
                             <label class="control-label col-sm-2">&nbsp;</label>
                             <div class="col-sm-9">
-                                <span class="msg-span">答案： XXXXXX</span>
+                                <span class="msg-span">答案： {{curUser.customerSecurity.secondAnswer}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group" data-ng-if="curUser.customerSecurity.thirdName">
+                            <label class="control-label col-sm-2">安全问题3：</label>
+                            <div class="col-sm-9">
+                                <span class="msg-span">{{curUser.customerSecurity.thirdName}}</span>
+                            </div>
+                            <label class="control-label col-sm-2">&nbsp;</label>
+                            <div class="col-sm-9">
+                                <span class="msg-span">答案： {{curUser.customerSecurity.thirdAnswer}}</span>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-default" ng-click="cancel()">关 闭</a>
+                    <a class="btn btn-primary" data-ng-if="!select" ng-click="ok()">保 存</a>
+                    <a class="btn btn-warning" ng-click="cancel()">关 闭</a>
                 </div>
             </tab>
             <tab heading="绑卡信息">
                 <div class="modal-body">
                     <form class="form-horizontal selectDetailForm">
-                        <div class="form-group">
-                            <label class="control-label col-sm-1">卡一：</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2">银行类型：</label>
-                            <div class="col-sm-2">
-                                <select data-ng-disabled="true" class="form-control">
-                                    <option value="">全部</option>
-                                    <option value="">中国银行</option>
-                                    <option value="">交通银行</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-2">
-                                <span class="msg-span">* 绑卡成功</span>
-                            </div>
-
-                            <label class="control-label col-sm-2">银行预留手机号：</label>
-                            <div class="col-sm-2">
-                                <span class="msg-span">188****3304</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2">卡类型：</label>
-                            <div class="col-sm-4">
-                                <span class="msg-span">借记卡</span>
-                            </div>
-
-                            <label class="control-label col-sm-2">银行卡号：</label>
-                            <div class="col-sm-2">
-                                <span class="msg-span">6217****9802</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2">验证渠道：</label>
-                            <div class="col-sm-4">
-                                <select data-ng-disabled="true" class="form-control">
-                                    <option value="">快捷认证</option>
-                                </select>
-                            </div>
-
-                            <label class="control-label col-sm-2">委托划扣授权书号：</label>
-                            <div class="col-sm-2">
-                                <span class="msg-span">--</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2">绑定时间：</label>
-                            <div class="col-sm-4">
-                                <span class="msg-span">2015-04-22  08:00:00</span>
-                            </div>
-                        </div>
-
-                        <div style="border-top: 1px dashed #ccc">
+                        <div style="border-top: 1px dashed #ccc" data-ng-repeat="card in curUser.bankCardList">
                             <div class="form-group">
-                                <label class="control-label col-sm-1">卡二：</label>
+                                <label class="control-label col-sm-1">卡{{$index+1}}：</label>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2">银行类型：</label>
                                 <div class="col-sm-2">
-                                    <select data-ng-disabled="true" class="form-control">
+                                    <select data-ng-disabled="true" data-ng-model="card.bankSerial" data-ng-options="bank.bankSerial as bank.bankName for bank in card.bankList" class="form-control">
                                         <option value="">全部</option>
-                                        <option value="">中国银行</option>
-                                        <option value="">交通银行</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-2">
-                                    <span class="msg-span">* 绑卡成功</span>
+                                    <span class="msg-span">{{card.bindStatus==1?'绑定成功':card.bindStatus==5?'认证中':''}}</span>
                                 </div>
 
                                 <label class="control-label col-sm-2">银行预留手机号：</label>
-                                <div class="col-sm-2">
-                                    <span class="msg-span">188****3304</span>
+                                <div class="col-sm-3">
+                                    <span class="msg-span">{{card.customerBankMobile | hideWord:3:4}}</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -361,55 +271,52 @@
                                 </div>
 
                                 <label class="control-label col-sm-2">银行卡号：</label>
-                                <div class="col-sm-2">
-                                    <span class="msg-span">6217****9802</span>
+                                <div class="col-sm-3">
+                                    <span class="msg-span">{{card.cardNo | hideWord:4:4}}</span>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-sm-2">卡状态：</label>
-                                <div class="col-sm-2">
-                                    <select class="form-control">
-                                        <option value="">锁定</option>
+                                <div class="col-sm-4">
+                                    <select data-ng-model="card.lockedState" data-ng-disabled="select" class="form-control">
+                                        <option value="1">锁定</option>
+                                        <option value="0">未锁定</option>
                                     </select>
                                 </div>
 
-                                <label class="control-label col-sm-2">认证次数：</label>
-                                <div class="col-sm-2">
-                                    <span class="msg-span">1</span>
-                                </div>
-
-                                <label class="control-label col-sm-2">实际认证次数：</label>
-                                <div class="col-sm-2">
-                                    <span class="msg-span">1</span>
+                                <label class="control-label col-sm-2">锁定时间：</label>
+                                <div class="col-sm-3">
+                                    <span class="msg-span">{{card.lockedTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-sm-2">验证渠道：</label>
                                 <div class="col-sm-4">
-                                    <select data-ng-disabled="true" class="form-control">
-                                        <option value="">快捷认证</option>
+                                    <select data-ng-disabled="true" data-ng-model="card.checkChannel" class="form-control">
+                                        <option value="1">快捷认证</option>
+                                        <option value="2">代付认证</option>
                                     </select>
                                 </div>
 
                                 <label class="control-label col-sm-2">委托划扣授权书号：</label>
-                                <div class="col-sm-2">
-                                    <span class="msg-span">--</span>
+                                <div class="col-sm-3">
+                                    <span class="msg-span">{{card.grantNo}}</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2">绑定时间：</label>
                                 <div class="col-sm-4">
-                                    <span class="msg-span">2015-04-22  08:00:00</span>
+                                    <span class="msg-span">{{card.bindTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-primary" ng-click="ok()">保 存</a>
-                    <a class="btn btn-warning" ng-click="cancel()">返 回</a>
+                    <a class="btn btn-primary" data-ng-if="!select" ng-click="ok()">保 存</a>
+                    <a class="btn btn-warning" ng-click="cancel()">关 闭</a>
                 </div>
             </tab>
         </tabset>

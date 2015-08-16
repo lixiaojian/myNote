@@ -1,24 +1,12 @@
-{
-  "delegateDoc": {
-    "agreementId": "1",
-    "agreementCode": "delegate_book",
-    "docPath": "/opt/aa/a.doc"
+[
+  {
+    "agreementId": "9A1648F6B5714BB2B9DD906AF356678C",
+    "agreementCode": "1",
+    "docPath": "/file/90天合同d2ab5119-33d7-4b0c-99a3-c3382664fd8b.txt"
   },
-  "experienceDoc": {
-    "agreementId": "2",
-    "agreementCode": "experience_book",
-    "docPath": "/opt/aa/b.doc"
-  },
-  "counponDoc": {
-    "agreementId": "3",
-    "agreementCode": "coupon_book",
-    "docPath": "/opt/aa/c.doc"
-  },
-  "loopAgreementDocList": [
-    {
-      "agreementId": "4",
-      "agreementCode": "sell_book",
-      "docPath": "/opt/aa/d.doc"
-    }
-  ]
-}
+  {
+    "agreementId": "DC77C7C93B3D4204968B1F836DC3785F",
+    "agreementCode": null,
+    "docPath": "sadsadsa"
+  }
+]

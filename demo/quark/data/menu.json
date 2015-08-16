@@ -12,12 +12,14 @@
             "id":111,
             "title":"操作员管理",
             "href":"glkzt.czygl",
+            "menuCode":"user",
             "items":[]
           },
           {
             "id":11,
             "title":"角色管理",
             "href":"glkzt.jsgl",
+            "menuCode":"role",
             "items":[]
           }
         ]
@@ -30,6 +32,7 @@
             "id":121,
             "title":"产品管理",
             "href":"glkzt.cpgl",
+            "menuCode":"product",
             "items":[]
           }
         ]
@@ -42,6 +45,7 @@
             "id":131,
             "title":"活动查询",
             "href":"glkzt.hdcx",
+            "menuCode":"activity",
             "items":[
 
             ]
@@ -50,8 +54,18 @@
             "id":132,
             "title":"新增活动",
             "href":"glkzt.xzhd",
+            "menuCode":"activity:add",
             "items":[
 
+            ]
+          },
+          {
+            "id":133,
+            "title":"导入用户",
+            "href":"glkzt.dryh",
+            "menuCode":"customerimport",
+            "items":[
+              
             ]
           }
         ]
@@ -64,12 +78,14 @@
             "id":141,
             "title":"交易信息查询",
             "href":"glkzt.jyxxcx",
+            "menuCode":"transaction",
             "items":[ ]
           },
           {
             "id":142,
             "title":"意见反馈查询",
             "href":"glkzt.yjfkcx",
+            "menuCode":"feedback",
             "items":[ ]
           }
         ]
@@ -82,18 +98,28 @@
             "id":151,
             "title":"广告管理",
             "href":"glkzt.gggl",
+            "menuCode":"advertise",
             "items":[ ]
           },
           {
             "id":152,
             "title":"银行信息",
             "href":"glkzt.yhxx",
+            "menuCode":"bank",
             "items":[ ]
           },
           {
             "id":153,
             "title":"协议管理",
             "href":"glkzt.xygl",
+            "menuCode":"agreement",
+            "items":[ ]
+          },
+          {
+            "id":154,
+            "title":"短信管理",
+            "href":"glkzt.dxgl",
+            "menuCode":"sms",
             "items":[ ]
           }
         ]
@@ -109,24 +135,28 @@
         "id":21,
         "title":"用户信息",
         "href":"yhgl.yhxx",
+        "menuCode":"customer",
         "items":[ ]
       },
       {
         "id":22,
         "title":"资产信息",
         "href":"yhgl.zcxx",
+        "menuCode":"asset",
         "items":[ ]
       },
       {
         "id":23,
         "title":"用户卡券查询",
         "href":"yhgl.yhkqcx",
+        "menuCode":"coupon",
         "items":[ ]
       },
       {
         "id":24,
         "title":"用户绑卡认证查询",
         "href":"yhgl.yhbkrzcx",
+        "menuCode":"blind",
         "items":[ ]
       }
     ]
@@ -135,6 +165,7 @@
     "id": 3,
     "title": "个人密码修改",
     "href":"grmmxg",
+    "menuCode":"pwd",
     "items": []
   }
 ]

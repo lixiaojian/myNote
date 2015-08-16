@@ -5,11 +5,12 @@
   "recordList": [
     {
       "productType": "13",
-      "productTypeName": "财富优加计划180天2",
-      "pid": "27",
+      "productTypeName": null,
+      "pid": "13",
       "productName": "财富优加计划180天-06期",
       "periodCore": "6",
       "period": "180",
+      "productProp":"1",
       "unit": "D",
       "lowestAmt": "1000",
       "accumulateAmt": "100",
@@ -93,12 +94,12 @@
       "sum": null,
       "downTime": 1591110000000,
       "count": null,
-      "raiseState": "1",
+      "raiseState": "0",
       "priority": null
     },
     {
       "productType": "13",
-      "productTypeName": "财富优加计划180天2",
+      "productTypeName": "",
       "pid": "25",
       "productName": "财富优加计划180天-05期",
       "periodCore": "6",
@@ -124,7 +125,7 @@
       "sum": null,
       "downTime": 1591023600000,
       "count": null,
-      "raiseState": "2",
+      "raiseState": "3",
       "priority": null
     },
     {

@@ -16,10 +16,13 @@
         <a href="javascript:" class="logo" id="sidebar_toggle">菜单导航 <span class="glyphicon glyphicon-th-list"></span></a>
         <nav class="navbar navbar-static-top">
             <ul>
-                <li>
-                    <img src="img/user.png" alt=""/>
-                    <span>欢迎管理员：dongxiaoli</span>
+                <li style="margin-left: 20px">
+                    <a style="color:#fff" data-ng-click="logout()" href="javascript:void(0);">退出</a>
                 </li>
+                <li>
+                    <span>欢迎管理员：{{currUser.loginName}}</span>
+                </li>
+
             </ul>
         </nav>
     </header>
@@ -61,11 +64,13 @@
 <!--模块文件-->
 <script src="scripts/app.js"></script>
 <script src="scripts/directives/commonDirectives.js"></script>
+<script src="scripts/filter/hideWordFiler.js"></script>
 <!--左边导航文件-->
 <script src="scripts/controllers/menuController.js"></script>
 <script src="scripts/services/menuService.js"></script>
 <!--管理控制台文件-->
 <script src="scripts/controllers/czyglController.js"></script>
+<script src="scripts/services/operatorService.js"></script>
 <!--角色管理文件-->
 <script src="scripts/controllers/roleController.js"></script>
 <script src="scripts/services/roleService.js"></script>
@@ -76,22 +81,38 @@
 <!--活动管理文件-->
 <script src="scripts/controllers/activityController.js"></script>
 <script src="scripts/services/activityService.js"></script>
+<!--导入用户文件--->
+<script src="scripts/controllers/importUserController.js"></script>
+<script src="scripts/services/importUserService.js"></script>
 <!--查询管理-->
 <script src="scripts/controllers/selectController.js"></script>
+<script src="scripts/services/selectService.js"></script>
+<script src="scripts/controllers/transactionController.js"></script>
+<script src="scripts/services/transactionService.js"></script>
 <!--通用管理-->
 <script src="scripts/controllers/advertController.js"></script>
+<script src="scripts/services/advertService.js"></script>
 <script src="scripts/controllers/bankController.js"></script>
 <script src="scripts/services/bankService.js"></script>
+<script src="scripts/controllers/smsController.js"></script>
+<script src="scripts/services/smsService.js"></script>
 <!--用户管理-->
 <script src="scripts/controllers/userController.js"></script>
+<script src="scripts/services/userService.js"></script>
 <!--资产信息-->
 <script src="scripts/controllers/assetController.js"></script>
+<script src="scripts/services/assetService.js"></script>
 <!--用户卡劵查询-->
 <script src="scripts/controllers/cardVolumeController.js"></script>
+<script src="scripts/services/cardVolumeService.js"></script>
 <!--用户绑卡认证查询--->
 <script src="scripts/controllers/bindCardController.js"></script>
+<script src="scripts/services/bindCardService.js"></script>
 <!--协议管理-->
 <script src="scripts/controllers/protocolController.js"></script>
 <script src="scripts/services/protocolService.js"></script>
+<!--个人密码修改-->
+<script src="scripts/controllers/changePasswordController.js"></script>
+<script src="scripts/services/changePasswordService.js"></script>
 </body>
 </html>

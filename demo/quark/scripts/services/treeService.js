@@ -86,7 +86,7 @@
              */
             this.hasCheckedChildren = function (item) {
                 return !!_.find(item.items, function (subItem) {
-                    return subItem.checked || _this.hasCheckedChildren(subItem);
+                    return (subItem.checked && subItem.checked !=='false') || _this.hasCheckedChildren(subItem);
                 });
             };
             /**
@@ -96,7 +96,7 @@
              */
             this.hasUncheckedChildren = function (item) {
                 return !!_.find(item.items, function (subItem) {
-                    return !subItem.checked || _this.hasUncheckedChildren(subItem);
+                    return subItem.checked!=true || _this.hasUncheckedChildren(subItem);
                 });
             };
             /**

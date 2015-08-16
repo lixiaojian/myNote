@@ -2,10 +2,13 @@
  * Created by lixj(872458899@qq.com) on 15/7/3.
  */
 ;(function(app){
-    app.controller('protocolCtr',['$scope','$modal','protocolService',function($scope,$modal,protocolService){
+    app.controller('protocolCtr',['$scope','$modal','protocolService','$location',function($scope,$modal,protocolService,$location){
         $scope.modileTitle = '协议管理';
 
         protocolService.findAll({},function(data){
+            if(!data.loopAgreementDocList){
+                data.loopAgreementDocList=[{}];
+            };
             $scope.protocols = data;
         });
 
@@ -20,6 +23,7 @@
             protocolService.save($scope.protocols,function(data){
                 if('0000' === data.resCode){
                     alert('保存成功！');
+                    location.reload();
                 }
             });
         }

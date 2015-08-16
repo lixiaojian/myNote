@@ -7,13 +7,29 @@
         var actions = {
             //获取所有角色
             getAll:{
-                url:'data/roles.json',
+                //url:'role',
+                url:'data/roleList.json',
                 method:'get'
                 //isArray:true
             },
             findById:{
-                url:'data/role.json?id=:id',
+                //url:'role/detail',
+                url:'data/roleDetail.json',
                 method:'get'
+            },
+            findTreeDate:{
+                url:'data/role.json',
+                method:'get'
+            },
+            //保存更新角色
+            saveRole:{
+                url:'role/update',
+                method:'put'
+            },
+            //删除
+            deleteRole:{
+                url:'role/del',
+                method:'put'
             }
         };
         return $resource(url,{},actions);

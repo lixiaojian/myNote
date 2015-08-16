@@ -8,11 +8,13 @@
         var actions = {
             //获取所有协议
             findAll:{
-                url:'data/protocols.json',
+                url:'agreementDoc',
+                //url:'data/protocolList.json',
                 method:'get'
             },
             save:{
-                url:'data/ok.json',
+                url:'agreementDoc/add',
+                //url:'data/ok.json',
                 method:'post'
             }
         };

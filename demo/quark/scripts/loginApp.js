@@ -65,7 +65,7 @@
         var actions = {
             //获取菜单
             add:{
-                url:'data/login.json',
+                url:'user/login',
                 method:'post',
                 headers:{
                     'content-type':'application/x-www-form-urlencoded;charset=UTF-8'

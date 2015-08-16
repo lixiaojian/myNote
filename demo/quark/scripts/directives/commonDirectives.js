@@ -8,7 +8,8 @@
             restrict: 'EA',
             scope: {
                 title: '@',
-                model: '='
+                model: '=',
+                filetype:'@'
             },
             replace: true,
             template: '\
@@ -20,15 +21,37 @@
                     </div>\
                     <div ng-show="!progressing" class="input-group">\
                         <span class="btn btn-default" data-ng-file-change="fileChange($files)" ng-file-select>\
-                            <i class="glyphicon glyphicon-upload"></i> 上传{{title}} </span> \
+                            {{title}} </span> \
                     </div> \
                 </div>',
             link: function linkFun(scope) {
                 // 文件上传实现
                 scope.fileChange = function ($files) {
+                    //暂时只支持单张图片上传
+                    var fileType = $files[0].type;
+                    if(scope.filetype){
+                        var alowTypes = scope.filetype.split(',');
+                        var flag = false;
+                        angular.forEach(alowTypes,function(item){
+                            if(item.toLowerCase() == 'png'){
+                                if(fileType.toLowerCase() == 'image/png'){
+                                    flag = true;
+                                }
+                            }else if(item.toLowerCase() == 'jpg' || item.toLowerCase() == 'jpeg'){
+                                if(fileType.toLowerCase() == 'image/jpeg'){
+                                    flag = true;
+                                }
+                            }
+                        });
+                        if(!flag){
+                            alert('文件类型不正确，请重新选择');
+                            return;
+                        }
+                    }
                     scope.upload = $upload.upload({
                         //上传地址
-                        url: 'data/fileUpload.json',
+                        url: 'upload',
+                        //url: 'data/fileUpload.json',
                         method: 'POST',
                         withCredentials: true,
                         data: {},
@@ -40,14 +63,14 @@
                         scope.progressing = false;
                         if('0000'==data.resCode) {
                             for(var i=0; i<data.resInfo.length; i++) {
-                                scope.model = data.resInfo[i].savePath?data.resInfo[i].savePath:'';
+                                scope.model = data.resInfo[i].savePath?data.resInfo[i].savePath+data.resInfo[i].saveName:'';
                             }
                         } else {
-                            console.log('上传失败')
+                            alert('上传失败');
                         }
                     }).error(function () {
                         scope.progressing = false;
-                        console.log('上败');
+                        alert('上传失败');
                     });
                 };
             }

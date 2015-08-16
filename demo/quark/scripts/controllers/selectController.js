@@ -2,17 +2,17 @@
  * Created by lixj(872458899@qq.com) on 15/6/30.
  */
 ;(function(app){
-    app.controller('selectCtr',['$scope','$modal',function($scope,$modal){
+    app.controller('selectCtr',['$scope','$modal','selectService','$filter',function($scope,$modal,selectService,$filter){
         $scope.modileTitle='交易信息查询';
         $scope.modileTitle2='意见反馈查询';
         //分页
-        $scope.page = {
+        $scope.suggestionPage = {
             //总记录数
             totalItems:120,
             //当前页 default:1
             curPage:1,
             //每页条数 default:10
-            itemsPerPage:3,
+            itemsPerPage:10,
             //显示页数
             maxSize:10,
             previousText:'上一页',
@@ -22,36 +22,45 @@
             firstText:'首页',
             lastText:'末页'
         };
+        $scope.searchSuggestion={
+            length:$scope.suggestionPage.itemsPerPage,
+            start:0
+        };
+        $scope.searchSuggestions = function(){
+            $scope.searchSuggestion.start=0;
+            $scope.searchSuggestion.bdate = $filter('date')($scope.searchSuggestion.bdate,'yyyy-MM-dd');
+            $scope.searchSuggestion.edate = $filter('date')($scope.searchSuggestion.edate,'yyyy-MM-dd');
+            changePage();
+        }
+        $scope.changePage=function(){
+            $scope.searchSuggestion.start=($scope.suggestionPage.curPage-1)*$scope.suggestionPage.itemsPerPage;
+            changePage();
+        }
         //日历相关
-        $scope.bopen = function($event) {
+        $scope.sbopen = function($event) {
             $event.preventDefault();
             $event.stopPropagation();
-            $scope.bopened = !$scope.bopened;
+            $scope.sbopened = !$scope.sbopened;
         };
-        $scope.eopen = function($event) {
+        $scope.seopen = function($event) {
             $event.preventDefault();
             $event.stopPropagation();
-            $scope.eopened = !$scope.eopened;
+            $scope.seopened = !$scope.seopened;
         };
+
         $scope.format = 'yyyy-MM-dd';
 
-        //打开弹层
-        $scope.openDetail = function(type,id){
-            $modal.open({
-                animation: true,
-                size:'lg',
-                templateUrl: 'myModalContent.html',
-                controller: ['$scope','$modalInstance',function($scope, $modalInstance){
-                    //点击确定
-                    $scope.ok = function () {
-                        $modalInstance.close();
-                    };
-                    //点击取消
-                    $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
-                    };
-                }]
+        function changePage(){
+
+            selectService.searchSuggestion($scope.searchSuggestion,function(data){
+                $scope.suggestionList = data.recordList;
+                $scope.suggestionPage.totalItems = data.iTotalRecords;
+                $scope.suggestionPage.itemsPerPage = data.pageSize;
             });
         };
+
+        changePage();
+
+
     }]);
 }(angular.module('backStage')));

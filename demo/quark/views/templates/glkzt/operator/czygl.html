@@ -1,100 +1,94 @@
 <div class="container-fluid" ng-controller="czyglCtr">
     <h4 class="sub-title">{{modileTitle}}</h4>
     <!--表单-->
-    <form class="form-inline">
-        <div class="form-group col-sm-3">
-            <label for="realName">真实姓名</label>
-            <input type="text" class="form-control" id="realName" placeholder="请输入真实姓名">
+    <form class="form-horizontal">
+        <label class="control-label col-sm-2" for="realName">真实姓名：</label>
+        <div class="col-sm-2">
+            <input type="text" data-ng-model="searchOper.realName" class="form-control" id="realName" placeholder="请输入真实姓名">
         </div>
-        <div class="form-group col-sm-3">
-            <label for="email">邮箱</label>
-            <input type="email" class="form-control" id="email" placeholder="请输入邮箱地址">
+
+        <label class="control-label col-sm-2" for="loginName">账号：</label>
+        <div class="col-sm-2">
+            <input type="text" data-ng-model="searchOper.loginName" class="form-control" id="loginName" placeholder="请输入账号">
         </div>
-        <div class="form-group col-sm-3">
-            <label for="role">角色</label>
-            <select class="form-control" id="role">
-                <option>全部</option>
-                <option>管理员</option>
-                <option>运营</option>
-                <option>产品</option>
+
+        <label class="control-label col-sm-2">角色：</label>
+        <div class="col-sm-2">
+            <select class="form-control" data-ng-model="searchOper.id">
+                <option value="">全部</option>
+                <option value="{{role.id}}" data-ng-repeat="role in roleList">{{role.roleName}}</option>
             </select>
         </div>
     </form>
 
     <div class="btn-box col-sm-11 clearfix">
         <a class="btn btn-default pull-right" href="javascript:" ng-click="openNew('add')" role="button">新 增</a>
-        <a class="btn btn-default pull-right" href="javascript:" role="button">查 询</a>
+        <a class="btn btn-default pull-right" href="javascript:" data-ng-click="doSearch()"  role="button">查 询</a>
     </div>
 
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>真实姓名</th>
-                <th>邮箱</th>
-                <th>角色</th>
-                <th>手机号</th>
+                <th>账号</th>
                 <th>操作时间</th>
+                <th>操作者</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="data in datas">
                 <td>{{data.realName}}</td>
-                <td>{{data.email}}</td>
-                <td>{{data.role}}</td>
-                <td>{{data.phoneNumber}}</td>
-                <td>{{data.updatTime}}</td>
+                <td>{{data.loginName}}</td>
+                <td>{{data.operatTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td>{{data.operator}}</td>
                 <td>
-                    <a class="btn btn-default" href="javascript:" ng-click="openNew('select')" role="button">查 看</a>
-                    <a class="btn btn-default" href="javascript:" ng-click="openNew('edit')" role="button">编 辑</a>
-                    <a class="btn btn-default" href="javascript:" role="button">删 除</a>
+                    <a class="btn btn-default" href="javascript:" ng-click="openNew('select',data.id)" role="button">查 看</a>
+                    <a class="btn btn-default" href="javascript:" ng-click="openNew('edit',data.id)" role="button">编 辑</a>
+                    <a class="btn btn-default" href="javascript:" data-ng-click="deleteOp(data.id,$index)" role="button">删 除</a>
                 </td>
             </tr>
         </tbody>
     </table>
-
+    <!--分页-->
+    <div class="clearfix">
+        <div data-pagination data-total-items="page.totalItems" data-ng-model="page.curPage" data-max-size="page.maxSize" data-items-per-page="page.itemsPerPage" data-boundary-links="page.boundaryLinks" data-ng-change="changePage()"
+             data-previous-text="{{page.previousText}}" data-next-text="{{page.nextText}}" data-first-text="{{page.firstText}}" data-last-text="{{page.lastText}}"></div>
+    </div>
     <!--弹层-->
     <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-header">
-            <h3 class="modal-title">{{title}}</h3>
-        </div>
+
         <div class="modal-body">
-            <form class="form-horizontal">
+            <form class="form-horizontal w5c-form" w5c-form-validate novalidate name="operatorBaseForm">
                 <div class="form-group">
                     <label for="realNameModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>真实姓名</label>
                     <div class="col-sm-6">
-                        <input type="text" ng-disabled="isCheck" ng-model="user.realName" class="form-control" id="realNameModal" placeholder="请输入真实姓名">
+                        <input type="text" required name="realName" ng-disabled="isCheck" ng-model="user.realName" class="form-control" id="realNameModal" placeholder="请输入真实姓名">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="emailModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>邮箱</label>
+                    <label for="loginNameModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>账号</label>
+                    <div class="col-sm-4" style="padding-right: 2px">
+                        <input type="text" required name="loginName" ng-disabled="isCheck" ng-model="user.loginName" class="form-control" id="loginNameModal" placeholder="请输入账号">
+                    </div>
+                    <div class="col-sm-2">&nbsp;</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span class="t_c_r">*</span>角色</label>
                     <div class="col-sm-9">
-                        <div class="input-group">
-                            <input type="email" ng-disabled="isCheck" ng-model="user.email" class="form-control" id="emailModal" placeholder="请输入邮箱">
-                            <div class="input-group-addon">@quarkfinance.com</div>
-                        </div>
-                        <div><span class="t_c_r">*</span>此邮箱为登录账号</div>
+                        <label class="checkbox-inline w-100 m-l-0" data-ng-repeat="role in roleList">
+                            <input ng-disabled="isCheck" type="checkbox" name="roles" data-ng-model="role.checked">{{role.roleName}}
+                        </label>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="roleModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>角色</label>
-                    <div class="col-sm-6">
-                        <select class="form-control" data-ng-disabled="isCheck" data-ng-model="user.role" id="roleModal">
-                            <option>全部</option>
-                            <option>管理员</option>
-                            <option>运营</option>
-                            <option>产品</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
+                <div class="form-group" data-ng-if="!isCheck">
                     <label for="passwordModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>密码</label>
                     <div class="col-sm-6">
-                        <input type="password" ng-disabled="isCheck" ng-model="user.password" class="form-control" id="passwordModal" placeholder="请输入密码">
+                        <input type="password" ng-disabled="isCheck" name="password" ng-model="user.password" class="form-control" id="passwordModal" placeholder="请输入密码">
                         <div><span class="t_c_r">*</span>请输入6-14位密码、包含字母数字</div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" data-ng-if="!isCheck">
                     <label for="repasswordModal" class="col-sm-2 control-label"><span class="t_c_r">*</span>确认密码</label>
                     <div class="col-sm-6">
                         <input type="password" ng-disabled="isCheck" ng-model="user.repassword" class="form-control" id="repasswordModal" placeholder="请再次输入密码">
@@ -105,7 +99,7 @@
             </form>
         </div>
         <div class="modal-footer">
-                <a ng-if="!isCheck" class="btn btn-primary" ng-click="ok()">保 存</a>
+                <a ng-if="!isCheck" class="btn btn-primary" ng-click="ok(operatorBaseForm.$valid)">保 存</a>
                 <a ng-if="!isCheck" class="btn btn-warning" ng-click="cancel()">返 回</a>
                 <a ng-if="isCheck" class="btn btn-default" ng-click="cancel()">关 闭</a>
         </div>

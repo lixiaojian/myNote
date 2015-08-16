@@ -6,24 +6,24 @@
                     <div class="form-group">
                         <label for="activityNameForm" class="col-sm-3 control-label"> <span class="t_c_r">*</span> 活动名称：</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="activityNameForm" placeholder="活动名称">
+                            <input type="text" data-ng-disabled="true" data-ng-model="curActive.activityName" class="form-control" id="activityNameForm" placeholder="活动名称">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="collectDateForm" class="control-label col-sm-3"> <span class="t_c_r">*</span> 活动日期：</label>
                         <div class="col-sm-3">
                             <div class="input-group " id="collectDateForm">
-                                <input type="text" data-ng-model="searchProduct.raiseStartingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="fbopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                                <input type="text" data-ng-disabled="isCheck" data-ng-model="curActive.begDate" class="form-control" data-datepicker-popup="{{format}}" data-is-open="date.fbopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="fbopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                <button type="button" data-ng-disabled="isCheck" class="btn btn-default" ng-click="fbopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                             </span>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="input-group">
-                                <input type="text" data-ng-model="searchProduct.raiseEndingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="feopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                                <input type="text" data-ng-disabled="isCheck" data-ng-model="curActive.endDate" class="form-control" data-datepicker-popup="{{format}}" data-is-open="date.feopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" data-ng-click="feopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                <button type="button" data-ng-disabled="isCheck" class="btn btn-default" data-ng-click="feopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                             </span>
                             </div>
                         </div>
@@ -33,21 +33,21 @@
                         <div class="col-sm-2">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""> APP
+                                    <input data-ng-disabled="isCheck" name="reciveWays" data-ng-true-value="'100001'" data-ng-model="curActive.reciveWays[0].id" type="checkbox"> APP
                                 </label>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""> 微信
+                                    <input data-ng-disabled="isCheck" name="reciveWays" data-ng-true-value="'100002'" data-ng-model="curActive.reciveWays[1].id" type="checkbox"> 微信
                                 </label>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value=""> PC
+                                    <input data-ng-disabled="isCheck" name="reciveWays" data-ng-true-value="'100003'" data-ng-model="curActive.reciveWays[2].id" type="checkbox"> PC
                                 </label>
                             </div>
                         </div>
@@ -55,28 +55,28 @@
                     <div class="form-group">
                         <label for="activityLinkForm" class="col-sm-3 control-label">活动链接：</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="activityLinkForm">
+                            <input type="text" data-ng-disabled="isCheck" data-ng-model="curActive.activityLink" class="form-control" id="activityLinkForm">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">活动图片：</label>
-                        <div class="col-sm-6">
-                            <span input-file title="活动图片" model="product.channel[0].descriptionUrl"></span>
-                            <p><span class="t_c_r">*</span> 需为JPG、PNG或GIF格式，大小不超过2M</p>
-                            <img width="50px" height="50px" src="img/u250.png" alt=""/>
-                            <span class="delete-btn glyphicon glyphicon-remove"></span>
+                        <div class="col-sm-5">
+                            <input type="text" data-ng-disabled="isCheck" class="my-form-control" style="width: 340px" data-ng-model="curActive.activityImg"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <span data-ng-hide="isCheck" input-file title="上传" model="curActive.activityImg"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="activityLinkForm" class="col-sm-3 control-label">活动描述：</label>
                         <div class="col-sm-6">
-                            <textarea class="form-control" rows="3" placeholder="活动描述"></textarea>
+                            <textarea class="form-control" data-ng-disabled="isCheck" data-ng-model="curActive.description" rows="3" placeholder="活动描述"></textarea>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <a ng-if="!isCheck" class="btn btn-primary" ng-click="ok()">重 置</a>
+                <a ng-if="!isCheck" class="btn btn-primary" ng-click="resetCurActive()">重 置</a>
                 <a ng-if="!isCheck" class="btn btn-warning" ng-click="cancel()">返 回</a>
                 <a ng-if="isCheck" class="btn btn-default" ng-click="cancel()">关 闭</a>
             </div>
@@ -87,56 +87,61 @@
                     <div class="form-group">
                         <label for="cardVolumeNameForm" class="col-sm-3 control-label"> <span class="t_c_r">*</span> 卡券名称：</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="cardVolumeNameForm" placeholder="卡券名称">
+                            <input type="text" data-ng-disabled="true" data-ng-model="curCouponsRules.couponsRuleName" class="form-control" id="cardVolumeNameForm" placeholder="卡券名称">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="publishCountForm" class="col-sm-3 control-label"> <span class="t_c_r">*</span> 发行总量：</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" id="publishCountForm" placeholder="发行总量">
+                            <input type="text" data-ng-disabled="isCheck" data-ng-model="curCouponsRules.totalNum" class="form-control" id="publishCountForm" placeholder="发行总量">
                         </div>
                         <span class="last-label">张</span>
                     </div>
                     <div class="form-group">
                         <label for="publishCountDayForm" class="col-sm-3 control-label"> <span class="t_c_r">*</span> 单日最大发行量：</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" id="publishCountDayForm" placeholder="单日最大发行量">
+                            <input type="text" data-ng-disabled="isCheck" data-ng-model="curCouponsRules.dailyNum" class="form-control" id="publishCountDayForm" placeholder="单日最大发行量">
                         </div>
                         <span class="last-label">张</span>
                     </div>
                     <div class="form-group">
                         <label for="limitCountForm" class="col-sm-3 control-label"> <span class="t_c_r">*</span> 限领数量：</label>
-                        <span class="pull-left last-label"><input name="limit" type="radio"/> 每人可领取</span>
+                        <span class="pull-left last-label">
+                            <!--<input data-ng-disabled="isCheck" data-ng-model="curCouponsRules.eachNum" name="limit" value="1" type="radio"/> -->
+                            每人可领取</span>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" id="limitCountForm">
+                            <input type="text" data-ng-model="curCouponsRules.eachNum" data-ng-disabled="isCheck?true:curActive.islock==0?true:false"  class="form-control" id="limitCountForm">
                         </div>
                         <span class="last-label">张</span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="limit"/> 不限制
+                        <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                        <!--<input type="radio" data-ng-disabled="isCheck" data-ng-model="curCouponsRules.eachNum" name="limit"/> 不限制-->
                     </div>
                     <div class="form-group">
                         <label for="limitDateForm" class="col-sm-3 control-label"> <span class="t_c_r">*</span> 领取时段：</label>
-                        <span class="pull-left last-label"> <input name="limit2" type="radio"/> 限制领取时间段 </span>
+                        <!--<span class="pull-left last-label">-->
+                            <!--<input data-ng-disabled="isCheck" name="limit2" type="radio"/> -->
+                            <!--限制领取时间段 -->
+                        <!--</span>-->
                         <div class="col-sm-2">
-                            <select class="form-control" id="limitDateForm">
-                                <option ng-repeat="time in dateTime">{{time}}</option>
+                            <select class="form-control" data-ng-disabled="isCheck" data-ng-model="curCouponsRules.beginTime" id="limitDateForm">
+                                <option ng-repeat="time in dateTime" value="{{time}}">{{time}}</option>
                             </select>
                         </div>
                         <div class="col-sm-2">
-                            <select class="form-control">
-                                <option ng-repeat="time in dateTime">{{time}}</option>
+                            <select class="form-control" data-ng-disabled="isCheck" data-ng-model="curCouponsRules.endTime">
+                                <option ng-repeat="time in dateTime" value="{{time}}">{{time}}</option>
                             </select>
                         </div>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="last-label">
-                            <input type="radio" name="limit2"/> 不限制
-                        </span>
+                        <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                        <!--<span class="last-label">-->
+                            <!--<input type="radio" data-ng-disabled="isCheck" name="limit2"/> 不限制-->
+                        <!--</span>-->
 
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <a ng-if="!isCheck" class="btn btn-primary" ng-click="ok()">重 置</a>
+                <a ng-if="!isCheck" class="btn btn-primary" ng-click="resetCouponsRule()">重 置</a>
                 <a ng-if="!isCheck" class="btn btn-warning" ng-click="cancel()">返 回</a>
                 <a ng-if="isCheck" class="btn btn-default" ng-click="cancel()">关 闭</a>
             </div>
@@ -144,33 +149,17 @@
         <tab heading="卡券属性">
             <div class="modal-body">
                 <br/>
+                <div ng-if="!isCheck" class="clearfix">
+                    <a class="btn btn-default pull-right" ng-click="addCoupons()">添加一行</a>
+                </div>
+                <br/>
                 <div data-accordion close-others="oneAtATime">
-                    <div data-accordion-group heading="卡券属性一" is-open="true">
+                    <div data-accordion-group heading="卡券属性{{$index+1}}" data-ng-repeat="coupon in curCoupons" is-open="$last">
+
                         <form class="form-horizontal">
                             <div class="form-group">
-                                <label for="cardVolumeNameForm" class="col-sm-2 control-label"> <span class="t_c_r">*</span> 发放比例：</label>
-                                <div class="col-sm-4">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="optionsRadios">
-                                            设置发放比例
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="optionsRadios">
-                                            不限制
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="cardVolumeNameForm" class="col-sm-2 control-label"> &nbsp;</label>
-                                <div class="col-sm-8">
-                                    <span class="t_c_r">*</span> 发放总量10000张，剩余10000张（若发放比例不限，默认平均分配）
-                                </div>
+                                <label class="col-sm-2 control-label">&nbsp;</label>
+                                <div class="col-sm-10"> <span class="t_c_r">*</span> 发放总量{{curCouponsRules.totalNum}}张，剩余{{lastCount}}张</div>
                             </div>
                             <div class="form-group">
                                 <label for="cardVolumeNameForm" class="col-sm-2 control-label"> <span class="t_c_r">*</span> 卡券面值：</label>
@@ -184,12 +173,12 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr data-ng-repeat="cv in cardVolumes">
-                                            <td><input type="text" data-ng-model="cv.value"/></td>
-                                            <td><input type="text" data-ng-model="cv.count"/></td>
+                                        <tr data-ng-repeat="cv in coupon.couponsValueList">
+                                            <td><input data-ng-disabled="isCheck" type="text" data-ng-model="cv.val"/></td>
+                                            <td><input data-ng-disabled="isCheck" type="text" data-ng-model="cv.num"/></td>
                                             <td>
-                                                <a data-ng-if="$last" class="btn btn-sm btn-default" href="javascript:" data-ng-click="addCl()" role="button">新 增</a>
-                                                <a data-ng-if="!$first" class="btn btn-sm btn-default" href="javascript:" data-ng-click="removeCl($index,cv.id)" role="button">删 除</a>
+                                                <a data-ng-disabled="isCheck" data-ng-if="$last" class="btn btn-sm btn-default" href="javascript:" data-ng-click="addCl(coupon.couponsValueList)" role="button">新 增</a>
+                                                <a data-ng-disabled="isCheck" data-ng-if="!$first" class="btn btn-sm btn-default" href="javascript:" data-ng-click="removeCl(coupon.couponsValueList,$index)" role="button">删 除</a>
                                             </td>
                                         </tr>
 
@@ -198,12 +187,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="cardVolumeNameForm" class="col-sm-2 control-label"> <span class="t_c_r">*</span> 权益类型：</label>
+                                <label for="cardVolumeNameForm" class="col-sm-2 control-label"> <span class="t_c_r">*</span> 卡券类型：</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control">
+                                    <select data-ng-disabled="isCheck" data-ng-model="coupon.couponsType" class="form-control">
                                         <option>请选择</option>
-                                        <option>体验金</option>
-                                        <option>抵扣劵</option>
+                                        <option value="1">体验金</option>
+                                        <option value="2">抵扣券</option>
                                     </select>
                                 </div>
                             </div>
@@ -211,66 +200,41 @@
                             <div class="form-group">
                                 <label for="cardVolumeNameForm" class="col-sm-2 control-label"> <span class="t_c_r">*</span> 领取条件：</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control">
-                                        <option>请选择</option>
-                                        <option>邀请人-MGM</option>
-                                        <option>被邀请人-MGM</option>
-                                        <option>新户注册</option>
-                                        <option>导入用户</option>
-                                        <option>不限</option>
+                                    <select data-ng-disabled="isCheck" class="form-control" data-ng-model="coupon.reciveCondType">
+                                        <option value="0">不限</option>
+                                        <option value="1">邀请人-MGM</option>
+                                        <option value="2">被邀请人-MGM</option>
+                                        <option value="3">新户注册</option>
+                                        <option value="4">导入用户</option>
                                     </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"> &nbsp;</label>
-                                <label for="importUsers" class="col-sm-2 control-label"> <span class="t_c_r">*</span> 导入用户：</label>
-                                <div class="col-sm-5">
-                                    <input type="text" id="importUsers" class="form-control"/>
-                                </div>
-                                <div class="col-sm-1">
-                                    <a class="btn btn-sm btn-default" href="javascript:" data-ng-click="" role="button">导 入</a>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 使用条件：</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control">
-                                        <option>不限</option>
-                                        <option>产品类型+投资比例</option>
+                                    <select class="form-control" data-ng-disabled="isCheck" data-ng-model="coupon.useCondType">
+                                        <option value="0">请选择</option>
+                                        <option value="1">不限</option>
+                                        <option value="2">产品类型+投资比例</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" data-ng-hide="coupon.useCondType ==0 || coupon.useCondType==1">
                                 <label class="col-sm-2 control-label"> &nbsp;</label>
                                 <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 产品类型：</label>
                                 <div class="product-labels col-sm-6">
-                                    <label>
-                                        <input type="checkbox"/> 新手标
-                                    </label>
-                                    <label>
-                                        <input type="checkbox"/> 财富优加30天
-                                    </label>
-                                    <label>
-                                        <input type="checkbox"/> 财富优加90天
-                                    </label>
-                                    <label>
-                                        <input type="checkbox"/> 财富优加180天
-                                    </label>
-                                    <label>
-                                        <input type="checkbox"/> 财富优加360天
+                                    <label data-ng-repeat="type in coupon.productTypes">
+                                        <input type="checkbox" data-ng-model="type.ischecked" ng-true-value="'1'" ng-false-value="'0'"/> {{type.productTypeName}}
                                     </label>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" data-ng-hide="coupon.useCondType ==0 || coupon.useCondType==1 ">
                                 <label class="col-sm-2 control-label"> &nbsp;</label>
                                 <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 投资比例：</label>
                                 <div class="col-sm-4">
-                                    <input style="width: 100px" type="text" class="my-form-control"/>
-                                    -
-                                    <input style="width: 100px" type="text" class="my-form-control"/>
+                                	<input style="width: 100px" data-ng-disabled="isCheck" type="text" data-ng-model="coupon.investmentRatio" class="my-form-control"/>(面值/投资金额，例如:1/100，就是0.01)
                                 </div>
                             </div>
 
@@ -278,17 +242,17 @@
                                 <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 单次使用量：</label>
                                 <div class="col-sm-2 radio">
                                     <label>
-                                        <input type="radio"> 单张
+                                        <input data-ng-disabled="isCheck" value="0" data-ng-model="coupon.onceusing" type="radio"> 单张
                                     </label>
                                 </div>
 
-                                <div class="col-sm-5 radio">
+                                <div class="col-sm-5 radio" data-ng-hide="coupon.couponsType==1">
                                     <label>
-                                        <input type="radio"> 叠加使用
+                                        <input data-ng-disabled="isCheck" value="1" data-ng-model="coupon.onceusing" type="radio"> 叠加使用
                                     </label>
-                                    <div>
-                                        叠加使用：<input style="width: 80px" class="my-form-control" type="text"/> 张 <br/>
-                                        累计金额：小于等于 <input style="width: 80px" class="my-form-control" type="text"/>元
+                                    <div data-ng-show="coupon.onceusing == 1">
+                                        叠加使用：<input data-ng-disabled="isCheck" data-ng-model="coupon.multiusingNum" style="width: 80px" class="my-form-control" type="text"/> 张 <br/>
+                                        累计金额：小于等于 <input data-ng-disabled="isCheck" data-ng-model="coupon.lessEqlNum" style="width: 80px" class="my-form-control" type="text"/>元
                                     </div>
                                 </div>
                             </div>
@@ -297,54 +261,42 @@
                                 <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 卡券有效期：</label>
                                 <div class="col-sm-8 clearfix">
                                     <div class="input-group pull-left" style="width: 230px;">
-                                        <input type="text" data-ng-model="searchProduct.raiseStartingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="bopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                                        <input type="text" data-ng-disabled="isCheck" data-max-date="coupon.effectEndDate" data-ng-model="coupon.effectBegDate" class="form-control" data-datepicker-popup="{{format}}" data-is-open="date.bopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-default" ng-click="bopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                <button data-ng-disabled="isCheck" type="button" class="btn btn-default" ng-click="bopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                             </span>
                                     </div>
                                     <span class="msg-span pull-left">&nbsp; -- &nbsp;</span>
                                     <div class="input-group pull-left" style="width: 230px;">
-                                        <input type="text" data-ng-model="searchProduct.raiseEndingTime" class="form-control" data-datepicker-popup="{{format}}" data-is-open="eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
+                                        <input type="text" data-ng-disabled="isCheck" data-min-date="coupon.effectBegDate" data-ng-model="coupon.effectEndDate" class="form-control" data-datepicker-popup="{{format}}" data-is-open="date.eopened" data-close-text="关闭" data-current-text="今天" data-clear-text="清除"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-default" data-ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                <button data-ng-disabled="isCheck" type="button" class="btn btn-default" data-ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                             </span>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"> 卡券图片：</label>
-                                <div class="col-sm-4">
-                                    <input type="file" class="form-control"/>
-                                    <span class="t_c_r">*</span> 需为JPG、PNG或GIF格式，大小不超过2M
-                                    <img src="img/u250.png" alt=""/> <span class="delete-btn glyphicon glyphicon-remove"></span>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"> <span class="t_c_r">*</span> 卡券描述：</label>
                                 <div class="col-sm-6">
-                                    <textarea class="form-control" rows="3"></textarea>
+                                    <textarea data-ng-model="coupon.couponsDescription" maxlength="60" data-ng-disabled="isCheck" class="form-control" rows="3"></textarea>
                                 </div>
                             </div>
 
                         </form>
                     </div>
-                    <div data-accordion-group heading="卡券属性二" is-disabled="status.isFirstDisabled">
-
-                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <a ng-if="!isCheck" class="btn btn-primary" ng-click="ok()">保 存</a>
-                <a ng-if="!isCheck" class="btn btn-primary" ng-click="ok()">重 置</a>
+                <a ng-if="!isCheck" class="btn btn-primary" ng-click="reset()">重 置</a>
                 <a ng-if="!isCheck" class="btn btn-warning" ng-click="cancel()">返 回</a>
                 <a ng-if="isCheck" class="btn btn-default" ng-click="cancel()">关 闭</a>
             </div>
         </tab>
         <tab data-ng-if="isCheck" heading="卡券查询">
             <div class="modal-body">
-                <p>五一卡券：10000张</p>
+                <p>五一卡券：{{curCouponsRules.totalNum}}张</p>
                 <table class="table table-striped">
                     <thead class="t_head">
                     <tr>
@@ -352,61 +304,24 @@
                         <th>面值</th>
                         <th>卡券数量（张）</th>
                         <th>待领取</th>
-                        <th>未领取</th>
                         <th>未使用</th>
                         <th>已使用</th>
                         <th>已过期</th>
+                        <th>锁定中</th>
                     </tr>
                     </thead>
                     <tbody class="t_body">
-                    <tr>
-                        <td rowspan="3">体验金 4000</td>
-                        <td>￥10</td>
-                        <td>1500</td>
-                        <td>59</td>
-                        <td>30</td>
-                        <td>300</td>
-                        <td>630</td>
-                        <td>630</td>
-                    </tr>
-                    <tr>
-                        <td>￥20</td>
-                        <td>1000</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>390</td>
-                        <td>390</td>
-                        <td>390</td>
-                    </tr>
-                    <tr>
-                        <td>￥30</td>
-                        <td>500</td>
-                        <td>30</td>
-                        <td>12</td>
-                        <td>490</td>
-                        <td>490</td>
-                        <td>490</td>
+                    <tr data-ng-repeat="cc in customerCoupons">
+                        <td>{{cc.couponsType ==1?'体验金':'抵扣券'}}</td>
+                        <td>￥{{cc.val}}</td>
+                        <td>{{cc.couponNum}}</td>
+                        <td>{{cc.waitingforUseNum}}</td>
+                        <td>{{cc.unUseNum}}</td>
+                        <td>{{cc.useNum}}</td>
+                        <td>{{cc.expNum}}</td>
+                        <td>{{cc.lockingNum}}</td>
                     </tr>
 
-                    <tr>
-                        <td rowspan="2">抵扣券 6000</td>
-                        <td>￥100</td>
-                        <td>4000</td>
-                        <td>59</td>
-                        <td>30</td>
-                        <td>300</td>
-                        <td>630</td>
-                        <td>630</td>
-                    </tr>
-                    <tr>
-                        <td>￥200</td>
-                        <td>2000</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>390</td>
-                        <td>390</td>
-                        <td>390</td>
-                    </tr>
                     </tbody>
                 </table>
             </div>

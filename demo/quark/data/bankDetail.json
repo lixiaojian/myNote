@@ -1,40 +1,44 @@
 {
-  "id": "9923977DF985469C812749473867D773",
-  "channelCode": "kuake",
-  "bankSerial": "102",
-  "bankName": "中国工商银行",
-  "capitalMode": null,
-  "bindWay": "0",
-  "supportAutoPay": "1",
-  "discountRate": 0,
-  "limitDescribe": "5",
-  "contentDescribe": "2",
-  "priority": "2",
-  "createUser": "1",
-  "createTime": 1425375268188,
-  "isActive": "0",
-  "dealsLimitDescribe": "5",
-  "hotLine": "400-300-1120",
-  "payWays": [
-    {
-      "id": "122",
-      "limitDescribe": "5",
-      "bankId": "9923977DF985469C812749473867D773",
-      "createUser": null,
-      "createTime": null,
-      "dealsLimitDescribe": "5",
-      "payWay": "1",
-      "descn": "65"
-    },
-    {
-      "id": "767887",
-      "limitDescribe": "7",
-      "bankId": "9923977DF985469C812749473867D773",
-      "createUser": null,
-      "createTime": null,
-      "dealsLimitDescribe": "6",
-      "payWay": "0",
-      "descn": null
-    }
-  ]
+  "resCode": "0000",
+  "resMsg": "操作成功",
+  "resInfo": {
+    "id": "55266872A23B410E920EB4DBF72B5EE4",
+    "channelCode": "kuake",
+    "bankSerial": "2332",
+    "bankName": "小丽丽银行",
+    "capitalMode": null,
+    "bindWay": "0",
+    "supportAutoPay": null,
+    "discountRate": null,
+    "limitDescribe": null,
+    "contentDescribe": null,
+    "priority": null,
+    "createUser": "1",
+    "createTime": null,
+    "isActive": "0",
+    "dealsLimitDescribe": null,
+    "hotLine": "0909",
+    "payWays": [
+      {
+        "id": "737044B403BC4C79BA5BECB4A44DFA81",
+        "limitDescribe": "98",
+        "bankId": "55266872A23B410E920EB4DBF72B5EE4",
+        "createUser": null,
+        "createTime": null,
+        "dealsLimitDescribe": "89",
+        "payWay": "0",
+        "descn": "98"
+      },
+      {
+        "id": "664E24AF0259466191D77E3F9BCAA383",
+        "limitDescribe": "98",
+        "bankId": "55266872A23B410E920EB4DBF72B5EE4",
+        "createUser": null,
+        "createTime": null,
+        "dealsLimitDescribe": "98",
+        "payWay": "1",
+        "descn": "89"
+      }
+    ]
+  }
 }

@@ -2,6 +2,19 @@
     <h4 class="sub-title">{{modileTitle}}</h4>
     <form class="form-horizontal">
         <div class="form-group">
+            <label class="control-label col-sm-3"><span class="t_c_r">*</span> 用户注册协议：</label>
+            <div class="col-sm-3">
+                <input type="text" data-ng-model="protocols.userRegister.docPath" class="form-control"/>
+            </div>
+            <div class="col-sm-2">
+                <span input-file title="用户注册协议" model="protocols.userRegister.docPath"></span>
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-default" target="_blank" ng-href="{{protocols.userRegister.fullPath}}" role="button">下 载</a>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="control-label col-sm-3"><span class="t_c_r">*</span> 委托划扣授权书：</label>
             <div class="col-sm-3">
                 <input type="text" data-ng-model="protocols.delegateDoc.docPath" class="form-control"/>
@@ -10,7 +23,7 @@
                 <span input-file title="委托划扣授权书" model="protocols.delegateDoc.docPath"></span>
             </div>
             <div class="col-sm-2">
-                <a class="btn btn-default" href="javascript:" role="button">下 载</a>
+                <a class="btn btn-default" target="_blank" ng-href="{{protocols.delegateDoc.fullPath}}" role="button">下 载</a>
             </div>
         </div>
         <div class="form-group">
@@ -22,7 +35,7 @@
                 <span input-file title="体验金规则" model="protocols.experienceDoc.docPath"></span>
             </div>
             <div class="col-sm-2">
-                <a class="btn btn-default" href="javascript:" role="button">下 载</a>
+                <a class="btn btn-default" target="_blank" ng-href="{{protocols.experienceDoc.fullPath}}" role="button">下 载</a>
             </div>
         </div>
         <div class="form-group">
@@ -34,12 +47,12 @@
                 <span input-file title="卡券使用规则" model="protocols.counponDoc.docPath"></span>
             </div>
             <div class="col-sm-2">
-                <a class="btn btn-default" href="javascript:" role="button">下 载</a>
+                <a class="btn btn-default" target="_blank" ng-href="{{protocols.counponDoc.fullPath}}" role="button">下 载</a>
             </div>
         </div>
 
         <div class="form-group" data-ng-repeat="rule in protocols.loopAgreementDocList">
-            <label class="control-label col-sm-3">&nbsp;<span data-ng-if="$first"><span class="t_c_r">*</span> 卡出借咨询与服务协议：</span></label>
+            <label class="control-label col-sm-3">&nbsp;<span data-ng-if="$first"><span class="t_c_r">*</span> 出借咨询与服务协议：</span></label>
             <div class="col-sm-3">
                 <input type="text" data-ng-model="rule.docPath" class="form-control"/>
             </div>
@@ -47,7 +60,7 @@
                 <span input-file title="出借咨询与服务协议" model="rule.docPath"></span>
             </div>
             <div class="col-sm-1">
-                <a class="btn btn-default" href="javascript:" role="button">下 载</a>
+                <a class="btn btn-default" target="_blank" ng-href="{{rule.fullPath}}" role="button">下 载</a>
             </div>
             <div class="col-sm-1" style="line-height: 34px;color: #f00">
                 <span data-ng-if="!$first" style="cursor: pointer" data-ng-click="removeRule($index)"  class="glyphicon glyphicon-minus"></span>

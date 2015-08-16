@@ -7,27 +7,44 @@
         var actions = {
             //搜索产品
             search:{
-                url:'data/products.json',
+                url:'productInfo',
+                 //url:'data/products.json',
                 method:'get'
             },
             //更新产品
             update:{
-                url:'data/ok.json',
-                method:'post'
+                url:'productInfo/update',
+                 //url:'data/ok.json',
+                method:'put'
+                //method:'post'
             },
             //获取排序的列表
             getOrders:{
-                url:'data/product2.json',
+                url:'productInfo/getOrderProdcutList',
                 method:'get'
             },
             //通过id获取
             findById:{
-                url:'data/product3.json',
+                url:'productInfo/getDetail',
+                //url:'data/product3.json',
                 method:'get'
             },
             saveOrder:{
-                url:'data/saveOrder.json',
-                method:'post'
+                url:'productInfo/updateOrder',
+                method:'put'
+            },
+            //获取所有协议
+            findAllPro:{
+                url:'agreementDoc/getAllSellDoc',
+                 //url:'data/protocols.json',
+                method:'get',
+                isArray:true
+            },
+            //导入
+            import:{
+                url:'productInfo/importProdcutList',
+                // url:'data/ok.json',
+                method:'get'
             }
         };
         return $resource(url,{},actions);
