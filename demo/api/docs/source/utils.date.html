@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">var UTIL = UTIL || {};
+UTIL.date = UTIL.date || {
+	genStartTime: function(sd, span){
+		var d,
+		span = span || {y: 0, m: 0, d: 0};
+		d = UTIL.date.splitDate(sd, span);
+		n = new Date(d.y, d.m, d.d);
+		return n.getTime();
+	},
+	genEndTime: function(ed, span){
+		var d,
+			span = span || {y: 0, m: 0, d: 0};
+		d = UTIL.date.splitDate(ed, span);
+		n = new Date(d.y, d.m, d.d);
+		return (n.getTime()*1 + UTIL.date.wholeDayMiSec);
+	},
+	splitDate: function(dstr, span){
+		var y, m, d, tda = dstr.split(&#39;-&#39;);
+		
+		y = tda[0];
+		m = tda[1] ? (tda[1] - 1) : parseInt(12*rnd());
+		d = tda[2] ? (tda[2]) : parseInt(31*rnd()) + 1;
+		
+		if(span.y) y = y - span.y;
+		if(span.m) m = m - span.m;
+		if(span.d) d = d - span.d;
+		
+		return {
+			y: y,
+			m: m,
+			d: d
+		};
+	},
+	wholeDayMiSec: (24*3600 - 1)*1000,
+	genAccessDateObject: function(date){
+		var td = (date instanceof Date) ? date : new Date(date);
+		return {
+			y: td.getFullYear(),
+			m: td.getMonth(),
+			d: td.getDate(),
+			date: td
+		};
+	},
+	genSumDaysByMonth: function(year, month){
+		month = month + 1;
+		var isLeapYear = function(year){
+			return (((year % 4) == 0) &amp;&amp; ((year % 100) !=0 ) || ((year % 400)==0));
+		};
+		switch(month){
+			case 1:
+				return isLeapYear(year) ? 29 : 28;
+				break;
+			case 0:
+			case 2:
+			case 4:
+			case 6:
+			case 7:
+			case 9:
+			case 11:
+				return 31;
+				break;
+			default: 
+				return 30;
+				break;
+		};
+	},
+	genMouleByDate: function(date){
+		var td = (date instanceof Date) ? date : new Date(date);
+			td = UTIL.date.genAccessDateObject(td);
+		var firstDayOfMonth = new Date(td.y, td.m, 1);
+		var totalMonthDays = UTIL.date.genSumDaysByMonth(td.y, td.m);
+		var weekDay = firstDayOfMonth.getDay();
+		weekDay = weekDay ? weekDay : 7;
+		var results = [];
+		var d = 0;
+		var cls = &#39;&#39;;
+		for(var i = 0;i &lt; 42;i++){
+			d = (i - weekDay + 1);
+			cls = &#39;&#39;;
+			if(i &lt; weekDay){
+				d = i - weekDay;
+				cls = &#39;lessDate dt&#39;;
+			}else if(d &gt; totalMonthDays){
+				cls = &#39;lessDate dt&#39;;
+			}
+			results.push({cls: cls, value: new Date(td.y, td.m, d)});
+		}
+		return results;
+	},
+	reGenClsByDate: function(date, currentDate, minDate, maxDate, cls){
+		if(UTIL.date.compare2Dates(date, minDate) === 1) return &#39;outOfRange&#39;;
+		else if(UTIL.date.compare2Dates(date, maxDate) === -1) return &#39;outOfRange&#39;;
+		else if(UTIL.date.compare2Dates(date, currentDate) === 0) return &#39;selected&#39;;
+		else return cls;
+	},
+	formatDate: function(date, format){
+		var td = (date instanceof Date) ? date : new Date(date);
+		var uformat = format || &#39;YYYY-MM-DD&#39;;
+		td = UTIL.date.genAccessDateObject(td);
+		var y = td.y;
+		var m = td.m;
+		var d = td.d;
+		
+		m += 1;
+		
+		td = {// cache the processed year, month, date, hour, minute, second to the object;
+			YYYY: y,
+			M: m,
+			D: d,
+			MM: m &lt; 10 ? (&#39;0&#39; + m) : m,
+			DD: d &lt; 10 ? (&#39;0&#39; + d) : d
+		};
+		
+		return uformat.replace(/([A-Z]+)/g, function(w){
+			return td[w];
+		});
+	},
+	compare2Dates: function(d1, d2, f){
+		d1 = (d1 instanceof Date) ? d1 : new Date(d1);
+		d2 = (d2 instanceof Date) ? d2 : new Date(d2);
+		d1 = UTIL.date.formatDate(d1);
+		d2 = UTIL.date.formatDate(d2);
+		if(d1 &gt; d2) return -1;    //d1 is greater than d2
+		if(d1 === d2) return 0;   //d1 is equal to d2
+		if(d1 &lt; d2) return 1;     //d1 is less than d2
+	}
+};</pre>
+</body>
+</html>

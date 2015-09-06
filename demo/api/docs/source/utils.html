@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='UTIL-UTIL'>/**
+</span> * &lt;h2&gt;工具类&lt;/h2&gt;
+ * @class UTIL.UTIL
+ * @static
+ */
+var UTIL = UTIL || {
+<span id='UTIL-UTIL-method-addDomEvent'>        /**
+</span>         * 给dom节点添加事件
+         * @method
+         * @param {Object}target
+         *      需要添加事件的dom节点
+         * @param {String}type
+         *      需要添加的事件类型
+         * @param {Function}callback
+         *      事件和处理方法
+         */
+	addDomEvent: function(target, type, callback) {
+		var eventName = type;
+		if(target.addEventListener){
+			target.addEventListener(eventName, callback);
+		}else if(target.attachEvent){
+			eventName = &#39;on&#39; + eventName;
+			target.attachEvent(eventName, callback);
+		}
+	},
+<span id='UTIL-UTIL-method-paramsToURIComps'>        /**
+</span>         * 把对象参数编码成url参数
+         * @method
+         * @param {Object}config
+         * @returns {string}
+         */
+	paramsToURIComps: function(config){
+		var result = [];
+		for(var prop in config){
+			result.push(prop + &#39;=&#39; + config[prop]);
+		}
+		return (&#39;?&#39; + result.join(&#39;&amp;&#39;));
+	},
+<span id='UTIL-UTIL-method-copySobject'>        /**
+</span>         * 对象的浅拷贝
+         * @method
+         * @param {Object}ori
+         * @returns {Object}des
+         */
+	copySobject: function(ori){
+		var result = {};
+		for(var prop in config){
+			result[prop] = config[prop];
+		}
+		return result;
+	},
+<span id='UTIL-UTIL-method-fixedEvent'>        /**
+</span>         * 修复事件的兼容性（主要针对IE）
+         * @method
+         * @param e
+         */
+	fixedEvent: function(e){
+		if(!e) e = window.event;
+	    if(!e.target) e.target = e.srcElement; 
+		if(!e.stopPropagation) {
+			e.stopPropagation = function(){
+				e.cancelBubble = true;
+			};
+		}
+		
+		if (!e.preventDefault){
+			e.preventDefault = function(){
+				e.returnValue = false;
+				return false;
+			};
+		}
+	},
+<span id='UTIL-UTIL-method-isIE'>        /**
+</span>         * 验证是否是IE浏览器
+         * @method
+         *  @returns {Boolean}result
+         */
+	isIE: (function(){
+		return navigator &amp;&amp; navigator.userAgent.match(/msie/i);
+	})(),
+<span id='UTIL-UTIL-method-emptyFunc'>        /**
+</span>         * 空函数
+         * @method
+         */
+	emptyFunc: function(){},
+<span id='UTIL-UTIL-method-ensureAfterDomRenderer'>        /**
+</span>         * 等待dom节点渲染完毕后再执行
+         * @method
+         * @param {Function}cb
+         *      回调方法
+         * @param {Object}cxt
+         *      回调上下文
+         * @param {Number}delay
+         *      延迟执行时间(毫秒)
+         */
+	ensureAfterDomRenderer: function(cb, cxt, delay){//make sure that all the doms&#39; are rendered then invoke &#39;cb&#39;
+		if(cb){
+			setTimeout(function(){
+				cb.call(cxt, cxt);
+			}, delay || 0);
+		}
+	},
+<span id='UTIL-UTIL-method-cloneObject'>        /**
+</span>         * 对象的深拷贝
+         * @method
+         * @param {Object}orign
+         *     原始对象
+         * @returns {Object}dest
+         *      对象的副本
+         */
+	cloneObject: function(orign){
+		var obj = {};
+		for(var p in orign){
+			if(typeof orign[p] === &#39;object&#39;){
+				obj[p] = UTIL.cloneObject(orign[p]);
+			}else{
+				obj[p] = orign[p];
+			}
+		}
+		return obj;
+	},
+<span id='UTIL-UTIL-method-copyObject'>        /**
+</span>         * 对象合并
+         * @method
+         * @param {Object}orig
+         *      原始对象
+         * @param {Object}desi
+         *      目标对象
+         */
+	copyObject: function(orig, desi){
+		for(var p in orig){
+			desi[p] = orig[p];
+		}
+	},
+<span id='UTIL-UTIL-method-uuid'>        /**
+</span>         * 随机生成UUID字符串
+         * @method
+         * @returns {String}uuid
+         */
+	uuid: (function(){
+		var cnt = 0;
+		return function(){
+			++cnt;
+			return (+(new Date)) + cnt;
+		};
+	})(),
+<span id='UTIL-UTIL-method-filter'>        /**
+</span>         * 对数组进行过滤
+         * @method
+         * @param {Array}array
+         *  原数组
+         * @param {Function}filterFunc
+         *  过滤方法
+         * @returns {Array}arr
+         *  返回的新数组(下标)
+         */
+	filter: function(array, filterFunc){
+        var result = [];
+		for (var i = 0; i &lt; array.length; i++) {
+			if(filterFunc(array[i])){
+                result.push(i);
+			}
+		};
+		return result;
+	}
+};</pre>
+</body>
+</html>
