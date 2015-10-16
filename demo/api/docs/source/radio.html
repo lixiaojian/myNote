@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='global-property-'>/**
+</span> * @ignore
+ * Created by xiaojianli on 2015/7/8.
+ * 单选开头控件
+ */
+;(function(){
+    var doc = document;
+    var addDomEvent = UTIL.addDomEvent;
+    var fixedEvent = UTIL.fixedEvent;
+    var addClass = UTIL.dom.addClass;
+    var removeClass = UTIL.dom.removeClass;
+    var filterElemByClass = UTIL.dom.filterElemByClass;
+
+<span id='PDIKit-form-Radio-cfg-checkedVal'><span id='PDIKit-form-Radio-cfg-parentElement'><span id='PDIKit-form-Radio'>    /**
+</span></span></span>     * &lt;h2&gt;开关组件&lt;/h2&gt;
+     * 对外暴露为：PDIKit.form.Radio&lt;br&gt;
+     *    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;初始化示例:
+     *    &lt;pre&gt;
+     *    var radio = new PDIKit.form.Radio({
+     *          parentElement:document.getElementById(&#39;radioBox&#39;),
+     *          checkedVal:&#39;val&#39;
+     *     });
+     *    &lt;/pre&gt;
+     * @class PDIKit.form.Radio
+     * @cfg {String} parentElement
+     * 需要初始化组件的父节点
+     * @cfg {String} checkedVal
+     * 被选中时的值
+     *
+     */
+    var Radio = function(opt){
+        this.parentElement = opt.parentElement || null;
+        this.checkedVal=null;
+        this.input = null;
+        this.label = null;
+        this.init();
+    };
+<span id='PDIKit-form-Radio-method-initComps'>    /**
+</span>     * @method
+     *  内部调用的方法  用于初始化插件的骨架
+     * @private
+     * @param {Function}cb  回调方法
+     */
+    var initComps = function(cb){
+        var p = this.parentElement;
+        if(!p) return;
+        //在前面添加一个span
+        var label = doc.createElement(&#39;span&#39;);
+        label.className=&#39;label-radio switch-off vam ml10 inline-block&#39;;
+        var input = filterElemByClass(p,&#39;input&#39;,&#39;radio&#39;)[0];
+        this.checkedVal = input.checked;
+        this.input = input;
+        this.label = label;
+        p.insertBefore(label,input);
+    };
+<span id='PDIKit-form-Radio-method-initEvent'>    /**
+</span>     * @method
+     *  内部调用的方法  用于初始化事件
+     * @private
+     * @param {Function}cb  回调方法
+     */
+    var initEvent = function(){
+        var rao = this;
+        var p = rao.parentElement;
+        if(!p) return;
+        addDomEvent(p, &#39;click&#39;, function(e){
+            fixedEvent(e);
+            var target = e.target;
+            var subP = target.parentElement;
+            if (target.className.indexOf(&#39;label-radio&#39;) &gt;-1) {
+                var input = rao.input;
+                if(input.checked){
+                    rao.setValue(false);
+                }else{
+                    rao.setValue(true);
+                }
+            };
+        });
+    };
+    //添加初始化方法
+    Radio.prototype = {
+        init: function(cb){
+            initComps.call(this);
+            initEvent.call(this);
+        },
+<span id='PDIKit-form-Radio-method-setValue'>        /**
+</span>         * @method
+         * 设置值
+         * @param {String}value
+         */
+        setValue:function(value){
+            var label = this.label;
+            if(value ===1 || value === &#39;1&#39; || value===true){
+                this.input.checked=true;
+                addClass(label,&#39;switch-on&#39;);
+                removeClass(label,&#39;switch-off&#39;);
+            }else{
+                this.input.checked=false;
+                removeClass(label,&#39;switch-on&#39;);
+                addClass(label,&#39;switch-off&#39;);
+            }
+            this.checkedVal = value;
+        },
+<span id='PDIKit-form-Radio-method-getValue'>        /**
+</span>         * @method
+         * 获取值
+         * @returns {Object}
+         */
+        getValue:function(){
+            return this.checkedVal;
+        },
+<span id='PDIKit-form-Radio-method-reload'>        /**
+</span>         * @method
+         * 刷新组件
+         */
+        reload:function(){
+            this.setValue(this.input.checked);
+        }
+    };
+    window.PDIKit = window.PDIKit || {};
+    window.PDIKit.form = window.PDIKit.form ||{};
+    window.PDIKit.form.Radio = window.PDIKit.form.Radio || Radio;
+}());</pre>
+</body>
+</html>
