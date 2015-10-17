@@ -120,7 +120,8 @@
             topRight = $('.top-right'),
             bottomLeft = $('.bottom-left'),
             bottomRight = $('.bottom-right'),
-            toDetail = $('.to-detail');
+            toDetail = $('.to-detail'),
+            toDetailLink=$('.to-detail-link');
 
             var tempWidth = topLeft[0].offsetWidth,
                 tempHeight = topLeft[0].offsetHeight;
@@ -137,8 +138,8 @@
                 var left = offsetLeft + tempWidth/2 +'px',
                     right = offsetLeft + offsetWidth - tempWidth*1.3 +'px',
                     top =  -(tempHeight/2) +'px',
-                    bottom = -(tempHeight/1.4) +'px';
-
+                    bottom = -(tempHeight/1.4) +'px',
+                    url = currLi.data('url');
                 imgItems.removeClass('current');
                 currLi.addClass('current');
                 topLeft.css({top: top,left:left});
@@ -146,6 +147,7 @@
                 bottomLeft.css({bottom:bottom,left:left});
                 bottomRight.css({bottom:bottom,left:right});
                 toDetail.css({width:offsetWidth+'px',left:offsetLeft+'px',bottom:-tempHeight-25+'px'});
+                toDetailLink.attr('href',url);
             }
         };
         setCurrImg($(imgItems[0]));
