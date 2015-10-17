@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>关于凉山</title>
+    <link rel="stylesheet" href="css/mobile.css"/>
+    <style>
+        body{
+            background-color: #1d1110;
+            -webkit-text-size-adjust:none;
+        }
+        header{
+            background-color: #000;
+            height: 2.8125rem;
+            line-height: 2.8125rem;
+            text-align: center;
+            padding: 0 1.125rem;
+        }
+        header .back-link{
+            float: left;
+            display: inline-block;
+            height: .8125rem;
+            width: .4375rem;
+            margin: 1rem 0;
+            background: url("img/back-icon.png") no-repeat;
+            background-size: 100%;
+        }
+        header .header-text{
+            color: #d1b878;
+            font-size: 1.25rem;
+        }
+        .main-text{
+            background: url("img/about-mainbg.png") no-repeat;
+            background-size: 100%;
+            padding: 2.265rem 1.5rem 3rem 1.5rem;
+            color: #d1b878;
+            font-size: .6666rem;
+        }
+        .img-list{
+            position: relative;
+        }
+        .img-item{
+            float: left;
+        }
+        .img-item img{
+            width: 100%;
+            display: block;
+        }
+        .curr-icon{
+            width: 1.3125rem;
+            height: 1.3125rem;
+            position: absolute;
+        }
+        .top-left{
+            background: url("img/about-top-left.png") no-repeat;
+            background-size: 100%;
+        }
+        .top-right{
+            background: url("img/about-top-right.png") no-repeat;
+            background-size: 100%;
+        }
+        .bottom-left{
+            background: url("img/about-bottom-left.png") no-repeat;
+            background-size: 100%;
+        }
+        .bottom-right{
+            background: url("img/about-bottom-right.png") no-repeat;
+            background-size: 100%;
+        }
+        .to-detail{
+            position: absolute;
+            text-align: center;
+        }
+        .to-detail-link{
+            display: inline-block;
+            border-top: 2px solid #b29b67;
+            border-bottom: 2px solid #b29b67;
+            color: #b29b67;
+            font-size: .6775rem;
+            line-height: 1.8;
+        }
+        .footer{
+            height: 4.84375rem;
+            background: url("img/about-footerbg.png") no-repeat;
+            background-size: 100%;
+        }
+    </style>
+</head>
+<body>
+<header class="clearfix">
+    <a href="index.html" class="back-link"></a>
+    <span class="header-text">关于凉山</span>
+</header>
+<section>
+    <div class="main-text">
+        <p>一直以来，贫苦是凉山彝族自治州给外界留下的最深印象之一，贫穷、语言的隔阂、低下的生产力…是它沉重的代名词。“大凉山”对于多数人来说是陌生的“另一个存在”。大山的深处有多少个这样的孩子…他们因为各样的原因失去了双亲的照顾，独自生活在黑暗、局促、没有任何卫生设施的泥房中。“上学”对于他们而言是“奢侈品”然而他们仍然愿意走4小时甚至9小时的山路去享受这“奢侈”的美好。</p>
+        <p>能够来到学校的孩子们都是幸运的，那么那些还没能进入课堂的孩子们呢？那些中途辍学的孩子们呢？他们的不幸从何而来？ 他们的未来又在哪里？</p>
+        <p>于是，我问自己…“我能为你做些什么？”</p>
+    </div>
+    <ul class="img-list clearfix">
+        <li class="img-item" style="width: 42.5%"><img src="img/about-img1.png" alt=""/></li>
+        <li class="img-item" style="width: 31.5625%"><img src="img/about-img2.png" alt=""/></li>
+        <li class="img-item" style="width: 25.9375%"><img src="img/about-img3.png" alt=""/></li>
+        <li class="curr-icon top-left"></li>
+        <li class="curr-icon top-right"></li>
+        <li class="curr-icon bottom-left"></li>
+        <li class="curr-icon bottom-right"></li>
+        <li class="to-detail"><a class="to-detail-link" href="">点击阅读</a></li>
+    </ul>
+    <div class="footer"></div>
+</section>
+<script src="js/zepto.js"></script>
+<script>
+    (function(){
+        var imgItems = $('.img-item'),
+            topLeft = $('.top-left'),
+            topRight = $('.top-right'),
+            bottomLeft = $('.bottom-left'),
+            bottomRight = $('.bottom-right'),
+            toDetail = $('.to-detail');
+
+            var tempWidth = topLeft[0].offsetWidth,
+                tempHeight = topLeft[0].offsetHeight;
+
+        imgItems.on('click',function(){
+            setCurrImg($(this));
+        });
+        function setCurrImg(currLi){
+            var offsetLeft = currLi[0].offsetLeft,
+                offsetWidth =  currLi[0].offsetWidth;
+            if(currLi.hasClass('current')){
+                return;
+            }else{
+                var left = offsetLeft + tempWidth/2 +'px',
+                    right = offsetLeft + offsetWidth - tempWidth*1.3 +'px',
+                    top =  -(tempHeight/2) +'px',
+                    bottom = -(tempHeight/1.4) +'px';
+
+                imgItems.removeClass('current');
+                currLi.addClass('current');
+                topLeft.css({top: top,left:left});
+                topRight.css({top:top,left:right});
+                bottomLeft.css({bottom:bottom,left:left});
+                bottomRight.css({bottom:bottom,left:right});
+                toDetail.css({width:offsetWidth+'px',left:offsetLeft+'px',bottom:-tempHeight-25+'px'});
+            }
+        };
+        setCurrImg($(imgItems[0]));
+    }());
+</script>
+</body>
+</html>
