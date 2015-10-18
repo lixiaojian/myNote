@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>现场捐款</title>
+    <link rel="stylesheet" href="css/mobile.css"/>
+    <style>
+        html{
+            height: 100%;
+        }
+        body{
+            background-color: #1a0e0d;
+        }
+        header{
+            background-color: #000;
+            height: 2.8125rem;
+            line-height: 2.8125rem;
+            text-align: center;
+            padding: 0 1.125rem;
+        }
+        header .back-link{
+            float: left;
+            display: inline-block;
+            height: .8125rem;
+            width: .4375rem;
+            margin: 1rem 0;
+            background: url("img/back-icon.png") no-repeat;
+            background-size: 100%;
+        }
+        header .header-text{
+            color: #d1b878;
+            font-size: 1.25rem;
+        }
+        .main-area{
+            position: relative;
+            min-height: 12rem;
+            background: url("img/donation-bg.png") no-repeat;
+            background-size: 100%;
+        }
+        .donaction-link{
+            display: inline-block;
+            width: 15.03125rem;
+            height: 3.875rem;
+        }
+        .wenxin-donation{
+            background: url("img/donation-link1.png") no-repeat;
+            background-size: 100%;
+        }
+        .transfer-accounts{
+            background: url("img/donation-link2.png") no-repeat;
+            background-size: 100%;
+        }
+        .invoice-donation{
+            background: url("img/donation-link3.png") no-repeat;
+            background-size: 100%;
+        }
+    </style>
+</head>
+<body>
+<header id="header" class="clearfix">
+    <a href="index.html" class="back-link"></a>
+    <span class="header-text">现场捐款</span>
+</header>
+<section id="main_area" class="main-area">
+    <ul id="main_sub" style="transform:translate(-50%,-50%);position: absolute;top: 50%;left: 50%">
+        <li><a href="" class="donaction-link wenxin-donation"></a></li>
+        <li><a href="" class="donaction-link transfer-accounts"></a></li>
+        <li><a href="" class="donaction-link invoice-donation"></a></li>
+    </ul>
+</section>
+<script>
+    (function(){
+        var clienHeight = document.body.clientHeight;
+        var headerHeight = document.getElementById('header').offsetHeight;
+        var mainSubHeight = document.getElementById('main_sub').offsetHeight;
+        var linkHeight = clienHeight-headerHeight;
+        var height = linkHeight>mainSubHeight?linkHeight:mainSubHeight;
+        document.getElementById('main_area').style.height = height +'px';
+    }());
+</script>
+</body>
+</html>
