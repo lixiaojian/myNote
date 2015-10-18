@@ -65,7 +65,7 @@
     <span class="header-text">现场捐款</span>
 </header>
 <section id="main_area" class="main-area">
-    <ul id="main_sub" style="transform:translate(-50%,-50%);position: absolute;top: 50%;left: 50%">
+    <ul id="main_sub" style="position: absolute;top: 50%;left: 50%">
         <li><a href="" class="donaction-link wenxin-donation"></a></li>
         <li><a href="" class="donaction-link transfer-accounts"></a></li>
         <li><a href="" class="donaction-link invoice-donation"></a></li>
@@ -75,10 +75,14 @@
     (function(){
         var clienHeight = document.body.clientHeight;
         var headerHeight = document.getElementById('header').offsetHeight;
-        var mainSubHeight = document.getElementById('main_sub').offsetHeight;
+        var mainSub = document.getElementById('main_sub');
+        var mainSubHeight = mainSub.offsetHeight;
+        var mainSubWidth = mainSub.offsetWidth;
         var linkHeight = clienHeight-headerHeight;
         var height = linkHeight>mainSubHeight?linkHeight:mainSubHeight;
         document.getElementById('main_area').style.height = height +'px';
+        mainSub.style.marginTop = -(mainSubHeight/2)+'px';
+        mainSub.style.marginLeft = -(mainSubWidth/2)+'px';
     }());
 </script>
 </body>
