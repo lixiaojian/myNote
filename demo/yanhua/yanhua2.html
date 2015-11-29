@@ -2,72 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>2015上海智慧城市体验周启动方式</title>
+    <title>年会</title>
     <style>
-        body,canvas,img{
-            padding: 0;
+        body {
             margin: 0;
+            padding: 0;
+            overflow: hidden;
         }
-        img{
-            display: none;
+
+        .city {
+            width: 100%;
+            position: fixed;
+            bottom: 0px;
+            z-index: 100;
         }
     </style>
 </head>
-<body>
-<canvas id="cas" style="background-color:rgba(0,5,24,0.2)" width="1416" height="677">浏览器不支持canvas</canvas>
-<img class="sub_img" src="sub_1.png" alt="">
-<img class="sub_img" src="sub_02.png" alt="">
-<img class="sub_img" src="sub_03.png" alt="">
-<img class="sub_img" src="sub_04.png" alt="">
-<img class="sub_img" src="sub_05.png" alt="">
-<img class="sub_img" src="sub_06.png" alt="">
-<img src="02.jpg" id="img02" alt="">
+<body onselectstart="return false">
+<canvas id="cas" width="1416" height="677">浏览器不支持canvas</canvas>
+
 <script>
     (function(){
-        var canvas = document.getElementById('cas');
+        var canvas = document.getElementById("cas");
         var ctx = canvas.getContext("2d");
         var cWidth = window.innerWidth;
         var cHeight = window.innerHeight;
         canvas.width = cWidth;
         canvas.height = cHeight;
+        var bigbooms = [];
 
-        var timmer = null;
-        var imgs = document.getElementsByClassName('sub_img');
-        var img2 = document.getElementById('img02');
-        function drawImgs2(index) {
-            for(var i =0;i<index;i++){
-                if(i<index-1){
-                    (function(i){
-                        var img = imgs[i];
-                        var centerX=-(i*341),centerY= 0,width=(i+1)*341,height=(2048/cWidth)*768;
-                        imgload(img,function(){
-                            ctx.drawImage(img, centerX, centerY, width,height,0,0,width*(cWidth/2048),height);
-                        });
-                    }(i));
-                }else{
-                    var img = imgs[index-1];
-                    var centerX=-((index-1)*341),centerY= 0,width=(index)*341,height=(2048/cWidth)*768;
-                    var newWidth = i*341;
-                    imgload(img,function(){
-                        timmer = setInterval(function(){
-                            if(newWidth >= (index)*341){
-                                newWidth = (index)*341;
-                                ctx.drawImage(img, centerX, centerY, newWidth,height,0,0,width*(cWidth/2048),height);
-                                clearInterval(timmer);
-                                if(index===6){
-                                    setTimeout(function(){
-                                        initAnimate();
-                                    },1500);
-                                }
-                            };
-                            ctx.drawImage(img, centerX, centerY, newWidth,height,0,0,width*(cWidth/2048),height);
-                            newWidth+=4;
-                        },20);
-//                        ctx.drawImage(img, centerX, centerY, width,height,0,0,width*(cWidth/2048),height);
-                    });
-
-                }
-            }
+        window.onload = function (){
+            initAnimate()
         }
 
         function initAnimate() {
@@ -76,16 +41,12 @@
         }
 
         var lastTime;
-        var bigbooms = [];
         function animate() {
             //画一个黑色的背景
-//            ctx.save();
-//            ctx.fillStyle = "rgba(0,5,24,0.1)";
-//            ctx.fillRect(0, 0, canvas.width, canvas.height);
-//            ctx.restore();
-            imgload(img2,function(){
-                ctx.drawImage(img2, 0, 0, cWidth,(2048/cWidth)*768);
-            });
+            ctx.save();
+            ctx.fillStyle = "rgba(0,5,24,0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.restore();
 
             var newTime = new Date();
             //一一个合适的时间差内
@@ -152,7 +113,7 @@
             //向上移动
             _move: function () {
                 var dx = this.boomArea.x - this.x,
-                        dy = this.boomArea.y - this.y;
+                    dy = this.boomArea.y - this.y;
 
                 this.x = this.x + dx * 0.01;
                 this.y = this.y + dy * 0.01;
@@ -255,19 +216,6 @@
                 this.paint();
             }
         }
-
-
-
-
-
-        var leader =1;
-        var timmer2 = setInterval(function(){
-            drawImgs2(leader);
-            leader++;
-            if(leader>6){
-                clearInterval(timmer2);
-            }
-        },3000);
     }());
 </script>
 </body>
