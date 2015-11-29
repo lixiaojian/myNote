@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body,canvas,img{
+            padding: 0;
+            margin: 0;
+        }
+        img{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cas" style="background-color:rgba(0,5,24,0.2)" width="1416" height="677">浏览器不支持canvas</canvas>
+<img class="sub_img" src="sub_1.png" alt="">
+<img class="sub_img" src="sub_02.png" alt="">
+<img class="sub_img" src="sub_03.png" alt="">
+<img class="sub_img" src="sub_04.png" alt="">
+<img class="sub_img" src="sub_05.png" alt="">
+<img class="sub_img" src="sub_06.png" alt="">
+<script>
+    (function(){
+        function getQueryString(name){
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  decodeURIComponent(r[2]); return null;
+        };
+        var canvas = document.getElementById('cas');
+        var ctx = canvas.getContext("2d");
+        var cWidth = window.innerWidth;
+        canvas.width = cWidth;
+        canvas.height = window.innerHeight;
+        var timmer = null;
+        var imgs = document.getElementsByClassName('sub_img');
+        function drawImgs2(index) {
+            for(var i =0;i<index;i++){
+                if(i<index-1){
+                    (function(i){
+                        var img = imgs[i];
+                        var centerX=-(i*341),centerY= 0,width=(i+1)*341,height=(2048/cWidth)*768;
+                        if (img.complete) {
+                            ctx.drawImage(img, centerX, centerY, width,height,0,0,width*(cWidth/2048),height);
+                        }else {
+                            img.onload = function () {
+                                ctx.drawImage(img, centerX, centerY, width,height,0,0,width*(cWidth/2048),height);
+                            }
+                        }
+                    }(i));
+                }else{
+                    var img = imgs[index-1];
+                    var centerX=-((index-1)*341),centerY= 0,width=(index)*341,height=(2048/cWidth)*768;
+                    var newWidth = i*341;
+                    timmer = setInterval(function(){
+                        if(newWidth >= (index)*341){
+                            newWidth = (index)*341;
+                            ctx.drawImage(img, centerX, centerY, newWidth,height,0,0,width*(cWidth/2048),height);
+                            clearInterval(timmer);
+                        };
+                        ctx.drawImage(img, centerX, centerY, newWidth,height,0,0,width*(cWidth/2048),height);
+                        newWidth+=4;
+                    },20);
+                }
+            }
+        }
+        var number = getQueryString('leader');
+        number = number>6?6:number
+        if(number){
+            drawImgs2(number);
+        }
+    }());
+</script>
+</body>
+</html>
