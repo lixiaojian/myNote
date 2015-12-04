@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<video id="video" width="100%" height="100%">
+    <source src="http://dl59.yunpan.360.cn/intf.php?method=Download.downloadFile&qid=116995555&fname=%2F%E8%A7%86%E9%A2%91%2Fweb%E5%89%8D%E7%AB%AF%2F%E8%B5%B0%E8%BF%9B%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E4%B8%96%E7%95%8C.mp4&fhash=6c9c1a1fbd832b3d710ef12c96f0dcba51c84b66&dt=59_57.ebe2b32b54f2e8686a9cd0fc788f9cfb&v=1.0.1&rtick=14488069058675&open_app_id=0&devtype=web&sign=c97be6fb8aaa89d907f8ce53008995c1&" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<script>
+    var video = document.getElementById('video');
+    //播放视频
+    function playVideo(){
+        video.play();
+    };
+    //暂停视频
+    function pauseVideo(){
+        video.pause();
+    }
+
+    //1s后播放视频
+    setTimeout(function(){
+        playVideo();
+    },1000);
+
+    //5s后暂停视频
+    setTimeout(function(){
+        pauseVideo();
+    },5000);
+</script>
+</body>
+</html>
