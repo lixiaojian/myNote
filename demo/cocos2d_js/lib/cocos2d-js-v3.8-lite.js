@@ -1,33 +1,26 @@
 var cc = cc || {};
 cc._tmp = cc._tmp || {};
 cc._LogInfos = {};
-var _p = window;
+window._p;
+_p = window;
 _p.gl;
 _p.WebGLRenderingContext;
 _p.DeviceOrientationEvent;
 _p.DeviceMotionEvent;
 _p.AudioContext;
-if (!_p.AudioContext) {
-    _p.webkitAudioContext;
-}
+_p.webkitAudioContext;
 _p.mozAudioContext;
 _p = Object.prototype;
 _p._super;
 _p.ctor;
-_p = null;
-cc.ORIENTATION_PORTRAIT = 0;
-cc.ORIENTATION_PORTRAIT_UPSIDE_DOWN = 1;
-cc.ORIENTATION_LANDSCAPE_LEFT = 2;
-cc.ORIENTATION_LANDSCAPE_RIGHT = 3;
-cc._drawingUtil = null;
-cc._renderContext = null;
-cc._supportRender = false;
-cc._canvas = null;
-cc.container = null;
-cc._gameDiv = null;
+delete window._p;
 cc.newElement = function (x) {
     return document.createElement(x);
 };
+cc._addEventListener = function (element, type, listener, useCapture) {
+    element.addEventListener(type, listener, useCapture);
+};
+cc._isNodeJs = typeof require !== 'undefined' && require("fs");
 cc.each = function (obj, iterator, context) {
     if (!obj)
         return;
@@ -137,7 +130,7 @@ cc.AsyncPool = function(srcObj, limit, iterator, onEnd, target){
         if(self._pool.length === 0) {
             if(self._onEnd)
                 self._onEnd.call(self._onEndTarget, null, []);
-            return;
+                return;
         }
         for(var i = 0; i < self._limit; i++)
             self._handleItem();
@@ -212,9 +205,9 @@ cc.path = {
     },
     mainFileName: function(fileName){
         if(fileName){
-            var idx = fileName.lastIndexOf(".");
+           var idx = fileName.lastIndexOf(".");
             if(idx !== -1)
-                return fileName.substring(0,idx);
+               return fileName.substring(0,idx);
         }
         return fileName;
     },
@@ -266,406 +259,382 @@ cc.path = {
         return url;
     }
 };
-cc.loader = (function () {
-    var _jsCache = {},
-        _register = {},
-        _langPathCache = {},
-        _aliases = {},
-        _urlRegExp = new RegExp(
-            "^" +
-                "(?:(?:https?|ftp)://)" +
-                "(?:\\S+(?::\\S*)?@)?" +
-                "(?:" +
-                    "(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])" +
-                    "(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}" +
-                    "(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))" +
-                "|" +
-                    "(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)" +
-                    "(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*" +
-                    "(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))" +
-                "|" +
-                    "(?:localhost)" +
-                ")" +
-                "(?::\\d{2,5})?" +
-                "(?:/\\S*)?" +
-            "$", "i"
-        );
-    return {
-        resPath: "",//root path of resource
-        audioPath: "",//root path of audio
-        cache: {},//cache for data loaded
-        getXMLHttpRequest: function () {
-            return window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("MSXML2.XMLHTTP");
-        },
-        _getArgs4Js: function (args) {
-            var a0 = args[0], a1 = args[1], a2 = args[2], results = ["", null, null];
-            if (args.length === 1) {
+cc.loader = {
+    _jsCache: {},//cache for js
+    _register: {},//register of loaders
+    _langPathCache: {},//cache for lang path
+    _aliases: {},//aliases for res url
+    resPath: "",//root path of resource
+    audioPath: "",//root path of audio
+    cache: {},//cache for data loaded
+    getXMLHttpRequest: function () {
+        return window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("MSXML2.XMLHTTP");
+    },
+    _getArgs4Js: function (args) {
+        var a0 = args[0], a1 = args[1], a2 = args[2], results = ["", null, null];
+        if (args.length === 1) {
+            results[1] = a0 instanceof Array ? a0 : [a0];
+        } else if (args.length === 2) {
+            if (typeof a1 === "function") {
                 results[1] = a0 instanceof Array ? a0 : [a0];
-            } else if (args.length === 2) {
-                if (typeof a1 === "function") {
-                    results[1] = a0 instanceof Array ? a0 : [a0];
-                    results[2] = a1;
-                } else {
-                    results[0] = a0 || "";
-                    results[1] = a1 instanceof Array ? a1 : [a1];
-                }
-            } else if (args.length === 3) {
+                results[2] = a1;
+            } else {
                 results[0] = a0 || "";
                 results[1] = a1 instanceof Array ? a1 : [a1];
-                results[2] = a2;
-            } else throw new Error("arguments error to load js!");
-            return results;
-        },
-        loadJs: function (baseDir, jsList, cb) {
-            var self = this,
-                args = self._getArgs4Js(arguments);
-            var preDir = args[0], list = args[1], callback = args[2];
-            if (navigator.userAgent.indexOf("Trident/5") > -1) {
-                self._loadJs4Dependency(preDir, list, 0, callback);
-            } else {
-                cc.async.map(list, function (item, index, cb1) {
-                    var jsPath = cc.path.join(preDir, item);
-                    if (_jsCache[jsPath]) return cb1(null);
-                    self._createScript(jsPath, false, cb1);
-                }, callback);
             }
-        },
-        loadJsWithImg: function (baseDir, jsList, cb) {
-            var self = this, jsLoadingImg = self._loadJsImg(),
-                args = self._getArgs4Js(arguments);
-            this.loadJs(args[0], args[1], function (err) {
-                if (err) throw new Error(err);
-                jsLoadingImg.parentNode.removeChild(jsLoadingImg);//remove loading gif
-                if (args[2]) args[2]();
-            });
-        },
-        _createScript: function (jsPath, isAsync, cb) {
-            var d = document, self = this, s = document.createElement('script');
-            s.async = isAsync;
-            _jsCache[jsPath] = true;
-            if(cc.game.config["noCache"] && typeof jsPath === "string"){
-                if(self._noCacheRex.test(jsPath))
-                    s.src = jsPath + "&_t=" + (new Date() - 0);
-                else
-                    s.src = jsPath + "?_t=" + (new Date() - 0);
-            }else{
-                s.src = jsPath;
-            }
-            s.addEventListener('load', function () {
-                s.parentNode.removeChild(s);
-                this.removeEventListener('load', arguments.callee, false);
-                cb();
-            }, false);
-            s.addEventListener('error', function () {
-                s.parentNode.removeChild(s);
-                cb("Load " + jsPath + " failed!");
-            }, false);
-            d.body.appendChild(s);
-        },
-        _loadJs4Dependency: function (baseDir, jsList, index, cb) {
-            if (index >= jsList.length) {
-                if (cb) cb();
-                return;
-            }
-            var self = this;
-            self._createScript(cc.path.join(baseDir, jsList[index]), false, function (err) {
-                if (err) return cb(err);
-                self._loadJs4Dependency(baseDir, jsList, index + 1, cb);
-            });
-        },
-        _loadJsImg: function () {
-            var d = document, jsLoadingImg = d.getElementById("cocos2d_loadJsImg");
-            if (!jsLoadingImg) {
-                jsLoadingImg = document.createElement('img');
-                if (cc._loadingImage)
-                    jsLoadingImg.src = cc._loadingImage;
-                var canvasNode = d.getElementById(cc.game.config["id"]);
-                canvasNode.style.backgroundColor = "transparent";
-                canvasNode.parentNode.appendChild(jsLoadingImg);
-                var canvasStyle = getComputedStyle ? getComputedStyle(canvasNode) : canvasNode.currentStyle;
-                if (!canvasStyle)
-                    canvasStyle = {width: canvasNode.width, height: canvasNode.height};
-                jsLoadingImg.style.left = canvasNode.offsetLeft + (parseFloat(canvasStyle.width) - jsLoadingImg.width) / 2 + "px";
-                jsLoadingImg.style.top = canvasNode.offsetTop + (parseFloat(canvasStyle.height) - jsLoadingImg.height) / 2 + "px";
-                jsLoadingImg.style.position = "absolute";
-            }
-            return jsLoadingImg;
-        },
-        loadTxt: function (url, cb) {
-            if (!cc._isNodeJs) {
-                var xhr = this.getXMLHttpRequest(),
-                    errInfo = "load " + url + " failed!";
-                xhr.open("GET", url, true);
-                if (/msie/i.test(navigator.userAgent) && !/opera/i.test(navigator.userAgent)) {
-                    xhr.setRequestHeader("Accept-Charset", "utf-8");
-                    xhr.onreadystatechange = function () {
-                        if(xhr.readyState === 4)
-                            xhr.status === 200 ? cb(null, xhr.responseText) : cb({status:xhr.status, errorMessage:errInfo}, null);
-                    };
-                } else {
-                    if (xhr.overrideMimeType) xhr.overrideMimeType("text\/plain; charset=utf-8");
-                    xhr.onload = function () {
-                        if(xhr.readyState === 4)
-                            xhr.status === 200 ? cb(null, xhr.responseText) : cb({status:xhr.status, errorMessage:errInfo}, null);
-                    };
-                    xhr.onerror = function(){
-                        cb({status:xhr.status, errorMessage:errInfo}, null);
-                    };
-                }
-                xhr.send(null);
-            } else {
-                var fs = require("fs");
-                fs.readFile(url, function (err, data) {
-                    err ? cb(err) : cb(null, data.toString());
-                });
-            }
-        },
-        _loadTxtSync: function (url) {
-            if (!cc._isNodeJs) {
-                var xhr = this.getXMLHttpRequest();
-                xhr.open("GET", url, false);
-                if (/msie/i.test(navigator.userAgent) && !/opera/i.test(navigator.userAgent)) {
-                    xhr.setRequestHeader("Accept-Charset", "utf-8");
-                } else {
-                    if (xhr.overrideMimeType) xhr.overrideMimeType("text\/plain; charset=utf-8");
-                }
-                xhr.send(null);
-                if (!xhr.readyState === 4 || xhr.status !== 200) {
-                    return null;
-                }
-                return xhr.responseText;
-            } else {
-                var fs = require("fs");
-                return fs.readFileSync(url).toString();
-            }
-        },
-        loadCsb: function(url, cb){
-            var xhr = new XMLHttpRequest(),
+        } else if (args.length === 3) {
+            results[0] = a0 || "";
+            results[1] = a1 instanceof Array ? a1 : [a1];
+            results[2] = a2;
+        } else throw new Error("arguments error to load js!");
+        return results;
+    },
+    loadJs: function (baseDir, jsList, cb) {
+        var self = this, localJsCache = self._jsCache,
+            args = self._getArgs4Js(arguments);
+        var preDir = args[0], list = args[1], callback = args[2];
+        if (navigator.userAgent.indexOf("Trident/5") > -1) {
+            self._loadJs4Dependency(preDir, list, 0, callback);
+        } else {
+            cc.async.map(list, function (item, index, cb1) {
+                var jsPath = cc.path.join(preDir, item);
+                if (localJsCache[jsPath]) return cb1(null);
+                self._createScript(jsPath, false, cb1);
+            }, callback);
+        }
+    },
+    loadJsWithImg: function (baseDir, jsList, cb) {
+        var self = this, jsLoadingImg = self._loadJsImg(),
+            args = self._getArgs4Js(arguments);
+        this.loadJs(args[0], args[1], function (err) {
+            if (err) throw new Error(err);
+            jsLoadingImg.parentNode.removeChild(jsLoadingImg);//remove loading gif
+            if (args[2]) args[2]();
+        });
+    },
+    _createScript: function (jsPath, isAsync, cb) {
+        var d = document, self = this, s = cc.newElement('script');
+        s.async = isAsync;
+        self._jsCache[jsPath] = true;
+        if(cc.game.config["noCache"] && typeof jsPath === "string"){
+            if(self._noCacheRex.test(jsPath))
+                s.src = jsPath + "&_t=" + (new Date() - 0);
+            else
+                s.src = jsPath + "?_t=" + (new Date() - 0);
+        }else{
+            s.src = jsPath;
+        }
+        cc._addEventListener(s, 'load', function () {
+            s.parentNode.removeChild(s);
+            this.removeEventListener('load', arguments.callee, false);
+            cb();
+        }, false);
+        cc._addEventListener(s, 'error', function () {
+            s.parentNode.removeChild(s);
+            cb("Load " + jsPath + " failed!");
+        }, false);
+        d.body.appendChild(s);
+    },
+    _loadJs4Dependency: function (baseDir, jsList, index, cb) {
+        if (index >= jsList.length) {
+            if (cb) cb();
+            return;
+        }
+        var self = this;
+        self._createScript(cc.path.join(baseDir, jsList[index]), false, function (err) {
+            if (err) return cb(err);
+            self._loadJs4Dependency(baseDir, jsList, index + 1, cb);
+        });
+    },
+    _loadJsImg: function () {
+        var d = document, jsLoadingImg = d.getElementById("cocos2d_loadJsImg");
+        if (!jsLoadingImg) {
+            jsLoadingImg = cc.newElement('img');
+            if (cc._loadingImage)
+                jsLoadingImg.src = cc._loadingImage;
+            var canvasNode = d.getElementById(cc.game.config["id"]);
+            canvasNode.style.backgroundColor = "transparent";
+            canvasNode.parentNode.appendChild(jsLoadingImg);
+            var canvasStyle = getComputedStyle ? getComputedStyle(canvasNode) : canvasNode.currentStyle;
+            if (!canvasStyle)
+                canvasStyle = {width: canvasNode.width, height: canvasNode.height};
+            jsLoadingImg.style.left = canvasNode.offsetLeft + (parseFloat(canvasStyle.width) - jsLoadingImg.width) / 2 + "px";
+            jsLoadingImg.style.top = canvasNode.offsetTop + (parseFloat(canvasStyle.height) - jsLoadingImg.height) / 2 + "px";
+            jsLoadingImg.style.position = "absolute";
+        }
+        return jsLoadingImg;
+    },
+    loadTxt: function (url, cb) {
+        if (!cc._isNodeJs) {
+            var xhr = this.getXMLHttpRequest(),
                 errInfo = "load " + url + " failed!";
             xhr.open("GET", url, true);
-            xhr.responseType = "arraybuffer";
-            xhr.onload = function () {
-                var arrayBuffer = xhr.response;
-                if (arrayBuffer) {
-                    window.msg = arrayBuffer;
-                }
-                if(xhr.readyState === 4)
-                    xhr.status === 200 ? cb(null, xhr.response) : cb({status:xhr.status, errorMessage:errInfo}, null);
-            };
-            xhr.onerror = function(){
-                cb({status:xhr.status, errorMessage:errInfo}, null);
-            };
-            xhr.send(null);
-        },
-        loadJson: function (url, cb) {
-            this.loadTxt(url, function (err, txt) {
-                if (err) {
-                    cb(err);
-                }
-                else {
-                    try {
-                        var result = JSON.parse(txt);
-                    }
-                    catch (e) {
-                        throw new Error("parse json [" + url + "] failed : " + e);
-                        return;
-                    }
-                    cb(null, result);
-                }
-            });
-        },
-        _checkIsImageURL: function (url) {
-            var ext = /(\.png)|(\.jpg)|(\.bmp)|(\.jpeg)|(\.gif)/.exec(url);
-            return (ext != null);
-        },
-        loadImg: function (url, option, callback) {
-            var opt = {
-                isCrossOrigin: true
-            };
-            if (callback !== undefined)
-                opt.isCrossOrigin = option.isCrossOrigin === null ? opt.isCrossOrigin : option.isCrossOrigin;
-            else if (option !== undefined)
-                callback = option;
-            var img = this.getRes(url);
-            if (img) {
-                callback && callback(null, img);
-                return img;
-            }
-            img = new Image();
-            if (opt.isCrossOrigin && location.origin !== "file://")
-                img.crossOrigin = "Anonymous";
-            var loadCallback = function () {
-                this.removeEventListener('load', loadCallback, false);
-                this.removeEventListener('error', errorCallback, false);
-                if (callback)
-                    callback(null, img);
-            };
-            var self = this;
-            var errorCallback = function () {
-                this.removeEventListener('error', errorCallback, false);
-                if(img.crossOrigin && img.crossOrigin.toLowerCase() === "anonymous"){
-                    opt.isCrossOrigin = false;
-                    self.release(url);
-                    cc.loader.loadImg(url, opt, callback);
-                }else{
-                    typeof callback === "function" && callback("load image failed");
-                }
-            };
-            img.addEventListener("load", loadCallback);
-            img.addEventListener("error", errorCallback);
-            img.src = url;
-            return img;
-        },
-        _loadResIterator: function (item, index, cb) {
-            var self = this, url = null;
-            var type = item.type;
-            if (type) {
-                type = "." + type.toLowerCase();
-                url = item.src ? item.src : item.name + type;
+            if (/msie/i.test(navigator.userAgent) && !/opera/i.test(navigator.userAgent)) {
+                xhr.setRequestHeader("Accept-Charset", "utf-8");
+                xhr.onreadystatechange = function () {
+                    if(xhr.readyState === 4)
+                        xhr.status === 200 ? cb(null, xhr.responseText) : cb({status:xhr.status, errorMessage:errInfo}, null);
+                };
             } else {
-                url = item;
-                type = cc.path.extname(url);
+                if (xhr.overrideMimeType) xhr.overrideMimeType("text\/plain; charset=utf-8");
+                xhr.onload = function () {
+                    if(xhr.readyState === 4)
+                        xhr.status === 200 ? cb(null, xhr.responseText) : cb({status:xhr.status, errorMessage:errInfo}, null);
+                };
+                xhr.onerror = function(){
+                    cb({status:xhr.status, errorMessage:errInfo}, null);
+                };
             }
-            var obj = self.getRes(url);
-            if (obj)
-                return cb(null, obj);
-            var loader = null;
-            if (type) {
-                loader = _register[type.toLowerCase()];
-            }
-            if (!loader) {
-                cc.error("loader for [" + type + "] not exists!");
-                return cb();
-            }
-            var realUrl = url;
-            if (!_urlRegExp.test(url))
-            {
-                var basePath = loader.getBasePath ? loader.getBasePath() : self.resPath;
-                realUrl = self.getUrl(basePath, url);
-            }
-            if(cc.game.config["noCache"] && typeof realUrl === "string"){
-                if(self._noCacheRex.test(realUrl))
-                    realUrl += "&_t=" + (new Date() - 0);
-                else
-                    realUrl += "?_t=" + (new Date() - 0);
-            }
-            loader.load(realUrl, url, item, function (err, data) {
-                if (err) {
-                    cc.log(err);
-                    self.cache[url] = null;
-                    delete self.cache[url];
-                    cb({status:520, errorMessage:err}, null);
-                } else {
-                    self.cache[url] = data;
-                    cb(null, data);
-                }
+            xhr.send(null);
+        } else {
+            var fs = require("fs");
+            fs.readFile(url, function (err, data) {
+                err ? cb(err) : cb(null, data.toString());
             });
-        },
-        _noCacheRex: /\?/,
-        getUrl: function (basePath, url) {
-            var self = this, path = cc.path;
-            if (basePath !== undefined && url === undefined) {
-                url = basePath;
-                var type = path.extname(url);
-                type = type ? type.toLowerCase() : "";
-                var loader = _register[type];
-                if (!loader)
-                    basePath = self.resPath;
-                else
-                    basePath = loader.getBasePath ? loader.getBasePath() : self.resPath;
-            }
-            url = cc.path.join(basePath || "", url);
-            if (url.match(/[\/(\\\\)]lang[\/(\\\\)]/i)) {
-                if (_langPathCache[url])
-                    return _langPathCache[url];
-                var extname = path.extname(url) || "";
-                url = _langPathCache[url] = url.substring(0, url.length - extname.length) + "_" + cc.sys.language + extname;
-            }
-            return url;
-        },
-        load : function(resources, option, loadCallback){
-            var self = this;
-            var len = arguments.length;
-            if(len === 0)
-                throw new Error("arguments error!");
-            if(len === 3){
-                if(typeof option === "function"){
-                    if(typeof loadCallback === "function")
-                        option = {trigger : option, cb : loadCallback };
-                    else
-                        option = { cb : option, cbTarget : loadCallback};
-                }
-            }else if(len === 2){
-                if(typeof option === "function")
-                    option = {cb : option};
-            }else if(len === 1){
-                option = {};
-            }
-            if(!(resources instanceof Array))
-                resources = [resources];
-            var asyncPool = new cc.AsyncPool(
-                resources, 0,
-                function (value, index, AsyncPoolCallback, aPool) {
-                    self._loadResIterator(value, index, function (err) {
-                        var arr = Array.prototype.slice.call(arguments, 1);
-                        if (option.trigger)
-                            option.trigger.call(option.triggerTarget, arr[0], aPool.size, aPool.finishedSize);
-                        AsyncPoolCallback(err, arr[0]);
-                    });
-                },
-                option.cb, option.cbTarget);
-            asyncPool.flow();
-            return asyncPool;
-        },
-        _handleAliases: function (fileNames, cb) {
-            var self = this;
-            var resList = [];
-            for (var key in fileNames) {
-                var value = fileNames[key];
-                _aliases[key] = value;
-                resList.push(value);
-            }
-            this.load(resList, cb);
-        },
-        loadAliases: function (url, callback) {
-            var self = this, dict = self.getRes(url);
-            if (!dict) {
-                self.load(url, function (err, results) {
-                    self._handleAliases(results[0]["filenames"], callback);
-                });
-            } else
-                self._handleAliases(dict["filenames"], callback);
-        },
-        register: function (extNames, loader) {
-            if (!extNames || !loader) return;
-            var self = this;
-            if (typeof extNames === "string")
-                return _register[extNames.trim().toLowerCase()] = loader;
-            for (var i = 0, li = extNames.length; i < li; i++) {
-                _register["." + extNames[i].trim().toLowerCase()] = loader;
-            }
-        },
-        getRes: function (url) {
-            return this.cache[url] || this.cache[_aliases[url]];
-        },
-        _getAliase: function (url) {
-            return _aliases[url];
-        },
-        release: function (url) {
-            var cache = this.cache;
-            delete cache[url];
-            delete cache[_aliases[url]];
-            delete _aliases[url];
-        },
-        releaseAll: function () {
-            var locCache = this.cache;
-            for (var key in locCache)
-                delete locCache[key];
-            for (var key in _aliases)
-                delete _aliases[key];
         }
-    };
-})();
+    },
+    _loadTxtSync: function (url) {
+        if (!cc._isNodeJs) {
+            var xhr = this.getXMLHttpRequest();
+            xhr.open("GET", url, false);
+            if (/msie/i.test(navigator.userAgent) && !/opera/i.test(navigator.userAgent)) {
+                xhr.setRequestHeader("Accept-Charset", "utf-8");
+            } else {
+                if (xhr.overrideMimeType) xhr.overrideMimeType("text\/plain; charset=utf-8");
+            }
+            xhr.send(null);
+            if (!xhr.readyState === 4 || xhr.status !== 200) {
+                return null;
+            }
+            return xhr.responseText;
+        } else {
+            var fs = require("fs");
+            return fs.readFileSync(url).toString();
+        }
+    },
+    loadCsb: function(url, cb){
+        var xhr = new XMLHttpRequest(),
+            errInfo = "load " + url + " failed!";
+        xhr.open("GET", url, true);
+        xhr.responseType = "arraybuffer";
+        xhr.onload = function () {
+            var arrayBuffer = xhr.response;
+            if (arrayBuffer) {
+                window.msg = arrayBuffer;
+            }
+            if(xhr.readyState === 4)
+                xhr.status === 200 ? cb(null, xhr.response) : cb({status:xhr.status, errorMessage:errInfo}, null);
+        };
+        xhr.onerror = function(){
+            cb({status:xhr.status, errorMessage:errInfo}, null);
+        };
+        xhr.send(null);
+    },
+    loadJson: function (url, cb) {
+        this.loadTxt(url, function (err, txt) {
+            if (err) {
+                cb(err);
+            }
+            else {
+                try {
+                    var result = JSON.parse(txt);
+                }
+                catch (e) {
+                    throw new Error("parse json [" + url + "] failed : " + e);
+                    return;
+                }
+                cb(null, result);
+            }
+        });
+    },
+    _checkIsImageURL: function (url) {
+        var ext = /(\.png)|(\.jpg)|(\.bmp)|(\.jpeg)|(\.gif)/.exec(url);
+        return (ext != null);
+    },
+    loadImg: function (url, option, callback) {
+        var opt = {
+            isCrossOrigin: true
+        };
+        if (callback !== undefined)
+            opt.isCrossOrigin = option.isCrossOrigin === null ? opt.isCrossOrigin : option.isCrossOrigin;
+        else if (option !== undefined)
+            callback = option;
+        var img = this.getRes(url);
+        if (img) {
+            callback && callback(null, img);
+            return img;
+        }
+        img = new Image();
+        if (opt.isCrossOrigin && location.origin !== "file://")
+            img.crossOrigin = "Anonymous";
+        var loadCallback = function () {
+            this.removeEventListener('load', loadCallback, false);
+            this.removeEventListener('error', errorCallback, false);
+            if (callback)
+                callback(null, img);
+        };
+        var self = this;
+        var errorCallback = function () {
+            this.removeEventListener('error', errorCallback, false);
+            if(img.crossOrigin && img.crossOrigin.toLowerCase() === "anonymous"){
+                opt.isCrossOrigin = false;
+                self.release(url);
+                cc.loader.loadImg(url, opt, callback);
+            }else{
+                typeof callback === "function" && callback("load image failed");
+            }
+        };
+        cc._addEventListener(img, "load", loadCallback);
+        cc._addEventListener(img, "error", errorCallback);
+        img.src = url;
+        return img;
+    },
+    _loadResIterator: function (item, index, cb) {
+        var self = this, url = null;
+        var type = item.type;
+        if (type) {
+            type = "." + type.toLowerCase();
+            url = item.src ? item.src : item.name + type;
+        } else {
+            url = item;
+            type = cc.path.extname(url);
+        }
+        var obj = self.getRes(url);
+        if (obj)
+            return cb(null, obj);
+        var loader = null;
+        if (type) {
+            loader = self._register[type.toLowerCase()];
+        }
+        if (!loader) {
+            cc.error("loader for [" + type + "] not exists!");
+            return cb();
+        }
+        var realUrl = url;
+        if (!cc._urlRegExp.test(url))
+        {
+            var basePath = loader.getBasePath ? loader.getBasePath() : self.resPath;
+            realUrl = self.getUrl(basePath, url);
+        }
+        if(cc.game.config["noCache"] && typeof realUrl === "string"){
+            if(self._noCacheRex.test(realUrl))
+                realUrl += "&_t=" + (new Date() - 0);
+            else
+                realUrl += "?_t=" + (new Date() - 0);
+        }
+        loader.load(realUrl, url, item, function (err, data) {
+            if (err) {
+                cc.log(err);
+                self.cache[url] = null;
+                delete self.cache[url];
+                cb({status:520, errorMessage:err}, null);
+            } else {
+                self.cache[url] = data;
+                cb(null, data);
+            }
+        });
+    },
+    _noCacheRex: /\?/,
+    getUrl: function (basePath, url) {
+        var self = this, langPathCache = self._langPathCache, path = cc.path;
+        if (basePath !== undefined && url === undefined) {
+            url = basePath;
+            var type = path.extname(url);
+            type = type ? type.toLowerCase() : "";
+            var loader = self._register[type];
+            if (!loader)
+                basePath = self.resPath;
+            else
+                basePath = loader.getBasePath ? loader.getBasePath() : self.resPath;
+        }
+        url = cc.path.join(basePath || "", url);
+        if (url.match(/[\/(\\\\)]lang[\/(\\\\)]/i)) {
+            if (langPathCache[url])
+                return langPathCache[url];
+            var extname = path.extname(url) || "";
+            url = langPathCache[url] = url.substring(0, url.length - extname.length) + "_" + cc.sys.language + extname;
+        }
+        return url;
+    },
+    load : function(resources, option, loadCallback){
+        var self = this;
+        var len = arguments.length;
+        if(len === 0)
+            throw new Error("arguments error!");
+        if(len === 3){
+            if(typeof option === "function"){
+                if(typeof loadCallback === "function")
+                    option = {trigger : option, cb : loadCallback };
+                else
+                    option = { cb : option, cbTarget : loadCallback};
+            }
+        }else if(len === 2){
+            if(typeof option === "function")
+                option = {cb : option};
+        }else if(len === 1){
+            option = {};
+        }
+        if(!(resources instanceof Array))
+            resources = [resources];
+        var asyncPool = new cc.AsyncPool(
+            resources, 0,
+            function (value, index, AsyncPoolCallback, aPool) {
+                self._loadResIterator(value, index, function (err) {
+                    var arr = Array.prototype.slice.call(arguments, 1);
+                    if (option.trigger)
+                        option.trigger.call(option.triggerTarget, arr[0], aPool.size, aPool.finishedSize);
+                    AsyncPoolCallback(err, arr[0]);
+                });
+            },
+            option.cb, option.cbTarget);
+        asyncPool.flow();
+        return asyncPool;
+    },
+    _handleAliases: function (fileNames, cb) {
+        var self = this, aliases = self._aliases;
+        var resList = [];
+        for (var key in fileNames) {
+            var value = fileNames[key];
+            aliases[key] = value;
+            resList.push(value);
+        }
+        this.load(resList, cb);
+    },
+    loadAliases: function (url, callback) {
+        var self = this, dict = self.getRes(url);
+        if (!dict) {
+            self.load(url, function (err, results) {
+                self._handleAliases(results[0]["filenames"], callback);
+            });
+        } else
+            self._handleAliases(dict["filenames"], callback);
+    },
+    register: function (extNames, loader) {
+        if (!extNames || !loader) return;
+        var self = this;
+        if (typeof extNames === "string")
+            return this._register[extNames.trim().toLowerCase()] = loader;
+        for (var i = 0, li = extNames.length; i < li; i++) {
+            self._register["." + extNames[i].trim().toLowerCase()] = loader;
+        }
+    },
+    getRes: function (url) {
+        return this.cache[url] || this.cache[this._aliases[url]];
+    },
+    release: function (url) {
+        var cache = this.cache, aliases = this._aliases;
+        delete cache[url];
+        delete cache[aliases[url]];
+        delete aliases[url];
+    },
+    releaseAll: function () {
+        var locCache = this.cache, aliases = this._aliases;
+        for (var key in locCache)
+            delete locCache[key];
+        for (var key in aliases)
+            delete aliases[key];
+    }
+};
 cc.formatStr = function(){
     var args = arguments;
     var l = args.length;
@@ -701,8 +670,53 @@ cc.formatStr = function(){
     return str;
 };
 (function () {
-var _tmpCanvas1 = document.createElement("canvas"),
-    _tmpCanvas2 = document.createElement("canvas");
+    var win = window, hidden, visibilityChange, _undef = "undefined";
+    if (!cc.isUndefined(document.hidden)) {
+        hidden = "hidden";
+        visibilityChange = "visibilitychange";
+    } else if (!cc.isUndefined(document.mozHidden)) {
+        hidden = "mozHidden";
+        visibilityChange = "mozvisibilitychange";
+    } else if (!cc.isUndefined(document.msHidden)) {
+        hidden = "msHidden";
+        visibilityChange = "msvisibilitychange";
+    } else if (!cc.isUndefined(document.webkitHidden)) {
+        hidden = "webkitHidden";
+        visibilityChange = "webkitvisibilitychange";
+    }
+    var onHidden = function () {
+        if (cc.eventManager && cc.game._eventHide)
+            cc.eventManager.dispatchEvent(cc.game._eventHide);
+    };
+    var onShow = function () {
+        if (cc.eventManager && cc.game._eventShow)
+            cc.eventManager.dispatchEvent(cc.game._eventShow);
+        if(cc.game._intervalId){
+            window.cancelAnimationFrame(cc.game._intervalId);
+            cc.game._runMainLoop();
+        }
+    };
+    if (hidden) {
+        cc._addEventListener(document, visibilityChange, function () {
+            if (document[hidden]) onHidden();
+            else onShow();
+        }, false);
+    } else {
+        cc._addEventListener(win, "blur", onHidden, false);
+        cc._addEventListener(win, "focus", onShow, false);
+    }
+    if(navigator.userAgent.indexOf("MicroMessenger") > -1){
+        win.onfocus = function(){ onShow() };
+    }
+    if ("onpageshow" in window && "onpagehide" in window) {
+        cc._addEventListener(win, "pagehide", onHidden, false);
+        cc._addEventListener(win, "pageshow", onShow, false);
+    }
+    win = null;
+    visibilityChange = null;
+})();
+cc.log = cc.warn = cc.error = cc.assert = function () {
+};
 cc.create3DContext = function (canvas, opt_attribs) {
     var names = ["webgl", "experimental-webgl", "webkit-3d", "moz-webgl"];
     var context = null;
@@ -717,7 +731,9 @@ cc.create3DContext = function (canvas, opt_attribs) {
     }
     return context;
 };
-var _initSys = function () {
+cc._initSys = function (config, CONFIG_KEY) {
+    cc._RENDER_TYPE_CANVAS = 0;
+    cc._RENDER_TYPE_WEBGL = 1;
     cc.sys = {};
     var sys = cc.sys;
     sys.LANGUAGE_ENGLISH = "en";
@@ -735,7 +751,6 @@ var _initSys = function () {
     sys.LANGUAGE_ARABIC = "ar";
     sys.LANGUAGE_NORWEGIAN = "no";
     sys.LANGUAGE_POLISH = "pl";
-    sys.LANGUAGE_UNKNOWN = "unkonwn";
     sys.OS_IOS = "iOS";
     sys.OS_ANDROID = "Android";
     sys.OS_WINDOWS = "Windows";
@@ -801,35 +816,56 @@ var _initSys = function () {
     else if (isAndroid) osName = sys.OS_ANDROID;
     else if (nav.appVersion.indexOf("Linux") !== -1) osName = sys.OS_LINUX;
     sys.os = osName;
-    sys.browserType = sys.BROWSER_TYPE_UNKNOWN;
-    (function(){
-        var typeReg1 = /sogou|qzone|liebao|micromessenger|ucbrowser|360 aphone|360browser|baiduboxapp|baidubrowser|maxthon|mxbrowser|trident|miuibrowser/i;
-        var typeReg2 = /qqbrowser|chrome|safari|firefox|opr|oupeng|opera/i;
-        var browserTypes = typeReg1.exec(ua);
-        if(!browserTypes) browserTypes = typeReg2.exec(ua);
-        var browserType = browserTypes ? browserTypes[0] : sys.BROWSER_TYPE_UNKNOWN;
-        if (browserType === 'micromessenger')
+    var browserType = sys.BROWSER_TYPE_UNKNOWN;
+    var browserTypes = ua.match(/sogou|qzone|liebao|micromessenger|qqbrowser|ucbrowser|360 aphone|360browser|baiduboxapp|baidubrowser|maxthon|trident|oupeng|opera|miuibrowser|firefox/i)
+        || ua.match(/chrome|safari/i);
+    if (browserTypes && browserTypes.length > 0) {
+        browserType = browserTypes[0];
+        if (browserType === 'micromessenger') {
             browserType = sys.BROWSER_TYPE_WECHAT;
-        else if (browserType === "safari" && (ua.match(/android.*applewebkit/)))
+        } else if (browserType === "safari" && (ua.match(/android.*applewebkit/)))
             browserType = sys.BROWSER_TYPE_ANDROID;
-        else if (browserType === "trident")
-            browserType = sys.BROWSER_TYPE_IE;
-        else if (browserType === "360 aphone")
-            browserType = sys.BROWSER_TYPE_360;
-        else if (browserType === "mxbrowser")
-            browserType = sys.BROWSER_TYPE_MAXTHON;
-        else if (browserType === "opr")
-            browserType = sys.BROWSER_TYPE_OPERA;
-        sys.browserType = browserType;
-    })();
-    sys.browserVersion = "";
-    (function(){
-        var versionReg1 = /(micromessenger|mx|maxthon|baidu|sogou)(mobile)?(browser)?\/?([\d.]+)/i;
-        var versionReg2 = /(msie |rv:|firefox|chrome|ucbrowser|qq|oupeng|opera|opr|safari|miui)(mobile)?(browser)?\/?([\d.]+)/i;
-        var tmp = ua.match(versionReg1);
-        if(!tmp) tmp = ua.match(versionReg2);
-        sys.browserVersion = tmp ? tmp[4] : "";
-    })();
+        else if (browserType === "trident") browserType = sys.BROWSER_TYPE_IE;
+        else if (browserType === "360 aphone") browserType = sys.BROWSER_TYPE_360;
+    }else if(ua.indexOf("iphone") && ua.indexOf("mobile")){
+        browserType = sys.BROWSER_TYPE_SAFARI;
+    }
+    var browserVersion, tmp = null;
+    switch(browserType){
+        case sys.BROWSER_TYPE_IE:
+            tmp = ua.match(/(msie |rv:)([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_FIREFOX:
+            tmp = ua.match(/(firefox\/|rv:)([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_CHROME:
+            tmp = ua.match(/chrome\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_BAIDU:
+            tmp = ua.match(/baidubrowser\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_UC:
+            tmp = ua.match(/ucbrowser\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_QQ:
+            tmp = ua.match(/qqbrowser\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_OUPENG:
+            tmp = ua.match(/oupeng\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_WECHAT:
+            tmp = ua.match(/micromessenger\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_SAFARI:
+            tmp = ua.match(/safari\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_MIUI:
+            tmp = ua.match(/miuibrowser\/([\d.]+)/);
+            break;
+    }
+    browserVersion = tmp ? tmp[1] : "";
+    sys.browserType = browserType;
+    sys.browserVersion = browserVersion;
     var w = window.innerWidth || document.documentElement.clientWidth;
     var h = window.innerHeight || document.documentElement.clientHeight;
     var ratio = window.devicePixelRatio || 1;
@@ -837,19 +873,40 @@ var _initSys = function () {
         width: ratio * w,
         height: ratio * h
     };
-    sys._checkWebGLRenderMode = function () {
-        if (cc._renderType !== cc.game.RENDER_TYPE_WEBGL)
-            throw new Error("This feature supports WebGL render mode only.");
-    };
-    sys._supportCanvasNewBlendModes = (function(){
-        var canvas = _tmpCanvas1;
+    (function(sys, config){
+        var userRenderMode = config[CONFIG_KEY.renderMode] - 0;
+        if(isNaN(userRenderMode) || userRenderMode > 2 || userRenderMode < 0)
+            userRenderMode = 0;
+        var shieldOs = [sys.OS_ANDROID];
+        var shieldBrowser = [];
+        var tmpCanvas = cc.newElement("canvas");
+        cc._renderType = cc._RENDER_TYPE_CANVAS;
+        cc._supportRender = false;
+        var supportWebGL = win.WebGLRenderingContext;
+        if(userRenderMode === 2 || (userRenderMode === 0 && supportWebGL && shieldOs.indexOf(sys.os) === -1 && shieldBrowser.indexOf(sys.browserType) === -1))
+            try{
+                var context = cc.create3DContext(tmpCanvas, {'stencil': true, 'preserveDrawingBuffer': true });
+                if(context){
+                    cc._renderType = cc._RENDER_TYPE_WEBGL;
+                    cc._supportRender = true;
+                }
+            }catch(e){}
+        if(userRenderMode === 1 || (userRenderMode === 0 && cc._supportRender === false))
+            try {
+                tmpCanvas.getContext("2d");
+                cc._renderType = cc._RENDER_TYPE_CANVAS;
+                cc._supportRender = true;
+            } catch (e) {}
+    })(sys, config);
+    sys._canUseCanvasNewBlendModes = function(){
+        var canvas = document.createElement('canvas');
         canvas.width = 1;
         canvas.height = 1;
         var context = canvas.getContext('2d');
         context.fillStyle = '#000';
         context.fillRect(0,0,1,1);
         context.globalCompositeOperation = 'multiply';
-        var canvas2 = _tmpCanvas2;
+        var canvas2 = document.createElement('canvas');
         canvas2.width = 1;
         canvas2.height = 1;
         var context2 = canvas2.getContext('2d');
@@ -857,14 +914,8 @@ var _initSys = function () {
         context2.fillRect(0,0,1,1);
         context.drawImage(canvas2, 0, 0, 1, 1);
         return context.getImageData(0,0,1,1).data[0] === 0;
-    })();
-    if (cc.sys.isMobile) {
-        var fontStyle = document.createElement("style");
-        fontStyle.type = "text/css";
-        document.body.appendChild(fontStyle);
-        fontStyle.textContent = "body,canvas,div{ -moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;-khtml-user-select: none;"
-                                + "-webkit-tap-highlight-color:rgba(0,0,0,0);}";
-    }
+    };
+    sys._supportCanvasNewBlendModes = sys._canUseCanvasNewBlendModes();
     try {
         var localStorage = sys.localStorage = win.localStorage;
         localStorage.setItem("storage", "");
@@ -873,7 +924,7 @@ var _initSys = function () {
     } catch (e) {
         var warn = function () {
             cc.warn("Warning: localStorage isn't enabled. Please confirm browser cookie or privacy option");
-        };
+        }
         sys.localStorage = {
             getItem : warn,
             setItem : warn,
@@ -881,22 +932,9 @@ var _initSys = function () {
             clear : warn
         };
     }
-    var _supportCanvas = !!_tmpCanvas1.getContext("2d");
-    var _supportWebGL = false;
-    var tmpCanvas = document.createElement("CANVAS");
-    if (win.WebGLRenderingContext) {
-        try{
-            var context = cc.create3DContext(tmpCanvas, {'stencil': true, 'preserveDrawingBuffer': true });
-            if(context) {
-                _supportWebGL = true;
-            }
-        }
-        catch (e) {}
-    }
-    var capabilities = sys.capabilities = {
-        "canvas": _supportCanvas,
-        "opengl": _supportWebGL
-    };
+    var capabilities = sys.capabilities = {"canvas": true};
+    if (cc._renderType === cc._RENDER_TYPE_WEBGL)
+        capabilities["opengl"] = true;
     if (docEle['ontouchstart'] !== undefined || doc['ontouchstart'] !== undefined || nav.msPointerEnabled)
         capabilities["touches"] = true;
     if (docEle['onmouseup'] !== undefined)
@@ -927,129 +965,105 @@ var _initSys = function () {
         str += "os : " + self.os + "\r\n";
         str += "platform : " + self.platform + "\r\n";
         cc.log(str);
-    };
+    }
     sys.openURL = function(url){
         window.open(url);
+    }
+};
+cc.ORIENTATION_PORTRAIT = 0;
+cc.ORIENTATION_PORTRAIT_UPSIDE_DOWN = 1;
+cc.ORIENTATION_LANDSCAPE_LEFT = 2;
+cc.ORIENTATION_LANDSCAPE_RIGHT = 3;
+cc._drawingUtil = null;
+cc._renderContext = null;
+cc._canvas = null;
+cc._gameDiv = null;
+cc._rendererInitialized = false;
+cc._setupCalled = false;
+cc._setup = function (el, width, height) {
+    if (cc._setupCalled) return;
+    else cc._setupCalled = true;
+    var win = window;
+    var element = cc.$(el) || cc.$('#' + el);
+    var localCanvas, localContainer, localConStyle;
+    cc.game._setAnimFrame();
+    if (element.tagName === "CANVAS") {
+        width = width || element.width;
+        height = height || element.height;
+        localContainer = cc.container = cc.newElement("DIV");
+        localCanvas = cc._canvas = element;
+        localCanvas.parentNode.insertBefore(localContainer, localCanvas);
+        localCanvas.appendTo(localContainer);
+        localContainer.setAttribute('id', 'Cocos2dGameContainer');
+    } else {//we must make a new canvas and place into this element
+        if (element.tagName !== "DIV") {
+            cc.log("Warning: target element is not a DIV or CANVAS");
+        }
+        width = width || element.clientWidth;
+        height = height || element.clientHeight;
+        localContainer = cc.container = element;
+        localCanvas = cc._canvas = cc.$(cc.newElement("CANVAS"));
+        element.appendChild(localCanvas);
+    }
+    localCanvas.addClass("gameCanvas");
+    localCanvas.setAttribute("width", width || 480);
+    localCanvas.setAttribute("height", height || 320);
+    localCanvas.setAttribute("tabindex", 99);
+    localCanvas.style.outline = "none";
+    localConStyle = localContainer.style;
+    localConStyle.width = (width || 480) + "px";
+    localConStyle.height = (height || 320) + "px";
+    localConStyle.margin = "0 auto";
+    localConStyle.position = 'relative';
+    localConStyle.overflow = 'hidden';
+    localContainer.top = '100%';
+    if (cc._renderType === cc._RENDER_TYPE_WEBGL)
+        cc._renderContext = cc.webglContext = cc.create3DContext(localCanvas, {
+            'stencil': true,
+            'preserveDrawingBuffer': true,
+            'antialias': !cc.sys.isMobile,
+            'alpha': true
+        });
+    if (cc._renderContext) {
+        win.gl = cc._renderContext;
+        cc._drawingUtil = new cc.DrawingPrimitiveWebGL(cc._renderContext);
+        cc._rendererInitialized = true;
+        cc.textureCache._initializingRenderer();
+        cc.shaderCache._init();
+    } else {
+        cc._renderContext = new cc.CanvasContextWrapper(localCanvas.getContext("2d"));
+        cc._drawingUtil = cc.DrawingPrimitiveCanvas ? new cc.DrawingPrimitiveCanvas(cc._renderContext) : null;
+    }
+    cc._gameDiv = localContainer;
+    cc.log(cc.ENGINE_VERSION);
+    cc._setContextMenuEnable(false);
+    if (cc.sys.isMobile) {
+        var fontStyle = cc.newElement("style");
+        fontStyle.type = "text/css";
+        document.body.appendChild(fontStyle);
+        fontStyle.textContent = "body,canvas,div{ -moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;-khtml-user-select: none;"
+            + "-webkit-tap-highlight-color:rgba(0,0,0,0);}";
+    }
+    cc.view = cc.EGLView._getInstance();
+    cc.inputManager.registerSystemEvent(cc._canvas);
+    cc.director = cc.Director._getInstance();
+    if (cc.director.setOpenGLView)
+        cc.director.setOpenGLView(cc.view);
+    cc.winSize = cc.director.getWinSize();
+    cc.saxParser = new cc.SAXParser();
+    cc.plistParser = new cc.PlistParser();
+};
+cc._checkWebGLRenderMode = function () {
+    if (cc._renderType !== cc._RENDER_TYPE_WEBGL)
+        throw new Error("This feature supports WebGL render mode only.");
+};
+cc._isContextMenuEnable = false;
+cc._setContextMenuEnable = function (enabled) {
+    cc._isContextMenuEnable = enabled;
+    cc._canvas.oncontextmenu = function () {
+        if (!cc._isContextMenuEnable) return false;
     };
 };
-_initSys();
-delete _tmpCanvas1;
-delete _tmpCanvas2;
-cc.log = cc.warn = cc.error = cc.assert = function () {
-};
-var _config = null,
-    _jsAddedCache = {},
-    _engineInitCalled = false,
-    _engineLoadedCallback = null;
-cc._engineLoaded = false;
-function _determineRenderType(config) {
-    var CONFIG_KEY = cc.game.CONFIG_KEY,
-        userRenderMode = parseInt(config[CONFIG_KEY.renderMode]) || 0,
-        shieldOs = [cc.sys.OS_ANDROID],
-        shieldBrowser = [];
-    if (isNaN(userRenderMode) || userRenderMode > 2 || userRenderMode < 0)
-        config[CONFIG_KEY.renderMode] = 0;
-    cc._renderType = cc.game.RENDER_TYPE_CANVAS;
-    cc._supportRender = true;
-    if ( userRenderMode === 2 ||
-        (   userRenderMode === 0 &&
-            shieldOs.indexOf(cc.sys.os) === -1 &&
-            shieldBrowser.indexOf(cc.sys.browserType) === -1 )) {
-        if (cc.sys.capabilities["opengl"]) {
-            cc._renderType = cc.game.RENDER_TYPE_WEBGL;
-            cc._supportRender = true;
-        }
-        else {
-            cc._supportRender = false;
-        }
-    }
-    if (userRenderMode === 1
-        || (userRenderMode === 0 && !cc._supportRender)) {
-        if (cc.sys.capabilities["canvas"]) {
-            cc._renderType = cc.game.RENDER_TYPE_CANVAS;
-            cc._supportRender = true;
-        }
-        else {
-            cc._supportRender = false;
-        }
-    }
-}
-function _getJsListOfModule(moduleMap, moduleName, dir) {
-    if (_jsAddedCache[moduleName]) return null;
-    dir = dir || "";
-    var jsList = [];
-    var tempList = moduleMap[moduleName];
-    if (!tempList) throw new Error("can not find module [" + moduleName + "]");
-    var ccPath = cc.path;
-    for (var i = 0, li = tempList.length; i < li; i++) {
-        var item = tempList[i];
-        if (_jsAddedCache[item]) continue;
-        var extname = ccPath.extname(item);
-        if (!extname) {
-            var arr = _getJsListOfModule(moduleMap, item, dir);
-            if (arr) jsList = jsList.concat(arr);
-        } else if (extname.toLowerCase() === ".js") jsList.push(ccPath.join(dir, item));
-        _jsAddedCache[item] = 1;
-    }
-    return jsList;
-}
-function _afterEngineLoaded(config) {
-    cc._initDebugSetting && cc._initDebugSetting(config[cc.game.CONFIG_KEY.debugMode]);
-    cc._engineLoaded = true;
-    cc.log(cc.ENGINE_VERSION);
-    if (_engineLoadedCallback) _engineLoadedCallback();
-}
-function _load(config) {
-    var self = this;
-    var CONFIG_KEY = cc.game.CONFIG_KEY, engineDir = config[CONFIG_KEY.engineDir], loader = cc.loader;
-    if (cc.Class) {
-        _afterEngineLoaded(config);
-    } else {
-        var ccModulesPath = cc.path.join(engineDir, "moduleConfig.json");
-        loader.loadJson(ccModulesPath, function (err, modulesJson) {
-            if (err) throw new Error(err);
-            var modules = config["modules"] || [];
-            var moduleMap = modulesJson["module"];
-            var jsList = [];
-            if (cc.sys.capabilities["opengl"] && modules.indexOf("base4webgl") < 0) modules.splice(0, 0, "base4webgl");
-            else if (modules.indexOf("core") < 0) modules.splice(0, 0, "core");
-            for (var i = 0, li = modules.length; i < li; i++) {
-                var arr = _getJsListOfModule(moduleMap, modules[i], engineDir);
-                if (arr) jsList = jsList.concat(arr);
-            }
-            cc.loader.loadJsWithImg(jsList, function (err) {
-                if (err) throw err;
-                _afterEngineLoaded(config);
-            });
-        });
-    }
-}
-function _windowLoaded() {
-    this.removeEventListener('load', _windowLoaded, false);
-    _load(cc.game.config);
-}
-cc.initEngine = function (config, cb) {
-    if (_engineInitCalled) {
-        var previousCallback = _engineLoadedCallback;
-        _engineLoadedCallback = function () {
-            previousCallback && previousCallback();
-            cb && cb();
-        }
-        return;
-    }
-    _engineLoadedCallback = cb;
-    if (!cc.game.config && config) {
-        cc.game.config = config;
-    }
-    else if (!cc.game.config) {
-        cc.game._loadConfig();
-    }
-    config = cc.game.config;
-    _determineRenderType(config);
-    document.body ? _load(config) : cc._addEventListener(window, 'load', _windowLoaded, false);
-    _engineInitCalled = true;
-}
-})();
 cc.game = {
     DEBUG_MODE_NONE: 0,
     DEBUG_MODE_INFO: 1,
@@ -1061,35 +1075,26 @@ cc.game = {
     EVENT_HIDE: "game_on_hide",
     EVENT_SHOW: "game_on_show",
     EVENT_RESIZE: "game_on_resize",
-    EVENT_RENDERER_INITED: "renderer_inited",
-    RENDER_TYPE_CANVAS: 0,
-    RENDER_TYPE_WEBGL: 1,
-    RENDER_TYPE_OPENGL: 2,
     _eventHide: null,
     _eventShow: null,
+    _onBeforeStartArr: [],
     CONFIG_KEY: {
-        width: "width",
-        height: "height",
         engineDir: "engineDir",
-        modules: "modules",
+        dependencies: "dependencies",
         debugMode: "debugMode",
         showFPS: "showFPS",
         frameRate: "frameRate",
         id: "id",
         renderMode: "renderMode",
-        jsList: "jsList"
+        jsList: "jsList",
+        classReleaseMode: "classReleaseMode"
     },
-    _paused: true,//whether the game is paused
     _prepareCalled: false,//whether the prepare function has been called
     _prepared: false,//whether the engine has prepared
-    _rendererInitialized: false,
-    _renderContext: null,
+    _paused: true,//whether the game is paused
     _intervalId: null,//interval target of main
     _lastTime: null,
     _frameTime: null,
-    frame: null,
-    container: null,
-    canvas: null,
     config: null,
     onStart: null,
     onStop: null,
@@ -1101,90 +1106,6 @@ cc.game = {
         self._paused = true;
         self._setAnimFrame();
         self._runMainLoop();
-    },
-    step: function () {
-        cc.director.mainLoop();
-    },
-    pause: function () {
-        if (this._paused) return;
-        this._paused = true;
-        cc.audioEngine && cc.audioEngine._pausePlaying();
-        if (this._intervalId)
-            window.cancelAnimationFrame(this._intervalId);
-        this._intervalId = 0;
-    },
-    resume: function () {
-        if (!this._paused) return;
-        this._paused = false;
-        cc.audioEngine && cc.audioEngine._resumePlaying();
-        this._runMainLoop();
-    },
-    isPaused: function () {
-        return this._paused;
-    },
-    restart: function () {
-        cc.director.popToSceneStackLevel(0);
-        cc.audioEngine && cc.audioEngine.end();
-        cc.game.onStart();
-    },
-    prepare: function (cb) {
-        var self = this,
-            config = self.config,
-            CONFIG_KEY = self.CONFIG_KEY;
-        this._loadConfig();
-        if (this._prepared) {
-            if (cb) cb();
-            return;
-        }
-        if (this._prepareCalled) {
-            return;
-        }
-        if (cc._engineLoaded) {
-            this._prepareCalled = true;
-            this._initRenderer(config[CONFIG_KEY.width], config[CONFIG_KEY.height]);
-            cc.view = cc.EGLView._getInstance();
-            cc.director = cc.Director._getInstance();
-            if (cc.director.setOpenGLView)
-                cc.director.setOpenGLView(cc.view);
-            cc.winSize = cc.director.getWinSize();
-            this._initEvents();
-            this._setAnimFrame();
-            this._runMainLoop();
-            var jsList = config[CONFIG_KEY.jsList];
-            if (jsList) {
-                cc.loader.loadJsWithImg(jsList, function (err) {
-                    if (err) throw new Error(err);
-                    self._prepared = true;
-                    if (cb) cb();
-                });
-            }
-            else {
-                if (cb) cb();
-            }
-            return;
-        }
-        cc.initEngine(this.config, function () {
-            self.prepare(cb);
-        });
-    },
-    run: function (config, onStart) {
-        if (typeof config === 'function') {
-            cc.game.onStart = config;
-        }
-        else {
-            if (config) {
-                if (typeof config === 'string') {
-                    if (!cc.game.config) this._loadConfig();
-                    cc.game.config[cc.game.CONFIG_KEY.id] = config;
-                } else {
-                    cc.game.config = config;
-                }
-            }
-            if (typeof onStart === 'function') {
-                cc.game.onStart = onStart;
-            }
-        }
-        this.prepare(cc.game.onStart && cc.game.onStart.bind(cc.game));
     },
     _setAnimFrame: function () {
         this._lastTime = new Date();
@@ -1239,22 +1160,63 @@ cc.game = {
         window.requestAnimFrame(callback);
         self._paused = false;
     },
-    _loadConfig: function () {
-        if (this.config) {
-            this._initConfig(this.config);
-            return;
-        }
+    restart: function () {
+        cc.director.popToSceneStackLevel(0);
+        cc.audioEngine && cc.audioEngine.end();
+        cc.game.onStart();
+    },
+    run: function (id) {
+        var self = this;
+        var _run = function () {
+            if (id) {
+                self.config[self.CONFIG_KEY.id] = id;
+            }
+            if (!self._prepareCalled) {
+                self.prepare(function () {
+                    self._prepared = true;
+                });
+            }
+            if (cc._supportRender) {
+                self._checkPrepare = setInterval(function () {
+                    if (self._prepared) {
+                        cc._setup(self.config[self.CONFIG_KEY.id]);
+                        self._runMainLoop();
+                        self._eventHide = self._eventHide || new cc.EventCustom(self.EVENT_HIDE);
+                        self._eventHide.setUserData(self);
+                        self._eventShow = self._eventShow || new cc.EventCustom(self.EVENT_SHOW);
+                        self._eventShow.setUserData(self);
+                        self.onStart();
+                        clearInterval(self._checkPrepare);
+                    }
+                }, 10);
+            }
+        };
+        document.body ?
+            _run() :
+            cc._addEventListener(window, 'load', function () {
+                this.removeEventListener('load', arguments.callee, false);
+                _run();
+            }, false);
+    },
+    _initConfig: function () {
+        var self = this, CONFIG_KEY = self.CONFIG_KEY;
+        var _init = function (cfg) {
+            cfg[CONFIG_KEY.engineDir] = cfg[CONFIG_KEY.engineDir] || "frameworks/cocos2d-html5";
+            if(cfg[CONFIG_KEY.debugMode] == null)
+                cfg[CONFIG_KEY.debugMode] = 0;
+            cfg[CONFIG_KEY.frameRate] = cfg[CONFIG_KEY.frameRate] || 60;
+            if(cfg[CONFIG_KEY.renderMode] == null)
+                cfg[CONFIG_KEY.renderMode] = 1;
+            return cfg;
+        };
         if (document["ccConfig"]) {
-            this._initConfig(document["ccConfig"]);
-        }
-        else {
+            self.config = _init(document["ccConfig"]);
+        } else {
             try {
                 var cocos_script = document.getElementsByTagName('script');
-                for(var i = 0; i < cocos_script.length; i++){
+                for(var i=0;i<cocos_script.length;i++){
                     var _t = cocos_script[i].getAttribute('cocos');
-                    if(_t === '' || _t) {
-                        break;
-                    }
+                    if(_t === '' || _t){break;}
                 }
                 var _src, txt, _resPath;
                 if(i < cocos_script.length){
@@ -1270,150 +1232,73 @@ cc.game = {
                     txt = cc.loader._loadTxtSync("project.json");
                 }
                 var data = JSON.parse(txt);
-                this._initConfig(data || {});
+                self.config = _init(data || {});
             } catch (e) {
                 cc.log("Failed to read or parse project.json");
-                this._initConfig({});
+                self.config = _init({});
             }
         }
+        cc._initSys(self.config, CONFIG_KEY);
     },
-    _initConfig: function (config) {
-        var CONFIG_KEY = this.CONFIG_KEY,
-            modules = config[CONFIG_KEY.modules];
-        config[CONFIG_KEY.showFPS] = typeof config[CONFIG_KEY.showFPS] === 'undefined' ? true : config[CONFIG_KEY.showFPS];
-        config[CONFIG_KEY.engineDir] = config[CONFIG_KEY.engineDir] || "frameworks/cocos2d-html5";
-        if (config[CONFIG_KEY.debugMode] == null)
-            config[CONFIG_KEY.debugMode] = 0;
-        config[CONFIG_KEY.frameRate] = config[CONFIG_KEY.frameRate] || 60;
-        if (config[CONFIG_KEY.renderMode] == null)
-            config[CONFIG_KEY.renderMode] = 0;
-        if (config[CONFIG_KEY.registerSystemEvent] == null)
-            config[CONFIG_KEY.registerSystemEvent] = true;
-        if (modules && modules.indexOf("core") < 0) modules.splice(0, 0, "core");
-        modules && (config[CONFIG_KEY.modules] = modules);
-        this.config = config;
+    _jsAddedCache: {},
+    _getJsListOfModule: function (moduleMap, moduleName, dir) {
+        var jsAddedCache = this._jsAddedCache;
+        if (jsAddedCache[moduleName]) return null;
+        dir = dir || "";
+        var jsList = [];
+        var tempList = moduleMap[moduleName];
+        if (!tempList) throw new Error("can not find module [" + moduleName + "]");
+        var ccPath = cc.path;
+        for (var i = 0, li = tempList.length; i < li; i++) {
+            var item = tempList[i];
+            if (jsAddedCache[item]) continue;
+            var extname = ccPath.extname(item);
+            if (!extname) {
+                var arr = this._getJsListOfModule(moduleMap, item, dir);
+                if (arr) jsList = jsList.concat(arr);
+            } else if (extname.toLowerCase() === ".js") jsList.push(ccPath.join(dir, item));
+            jsAddedCache[item] = 1;
+        }
+        return jsList;
     },
-    _initRenderer: function (width, height) {
-        if (this._rendererInitialized) return;
+    prepare: function (cb) {
+        var self = this;
+        var config = self.config, CONFIG_KEY = self.CONFIG_KEY, engineDir = config[CONFIG_KEY.engineDir], loader = cc.loader;
         if (!cc._supportRender) {
-            throw new Error("The renderer doesn't support the renderMode " + this.config[this.CONFIG_KEY.renderMode]);
+            throw new Error("The renderer doesn't support the renderMode " + config[CONFIG_KEY.renderMode]);
         }
-        var el = this.config[cc.game.CONFIG_KEY.id],
-            win = window,
-            element = cc.$(el) || cc.$('#' + el),
-            localCanvas, localContainer, localConStyle;
-        if (element.tagName === "CANVAS") {
-            width = width || element.width;
-            height = height || element.height;
-            this.canvas = cc._canvas = localCanvas = element;
-            this.container = cc.container = localContainer = document.createElement("DIV");
-            if (localCanvas.parentNode)
-                localCanvas.parentNode.insertBefore(localContainer, localCanvas);
+        self._prepareCalled = true;
+        var jsList = config[CONFIG_KEY.jsList] || [];
+        if (cc.Class) {//is single file
+            loader.loadJsWithImg("", jsList, function (err) {
+                if (err) throw new Error(err);
+                self._prepared = true;
+                if (cb) cb();
+            });
         } else {
-            if (element.tagName !== "DIV") {
-                cc.log("Warning: target element is not a DIV or CANVAS");
-            }
-            width = width || element.clientWidth;
-            height = height || element.clientHeight;
-            this.canvas = cc._canvas = localCanvas = document.createElement("CANVAS");
-            this.container = cc.container = localContainer = document.createElement("DIV");
-            element.appendChild(localContainer);
-        }
-        localContainer.setAttribute('id', 'Cocos2dGameContainer');
-        localContainer.appendChild(localCanvas);
-        this.frame = (localContainer.parentNode === document.body) ? document.documentElement : localContainer.parentNode;
-        localCanvas.addClass("gameCanvas");
-        localCanvas.setAttribute("width", width || 480);
-        localCanvas.setAttribute("height", height || 320);
-        localCanvas.setAttribute("tabindex", 99);
-        localCanvas.style.outline = "none";
-        localConStyle = localContainer.style;
-        localConStyle.width = (width || 480) + "px";
-        localConStyle.height = (height || 320) + "px";
-        localConStyle.margin = "0 auto";
-        localConStyle.position = 'relative';
-        localConStyle.overflow = 'hidden';
-        localContainer.top = '100%';
-        if (cc._renderType === cc.game.RENDER_TYPE_WEBGL) {
-            this._renderContext = cc._renderContext = cc.webglContext
-             = cc.create3DContext(localCanvas, {
-                'stencil': true,
-                'preserveDrawingBuffer': true,
-                'antialias': !cc.sys.isMobile,
-                'alpha': true
+            var ccModulesPath = cc.path.join(engineDir, "moduleConfig.json");
+            loader.loadJson(ccModulesPath, function (err, modulesJson) {
+                if (err) throw new Error(err);
+                var modules = config["modules"] || [];
+                var moduleMap = modulesJson["module"];
+                var newJsList = [];
+                if (cc._renderType === cc._RENDER_TYPE_WEBGL) modules.splice(0, 0, "shaders");
+                else if (modules.indexOf("core") < 0) modules.splice(0, 0, "core");
+                for (var i = 0, li = modules.length; i < li; i++) {
+                    var arr = self._getJsListOfModule(moduleMap, modules[i], engineDir);
+                    if (arr) newJsList = newJsList.concat(arr);
+                }
+                newJsList = newJsList.concat(jsList);
+                cc.loader.loadJsWithImg(newJsList, function (err) {
+                    if (err) throw new Error(err);
+                    self._prepared = true;
+                    if (cb) cb();
+                });
             });
         }
-        if (this._renderContext) {
-            cc.renderer = cc.rendererWebGL;
-            win.gl = this._renderContext;
-            cc.shaderCache._init();
-            cc._drawingUtil = new cc.DrawingPrimitiveWebGL(this._renderContext);
-            cc.textureCache._initializingRenderer();
-        } else {
-            cc.renderer = cc.rendererCanvas;
-            this._renderContext = cc._renderContext = new cc.CanvasContextWrapper(localCanvas.getContext("2d"));
-            cc._drawingUtil = cc.DrawingPrimitiveCanvas ? new cc.DrawingPrimitiveCanvas(this._renderContext) : null;
-        }
-        cc._gameDiv = localContainer;
-        cc.game.canvas.oncontextmenu = function () {
-            if (!cc._isContextMenuEnable) return false;
-        };
-        this.dispatchEvent(this.EVENT_RENDERER_INITED, true);
-        this._rendererInitialized = true;
-    },
-    _initEvents: function () {
-        var win = window, self = this, hidden, visibilityChange, _undef = "undefined";
-        this._eventHide = this._eventHide || new cc.EventCustom(this.EVENT_HIDE);
-        this._eventHide.setUserData(this);
-        this._eventShow = this._eventShow || new cc.EventCustom(this.EVENT_SHOW);
-        this._eventShow.setUserData(this);
-        if (this.config[this.CONFIG_KEY.registerSystemEvent])
-            cc.inputManager.registerSystemEvent(this.canvas);
-        if (!cc.isUndefined(document.hidden)) {
-            hidden = "hidden";
-            visibilityChange = "visibilitychange";
-        } else if (!cc.isUndefined(document.mozHidden)) {
-            hidden = "mozHidden";
-            visibilityChange = "mozvisibilitychange";
-        } else if (!cc.isUndefined(document.msHidden)) {
-            hidden = "msHidden";
-            visibilityChange = "msvisibilitychange";
-        } else if (!cc.isUndefined(document.webkitHidden)) {
-            hidden = "webkitHidden";
-            visibilityChange = "webkitvisibilitychange";
-        }
-        var onHidden = function () {
-            if (cc.eventManager && cc.game._eventHide)
-                cc.eventManager.dispatchEvent(cc.game._eventHide);
-        };
-        var onShow = function () {
-            if (cc.eventManager && cc.game._eventShow)
-                cc.eventManager.dispatchEvent(cc.game._eventShow);
-        };
-        if (hidden) {
-            document.addEventListener(visibilityChange, function () {
-                if (document[hidden]) onHidden();
-                else onShow();
-            }, false);
-        } else {
-            win.addEventListener("blur", onHidden, false);
-            win.addEventListener("focus", onShow, false);
-        }
-        if(navigator.userAgent.indexOf("MicroMessenger") > -1){
-            win.onfocus = function(){ onShow() };
-        }
-        if ("onpageshow" in window && "onpagehide" in window) {
-            win.addEventListener("pagehide", onHidden, false);
-            win.addEventListener("pageshow", onShow, false);
-        }
-        cc.eventManager.addCustomListener(cc.game.EVENT_HIDE, function () {
-            cc.game.pause();
-        });
-        cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
-            cc.game.resume();
-        });
     }
 };
+cc.game._initConfig();
 Function.prototype.bind = Function.prototype.bind || function (oThis) {
     if (!cc.isFunction(this)) {
         throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
@@ -1450,80 +1335,6 @@ cc._urlRegExp = new RegExp(
         "(?:/\\S*)?" +
     "$", "i"
 );
-cc.EventHelper = function(){};
-cc.EventHelper.prototype = {
-    constructor: cc.EventHelper,
-    apply: function ( object ) {
-        object.addEventListener = cc.EventHelper.prototype.addEventListener;
-        object.hasEventListener = cc.EventHelper.prototype.hasEventListener;
-        object.removeEventListener = cc.EventHelper.prototype.removeEventListener;
-        object.dispatchEvent = cc.EventHelper.prototype.dispatchEvent;
-    },
-    addEventListener: function ( type, listener, target ) {
-        if(type === "load" && this._textureLoaded){
-            setTimeout(function(){
-                listener.call(target);
-            }, 0);
-            return;
-        }
-        if ( this._listeners === undefined )
-            this._listeners = {};
-        var listeners = this._listeners;
-        if ( listeners[ type ] === undefined )
-            listeners[ type ] = [];
-        if ( !this.hasEventListener(type, listener, target))
-            listeners[ type ].push( {callback:listener, eventTarget: target} );
-    },
-    hasEventListener: function ( type, listener, target ) {
-        if ( this._listeners === undefined )
-            return false;
-        var listeners = this._listeners;
-        if ( listeners[ type ] !== undefined ) {
-            for(var i = 0, len = listeners.length; i < len ; i++){
-                var selListener = listeners[i];
-                if(selListener.callback === listener && selListener.eventTarget === target)
-                    return true;
-            }
-        }
-        return false;
-    },
-    removeEventListener: function( type, target){
-        if ( this._listeners === undefined )
-            return;
-        var listeners = this._listeners;
-        var listenerArray = listeners[ type ];
-        if ( listenerArray !== undefined ) {
-            for(var i = 0; i < listenerArray.length ; ){
-                var selListener = listenerArray[i];
-                if(selListener.eventTarget === target)
-                    listenerArray.splice( i, 1 );
-                else
-                    i++
-            }
-        }
-    },
-    dispatchEvent: function ( event, clearAfterDispatch ) {
-        if ( this._listeners === undefined )
-            return;
-        if(clearAfterDispatch == null)
-            clearAfterDispatch = true;
-        var listeners = this._listeners;
-        var listenerArray = listeners[ event];
-        if ( listenerArray !== undefined ) {
-            var array = [];
-            var length = listenerArray.length;
-            for ( var i = 0; i < length; i ++ ) {
-                array[ i ] = listenerArray[ i ];
-            }
-            for ( i = 0; i < length; i ++ ) {
-                array[ i ].callback.call( array[i].eventTarget, this );
-            }
-            if(clearAfterDispatch)
-                listenerArray.length = 0;
-        }
-    }
-};
-cc.EventHelper.prototype.apply(cc.game);
 var cc = cc || {};
 cc._loadingImage = "data:image/gif;base64,R0lGODlhEAAQALMNAD8/P7+/vyoqKlVVVX9/fxUVFUBAQGBgYMDAwC8vL5CQkP///wAAAP///wAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFAAANACwAAAAAEAAQAAAEO5DJSau9OOvNex0IMnDIsiCkiW6g6BmKYlBFkhSUEgQKlQCARG6nEBwOgl+QApMdCIRD7YZ5RjlGpCUCACH5BAUAAA0ALAAAAgAOAA4AAAQ6kLGB0JA4M7QW0hrngRllkYyhKAYqKUGguAws0ypLS8JxCLQDgXAIDg+FRKIA6v0SAECCBpXSkstMBAAh+QQFAAANACwAAAAACgAQAAAEOJDJORAac6K1kDSKYmydpASBUl0mqmRfaGTCcQgwcxDEke+9XO2WkxQSiUIuAQAkls0n7JgsWq8RACH5BAUAAA0ALAAAAAAOAA4AAAQ6kMlplDIzTxWC0oxwHALnDQgySAdBHNWFLAvCukc215JIZihVIZEogDIJACBxnCSXTcmwGK1ar1hrBAAh+QQFAAANACwAAAAAEAAKAAAEN5DJKc4RM+tDyNFTkSQF5xmKYmQJACTVpQSBwrpJNteZSGYoFWjIGCAQA2IGsVgglBOmEyoxIiMAIfkEBQAADQAsAgAAAA4ADgAABDmQSVZSKjPPBEDSGucJxyGA1XUQxAFma/tOpDlnhqIYN6MEAUXvF+zldrMBAjHoIRYLhBMqvSmZkggAIfkEBQAADQAsBgAAAAoAEAAABDeQyUmrnSWlYhMASfeFVbZdjHAcgnUQxOHCcqWylKEohqUEAYVkgEAMfkEJYrFA6HhKJsJCNFoiACH5BAUAAA0ALAIAAgAOAA4AAAQ3kMlJq704611SKloCAEk4lln3DQgyUMJxCBKyLAh1EMRR3wiDQmHY9SQslyIQUMRmlmVTIyRaIgA7";
 cc._fpsImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAAgCAYAAAD9qabkAAAKQ2lDQ1BJQ0MgcHJvZmlsZQAAeNqdU3dYk/cWPt/3ZQ9WQtjwsZdsgQAiI6wIyBBZohCSAGGEEBJAxYWIClYUFRGcSFXEgtUKSJ2I4qAouGdBiohai1VcOO4f3Ke1fXrv7e371/u855zn/M55zw+AERImkeaiagA5UoU8Otgfj09IxMm9gAIVSOAEIBDmy8JnBcUAAPADeXh+dLA//AGvbwACAHDVLiQSx+H/g7pQJlcAIJEA4CIS5wsBkFIAyC5UyBQAyBgAsFOzZAoAlAAAbHl8QiIAqg0A7PRJPgUA2KmT3BcA2KIcqQgAjQEAmShHJAJAuwBgVYFSLALAwgCgrEAiLgTArgGAWbYyRwKAvQUAdo5YkA9AYACAmUIszAAgOAIAQx4TzQMgTAOgMNK/4KlfcIW4SAEAwMuVzZdL0jMUuJXQGnfy8ODiIeLCbLFCYRcpEGYJ5CKcl5sjE0jnA0zODAAAGvnRwf44P5Dn5uTh5mbnbO/0xaL+a/BvIj4h8d/+vIwCBAAQTs/v2l/l5dYDcMcBsHW/a6lbANpWAGjf+V0z2wmgWgrQevmLeTj8QB6eoVDIPB0cCgsL7SViob0w44s+/zPhb+CLfvb8QB7+23rwAHGaQJmtwKOD/XFhbnauUo7nywRCMW735yP+x4V//Y4p0eI0sVwsFYrxWIm4UCJNx3m5UpFEIcmV4hLpfzLxH5b9CZN3DQCshk/ATrYHtctswH7uAQKLDljSdgBAfvMtjBoLkQAQZzQyefcAAJO/+Y9AKwEAzZek4wAAvOgYXKiUF0zGCAAARKCBKrBBBwzBFKzADpzBHbzAFwJhBkRADCTAPBBCBuSAHAqhGJZBGVTAOtgEtbADGqARmuEQtMExOA3n4BJcgetwFwZgGJ7CGLyGCQRByAgTYSE6iBFijtgizggXmY4EImFINJKApCDpiBRRIsXIcqQCqUJqkV1II/ItchQ5jVxA+pDbyCAyivyKvEcxlIGyUQPUAnVAuagfGorGoHPRdDQPXYCWomvRGrQePYC2oqfRS+h1dAB9io5jgNExDmaM2WFcjIdFYIlYGibHFmPlWDVWjzVjHVg3dhUbwJ5h7wgkAouAE+wIXoQQwmyCkJBHWExYQ6gl7CO0EroIVwmDhDHCJyKTqE+0JXoS+cR4YjqxkFhGrCbuIR4hniVeJw4TX5NIJA7JkuROCiElkDJJC0lrSNtILaRTpD7SEGmcTCbrkG3J3uQIsoCsIJeRt5APkE+S+8nD5LcUOsWI4kwJoiRSpJQSSjVlP+UEpZ8yQpmgqlHNqZ7UCKqIOp9aSW2gdlAvU4epEzR1miXNmxZDy6Qto9XQmmlnafdoL+l0ugndgx5Fl9CX0mvoB+nn6YP0dwwNhg2Dx0hiKBlrGXsZpxi3GS+ZTKYF05eZyFQw1zIbmWeYD5hvVVgq9ip8FZHKEpU6lVaVfpXnqlRVc1U/1XmqC1SrVQ+rXlZ9pkZVs1DjqQnUFqvVqR1Vu6k2rs5Sd1KPUM9RX6O+X/2C+mMNsoaFRqCGSKNUY7fGGY0hFsYyZfFYQtZyVgPrLGuYTWJbsvnsTHYF+xt2L3tMU0NzqmasZpFmneZxzQEOxrHg8DnZnErOIc4NznstAy0/LbHWaq1mrX6tN9p62r7aYu1y7Rbt69rvdXCdQJ0snfU6bTr3dQm6NrpRuoW623XP6j7TY+t56Qn1yvUO6d3RR/Vt9KP1F+rv1u/RHzcwNAg2kBlsMThj8MyQY+hrmGm40fCE4agRy2i6kcRoo9FJoye4Ju6HZ+M1eBc+ZqxvHGKsNN5l3Gs8YWJpMtukxKTF5L4pzZRrmma60bTTdMzMyCzcrNisyeyOOdWca55hvtm82/yNhaVFnMVKizaLx5balnzLBZZNlvesmFY+VnlW9VbXrEnWXOss623WV2xQG1ebDJs6m8u2qK2brcR2m23fFOIUjynSKfVTbtox7PzsCuya7AbtOfZh9iX2bfbPHcwcEh3WO3Q7fHJ0dcx2bHC866ThNMOpxKnD6VdnG2ehc53zNRemS5DLEpd2lxdTbaeKp26fesuV5RruutK10/Wjm7ub3K3ZbdTdzD3Ffav7TS6bG8ldwz3vQfTw91jicczjnaebp8LzkOcvXnZeWV77vR5Ps5wmntYwbcjbxFvgvct7YDo+PWX6zukDPsY+Ap96n4e+pr4i3z2+I37Wfpl+B/ye+zv6y/2P+L/hefIW8U4FYAHBAeUBvYEagbMDawMfBJkEpQc1BY0FuwYvDD4VQgwJDVkfcpNvwBfyG/ljM9xnLJrRFcoInRVaG/owzCZMHtYRjobPCN8Qfm+m+UzpzLYIiOBHbIi4H2kZmRf5fRQpKjKqLupRtFN0cXT3LNas5Fn7Z72O8Y+pjLk722q2cnZnrGpsUmxj7Ju4gLiquIF4h/hF8ZcSdBMkCe2J5MTYxD2J43MC52yaM5zkmlSWdGOu5dyiuRfm6c7Lnnc8WTVZkHw4hZgSl7I/5YMgQlAvGE/lp25NHRPyhJuFT0W+oo2iUbG3uEo8kuadVpX2ON07fUP6aIZPRnXGMwlPUit5kRmSuSPzTVZE1t6sz9lx2S05lJyUnKNSDWmWtCvXMLcot09mKyuTDeR55m3KG5OHyvfkI/lz89sVbIVM0aO0Uq5QDhZML6greFsYW3i4SL1IWtQz32b+6vkjC4IWfL2QsFC4sLPYuHhZ8eAiv0W7FiOLUxd3LjFdUrpkeGnw0n3LaMuylv1Q4lhSVfJqedzyjlKD0qWlQyuCVzSVqZTJy26u9Fq5YxVhlWRV72qX1VtWfyoXlV+scKyorviwRrjm4ldOX9V89Xlt2treSrfK7etI66Trbqz3Wb+vSr1qQdXQhvANrRvxjeUbX21K3nShemr1js20zcrNAzVhNe1bzLas2/KhNqP2ep1/XctW/a2rt77ZJtrWv913e/MOgx0VO97vlOy8tSt4V2u9RX31btLugt2PGmIbur/mft24R3dPxZ6Pe6V7B/ZF7+tqdG9s3K+/v7IJbVI2jR5IOnDlm4Bv2pvtmne1cFoqDsJB5cEn36Z8e+NQ6KHOw9zDzd+Zf7f1COtIeSvSOr91rC2jbaA9ob3v6IyjnR1eHUe+t/9+7zHjY3XHNY9XnqCdKD3x+eSCk+OnZKeenU4/PdSZ3Hn3TPyZa11RXb1nQ8+ePxd07ky3X/fJ897nj13wvHD0Ivdi2yW3S609rj1HfnD94UivW2/rZffL7Vc8rnT0Tes70e/Tf/pqwNVz1/jXLl2feb3vxuwbt24m3Ry4Jbr1+Hb27Rd3Cu5M3F16j3iv/L7a/eoH+g/qf7T+sWXAbeD4YMBgz8NZD+8OCYee/pT/04fh0kfMR9UjRiONj50fHxsNGr3yZM6T4aeypxPPyn5W/3nrc6vn3/3i+0vPWPzY8Av5i8+/rnmp83Lvq6mvOscjxx+8znk98ab8rc7bfe+477rfx70fmSj8QP5Q89H6Y8en0E/3Pud8/vwv94Tz+4A5JREAAAAGYktHRAD/AP8A/6C9p5MAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfcAgcQLxxUBNp/AAAQZ0lEQVR42u2be3QVVZbGv1N17829eRLyIKAEOiISEtPhJTJAYuyBDmhWjAEx4iAGBhxA4wABbVAMWUAeykMCM+HRTcBRWkNH2l5moS0LCCrQTkYeQWBQSCAIgYRXEpKbW/XNH5zS4noR7faPEeu31l0h4dSpvc+t/Z199jkFWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhY/H9D/MR9qfKnLj/00U71aqfJn9+HCkCR/Wk36ddsgyJ/1wF4fkDfqqm9/gPsUeTnVr6a2xlQfnxdI7zs0W7irzD17Ytb2WT7EeNv/r4ox1O3Quf2QP2pgt9utwfout4FQE8AVBSlnaRmfvAURQkg2RlAbwB9AThlW5L0GaiKojhJhgOIBqDa7XaPrusdPtr5kQwF0BVAAoBIABRCKDd5aFUhRDAAw57eAOwAhKIoupft3zoqhB1AqLwuHIBut9uFt02qqvqRDJR2dAEQJj/BAOjn56dqmma+xiaECAEQAWAggLsB6A6HQ2iaZggBhBAqgEAAnQB0kzaEmT4hAITT6VQ8Ho/HJAKKECJQtr8LwD1y/A1/vcdfEUIEyfZ9AcQbYvZ942Px88L2UwlJR0dH0EMPPbRj5syZPUeNGrXR7Xb/641xIwJ1XY9NSUlZm52dfW+XLl1w8uRJzJ8//+OGhoYJqqqe1TSt1Wsm9NN1PSIqKmr12rVrR5WUlHy1bdu2AQCumWc3IYRD1/UwVVXnFRQUTIuNjUVzczN2797dWFJSkq8oymZd15sAGAEnFEUJ1nX9nzIzM1dnZmZGh4SE4OTJk5g5c+Zf29vbp9pstrMej6fVOyhIhgAYU1hY+B+hoaGoqKg4XVlZea+XTULTNFdCQsLGiRMnPuR2u3UhBOV9eeDAAWXTpk095DUe6WsoyRE5OTlr0tLSAux2O/bs2cO5c+e+pijKUpIXSHaQVAGkvPLKK++6XK4OksJLCFlXV2cvKSlJBFAjhU+x2WwhHo9nUHp6+urMzMy7wsLCUF9fjxdffPHjxsbGiTab7WuPx9NiEutOuq4PyMjI+M+srKyYqKgoHD58GDNmzNjq8XhyVFU9b/q+LH7hBAEYu3PnTlZVVRFAGgCX6f/tAHoOHDjwa0p27txp/JO9e/f+QM7cipw9nfL3kQBKt2zZQpJ87rnn6mQmoHilw2EACs+cOUOSrK+vZ1NTE0nyo48+IoBpxswoBcMJ4Ndjx471kOTFixe5d+9ekqTH42H//v13A4jyzpAURfEH0H/OnDnthu1z5sw558MmFUCPWbNmnaMP3nrrLZoyDmP8Hl68eDFJ8siRI9/Yc+zYMQKYKdtAztrTrl27xptRXV1NAKMAOAyBBBA/Y8aMdpLs6Ojgxx9//E37+++//29yvFXppwvAwMcee8xjtDHsuXLlCqOjo//ia3wsfpkoALqFhoZuIckJEyackimm3dQmEMDUmpoakmRISMhhAHOHDx/eQJIbN24kgKEyMAHAFRMTs2XXrl1saWkhSZ0kp0+ffhrAr3wEW/S8efOukORLL72kA1gKYMPWrVtJkk899dRJAHeYrgsEsIQkjx8/TgDvAPjd448/3kaSb7zxBmUa7vC6z53BwcFbSHL9+vU6Sc6aNes8gF5ewWAH0PfVV18lSQL4DMBGIcQ6AKtcLleBFC2jXtFt8ODBe0iyoqKCAJYByC8qKmJDQwOzsrK+MAmqo1OnTveHhoa+GRkZ+XZkZOSWiIiIvzgcjk9mzpypkWRmZuZpmbYbGV4AgPnNzc1sa2sjgN0A5iQmJtaSZHl5OQHcb/K3s81mW0uSTU1NBFAFYFbfvn1Pk+Tbb79NAA8IIVzW42/hByA+Pz/fLR/2ZXIda05NI/z9/TeR5J49ewhgqlxTrtI0jY2NjQQw3zTLuWJiYjaUlJToS5Ys6fjkk080kwDEeAmADcA9GzZsIElGRUW9CyAWwLApU6Y0kOSKFSsog9QICGdERMTGsrIyZmVlEcC9AB4IDw/fTpLbtm0jgN94CUAnAJmVlZVcs2aNZ/LkyRdJcvbs2b4EwAkgZfPmzTxw4AABFAN4BkC6vFeUSewcAO5duXIlSTIhIaEawGMAxgKYAmAGgCS73e5vrKVk/yGythANYEhCQsIhkly+fDkBpKqqGmL6DgIALDKN/3yZpVWQZGVlJQE8aPI3KiMjo5okV61aRQAjAPQBMPfIkSN0u90EUCBtsPiFEwpgbn19PdetW2fM5N4zQ9ekpKQqkty0aRMBpMjiWM6JEydIkoqirJUFJ6iq6pAPVy8A6cZMehMBUACEuVyuFwG8HBwcPEIWx367ZMkSjSQXLVrUJouTRorrkAHdA8BdQogsAOsKCwtJkmPGjDkvMw2bDDo/ADEjRoz4XylyFbm5uY0mAbjLyyZ/AOOrq6tZVlbWsWDBgo69e/eyoqKCgwcPPg4gSQaoIRbp27dvN7KF+tLSUr28vJwFBQXtMpvpYRIM7+wrAkDeqVOnePbsWQIoNKfzpiXPg8uXLydJJicnNwF4f+nSpW6STEtLq5fjYwhk1wkTJtSQ5Ouvv04AqTKj+N2xY8dIkgEBAW/Ie1v8wncRegwZMmQvSfbr12+3Ua33WqPfOWbMmP0kWVpaSgCDZAqcfejQIWNZsEGKgvnh9gfQb9myZd8nAEJVVZtMkUNk8CcNHTq0liR1XWdYWNhmH1mJIme80OnTp18x1rp5eXkEsNJms92Fb7e/IgEsvHz5Mp999tkmAI/l5uZeMC0B7vEqqAYAyL106RJJsra2lpWVld+sucePH38ZQG+5NncBeOrgwYMkqbe3t/Po0aOsra011wAWyl0H7x0JJ4DE+fPnu0kyPT29DsDdUrBuyNKEEAkAdpw/f/6GeoEM8GUmfwEgPCIiopwkGxsbabPZPgOw6L777vvm4p49e26VGYjFLxUhhD+ApLKyMp44ccIoVnXybgbgzkcfffRzklyzZg0BDJYCMMmoCwQFBXkLgLGWvvcWAgBToSsKwNPTp09vMR7UuLi4rwH0lgU8c/Db5ezbeeTIkRWzZ8++aMxu+fn5BPCADBwHgP4LFy701NXVEUAJgAnPP/98kyxMNgHo53A4zH77BQQETMvPz7+Um5vbBuAlAFMSExPPmdbVL0qh8Acw8fDhw5SCchVAEYAVb775JknyhRdeaJYztHfxMwLAaqNwCGC2FArv8x0hAHKNLGPKlCme5OTk/Zs3bzb7O0wKiiG8KXl5ed8IxenTp0mSR48e1UmyW7duWywBuD2xyQcgFECgoih+8H1gyJgZV5Lkyy+/3CbTRIePtl2HDBmyw1QBHyGDdXZdXR1JUghRKkXBjOMHCoBdpr0L3nvvPZLkF198wejo6O0A4lVVDTb74HQ6AwD8Wq7Jh8rgGgDgQ13XjVR8qaxJuADMbmlpYXl5uV5UVNRWUFDgfv/993Vj/ZydnU1c37eHXML4S3viAcQqitJD2l104cIFY8lTKsXSBWBMVVWVcd9yed2A1NTUQ6Zl00CvLMMOoHdubm6zFIlWOf5+PsY/Kj09vdrU11QAwwGsv3jxIk21m2DZr10I0RXAuAcffPBgaWkpV69eTYfDcdiwUxY0w6xw+flX8L1xApjevXv3lREREaW6rofB93aPDUDQpEmTMgHgtddeqwBwEd/utZvpqK6uPgEAcXFxkA94NwB9unfvjrNnz4LklwDcf08iIqv66Zs2bXrl4YcfxooVKxAbG7uqrq5uAYA2TdOEqqpGYIi2tjbl6aeffu/YsWPv5uTk7JaC1wHg4Pnz542MwoVvTx+21dbWYvjw4WLixIl+2dnZ9lGjRgmSTE1NRUpKCkwFTGiaxtTU1OXTpk3707Bhw/6g67pDipnT4biuj7qut+Lbk3Vf1tTUXI9qu91Pjq1QFEUBgJaWFgBo8yGOQ8eNGxcAAOvXr/8QwBUfYygAKL169eoCABcuXACAWtn2hOGv0+kMNO1KiPDw8F4A4rZv3/7R1KlTR0+bNu1ht9u9r1+/fqitrQXJgwDarRC6/QjPzs4+QJIffPCB9/aQmSAA43ft2mW0e1QGoi8CAPyLsZccExNTC2BlRkbGRdOyYJCP2csBIN6UAZzCd7cBbQCijYp/dXU1ExMTz6SmptaMHj36f9LS0vYlJCRsl6mxIWSdu3fv/g5J7t+/nwC2AShMTk6+SJKff/45AWRLYbD7+fndAeDf5BJnLoCCyZMnt5JkdnZ2C4B/F0KEm1Pu+Pj4rST55ZdfEsBWAK+mpaVdMo3raDn7KwDuSEpK+m+S3LBhAwG8DuCtHTt2UBbpjgC408vvcFVV15HkuXPnjMp+p5uMf0RcXNyHJNnQ0EBVVfcCWBQXF3fG+Jv0yxABPwB5LS0tRmFxN4BlTzzxxGWSXLx4sS5F3GGFy+1Hp5SUlJq6ujoWFxdTpsZ2H+0iIyMj/0iSWVlZX5mr5jfJFroPGzasxlhTnjp1iiTZ3NxMl8tlrCd9pfa9SkpKSJI5OTmnZOageLUZZqxvfVFWVkZcPwdgNwnSCKPqb17jkmR8fPzfZMDZ5CRsFBmNI7h95s2b1yhT7/MAYmStwCx4vy0uLqa3v5qmEcCfvSr1QQAeXb16NY3Cm3HQ55133iGAp+SxZTNhKSkpfzUddkrFjYevzAQCeGjp0qXfsYckY2NjTwD4leGDLCL2HTdunNtoY+zWSHFcIHdsFCtcfuZ1vO9Eqs3m7/F47sb1k2qX/f3997W2tl7BjWfpBYDOzzzzzIVJkyZh0KBBCwEsB3AJvl9AETabLcDj8dwRFRW1ctasWb8JCgpSzp07d62wsPC/Wltb8xRFadR1/ZqPXYbgAQMGbI2Pjw/+6quv9ldVVT0r01ezuPRJSUn5Y9euXXVd11WzDaqq6kePHm3+7LPPRgO4KlNuxWazhXo8nuTk5OSXMjIyEl0uFxoaGtqKior+dPXq1VdUVT0jj7r68ieoT58+vx8yZMjdx48fP1JVVTVF9m20VW02WyfZf97YsWPjXS4X6urqWvPy8jYCWCyEuEDS8FdVFKWzruv//OSTTy5OTk7uqWkaPv3007qysrJ8RVH+LI8ym8/rB3Tu3HnRI488knLo0KG2ffv2ZQI4C98vP6mqqoZqmpaclpa2cOTIkX39/f3R0NDQUVxc/G5TU9PLqqrWa5rWLH1QVFUN0TStX1JSUvH48eP7BwYG4uDBg1cKCgpeBbBe2u+2Qug2EwD5N5sMPuNtMe8XP4TT6Qxoa2sbIGeXvUKIK7d4IISiKC5d1wPljOfA9bPwzYqiXNV13dd6Uqiq6qdpml2mpe02m63d4/G4vcTF5fF47LJf71nJA6BZVVW3pmntuPHlmAD5wk6Q9NnbHp9vHaqq6tA0zU/64PZhk1FfCZB9G/23ALiqKEqzD39tpvbGUqoFwFUhRLP3yzpCCDtJpxyXDulfG27+pqRR3DXsUWVd4Yq0x/taVQjhIhksC8L+ABpM9ljBf5sKwI8pIBr75L5E4vvu+UNeG/a+hv+AL7yFH8qPtOfHjtOP6V/Bja8D6z/B2Nys/1u9Xv33tLf4GfF/LC4GCJwByWIAAAAASUVORK5CYII=";
@@ -1604,7 +1415,7 @@ if (cc.loader.loadBinary._IEFilter) {
             "       IEBinaryToArray_ByteStr_Last = " + '""' + "\r\n" +
             "   End If\r\n" +
             "End Function\r\n";// +
-    var myVBScript = document.createElement('script');
+    var myVBScript = cc.newElement('script');
     myVBScript.type = "text/vbscript";
     myVBScript.textContent = IEBinaryToArray_ByteStr_Script;
     document.body.appendChild(myVBScript);
@@ -1628,6 +1439,25 @@ var cc = cc || {};
 var ClassManager = {
     id : (0|(Math.random()*998)),
     instanceId : (0|(Math.random()*998)),
+    compileSuper : function(func, name, id){
+        var str = func.toString();
+        var pstart = str.indexOf('('), pend = str.indexOf(')');
+        var params = str.substring(pstart+1, pend);
+        params = params.trim();
+        var bstart = str.indexOf('{'), bend = str.lastIndexOf('}');
+        var str = str.substring(bstart+1, bend);
+        while(str.indexOf('this._super') !== -1)
+        {
+            var sp = str.indexOf('this._super');
+            var bp = str.indexOf('(', sp);
+            var bbp = str.indexOf(')', bp);
+            var superParams = str.substring(bp+1, bbp);
+            superParams = superParams.trim();
+            var coma = superParams? ',':'';
+            str = str.substring(0, sp)+  'ClassManager['+id+'].'+name+'.call(this'+coma+str.substring(bp+1);
+        }
+        return Function(params, str);
+    },
     getNewID : function(){
         return this.id++;
     },
@@ -1635,8 +1465,14 @@ var ClassManager = {
         return this.instanceId++;
     }
 };
+ClassManager.compileSuper.ClassManager = ClassManager;
 (function () {
     var fnTest = /\b_super\b/;
+    var config = cc.game.config;
+    var releaseMode = config[cc.game.CONFIG_KEY.classReleaseMode];
+    if(releaseMode) {
+        console.log("release Mode");
+    }
     cc.Class = function () {
     };
     cc.Class.extend = function (props) {
@@ -1665,7 +1501,10 @@ var ClassManager = {
                 var isFunc = (typeof prop[name] === "function");
                 var override = (typeof _super[name] === "function");
                 var hasSuperCall = fnTest.test(prop[name]);
-                if (isFunc && override && hasSuperCall) {
+                if (releaseMode && isFunc && override && hasSuperCall) {
+                    desc.value = ClassManager.compileSuper(prop[name], name, classId);
+                    Object.defineProperty(prototype, name, desc);
+                } else if (isFunc && override && hasSuperCall) {
                     desc.value = (function (name, fn) {
                         return function () {
                             var tmp = this._super;
@@ -1914,10 +1753,8 @@ cc.PlistParser = cc.SAXParser.extend({
     parse : function (xmlTxt) {
         var xmlDoc = this._parseXML(xmlTxt);
         var plist = xmlDoc.documentElement;
-        if (plist.tagName !== 'plist') {
-            cc.warn("Not a plist file!");
-            return {};
-        }
+        if (plist.tagName !== 'plist')
+            throw new Error("Not a plist file!");
         var node = null;
         for (var i = 0, len = plist.childNodes.length; i < len; i++) {
             node = plist.childNodes[i];
@@ -1977,8 +1814,6 @@ cc.PlistParser = cc.SAXParser.extend({
         return data;
     }
 });
-cc.saxParser = new cc.SAXParser();
-cc.plistParser = new cc.PlistParser();
 cc._txtLoader = {
     load : function(realUrl, url, res, cb){
         cc.loader.loadTxt(realUrl, cb);
@@ -2038,7 +1873,7 @@ cc._fontLoader = {
         ".svg" : "svg"
     },
     _loadFont : function(name, srcs, type){
-        var doc = document, path = cc.path, TYPE = this.TYPE, fontStyle = document.createElement("style");
+        var doc = document, path = cc.path, TYPE = this.TYPE, fontStyle = cc.newElement("style");
         fontStyle.type = "text/css";
         doc.body.appendChild(fontStyle);
         var fontStr = "";
@@ -2058,7 +1893,7 @@ cc._fontLoader = {
             fontStr += "url('" + srcs + "') format('" + TYPE[type] + "');";
         }
         fontStyle.textContent += fontStr + "}";
-        var preloadDiv = document.createElement("div");
+        var preloadDiv = cc.newElement("div");
         var _divStyle =  preloadDiv.style;
         _divStyle.fontFamily = name;
         preloadDiv.innerHTML = ".";
@@ -2077,15 +1912,7 @@ cc._fontLoader = {
         }else{
             self._loadFont(name, srcs);
         }
-        if(document.fonts){
-            document.fonts.load("1em " + name).then(function(){
-                cb(null, true);
-            }, function(err){
-                cb(err);
-            });
-        }else{
-            cb(null, true);
-        }
+        cb(null, true);
     }
 };
 cc.loader.register(["font", "eot", "ttf", "woff", "svg", "ttc"], cc._fontLoader);
@@ -2100,7 +1927,7 @@ cc._csbLoader = {
     }
 };
 cc.loader.register(["csb"], cc._csbLoader);
-window["CocosEngine"] = cc.ENGINE_VERSION = "Cocos2d-JS v3.9";
+window["CocosEngine"] = cc.ENGINE_VERSION = "Cocos2d-JS v3.8";
 cc.FIX_ARTIFACTS_BY_STRECHING_TEXEL = 0;
 cc.DIRECTOR_STATS_POSITION = cc.p(0, 0);
 cc.DIRECTOR_FPS_INTERVAL = 0.5;
@@ -2354,16 +2181,10 @@ cc.LINEAR	= 0x2601;
 cc.REPEAT	= 0x2901;
 cc.CLAMP_TO_EDGE	= 0x812f;
 cc.MIRRORED_REPEAT   = 0x8370;
-cc.BLEND_SRC = cc.SRC_ALPHA;
-cc.game.addEventListener(cc.game.EVENT_RENDERER_INITED, function () {
-    if (cc._renderType === cc.game.RENDER_TYPE_WEBGL
-         && cc.OPTIMIZE_BLEND_FUNC_FOR_PREMULTIPLIED_ALPHA) {
-        cc.BLEND_SRC = cc.ONE;
-    }
-});
+cc.BLEND_SRC = (cc._renderType === cc._RENDER_TYPE_WEBGL && cc.OPTIMIZE_BLEND_FUNC_FOR_PREMULTIPLIED_ALPHA) ? cc.ONE : cc.SRC_ALPHA;
 cc.BLEND_DST = 0x0303;
 cc.checkGLErrorDebug = function () {
-    if (cc.renderMode === cc.game.RENDER_TYPE_WEBGL) {
+    if (cc.renderMode === cc._RENDER_TYPE_WEBGL) {
         var _error = cc._renderContext.getError();
         if (_error) {
             cc.log(cc._LogInfos.checkGLErrorDebug, _error);
@@ -2524,10 +2345,7 @@ cc._tmp.PrototypeColor = function () {
 };
 var cc = cc || {};
 cc._tmp = cc._tmp || {};
-cc.game.addEventListener(cc.game.EVENT_RENDERER_INITED, function () {
-    if (cc._renderType !== cc.game.RENDER_TYPE_WEBGL) {
-        return;
-    }
+cc._tmp.WebGLColor = function () {
     cc.color = function (r, g, b, a, arrayBuffer, offset) {
         if (r === undefined)
             return new cc.Color(0, 0, 0, 255, arrayBuffer, offset);
@@ -2588,9 +2406,6 @@ cc.game.addEventListener(cc.game.EVENT_RENDERER_INITED, function () {
     cc.defineGetterSetter(_p, "b", _p._getB, _p._setB);
     _p.a;
     cc.defineGetterSetter(_p, "a", _p._getA, _p._setA);
-    cc.assert(cc.isFunction(cc._tmp.PrototypeColor), cc._LogInfos.MissingFile, "CCTypesPropertyDefine.js");
-    cc._tmp.PrototypeColor();
-    delete cc._tmp.PrototypeColor;
     cc.Vertex2F = function (x, y, arrayBuffer, offset) {
         this._arrayBuffer = arrayBuffer || new ArrayBuffer(cc.Vertex2F.BYTES_PER_ELEMENT);
         this._offset = offset || 0;
@@ -2962,7 +2777,7 @@ cc.game.addEventListener(cc.game.EVENT_RENDERER_INITED, function () {
     cc.defineGetterSetter(_p, "b", _p._getB, _p._setB);
     _p.c;
     cc.defineGetterSetter(_p, "c", _p._getC, _p._setC);
-});
+};
 cc.Color = function (r, g, b, a) {
     this.r = r || 0;
     this.g = g || 0;
@@ -3129,13 +2944,14 @@ cc.FontDefinition.prototype._getCanvasFontStr = function(){
     var lineHeight = !this.lineHeight.charAt ? this.lineHeight+"px" : this.lineHeight;
     return this.fontStyle + " " + this.fontWeight + " " + this.fontSize + "px/"+lineHeight+" '" + this.fontName + "'";
 };
-cc.game.addEventListener(cc.game.EVENT_RENDERER_INITED, function () {
-    if (cc._renderType === cc.game.RENDER_TYPE_CANVAS) {
-        cc.assert(cc.isFunction(cc._tmp.PrototypeColor), cc._LogInfos.MissingFile, "CCTypesPropertyDefine.js");
-        cc._tmp.PrototypeColor();
-        delete cc._tmp.PrototypeColor;
-    }
-});
+if (cc._renderType === cc._RENDER_TYPE_WEBGL) {
+    cc.assert(cc.isFunction(cc._tmp.WebGLColor), cc._LogInfos.MissingFile, "CCTypesWebGL.js");
+    cc._tmp.WebGLColor();
+    delete cc._tmp.WebGLColor;
+}
+cc.assert(cc.isFunction(cc._tmp.PrototypeColor), cc._LogInfos.MissingFile, "CCTypesPropertyDefine.js");
+cc._tmp.PrototypeColor();
+delete cc._tmp.PrototypeColor;
 cc.Touches = [];
 cc.TouchesIntergerDict = {};
 cc.DENSITYDPI_DEVICE = "device-dpi";
@@ -3297,8 +3113,8 @@ cc.EGLView = cc.Class.extend({
         if (enabled) {
             if (!this.__resizeWithBrowserSize) {
                 this.__resizeWithBrowserSize = true;
-                window.addEventListener('resize', this._resizeEvent);
-                window.addEventListener('orientationchange', this._resizeEvent);
+                cc._addEventListener(window, 'resize', this._resizeEvent);
+                cc._addEventListener(window, 'orientationchange', this._resizeEvent);
             }
         } else {
             if (this.__resizeWithBrowserSize) {
@@ -3326,17 +3142,17 @@ cc.EGLView = cc.Class.extend({
     },
     _setViewportMeta: function (metas, overwrite) {
         var vp = document.getElementById("cocosMetaElement");
-        if(vp && overwrite){
+        if(vp){
             document.head.removeChild(vp);
         }
         var elems = document.getElementsByName("viewport"),
             currentVP = elems ? elems[0] : null,
             content, key, pattern;
-        content = currentVP ? currentVP.content : "";
-        vp = vp || document.createElement("meta");
+        vp = cc.newElement("meta");
         vp.id = "cocosMetaElement";
         vp.name = "viewport";
         vp.content = "";
+        content = currentVP ? currentVP.content : "";
         for (key in metas) {
             if (content.indexOf(key) == -1) {
                 content += "," + key + "=" + metas[key];
@@ -3407,9 +3223,6 @@ cc.EGLView = cc.Class.extend({
     getContentTranslateLeftTop: function () {
         return this._contentTranslateLeftTop;
     },
-    getCanvasSize: function () {
-        return cc.size(cc._canvas.width, cc._canvas.height);
-    },
     getFrameSize: function () {
         return cc.size(this._frameSize.width, this._frameSize.height);
     },
@@ -3426,16 +3239,8 @@ cc.EGLView = cc.Class.extend({
     getVisibleSize: function () {
         return cc.size(this._visibleRect.width,this._visibleRect.height);
     },
-    getVisibleSizeInPixel: function () {
-        return cc.size( this._visibleRect.width * this._scaleX,
-                        this._visibleRect.height * this._scaleY );
-    },
     getVisibleOrigin: function () {
         return cc.p(this._visibleRect.x,this._visibleRect.y);
-    },
-    getVisibleOriginInPixel: function () {
-        return cc.p(this._visibleRect.x * this._scaleX,
-                    this._visibleRect.y * this._scaleY);
     },
     canSetContentScaleFactor: function () {
         return true;
@@ -3504,7 +3309,8 @@ cc.EGLView = cc.Class.extend({
         policy.postApply(this);
         cc.winSize.width = director._winSizeInPoints.width;
         cc.winSize.height = director._winSizeInPoints.height;
-        if (cc._renderType === cc.game.RENDER_TYPE_WEBGL) {
+        if (cc._renderType === cc._RENDER_TYPE_WEBGL) {
+            director._createStatsLabel();
             director.setGLDefaultValues();
         }
         this._originalScaleX = this._scaleX;
@@ -3517,8 +3323,9 @@ cc.EGLView = cc.Class.extend({
         return cc.size(this._designResolutionSize.width, this._designResolutionSize.height);
     },
     setRealPixelResolution: function (width, height, resolutionPolicy) {
-        this._setViewportMeta({"width": width, "target-densitydpi": cc.DENSITYDPI_DEVICE, "user-scalable": "no"}, true);
+        this._setViewportMeta({"width": width, "user-scalable": "no"}, true);
         document.body.style.width = width + "px";
+        document.body.style.height = "100%";
         document.body.style.left = "0px";
         document.body.style.top = "0px";
         this.setDesignResolutionSize(width, height, resolutionPolicy);
@@ -3655,7 +3462,7 @@ cc.ContentStrategy = cc.Class.extend({
         var viewport = cc.rect(Math.round((containerW - contentW) / 2),
                                Math.round((containerH - contentH) / 2),
                                contentW, contentH);
-        if (cc._renderType === cc.game.RENDER_TYPE_CANVAS){
+        if (cc._renderType === cc._RENDER_TYPE_CANVAS){
         }
         this._result.scale = [scaleX, scaleY];
         this._result.viewport = viewport;
@@ -3887,7 +3694,7 @@ cc.screen = {
                 document.removeEventListener(eventName, this._preOnFullScreenChange);
             }
             this._preOnFullScreenChange = onFullScreenChange;
-            document.addEventListener(eventName, onFullScreenChange, false);
+            cc._addEventListener(document, eventName, onFullScreenChange, false);
         }
         return element[this._fn.requestFullscreen]();
     },
@@ -3903,7 +3710,7 @@ cc.screen = {
             touchTarget.removeEventListener(theScreen._touchEvent, callback);
         }
         this.requestFullScreen(element, onFullScreenChange);
-        touchTarget.addEventListener(this._touchEvent, callback);
+        cc._addEventListener(touchTarget, this._touchEvent, callback);
     }
 };
 cc.screen.init();
@@ -4198,10 +4005,10 @@ cc.inputManager = {
         if( cc.sys.isMobile)
             prohibition = true;
         if (supportMouse) {
-            window.addEventListener('mousedown', function () {
+            cc._addEventListener(window, 'mousedown', function () {
                 selfPointer._mousePressed = true;
             }, false);
-            window.addEventListener('mouseup', function (event) {
+            cc._addEventListener(window, 'mouseup', function (event) {
                 if(prohibition) return;
                 var savePressed = selfPointer._mousePressed;
                 selfPointer._mousePressed = false;
@@ -4216,7 +4023,7 @@ cc.inputManager = {
                     cc.eventManager.dispatchEvent(mouseEvent);
                 }
             }, false);
-            element.addEventListener("mousedown", function (event) {
+            cc._addEventListener(element,"mousedown", function (event) {
                 if(prohibition) return;
                 selfPointer._mousePressed = true;
                 var pos = selfPointer.getHTMLElementPosition(element);
@@ -4229,7 +4036,7 @@ cc.inputManager = {
                 event.preventDefault();
                 element.focus();
             }, false);
-            element.addEventListener("mouseup", function (event) {
+            cc._addEventListener(element, "mouseup", function (event) {
                 if(prohibition) return;
                 selfPointer._mousePressed = false;
                 var pos = selfPointer.getHTMLElementPosition(element);
@@ -4241,7 +4048,7 @@ cc.inputManager = {
                 event.stopPropagation();
                 event.preventDefault();
             }, false);
-            element.addEventListener("mousemove", function (event) {
+            cc._addEventListener(element, "mousemove", function (event) {
                 if(prohibition) return;
                 var pos = selfPointer.getHTMLElementPosition(element);
                 var location = selfPointer.getPointByEvent(event, pos);
@@ -4255,7 +4062,7 @@ cc.inputManager = {
                 event.stopPropagation();
                 event.preventDefault();
             }, false);
-            element.addEventListener("mousewheel", function (event) {
+            cc._addEventListener(element, "mousewheel", function (event) {
                 var pos = selfPointer.getHTMLElementPosition(element);
                 var location = selfPointer.getPointByEvent(event, pos);
                 var mouseEvent = selfPointer.getMouseEvent(location,pos,cc.EventMouse.SCROLL);
@@ -4265,7 +4072,7 @@ cc.inputManager = {
                 event.stopPropagation();
                 event.preventDefault();
             }, false);
-            element.addEventListener("DOMMouseScroll", function(event) {
+            cc._addEventListener(element, "DOMMouseScroll", function(event) {
                 var pos = selfPointer.getHTMLElementPosition(element);
                 var location = selfPointer.getPointByEvent(event, pos);
                 var mouseEvent = selfPointer.getMouseEvent(location,pos,cc.EventMouse.SCROLL);
@@ -4285,7 +4092,7 @@ cc.inputManager = {
             };
             for(var eventName in _pointerEventsMap){
                 (function(_pointerEvent, _touchEvent){
-                    element.addEventListener(_pointerEvent, function (event){
+                    cc._addEventListener(element, _pointerEvent, function (event){
                         var pos = selfPointer.getHTMLElementPosition(element);
                         pos.left -= document.documentElement.scrollLeft;
                         pos.top -= document.documentElement.scrollTop;
@@ -4296,7 +4103,7 @@ cc.inputManager = {
             }
         }
         if(supportTouches) {
-            element.addEventListener("touchstart", function (event) {
+            cc._addEventListener(element,"touchstart", function (event) {
                 if (!event.changedTouches) return;
                 var pos = selfPointer.getHTMLElementPosition(element);
                 pos.left -= document.body.scrollLeft;
@@ -4306,7 +4113,7 @@ cc.inputManager = {
                 event.preventDefault();
                 element.focus();
             }, false);
-            element.addEventListener("touchmove", function (event) {
+            cc._addEventListener(element, "touchmove", function (event) {
                 if (!event.changedTouches) return;
                 var pos = selfPointer.getHTMLElementPosition(element);
                 pos.left -= document.body.scrollLeft;
@@ -4315,7 +4122,7 @@ cc.inputManager = {
                 event.stopPropagation();
                 event.preventDefault();
             }, false);
-            element.addEventListener("touchend", function (event) {
+            cc._addEventListener(element, "touchend", function (event) {
                 if (!event.changedTouches) return;
                 var pos = selfPointer.getHTMLElementPosition(element);
                 pos.left -= document.body.scrollLeft;
@@ -4324,7 +4131,7 @@ cc.inputManager = {
                 event.stopPropagation();
                 event.preventDefault();
             }, false);
-            element.addEventListener("touchcancel", function (event) {
+            cc._addEventListener(element, "touchcancel", function (event) {
                 if (!event.changedTouches) return;
                 var pos = selfPointer.getHTMLElementPosition(element);
                 pos.left -= document.body.scrollLeft;
@@ -5819,6 +5626,79 @@ cc.eventManager = {
         this.dispatchEvent(ev);
     }
 };
+cc.EventHelper = function(){};
+cc.EventHelper.prototype = {
+    constructor: cc.EventHelper,
+    apply: function ( object ) {
+        object.addEventListener = cc.EventHelper.prototype.addEventListener;
+        object.hasEventListener = cc.EventHelper.prototype.hasEventListener;
+        object.removeEventListener = cc.EventHelper.prototype.removeEventListener;
+        object.dispatchEvent = cc.EventHelper.prototype.dispatchEvent;
+    },
+    addEventListener: function ( type, listener, target ) {
+        if(type === "load" && this._textureLoaded){
+            setTimeout(function(){
+                listener.call(target);
+            }, 0);
+            return;
+        }
+        if ( this._listeners === undefined )
+            this._listeners = {};
+        var listeners = this._listeners;
+        if ( listeners[ type ] === undefined )
+            listeners[ type ] = [];
+        if ( !this.hasEventListener(type, listener, target))
+            listeners[ type ].push( {callback:listener, eventTarget: target} );
+    },
+    hasEventListener: function ( type, listener, target ) {
+        if ( this._listeners === undefined )
+            return false;
+        var listeners = this._listeners;
+        if ( listeners[ type ] !== undefined ) {
+            for(var i = 0, len = listeners.length; i < len ; i++){
+                var selListener = listeners[i];
+                if(selListener.callback === listener && selListener.eventTarget === target)
+                    return true;
+            }
+        }
+        return false;
+    },
+    removeEventListener: function( type, target){
+        if ( this._listeners === undefined )
+            return;
+        var listeners = this._listeners;
+        var listenerArray = listeners[ type ];
+        if ( listenerArray !== undefined ) {
+            for(var i = 0; i < listenerArray.length ; ){
+                var selListener = listenerArray[i];
+                if(selListener.eventTarget === target)
+                    listenerArray.splice( i, 1 );
+                else
+                    i++
+            }
+        }
+    },
+    dispatchEvent: function ( event, clearAfterDispatch ) {
+        if ( this._listeners === undefined )
+            return;
+        if(clearAfterDispatch == null)
+            clearAfterDispatch = true;
+        var listeners = this._listeners;
+        var listenerArray = listeners[ event];
+        if ( listenerArray !== undefined ) {
+            var array = [];
+            var length = listenerArray.length;
+            for ( var i = 0; i < length; i ++ ) {
+                array[ i ] = listenerArray[ i ];
+            }
+            for ( i = 0; i < length; i ++ ) {
+                array[ i ].callback.call( array[i].eventTarget, this );
+            }
+            if(clearAfterDispatch)
+                listenerArray.length = 0;
+        }
+    }
+};
 cc._tmp.PrototypeCCNode = function () {
     var _p = cc.Node.prototype;
     cc.defineGetterSetter(_p, "x", _p.getPositionX, _p.setPositionX);
@@ -6860,7 +6740,7 @@ cc.Node = cc.Class.extend({
         this._renderCmd = cc.renderer.getRenderCmd(this);
     },
     _createRenderCmd: function(){
-        if(cc._renderType === cc.game.RENDER_TYPE_CANVAS)
+        if(cc._renderType === cc._RENDER_TYPE_CANVAS)
             return new cc.Node.CanvasRenderCmd(this);
         else
             return new cc.Node.WebGLRenderCmd(this);
@@ -7123,17 +7003,56 @@ cc.Node.RenderCmd.prototype = {
             this.transform(this.getParentRenderCmd(), true);
             this._dirtyFlag = this._dirtyFlag & cc.Node._dirtyFlags.transformDirty ^ this._dirtyFlag;
         }
-    },
-    getNodeToParentTransform: function () {
-        var node = this._node;
+    }
+};
+(function() {
+    cc.Node.CanvasRenderCmd = function (renderable) {
+        cc.Node.RenderCmd.call(this, renderable);
+        this._cachedParent = null;
+        this._cacheDirty = false;
+    };
+    var proto = cc.Node.CanvasRenderCmd.prototype = Object.create(cc.Node.RenderCmd.prototype);
+    proto.constructor = cc.Node.CanvasRenderCmd;
+    proto.transform = function (parentCmd, recursive) {
+        var t = this.getNodeToParentTransform(),
+            worldT = this._worldTransform;
+        this._cacheDirty = true;
+        if (parentCmd) {
+            var pt = parentCmd._worldTransform;
+            worldT.a = t.a * pt.a + t.b * pt.c;
+            worldT.b = t.a * pt.b + t.b * pt.d;
+            worldT.c = t.c * pt.a + t.d * pt.c;
+            worldT.d = t.c * pt.b + t.d * pt.d;
+            worldT.tx = pt.a * t.tx + pt.c * t.ty + pt.tx;
+            worldT.ty = pt.d * t.ty + pt.ty + pt.b * t.tx;
+        } else {
+            worldT.a = t.a;
+            worldT.b = t.b;
+            worldT.c = t.c;
+            worldT.d = t.d;
+            worldT.tx = t.tx;
+            worldT.ty = t.ty;
+        }
+        if (recursive) {
+            var locChildren = this._node._children;
+            if (!locChildren || locChildren.length === 0)
+                return;
+            var i, len;
+            for (i = 0, len = locChildren.length; i < len; i++) {
+                locChildren[i]._renderCmd.transform(this, recursive);
+            }
+        }
+    };
+    proto.getNodeToParentTransform = function () {
+        var node = this._node, normalizeDirty = false;
         if (node._usingNormalizedPosition && node._parent) {
             var conSize = node._parent._contentSize;
             node._position.x = node._normalizedPosition.x * conSize.width;
             node._position.y = node._normalizedPosition.y * conSize.height;
             node._normalizedPositionDirty = false;
-            this._dirtyFlag = this._dirtyFlag | cc.Node._dirtyFlags.transformDirty;
+            normalizeDirty = true;
         }
-        if (this._dirtyFlag & cc.Node._dirtyFlags.transformDirty) {
+        if (normalizeDirty || (this._dirtyFlag & cc.Node._dirtyFlags.transformDirty)) {
             var t = this._transform;// quick reference
             t.tx = node._position.x;
             t.ty = node._position.y;
@@ -7189,31 +7108,16 @@ cc.Node.RenderCmd.prototype = {
                 this._transform = cc.affineTransformConcat(t, node._additionalTransform);
         }
         return this._transform;
-    },
-    _syncStatus: function (parentCmd) {
-        var flags = cc.Node._dirtyFlags, locFlag = this._dirtyFlag;
-        var parentNode = parentCmd ? parentCmd._node : null;
-        if(parentNode && parentNode._cascadeColorEnabled && (parentCmd._dirtyFlag & flags.colorDirty))
-            locFlag |= flags.colorDirty;
-        if(parentNode && parentNode._cascadeOpacityEnabled && (parentCmd._dirtyFlag & flags.opacityDirty))
-            locFlag |= flags.opacityDirty;
-        if(parentCmd && (parentCmd._dirtyFlag & flags.transformDirty))
-            locFlag |= flags.transformDirty;
-        var colorDirty = locFlag & flags.colorDirty,
-            opacityDirty = locFlag & flags.opacityDirty;
-        this._dirtyFlag = locFlag;
-        if (colorDirty)
-            this._syncDisplayColor();
-        if (opacityDirty)
-            this._syncDisplayOpacity();
-        if(colorDirty)
-            this._updateColor();
-        if (cc._renderType === cc.game.RENDER_TYPE_WEBGL || locFlag & flags.transformDirty)
-            this.transform(parentCmd);
-    },
-    visitChildren: function(){
+    };
+    proto.visit = function (parentCmd) {
         var node = this._node;
+        if (!node._visible)
+            return;
+        parentCmd = parentCmd || this.getParentRenderCmd();
+        if (parentCmd)
+            this._curLevel = parentCmd._curLevel + 1;
         var i, children = node._children, child;
+        this._syncStatus(parentCmd);
         var len = children.length;
         if (len > 0) {
             node.sortAllChildren();
@@ -7231,55 +7135,29 @@ cc.Node.RenderCmd.prototype = {
             cc.renderer.pushRenderCommand(this);
         }
         this._dirtyFlag = 0;
-    }
-};
-(function() {
-    cc.Node.CanvasRenderCmd = function (renderable) {
-        cc.Node.RenderCmd.call(this, renderable);
-        this._cachedParent = null;
-        this._cacheDirty = false;
     };
-    var proto = cc.Node.CanvasRenderCmd.prototype = Object.create(cc.Node.RenderCmd.prototype);
-    proto.constructor = cc.Node.CanvasRenderCmd;
-    proto.transform = function (parentCmd, recursive) {
-        var t = this.getNodeToParentTransform(),
-            worldT = this._worldTransform;
-        this._cacheDirty = true;
-        if (parentCmd) {
-            var pt = parentCmd._worldTransform;
-            worldT.a = t.a * pt.a + t.b * pt.c;
-            worldT.b = t.a * pt.b + t.b * pt.d;
-            worldT.c = t.c * pt.a + t.d * pt.c;
-            worldT.d = t.c * pt.b + t.d * pt.d;
-            worldT.tx = pt.a * t.tx + pt.c * t.ty + pt.tx;
-            worldT.ty = pt.d * t.ty + pt.ty + pt.b * t.tx;
-        } else {
-            worldT.a = t.a;
-            worldT.b = t.b;
-            worldT.c = t.c;
-            worldT.d = t.d;
-            worldT.tx = t.tx;
-            worldT.ty = t.ty;
+    proto._syncStatus = function (parentCmd) {
+        var flags = cc.Node._dirtyFlags, locFlag = this._dirtyFlag;
+        var parentNode = parentCmd ? parentCmd._node : null;
+        if(parentNode && parentNode._cascadeColorEnabled && (parentCmd._dirtyFlag & flags.colorDirty))
+            locFlag |= flags.colorDirty;
+        if(parentNode && parentNode._cascadeOpacityEnabled && (parentCmd._dirtyFlag & flags.opacityDirty))
+            locFlag |= flags.opacityDirty;
+        if(parentCmd && (parentCmd._dirtyFlag & flags.transformDirty))
+            locFlag |= flags.transformDirty;
+        var colorDirty = locFlag & flags.colorDirty,
+            opacityDirty = locFlag & flags.opacityDirty,
+            transformDirty = locFlag & flags.transformDirty;
+        this._dirtyFlag = locFlag;
+        if (colorDirty)
+            this._syncDisplayColor();
+        if (opacityDirty)
+            this._syncDisplayOpacity();
+        if(colorDirty)
+            this._updateColor();
+        if (transformDirty){
+            this.transform(parentCmd);
         }
-        if (recursive) {
-            var locChildren = this._node._children;
-            if (!locChildren || locChildren.length === 0)
-                return;
-            var i, len;
-            for (i = 0, len = locChildren.length; i < len; i++) {
-                locChildren[i]._renderCmd.transform(this, recursive);
-            }
-        }
-    };
-    proto.visit = function (parentCmd) {
-        var node = this._node;
-        if (!node._visible)
-            return;
-        parentCmd = parentCmd || this.getParentRenderCmd();
-        if (parentCmd)
-            this._curLevel = parentCmd._curLevel + 1;
-        this._syncStatus(parentCmd);
-        this.visitChildren();
     };
     proto.setDirtyFlag = function (dirtyFlag, child) {
         cc.Node.RenderCmd.prototype.setDirtyFlag.call(this, dirtyFlag, child);
@@ -7615,7 +7493,7 @@ cc._tmp.WebGLTexture2D = function () {
         handleLoadedTexture: function (premultiplied) {
             premultiplied = (premultiplied === undefined) ? false : premultiplied;
             var self = this;
-            if (!cc.game._rendererInitialized)
+            if (!cc._rendererInitialized)
                 return;
             if (!self._htmlElementObj) {
                 var img = cc.loader.getRes(self.url);
@@ -7850,7 +7728,7 @@ cc._tmp.WebGLTextureCache = function () {
     var _p = cc.textureCache;
     _p.handleLoadedTexture = function (url) {
         var locTexs = this._textures, tex, ext;
-        if (!cc.game._rendererInitialized) {
+        if (!cc._rendererInitialized) {
             locTexs = this._loadedTexturesBefore;
         }
         tex = locTexs[url];
@@ -7869,10 +7747,10 @@ cc._tmp.WebGLTextureCache = function () {
     _p.addImage = function (url, cb, target) {
         cc.assert(url, cc._LogInfos.Texture2D_addImage_2);
         var locTexs = this._textures;
-        if (!cc.game._rendererInitialized) {
+        if (!cc._rendererInitialized) {
             locTexs = this._loadedTexturesBefore;
         }
-        var tex = locTexs[url] || locTexs[cc.loader._getAliase(url)];
+        var tex = locTexs[url] || locTexs[cc.loader._aliases[url]];
         if (tex) {
             if(tex.isLoaded()) {
                 cb && cb.call(target, tex);
@@ -7911,344 +7789,208 @@ cc.ALIGN_BOTTOM_LEFT = 0x21;
 cc.ALIGN_LEFT = 0x31;
 cc.ALIGN_TOP_LEFT = 0x11;
 cc.PVRHaveAlphaPremultiplied_ = false;
-cc.game.addEventListener(cc.game.EVENT_RENDERER_INITED, function () {
-    if(cc._renderType === cc.game.RENDER_TYPE_CANVAS) {
-        var proto = {
-            _contentSize: null,
-            _textureLoaded: false,
-            _htmlElementObj: null,
-            url: null,
-            _pattern: null,
-            ctor: function () {
-                this._contentSize = cc.size(0, 0);
-                this._textureLoaded = false;
-                this._htmlElementObj = null;
-                this._pattern = "";
-            },
-            getPixelsWide: function () {
-                return this._contentSize.width;
-            },
-            getPixelsHigh: function () {
-                return this._contentSize.height;
-            },
-            getContentSize: function () {
-                var locScaleFactor = cc.contentScaleFactor();
-                return cc.size(this._contentSize.width / locScaleFactor, this._contentSize.height / locScaleFactor);
-            },
-            _getWidth: function () {
-                return this._contentSize.width / cc.contentScaleFactor();
-            },
-            _getHeight: function () {
-                return this._contentSize.height / cc.contentScaleFactor();
-            },
-            getContentSizeInPixels: function () {
-                return this._contentSize;
-            },
-            initWithElement: function (element) {
-                if (!element)
-                    return;
-                this._htmlElementObj = element;
-                this._contentSize.width = element.width;
-                this._contentSize.height = element.height;
-                this._textureLoaded = true;
-            },
-            getHtmlElementObj: function () {
-                return this._htmlElementObj;
-            },
-            isLoaded: function () {
-                return this._textureLoaded;
-            },
-            handleLoadedTexture: function () {
-                var self = this;
-                if (self._textureLoaded) return;
-                if (!self._htmlElementObj) {
-                    var img = cc.loader.getRes(self.url);
-                    if (!img) return;
-                    self.initWithElement(img);
-                }
-                var locElement = self._htmlElementObj;
-                self._contentSize.width = locElement.width;
-                self._contentSize.height = locElement.height;
-                self.dispatchEvent("load");
-            },
-            description: function () {
-                return "<cc.Texture2D | width = " + this._contentSize.width + " height " + this._contentSize.height + ">";
-            },
-            initWithData: function (data, pixelFormat, pixelsWide, pixelsHigh, contentSize) {
-                return false;
-            },
-            initWithImage: function (uiImage) {
-                return false;
-            },
-            initWithString: function (text, fontName, fontSize, dimensions, hAlignment, vAlignment) {
-                return false;
-            },
-            releaseTexture: function () {
-                cc.loader.release(this.url);
-            },
-            getName: function () {
-                return null;
-            },
-            getMaxS: function () {
-                return 1;
-            },
-            setMaxS: function (maxS) {
-            },
-            getMaxT: function () {
-                return 1;
-            },
-            setMaxT: function (maxT) {
-            },
-            getPixelFormat: function () {
-                return null;
-            },
-            getShaderProgram: function () {
-                return null;
-            },
-            setShaderProgram: function (shaderProgram) {
-            },
-            hasPremultipliedAlpha: function () {
-                return false;
-            },
-            hasMipmaps: function () {
-                return false;
-            },
-            releaseData: function (data) {
-                data = null;
-            },
-            keepData: function (data, length) {
-                return data;
-            },
-            drawAtPoint: function (point) {
-            },
-            drawInRect: function (rect) {
-            },
-            initWithETCFile: function (file) {
-                cc.log(cc._LogInfos.Texture2D_initWithETCFile);
-                return false;
-            },
-            initWithPVRFile: function (file) {
-                cc.log(cc._LogInfos.Texture2D_initWithPVRFile);
-                return false;
-            },
-            initWithPVRTCData: function (data, level, bpp, hasAlpha, length, pixelFormat) {
-                cc.log(cc._LogInfos.Texture2D_initWithPVRTCData);
-                return false;
-            },
-            setTexParameters: function (texParams, magFilter, wrapS, wrapT) {
-                if(magFilter !== undefined)
-                    texParams = {minFilter: texParams, magFilter: magFilter, wrapS: wrapS, wrapT: wrapT};
-                if(texParams.wrapS === cc.REPEAT && texParams.wrapT === cc.REPEAT){
-                    this._pattern = "repeat";
-                    return;
-                }
-                if(texParams.wrapS === cc.REPEAT ){
-                    this._pattern = "repeat-x";
-                    return;
-                }
-                if(texParams.wrapT === cc.REPEAT){
-                    this._pattern = "repeat-y";
-                    return;
-                }
-                this._pattern = "";
-            },
-            setAntiAliasTexParameters: function () {
-            },
-            setAliasTexParameters: function () {
-            },
-            generateMipmap: function () {
-            },
-            stringForFormat: function () {
-                return "";
-            },
-            bitsPerPixelForFormat: function (format) {
-                return -1;
-            },
-            addLoadedEventListener: function (callback, target) {
-                this.addEventListener("load", callback, target);
-            },
-            removeLoadedEventListener: function (target) {
-                this.removeEventListener("load", target);
-            },
-            _generateColorTexture: function(){},
-            _generateTextureCacheForColor: function(){
-                if (this.channelCache)
-                    return this.channelCache;
-                var textureCache = [
-                    document.createElement("canvas"),
-                    document.createElement("canvas"),
-                    document.createElement("canvas"),
-                    document.createElement("canvas")
-                ];
-                renderToCache(this._htmlElementObj, textureCache);
-                return this.channelCache = textureCache;
-            },
-            _grayElementObj: null,
-            _backupElement: null,
-            _isGray: false,
-            _switchToGray: function(toGray){
-                if(!this._textureLoaded || this._isGray === toGray)
-                    return;
-                this._isGray = toGray;
-                if(this._isGray){
-                    this._backupElement = this._htmlElementObj;
-                    if(!this._grayElementObj)
-                        this._grayElementObj = cc.Texture2D._generateGrayTexture(this._htmlElementObj);
-                    this._htmlElementObj = this._grayElementObj;
-                } else {
-                    if(this._backupElement !== null)
-                        this._htmlElementObj = this._backupElement;
-                }
+if (cc._renderType === cc._RENDER_TYPE_CANVAS) {
+    cc.Texture2D = cc.Class.extend({
+        _contentSize: null,
+        _textureLoaded: false,
+        _htmlElementObj: null,
+        url: null,
+        _pattern: null,
+        ctor: function () {
+            this._contentSize = cc.size(0, 0);
+            this._textureLoaded = false;
+            this._htmlElementObj = null;
+            this._pattern = "";
+        },
+        getPixelsWide: function () {
+            return this._contentSize.width;
+        },
+        getPixelsHigh: function () {
+            return this._contentSize.height;
+        },
+        getContentSize: function () {
+            var locScaleFactor = cc.contentScaleFactor();
+            return cc.size(this._contentSize.width / locScaleFactor, this._contentSize.height / locScaleFactor);
+        },
+        _getWidth: function () {
+            return this._contentSize.width / cc.contentScaleFactor();
+        },
+        _getHeight: function () {
+            return this._contentSize.height / cc.contentScaleFactor();
+        },
+        getContentSizeInPixels: function () {
+            return this._contentSize;
+        },
+        initWithElement: function (element) {
+            if (!element)
+                return;
+            this._htmlElementObj = element;
+            this._contentSize.width = element.width;
+            this._contentSize.height = element.height;
+            this._textureLoaded = true;
+        },
+        getHtmlElementObj: function () {
+            return this._htmlElementObj;
+        },
+        isLoaded: function () {
+            return this._textureLoaded;
+        },
+        handleLoadedTexture: function () {
+            var self = this;
+            if (self._textureLoaded) return;
+            if (!self._htmlElementObj) {
+                var img = cc.loader.getRes(self.url);
+                if (!img) return;
+                self.initWithElement(img);
             }
-        };
-        var renderToCache = function(image, cache){
-            var w = image.width;
-            var h = image.height;
-            cache[0].width = w;
-            cache[0].height = h;
-            cache[1].width = w;
-            cache[1].height = h;
-            cache[2].width = w;
-            cache[2].height = h;
-            cache[3].width = w;
-            cache[3].height = h;
-            var cacheCtx = cache[3].getContext("2d");
-            cacheCtx.drawImage(image, 0, 0);
-            var pixels = cacheCtx.getImageData(0, 0, w, h).data;
-            var ctx;
-            for (var rgbI = 0; rgbI < 4; rgbI++) {
-                ctx = cache[rgbI].getContext("2d");
-                var to = ctx.getImageData(0, 0, w, h);
-                var data = to.data;
-                for (var i = 0; i < pixels.length; i += 4) {
-                    data[i  ] = (rgbI === 0) ? pixels[i  ] : 0;
-                    data[i + 1] = (rgbI === 1) ? pixels[i + 1] : 0;
-                    data[i + 2] = (rgbI === 2) ? pixels[i + 2] : 0;
-                    data[i + 3] = pixels[i + 3];
-                }
-                ctx.putImageData(to, 0, 0);
+            var locElement = self._htmlElementObj;
+            self._contentSize.width = locElement.width;
+            self._contentSize.height = locElement.height;
+            self.dispatchEvent("load");
+        },
+        description: function () {
+            return "<cc.Texture2D | width = " + this._contentSize.width + " height " + this._contentSize.height + ">";
+        },
+        initWithData: function (data, pixelFormat, pixelsWide, pixelsHigh, contentSize) {
+            return false;
+        },
+        initWithImage: function (uiImage) {
+            return false;
+        },
+        initWithString: function (text, fontName, fontSize, dimensions, hAlignment, vAlignment) {
+            return false;
+        },
+        releaseTexture: function () {
+            cc.loader.release(this.url);
+        },
+        getName: function () {
+            return null;
+        },
+        getMaxS: function () {
+            return 1;
+        },
+        setMaxS: function (maxS) {
+        },
+        getMaxT: function () {
+            return 1;
+        },
+        setMaxT: function (maxT) {
+        },
+        getPixelFormat: function () {
+            return null;
+        },
+        getShaderProgram: function () {
+            return null;
+        },
+        setShaderProgram: function (shaderProgram) {
+        },
+        hasPremultipliedAlpha: function () {
+            return false;
+        },
+        hasMipmaps: function () {
+            return false;
+        },
+        releaseData: function (data) {
+            data = null;
+        },
+        keepData: function (data, length) {
+            return data;
+        },
+        drawAtPoint: function (point) {
+        },
+        drawInRect: function (rect) {
+        },
+        initWithETCFile: function (file) {
+            cc.log(cc._LogInfos.Texture2D_initWithETCFile);
+            return false;
+        },
+        initWithPVRFile: function (file) {
+            cc.log(cc._LogInfos.Texture2D_initWithPVRFile);
+            return false;
+        },
+        initWithPVRTCData: function (data, level, bpp, hasAlpha, length, pixelFormat) {
+            cc.log(cc._LogInfos.Texture2D_initWithPVRTCData);
+            return false;
+        },
+        setTexParameters: function (texParams, magFilter, wrapS, wrapT) {
+            if(magFilter !== undefined)
+                texParams = {minFilter: texParams, magFilter: magFilter, wrapS: wrapS, wrapT: wrapT};
+            if(texParams.wrapS === cc.REPEAT && texParams.wrapT === cc.REPEAT){
+                this._pattern = "repeat";
+                return;
             }
-            image.onload = null;
-        };
-        if(cc.sys._supportCanvasNewBlendModes){
-            proto._generateColorTexture = function(r, g, b, rect, canvas){
-                var onlyCanvas = false;
-                if(canvas)
-                    onlyCanvas = true;
-                else
-                    canvas = document.createElement("canvas");
-                var textureImage = this._htmlElementObj;
-                if(!rect)
-                    rect = cc.rect(0, 0, textureImage.width, textureImage.height);
-                canvas.width = rect.width;
-                canvas.height = rect.height;
-                var context = canvas.getContext("2d");
-                context.globalCompositeOperation = "source-over";
-                context.fillStyle = "rgb(" + (r|0) + "," + (g|0) + "," + (b|0) + ")";
-                context.fillRect(0, 0, rect.width, rect.height);
-                context.globalCompositeOperation = "multiply";
-                context.drawImage(
-                    textureImage,
-                    rect.x, rect.y, rect.width, rect.height,
-                    0, 0, rect.width, rect.height
-                );
-                context.globalCompositeOperation = "destination-atop";
-                context.drawImage(
-                    textureImage,
-                    rect.x, rect.y, rect.width, rect.height,
-                    0, 0, rect.width, rect.height
-                );
-                if(onlyCanvas)
-                    return canvas;
-                var newTexture = new cc.Texture2D();
-                newTexture.initWithElement(canvas);
-                newTexture.handleLoadedTexture();
-                return newTexture;
-            };
-        }else{
-            proto._generateColorTexture = function(r, g, b, rect, canvas){
-                var onlyCanvas = false;
-                if(canvas)
-                    onlyCanvas = true;
-                else
-                    canvas = document.createElement("canvas");
-                var textureImage = this._htmlElementObj;
-                if(!rect)
-                    rect = cc.rect(0, 0, textureImage.width, textureImage.height);
-                var x, y, w, h;
-                x = rect.x; y = rect.y; w = rect.width; h = rect.height;
-                if(!w || !h)
-                    return;
-                canvas.width = w;
-                canvas.height = h;
-                var context = canvas.getContext("2d");
-                var tintedImgCache = cc.textureCache.getTextureColors(this);
-                context.globalCompositeOperation = 'lighter';
-                context.drawImage(
-                    tintedImgCache[3],
-                    x, y, w, h,
-                    0, 0, w, h
-                );
-                if (r > 0) {
-                    context.globalAlpha = r / 255;
-                    context.drawImage(
-                        tintedImgCache[0],
-                        x, y, w, h,
-                        0, 0, w, h
-                    );
-                }
-                if (g > 0) {
-                    context.globalAlpha = g / 255;
-                    context.drawImage(
-                        tintedImgCache[1],
-                        x, y, w, h,
-                        0, 0, w, h
-                    );
-                }
-                if (b > 0) {
-                    context.globalAlpha = b / 255;
-                    context.drawImage(
-                        tintedImgCache[2],
-                        x, y, w, h,
-                        0, 0, w, h
-                    );
-                }
-                if(onlyCanvas)
-                    return canvas;
-                var newTexture = new cc.Texture2D();
-                newTexture.initWithElement(canvas);
-                newTexture.handleLoadedTexture();
-                return newTexture;
-            };
+            if(texParams.wrapS === cc.REPEAT ){
+                this._pattern = "repeat-x";
+                return;
+            }
+            if(texParams.wrapT === cc.REPEAT){
+                this._pattern = "repeat-y";
+                return;
+            }
+            this._pattern = "";
+        },
+        setAntiAliasTexParameters: function () {
+        },
+        setAliasTexParameters: function () {
+        },
+        generateMipmap: function () {
+        },
+        stringForFormat: function () {
+            return "";
+        },
+        bitsPerPixelForFormat: function (format) {
+            return -1;
+        },
+        addLoadedEventListener: function (callback, target) {
+            this.addEventListener("load", callback, target);
+        },
+        removeLoadedEventListener: function (target) {
+            this.removeEventListener("load", target);
+        },
+        _grayElementObj: null,
+        _backupElement: null,
+        _isGray: false,
+        _switchToGray: function(toGray){
+            if(!this._textureLoaded || this._isGray === toGray)
+                return;
+            this._isGray = toGray;
+            if(this._isGray){
+                this._backupElement = this._htmlElementObj;
+                if(!this._grayElementObj)
+                     this._grayElementObj = cc.Texture2D._generateGrayTexture(this._htmlElementObj);
+                this._htmlElementObj = this._grayElementObj;
+            } else {
+                if(this._backupElement !== null)
+                    this._htmlElementObj = this._backupElement;
+            }
         }
-        cc.Texture2D = cc.Class.extend(proto);
-        cc.Texture2D._generateGrayTexture = function(texture, rect, renderCanvas){
-            if (texture === null)
-                return null;
-            renderCanvas = renderCanvas || document.createElement("canvas");
-            rect = rect || cc.rect(0, 0, texture.width, texture.height);
-            renderCanvas.width = rect.width;
-            renderCanvas.height = rect.height;
-            var context = renderCanvas.getContext("2d");
-            context.drawImage(texture, rect.x, rect.y, rect.width, rect.height, 0, 0, rect.width, rect.height);
-            var imgData = context.getImageData(0, 0, rect.width, rect.height);
-            var data = imgData.data;
-            for (var i = 0, len = data.length; i < len; i += 4) {
-                data[i] = data[i + 1] = data[i + 2] = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
-            }
-            context.putImageData(imgData, 0, 0);
-            return renderCanvas;
-        };
-    } else if (cc._renderType === cc.game.RENDER_TYPE_WEBGL) {
-        cc.assert(cc.isFunction(cc._tmp.WebGLTexture2D), cc._LogInfos.MissingFile, "TexturesWebGL.js");
-        cc._tmp.WebGLTexture2D();
-        delete cc._tmp.WebGLTexture2D;
-    }
-    cc.EventHelper.prototype.apply(cc.Texture2D.prototype);
-    cc.assert(cc.isFunction(cc._tmp.PrototypeTexture2D), cc._LogInfos.MissingFile, "TexturesPropertyDefine.js");
-    cc._tmp.PrototypeTexture2D();
-    delete cc._tmp.PrototypeTexture2D;
-});
+    });
+    cc.Texture2D._generateGrayTexture = function(texture, rect, renderCanvas){
+        if (texture === null)
+            return null;
+        renderCanvas = renderCanvas || cc.newElement("canvas");
+        rect = rect || cc.rect(0, 0, texture.width, texture.height);
+        renderCanvas.width = rect.width;
+        renderCanvas.height = rect.height;
+        var context = renderCanvas.getContext("2d");
+        context.drawImage(texture, rect.x, rect.y, rect.width, rect.height, 0, 0, rect.width, rect.height);
+        var imgData = context.getImageData(0, 0, rect.width, rect.height);
+        var data = imgData.data;
+        for (var i = 0, len = data.length; i < len; i += 4) {
+            data[i] = data[i + 1] = data[i + 2] = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
+        }
+        context.putImageData(imgData, 0, 0);
+        return renderCanvas;
+    };
+} else {
+    cc.assert(cc.isFunction(cc._tmp.WebGLTexture2D), cc._LogInfos.MissingFile, "TexturesWebGL.js");
+    cc._tmp.WebGLTexture2D();
+    delete cc._tmp.WebGLTexture2D;
+}
+cc.EventHelper.prototype.apply(cc.Texture2D.prototype);
+cc.assert(cc.isFunction(cc._tmp.PrototypeTexture2D), cc._LogInfos.MissingFile, "TexturesPropertyDefine.js");
+cc._tmp.PrototypeTexture2D();
+delete cc._tmp.PrototypeTexture2D;
 cc.textureCache = {
     _textures: {},
     _textureColorsCache: {},
@@ -8278,7 +8020,7 @@ cc.textureCache = {
         return this.getTextureForKey(textureKeyName);
     },
     getTextureForKey: function(textureKeyName){
-        return this._textures[textureKeyName] || this._textures[cc.loader._getAliase(textureKeyName)];
+        return this._textures[textureKeyName] || this._textures[cc.loader._aliases[textureKeyName]];
     },
     getKeyByTexture: function (texture) {
         for (var key in this._textures) {
@@ -8288,20 +8030,20 @@ cc.textureCache = {
         }
         return null;
     },
-    _generalTextureKey: function (id) {
-        return "_textureKey_" + id;
+    _generalTextureKey: function () {
+        this._textureKeySeq++;
+        return "_textureKey_" + this._textureKeySeq;
     },
     getTextureColors: function (texture) {
-        var image = texture._htmlElementObj;
-        var key = this.getKeyByTexture(image);
+        var key = this.getKeyByTexture(texture);
         if (!key) {
-            if (image instanceof HTMLImageElement)
-                key = image.src;
+            if (texture instanceof HTMLImageElement)
+                key = texture.src;
             else
-                key = this._generalTextureKey(texture.__instanceId);
+                key = this._generalTextureKey();
         }
         if (!this._textureColorsCache[key])
-            this._textureColorsCache[key] = texture._generateTextureCacheForColor();
+            this._textureColorsCache[key] = cc.Sprite.CanvasRenderCmd._generateTextureCacheForColor(texture);
         return this._textureColorsCache[key];
     },
     addPVRImage: function (path) {
@@ -8388,55 +8130,53 @@ cc.textureCache = {
         this._loadedTexturesBefore = {};
     }
 };
-cc.game.addEventListener(cc.game.EVENT_RENDERER_INITED, function () {
-    if (cc._renderType === cc.game.RENDER_TYPE_CANVAS) {
-        var _p = cc.textureCache;
-        _p.handleLoadedTexture = function (url) {
-            var locTexs = this._textures;
-            var tex = locTexs[url];
-            if (!tex) {
-                tex = locTexs[url] = new cc.Texture2D();
-                tex.url = url;
-            }
-            tex.handleLoadedTexture();
-        };
-        _p.addImage = function (url, cb, target) {
-            cc.assert(url, cc._LogInfos.Texture2D_addImage);
-            var locTexs = this._textures;
-            var tex = locTexs[url] || locTexs[cc.loader._getAliase(url)];
-            if (tex) {
-                if(tex.isLoaded()) {
-                    cb && cb.call(target, tex);
-                    return tex;
-                }
-                else
-                {
-                    tex.addEventListener("load", function(){
-                        cb && cb.call(target, tex);
-                    }, target);
-                    return tex;
-                }
-            }
+if (cc._renderType === cc._RENDER_TYPE_CANVAS) {
+    var _p = cc.textureCache;
+    _p.handleLoadedTexture = function (url) {
+        var locTexs = this._textures;
+        var tex = locTexs[url];
+        if (!tex) {
             tex = locTexs[url] = new cc.Texture2D();
             tex.url = url;
-            var loadFunc = cc.loader._checkIsImageURL(url) ? cc.loader.load : cc.loader.loadImg;
-            loadFunc.call(cc.loader, url, function (err, img) {
-                if (err)
-                    return cb && cb.call(target, err);
-                cc.textureCache.handleLoadedTexture(url);
-                var texResult = locTexs[url];
-                cb && cb.call(target, texResult);
-            });
-            return tex;
-        };
-        _p.addImageAsync = _p.addImage;
-        _p = null;
-    } else if (cc._renderType === cc.game.RENDER_TYPE_WEBGL) {
-        cc.assert(cc.isFunction(cc._tmp.WebGLTextureCache), cc._LogInfos.MissingFile, "TexturesWebGL.js");
-        cc._tmp.WebGLTextureCache();
-        delete cc._tmp.WebGLTextureCache;
-    }
-});
+        }
+        tex.handleLoadedTexture();
+    };
+    _p.addImage = function (url, cb, target) {
+        cc.assert(url, cc._LogInfos.Texture2D_addImage);
+        var locTexs = this._textures;
+        var tex = locTexs[url] || locTexs[cc.loader._aliases[url]];
+        if (tex) {
+            if(tex.isLoaded()) {
+                cb && cb.call(target, tex);
+                return tex;
+            }
+            else
+            {
+                tex.addEventListener("load", function(){
+                    cb && cb.call(target, tex);
+                }, target);
+                return tex;
+            }
+        }
+        tex = locTexs[url] = new cc.Texture2D();
+        tex.url = url;
+        var loadFunc = cc.loader._checkIsImageURL(url) ? cc.loader.load : cc.loader.loadImg;
+        loadFunc.call(cc.loader, url, function (err, img) {
+            if (err)
+                return cb && cb.call(target, err);
+            cc.textureCache.handleLoadedTexture(url);
+            var texResult = locTexs[url];
+            cb && cb.call(target, texResult);
+        });
+        return tex;
+    };
+    _p.addImageAsync = _p.addImage;
+    _p = null;
+} else {
+    cc.assert(cc.isFunction(cc._tmp.WebGLTextureCache), cc._LogInfos.MissingFile, "TexturesWebGL.js");
+    cc._tmp.WebGLTextureCache();
+    delete cc._tmp.WebGLTextureCache;
+}
 cc.Scene = cc.Node.extend({
     _className:"Scene",
     ctor:function () {
@@ -8518,12 +8258,6 @@ cc.LoaderScene = cc.Scene.extend({
                 if (self.cb)
                     self.cb.call(self.target);
             });
-    },
-    _updateTransform: function(){
-        this._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
-        this._bgLayer._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
-        this._label._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
-        this._logo._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
     }
 });
 cc.LoaderScene.preload = function(resources, cb, target){
@@ -8531,9 +8265,6 @@ cc.LoaderScene.preload = function(resources, cb, target){
     if(!_cc.loaderScene) {
         _cc.loaderScene = new cc.LoaderScene();
         _cc.loaderScene.init();
-        cc.eventManager.addCustomListener(cc.Director.EVENT_PROJECTION_CHANGED, function(){
-            _cc.loaderScene._updateTransform();
-        });
     }
     _cc.loaderScene.initWithResources(resources, cb, target);
     cc.director.runScene(_cc.loaderScene);
@@ -8571,7 +8302,7 @@ cc.Layer = cc.Node.extend({
         this._renderCmd._bakeForAddChild(child);
     },
     _createRenderCmd: function(){
-        if (cc._renderType === cc.game.RENDER_TYPE_CANVAS)
+        if (cc._renderType === cc._RENDER_TYPE_CANVAS)
             return new cc.Layer.CanvasRenderCmd(this);
         else
             return new cc.Layer.WebGLRenderCmd(this);
@@ -8607,7 +8338,7 @@ cc.LayerColor = cc.Layer.extend({
         cc.LayerColor.prototype.init.call(this, color, width, height);
     },
     init: function (color, width, height) {
-        if (cc._renderType !== cc.game.RENDER_TYPE_CANVAS)
+        if (cc._renderType !== cc._RENDER_TYPE_CANVAS)
             this.shaderProgram = cc.shaderCache.programForKey(cc.SHADER_POSITION_COLOR);
         var winSize = cc.director.getWinSize();
         color = color || cc.color(0, 0, 0, 255);
@@ -8646,7 +8377,7 @@ cc.LayerColor = cc.Layer.extend({
         this._renderCmd._updateSquareVertices(size, height);
     },
     _createRenderCmd: function(){
-        if (cc._renderType === cc.game.RENDER_TYPE_CANVAS)
+        if (cc._renderType === cc._RENDER_TYPE_CANVAS)
             return new cc.LayerColor.CanvasRenderCmd(this);
         else
             return new cc.LayerColor.WebGLRenderCmd(this);
@@ -8784,7 +8515,7 @@ cc.LayerGradient = cc.LayerColor.extend({
         this._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.colorDirty|cc.Node._dirtyFlags.opacityDirty|cc.Node._dirtyFlags.gradientDirty);
     },
     _createRenderCmd: function(){
-        if (cc._renderType === cc.game.RENDER_TYPE_CANVAS)
+        if (cc._renderType === cc._RENDER_TYPE_CANVAS)
             return new cc.LayerGradient.CanvasRenderCmd(this);
         else
             return new cc.LayerGradient.WebGLRenderCmd(this);
@@ -9301,7 +9032,7 @@ cc.Sprite = cc.Node.extend({
             this._textureLoaded = false;
             spriteFrame.addEventListener("load", this._renderCmd._spriteFrameLoadedCallback, this);
         }
-        var rotated = cc._renderType === cc.game.RENDER_TYPE_CANVAS ? false : spriteFrame._rotated;
+        var rotated = cc._renderType === cc._RENDER_TYPE_CANVAS ? false : spriteFrame._rotated;
         var ret = this.initWithTexture(spriteFrame.getTexture(), spriteFrame.getRect(), rotated);
         this.setSpriteFrame(spriteFrame);
         return ret;
@@ -9661,37 +9392,63 @@ cc.Sprite = cc.Node.extend({
     setTexture: function (texture) {
         if(!texture)
             return this._renderCmd._setTexture(null);
-        var isFileName = cc.isString(texture);
-        if(isFileName)
+        var oldTexture = this._texture;
+        if(cc.isString(texture)){
             texture = cc.textureCache.addImage(texture);
-        if(texture._textureLoaded){
-            this._setTexture(texture, isFileName);
-            this.setColor(this._realColor);
-            this._textureLoaded = true;
-        }else{
-            this._renderCmd._setTexture(null);
-            texture.addEventListener("load", function(){
-                this._setTexture(texture, isFileName);
+            if(!texture._textureLoaded){
+                texture.addEventListener("load", function(){
+                    this._renderCmd._setTexture(texture);
+                    this._changeRectWithTexture(texture, oldTexture);
+                    this.setColor(this._realColor);
+                    this._textureLoaded = true;
+                }, this);
+            }else{
+                this._renderCmd._setTexture(texture);
+                this._changeRectWithTexture(texture, oldTexture);
                 this.setColor(this._realColor);
                 this._textureLoaded = true;
-            }, this);
+            }
+        }else{
+            cc.assert(texture instanceof cc.Texture2D, cc._LogInfos.Sprite_setTexture_2);
+            this._changeRectWithTexture(texture, oldTexture);
+            this._renderCmd._setTexture(texture);
         }
     },
-    _setTexture: function(texture, change){
-        this._renderCmd._setTexture(texture);
-        if(change)
-            this._changeRectWithTexture(texture);
-    },
-    _changeRectWithTexture: function(texture){
-        var contentSize = texture._contentSize;
-        var rect = cc.rect(
-                0, 0,
-                contentSize.width, contentSize.height
-            );
-        this.setTextureRect(rect);
+    _changeRectWithTexture: function(texture, oldTexture){
+        var textureRect = cc.rect(0, 0, texture._contentSize.width, texture._contentSize.height),
+            oldTextureContentSize = oldTexture ? oldTexture._contentSize : cc.size(),
+            nodeContentSize = this._contentSize;
+        var textureWidth = textureRect.width,
+            textureHeight = textureRect.height,
+            oldTextureWidth = oldTextureContentSize.width,
+            oldTextureHeight = oldTextureContentSize.height,
+            nodeWidth = nodeContentSize.width,
+            nodeHeight = nodeContentSize.height;
+        if(!textureRect || (!textureWidth && !textureHeight)) return;
+        var nodeRect = this._rect;
+        if(
+            oldTexture &&
+            (nodeWidth !== 0 && nodeHeight !== 0) &&
+            (nodeRect.height !== 0 || nodeRect.width !== 0)
+        ){
+            if(texture.url){
+                if(
+                    nodeWidth !== oldTextureWidth && nodeHeight !== oldTextureHeight &&
+                    oldTextureWidth === textureWidth && oldTextureHeight === textureHeight
+                )
+                    return;
+            }else{
+                return;
+            }
+        }
+        textureRect.x = textureRect.x || 0;
+        textureRect.y = textureRect.y || 0;
+        textureRect.width = textureRect.width || 0;
+        textureRect.height = textureRect.height || 0;
+        this.setTextureRect(textureRect);
     },
     _createRenderCmd: function(){
-        if(cc._renderType === cc.game.RENDER_TYPE_CANVAS)
+        if(cc._renderType === cc._RENDER_TYPE_CANVAS)
             return new cc.Sprite.CanvasRenderCmd(this);
         else
             return new cc.Sprite.WebGLRenderCmd(this);
@@ -9723,7 +9480,7 @@ delete cc._tmp.PrototypeSprite;
         };
         this._blendFuncStr = "source-over";
         this._colorized = false;
-        this._textureToRender = null;
+        this._originalTexture = null;
     };
     var proto = cc.Sprite.CanvasRenderCmd.prototype = Object.create(cc.Node.CanvasRenderCmd.prototype);
     proto.constructor = cc.Sprite.CanvasRenderCmd;
@@ -9734,12 +9491,13 @@ delete cc._tmp.PrototypeSprite;
         var node = this._node;
         if (node._texture !== texture) {
             if (texture) {
+                if(texture.getHtmlElementObj() instanceof  HTMLImageElement)
+                    this._originalTexture = texture;
                 node._textureLoaded = texture._textureLoaded;
             }else{
                 node._textureLoaded = false;
             }
             node._texture = texture;
-            this._updateColor();
         }
     };
     proto._setColorDirty = function () {
@@ -9778,12 +9536,13 @@ delete cc._tmp.PrototypeSprite;
             if (_y > texture.height)
                 cc.error(cc._LogInfos.RectHeight, texture.url);
         }
+        this._node._originalTexture = texture;
     };
     proto.rendering = function (ctx, scaleX, scaleY) {
         var node = this._node;
         var locTextureCoord = this._textureCoord, alpha = (this._displayedOpacity / 255);
-        var texture = this._textureToRender || node._texture;
-        if ((texture && (locTextureCoord.width === 0 || locTextureCoord.height === 0|| !texture._textureLoaded)) || alpha === 0)
+        if ((node._texture && ((locTextureCoord.width === 0 || locTextureCoord.height === 0)
+            || !node._texture._textureLoaded)) || alpha === 0)
             return;
         var wrapper = ctx || cc._renderContext, context = wrapper.getContext();
         var locX = node._offsetPosition.x, locHeight = node._rect.height, locWidth = node._rect.width,
@@ -9801,60 +9560,103 @@ delete cc._tmp.PrototypeSprite;
             locY = node._offsetPosition.y;
             context.scale(1, -1);
         }
-        var sx, sy, sw, sh, x, y, w, h;
-        if (this._colorized) {
-            sx = 0;
-            sy = 0;
-        }else{
-            sx = locTextureCoord.renderX;
-            sy = locTextureCoord.renderY;
-        }
-        sw = locTextureCoord.width;
-        sh = locTextureCoord.height;
-        x = locX * scaleX;
-        y = locY * scaleY;
-        w = locWidth * scaleX;
-        h = locHeight * scaleY;
-        if (texture) {
-            image = texture._htmlElementObj;
-            if (texture._pattern !== "") {
-                wrapper.setFillStyle(context.createPattern(image, texture._pattern));
-                context.fillRect(x, y, w, h);
+        if (node._texture) {
+            image = node._texture._htmlElementObj;
+            if (node._texture._pattern !== "") {
+                wrapper.setFillStyle(context.createPattern(image, node._texture._pattern));
+                context.fillRect(locX * scaleX, locY * scaleY, locWidth * scaleX, locHeight * scaleY);
             } else {
-                context.drawImage(image,
-                    sx, sy, sw, sh,
-                    x, y, w, h);
+                if (this._colorized) {
+                    context.drawImage(image,
+                        0, 0, locTextureCoord.width,locTextureCoord.height,
+                        locX * scaleX,locY * scaleY, locWidth * scaleX, locHeight * scaleY);
+                } else {
+                    context.drawImage(image,
+                        locTextureCoord.renderX, locTextureCoord.renderY, locTextureCoord.width, locTextureCoord.height,
+                        locX * scaleX, locY * scaleY, locWidth * scaleX, locHeight * scaleY);
+                }
             }
         } else {
             var contentSize = node._contentSize;
             if (locTextureCoord.validRect) {
                 var curColor = this._displayedColor;
                 wrapper.setFillStyle("rgba(" + curColor.r + "," + curColor.g + "," + curColor.b + ",1)");
-                context.fillRect(x, y, contentSize.width * scaleX, contentSize.height * scaleY);
+                context.fillRect(locX * scaleX, locY * scaleY, contentSize.width * scaleX, contentSize.height * scaleY);
             }
         }
         if(node._flippedX || node._flippedY)
             wrapper.restore();
         cc.g_NumberOfDraws++;
     };
-    proto._updateColor = function(){
-        var node = this._node;
-        var texture = node._texture, rect = this._textureCoord;
-        var dColor = this._displayedColor;
-        if(texture){
-            if(dColor.r !== 255 || dColor.g !== 255 || dColor.b !== 255){
-                this._textureToRender = texture._generateColorTexture(dColor.r, dColor.g, dColor.b, rect);
-                this._colorized = true;
-            }else if(texture){
-                this._textureToRender = texture;
-                this._colorized = false;
+    if(!cc.sys._supportCanvasNewBlendModes){
+        proto._updateColor = function () {
+            var node = this._node, displayedColor = this._displayedColor;
+            if (displayedColor.r === 255 && displayedColor.g === 255 && displayedColor.b === 255){
+                this._setOriginalTexture();
+                return;
             }
+            var locElement, locTexture = node._texture, locRect = this._textureCoord;
+            if (locTexture && locRect.validRect && this._originalTexture) {
+                locElement = locTexture.getHtmlElementObj();
+                if (!locElement)
+                    return;
+                var cacheTextureForColor = cc.textureCache.getTextureColors(this._originalTexture.getHtmlElementObj());
+                if (cacheTextureForColor) {
+                    this._colorized = true;
+                    if (locElement instanceof HTMLCanvasElement && !this._rectRotated && !this._newTextureWhenChangeColor)
+                        cc.Sprite.CanvasRenderCmd._generateTintImage(locElement, cacheTextureForColor, displayedColor, locRect, locElement);
+                    else {
+                        locElement = cc.Sprite.CanvasRenderCmd._generateTintImage(locElement, cacheTextureForColor, displayedColor, locRect);
+                        locTexture = new cc.Texture2D();
+                        locTexture.initWithElement(locElement);
+                        locTexture.handleLoadedTexture();
+                        node.texture = locTexture;
+                    }
+                }
+            }
+        };
+    } else {
+        proto._updateColor = function () {
+            var node = this._node, displayedColor = this._displayedColor;
+            if (displayedColor.r === 255 && displayedColor.g === 255 && displayedColor.b === 255) {
+                this._setOriginalTexture();
+                return;
+            }
+            var locElement, locTexture = node._texture, locRect = this._textureCoord;
+            if (locTexture && locRect.validRect && this._originalTexture) {
+                locElement = locTexture.getHtmlElementObj();
+                if (!locElement)
+                    return;
+                this._colorized = true;
+                if (locElement instanceof HTMLCanvasElement && !this._rectRotated && !this._newTextureWhenChangeColor
+                    && this._originalTexture._htmlElementObj !== locElement)
+                    cc.Sprite.CanvasRenderCmd._generateTintImageWithMultiply(this._originalTexture._htmlElementObj, displayedColor, locRect, locElement);
+                else {
+                    locElement = cc.Sprite.CanvasRenderCmd._generateTintImageWithMultiply(this._originalTexture._htmlElementObj, displayedColor, locRect);
+                    locTexture = new cc.Texture2D();
+                    locTexture.initWithElement(locElement);
+                    locTexture.handleLoadedTexture();
+                    node.setTexture(locTexture);
+                }
+            }
+        };
+    }
+    proto._setOriginalTexture = function () {
+        if (this._colorized) {
+            this._colorized = false;
+            var node = this._node;
+            var rect = cc.rect(node._rect);
+            var contentSize = cc.size(node._contentSize);
+            var isRotation = node._rectRotated;
+            node.setTexture(this._originalTexture);
+            node.setTextureRect(rect, isRotation, contentSize);
         }
     };
     proto.getQuad = function () {
         return null;
     };
     proto._updateForSetSpriteFrame = function (pNewTexture, textureLoaded){
+        this._originalTexture = pNewTexture;
         this._colorized = false;
         this._textureCoord.renderX = this._textureCoord.x;
         this._textureCoord.renderY = this._textureCoord.y;
@@ -9906,6 +9708,7 @@ delete cc._tmp.PrototypeSprite;
             locRect.width = sender.width;
             locRect.height = sender.height;
         }
+        locRenderCmd._originalTexture = sender;
         node.texture = sender;
         node.setTextureRect(locRect, node._rectRotated);
         var locColor = locRenderCmd._displayedColor;
@@ -9925,13 +9728,141 @@ delete cc._tmp.PrototypeSprite;
         locTextureRect.height = 0 | (rect.height * scaleFactor);
         locTextureRect.validRect = !(locTextureRect.width === 0 || locTextureRect.height === 0 || locTextureRect.x < 0 || locTextureRect.y < 0);
     };
+    cc.Sprite.CanvasRenderCmd._generateTintImageWithMultiply = function (image, color, rect, renderCanvas) {
+        renderCanvas = renderCanvas || cc.newElement("canvas");
+        rect = rect || cc.rect(0, 0, image.width, image.height);
+        var context = renderCanvas.getContext("2d");
+        if (renderCanvas.width !== rect.width || renderCanvas.height !== rect.height) {
+            renderCanvas.width = rect.width;
+            renderCanvas.height = rect.height;
+        } else {
+            context.globalCompositeOperation = "source-over";
+        }
+        context.fillStyle = "rgb(" + (0 | color.r) + "," + (0 | color.g) + "," + (0 | color.b) + ")";
+        context.fillRect(0, 0, rect.width, rect.height);
+        context.globalCompositeOperation = "multiply";
+        context.drawImage(image,
+            rect.x,
+            rect.y,
+            rect.width,
+            rect.height,
+            0,
+            0,
+            rect.width,
+            rect.height);
+        context.globalCompositeOperation = "destination-atop";
+        context.drawImage(image,
+            rect.x,
+            rect.y,
+            rect.width,
+            rect.height,
+            0,
+            0,
+            rect.width,
+            rect.height);
+        return renderCanvas;
+    };
+    cc.Sprite.CanvasRenderCmd._generateTintImage = function (texture, tintedImgCache, color, rect, renderCanvas) {
+        if (!rect)
+            rect = cc.rect(0, 0, texture.width, texture.height);
+        var r = color.r / 255, g = color.g / 255, b = color.b / 255;
+        var w = Math.min(rect.width, tintedImgCache[0].width);
+        var h = Math.min(rect.height, tintedImgCache[0].height);
+        var buff = renderCanvas, ctx;
+        if (!buff) {
+            buff = cc.newElement("canvas");
+            buff.width = w;
+            buff.height = h;
+            ctx = buff.getContext("2d");
+        } else {
+            ctx = buff.getContext("2d");
+            ctx.clearRect(0, 0, w, h);
+        }
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        var a = ctx.globalAlpha;
+        if (r > 0) {
+            ctx.globalAlpha = r * a;
+            ctx.drawImage(tintedImgCache[0], rect.x, rect.y, w, h, 0, 0, w, h);
+        }
+        if (g > 0) {
+            ctx.globalAlpha = g * a;
+            ctx.drawImage(tintedImgCache[1], rect.x, rect.y, w, h, 0, 0, w, h);
+        }
+        if (b > 0) {
+            ctx.globalAlpha = b * a;
+            ctx.drawImage(tintedImgCache[2], rect.x, rect.y, w, h, 0, 0, w, h);
+        }
+        if (r + g + b < 1) {
+            ctx.globalAlpha = a;
+            ctx.drawImage(tintedImgCache[3], rect.x, rect.y, w, h, 0, 0, w, h);
+        }
+        ctx.restore();
+        return buff;
+    };
+    cc.Sprite.CanvasRenderCmd._generateTextureCacheForColor = function (texture) {
+        if (texture.channelCache) {
+            return texture.channelCache;
+        }
+        var textureCache = [
+            cc.newElement("canvas"),
+            cc.newElement("canvas"),
+            cc.newElement("canvas"),
+            cc.newElement("canvas")
+        ];
+        function renderToCache() {
+            var ref = cc.Sprite.CanvasRenderCmd._generateTextureCacheForColor;
+            var w = texture.width;
+            var h = texture.height;
+            textureCache[0].width = w;
+            textureCache[0].height = h;
+            textureCache[1].width = w;
+            textureCache[1].height = h;
+            textureCache[2].width = w;
+            textureCache[2].height = h;
+            textureCache[3].width = w;
+            textureCache[3].height = h;
+            ref.canvas.width = w;
+            ref.canvas.height = h;
+            var ctx = ref.canvas.getContext("2d");
+            ctx.drawImage(texture, 0, 0);
+            ref.tempCanvas.width = w;
+            ref.tempCanvas.height = h;
+            var pixels = ctx.getImageData(0, 0, w, h).data;
+            for (var rgbI = 0; rgbI < 4; rgbI++) {
+                var cacheCtx = textureCache[rgbI].getContext('2d');
+                cacheCtx.getImageData(0, 0, w, h).data;
+                ref.tempCtx.drawImage(texture, 0, 0);
+                var to = ref.tempCtx.getImageData(0, 0, w, h);
+                var toData = to.data;
+                for (var i = 0; i < pixels.length; i += 4) {
+                    toData[i  ] = (rgbI === 0) ? pixels[i  ] : 0;
+                    toData[i + 1] = (rgbI === 1) ? pixels[i + 1] : 0;
+                    toData[i + 2] = (rgbI === 2) ? pixels[i + 2] : 0;
+                    toData[i + 3] = pixels[i + 3];
+                }
+                cacheCtx.putImageData(to, 0, 0);
+            }
+            texture.onload = null;
+        }
+        try {
+            renderToCache();
+        } catch (e) {
+            texture.onload = renderToCache;
+        }
+        texture.channelCache = textureCache;
+        return textureCache;
+    };
+    cc.Sprite.CanvasRenderCmd._generateTextureCacheForColor.canvas = cc.newElement('canvas');
+    cc.Sprite.CanvasRenderCmd._generateTextureCacheForColor.tempCanvas = cc.newElement('canvas');
+    cc.Sprite.CanvasRenderCmd._generateTextureCacheForColor.tempCtx = cc.Sprite.CanvasRenderCmd._generateTextureCacheForColor.tempCanvas.getContext('2d');
     cc.Sprite.CanvasRenderCmd._cutRotateImageToCanvas = function (texture, rect, counterclockwise) {
         if (!texture)
             return null;
         if (!rect)
             return texture;
         counterclockwise = counterclockwise == null? true: counterclockwise;
-        var nCanvas = document.createElement("canvas");
+        var nCanvas = cc.newElement("canvas");
         nCanvas.width = rect.width;
         nCanvas.height = rect.height;
         var ctx = nCanvas.getContext("2d");
@@ -10400,7 +10331,7 @@ cc.SpriteFrame = cc.Class.extend({
             if(!locLoaded){
                 texture.addEventListener("load", function(sender){
                     this._textureLoaded = true;
-                    if(this._rotated && cc._renderType === cc.game.RENDER_TYPE_CANVAS){
+                    if(this._rotated && cc._renderType === cc._RENDER_TYPE_CANVAS){
                         var tempElement = sender.getHtmlElementObj();
                         tempElement = cc.Sprite.CanvasRenderCmd._cutRotateImageToCanvas(tempElement, this.getRect());
                         var tempTexture = new cc.Texture2D();
@@ -10631,7 +10562,7 @@ cc.spriteFrameCache = {
                         spAliases[alias] = key;
                     }
                 }
-                if (cc._renderType === cc.game.RENDER_TYPE_CANVAS && spriteFrame.isRotated()) {
+                if (cc._renderType === cc._RENDER_TYPE_CANVAS && spriteFrame.isRotated()) {
                     var locTexture = spriteFrame.getTexture();
                     if (locTexture.isLoaded()) {
                         var tempElement = spriteFrame.getTexture().getHtmlElementObj();
@@ -10741,8 +10672,14 @@ cc.Director = cc.Class.extend({
     _animationInterval: 0.0,
     _oldAnimationInterval: 0.0,
     _projection: 0,
+    _accumDt: 0.0,
     _contentScaleFactor: 1.0,
+    _displayStats: false,
     _deltaTime: 0.0,
+    _frameRate: 0.0,
+    _FPSLabel: null,
+    _SPFLabel: null,
+    _drawsLabel: null,
     _winSizeInPoints: null,
     _lastUpdate: null,
     _nextScene: null,
@@ -10751,15 +10688,16 @@ cc.Director = cc.Class.extend({
     _scenesStack: null,
     _projectionDelegate: null,
     _runningScene: null,
+    _frames: 0,
     _totalFrames: 0,
     _secondsPerFrame: 0,
     _dirtyRegion: null,
     _scheduler: null,
     _actionManager: null,
     _eventProjectionChanged: null,
-    _eventAfterUpdate: null,
-    _eventAfterVisit: null,
     _eventAfterDraw: null,
+    _eventAfterVisit: null,
+    _eventAfterUpdate: null,
     ctor: function () {
         var self = this;
         self._lastUpdate = Date.now();
@@ -10772,7 +10710,10 @@ cc.Director = cc.Class.extend({
         this._scenesStack = [];
         this._projection = cc.Director.PROJECTION_DEFAULT;
         this._projectionDelegate = null;
-        this._totalFrames = 0;
+        this._accumDt = 0;
+        this._frameRate = 0;
+        this._displayStats = false;//can remove
+        this._totalFrames = this._frames = 0;
         this._lastUpdate = Date.now();
         this._paused = false;
         this._purgeDirectorInNextLoop = false;
@@ -10786,12 +10727,12 @@ cc.Director = cc.Class.extend({
         }else{
             this._actionManager = null;
         }
-        this._eventAfterUpdate = new cc.EventCustom(cc.Director.EVENT_AFTER_UPDATE);
-        this._eventAfterUpdate.setUserData(this);
-        this._eventAfterVisit = new cc.EventCustom(cc.Director.EVENT_AFTER_VISIT);
-        this._eventAfterVisit.setUserData(this);
         this._eventAfterDraw = new cc.EventCustom(cc.Director.EVENT_AFTER_DRAW);
         this._eventAfterDraw.setUserData(this);
+        this._eventAfterVisit = new cc.EventCustom(cc.Director.EVENT_AFTER_VISIT);
+        this._eventAfterVisit.setUserData(this);
+        this._eventAfterUpdate = new cc.EventCustom(cc.Director.EVENT_AFTER_UPDATE);
+        this._eventAfterUpdate.setUserData(this);
         this._eventProjectionChanged = new cc.EventCustom(cc.Director.EVENT_PROJECTION_CHANGED);
         this._eventProjectionChanged.setUserData(this);
         return true;
@@ -10831,17 +10772,19 @@ cc.Director = cc.Class.extend({
                 renderer.resetFlag();
             } else if (renderer.transformDirty() === true)
                 renderer.transform();
+            cc.eventManager.dispatchEvent(this._eventAfterVisit);
         }
         if (this._notificationNode)
             this._notificationNode.visit();
-        cc.eventManager.dispatchEvent(this._eventAfterVisit);
-        cc.g_NumberOfDraws = 0;
+        if (this._displayStats)
+            this._showStats();
         if (this._afterVisitScene)
             this._afterVisitScene();
         renderer.rendering(cc._renderContext);
-        this._totalFrames++;
         cc.eventManager.dispatchEvent(this._eventAfterDraw);
-        this._calculateMPF();
+        this._totalFrames++;
+        if (this._displayStats)
+            this._calculateMPF();
     },
     _beforeVisitScene: null,
     _afterVisitScene: null,
@@ -10941,6 +10884,7 @@ cc.Director = cc.Class.extend({
     setContentScaleFactor: function (scaleFactor) {
         if (scaleFactor !== this._contentScaleFactor) {
             this._contentScaleFactor = scaleFactor;
+            this._createStatsLabel();
         }
     },
     setDepthTest: null,
@@ -10974,17 +10918,9 @@ cc.Director = cc.Class.extend({
         }
     },
     setNotificationNode: function (node) {
-        cc.renderer.childrenOrderDirty = true;
-        if(this._notificationNode){
-            this._notificationNode.onExitTransitionDidStart();
-            this._notificationNode.onExit();
-            this._notificationNode.cleanup();
-        }
         this._notificationNode = node;
         if(!node)
-            return;
-        this._notificationNode.onEnter();
-        this._notificationNode.onEnterTransitionDidFinish();
+            cc.renderer.childrenOrderDirty = true;
     },
     getDelegate: function () {
         return this._projectionDelegate;
@@ -10998,6 +10934,25 @@ cc.Director = cc.Class.extend({
     getOpenGLView: null,
     getProjection: null,
     setAlphaBlending: null,
+    _showStats: function () {
+        this._frames++;
+        this._accumDt += this._deltaTime;
+        if (this._FPSLabel && this._SPFLabel && this._drawsLabel) {
+            if (this._accumDt > cc.DIRECTOR_FPS_INTERVAL) {
+                this._SPFLabel.string = this._secondsPerFrame.toFixed(3);
+                this._frameRate = this._frames / this._accumDt;
+                this._frames = 0;
+                this._accumDt = 0;
+                this._FPSLabel.string = this._frameRate.toFixed(1);
+                this._drawsLabel.string = (0 | cc.g_NumberOfDraws).toString();
+            }
+            this._FPSLabel.visit();
+            this._SPFLabel.visit();
+            this._drawsLabel.visit();
+        } else
+            this._createStatsLabel();
+        cc.g_NumberOfDraws = 0;
+    },
     isSendCleanupToScene: function () {
         return this._sendCleanupToScene;
     },
@@ -11008,12 +10963,10 @@ cc.Director = cc.Class.extend({
         return this._animationInterval;
     },
     isDisplayStats: function () {
-        return cc.profiler ? cc.profiler.isShowingStats() : false;
+        return this._displayStats;
     },
     setDisplayStats: function (displayStats) {
-        if (cc.profiler) {
-            displayStats ? cc.profiler.showStats() : cc.profiler.hideStats();
-        }
+        this._displayStats = displayStats;
     },
     getSecondsPerFrame: function () {
         return this._secondsPerFrame;
@@ -11071,15 +11024,16 @@ cc.Director = cc.Class.extend({
     getDeltaTime: function () {
         return this._deltaTime;
     },
+    _createStatsLabel: null,
     _calculateMPF: function () {
         var now = Date.now();
         this._secondsPerFrame = (now - this._lastUpdate) / 1000;
     }
 });
 cc.Director.EVENT_PROJECTION_CHANGED = "director_projection_changed";
-cc.Director.EVENT_AFTER_UPDATE = "director_after_update";
-cc.Director.EVENT_AFTER_VISIT = "director_after_visit";
 cc.Director.EVENT_AFTER_DRAW = "director_after_draw";
+cc.Director.EVENT_AFTER_VISIT = "director_after_visit";
+cc.Director.EVENT_AFTER_UPDATE = "director_after_update";
 cc.DisplayLinkDirector = cc.Director.extend({
     invalid: false,
     startAnimation: function () {
@@ -11121,45 +11075,55 @@ cc.Director.PROJECTION_2D = 0;
 cc.Director.PROJECTION_3D = 1;
 cc.Director.PROJECTION_CUSTOM = 3;
 cc.Director.PROJECTION_DEFAULT = cc.Director.PROJECTION_3D;
-cc.game.addEventListener(cc.game.EVENT_RENDERER_INITED, function () {
-    if (cc._renderType === cc.game.RENDER_TYPE_CANVAS) {
-        var _p = cc.Director.prototype;
-        _p.getProjection = function (projection) {
-            return this._projection;
-        };
-        _p.setProjection = function (projection) {
-            this._projection = projection;
-            cc.eventManager.dispatchEvent(this._eventProjectionChanged);
-        };
-        _p.setDepthTest = function () {
-        };
-        _p.setClearColor = function (clearColor) {
-            cc.renderer._clearColor = clearColor;
-            cc.renderer._clearFillStyle = 'rgb(' + clearColor.r + ',' + clearColor.g + ',' + clearColor.b +')' ;
-        };
-        _p.setOpenGLView = function (openGLView) {
-            this._winSizeInPoints.width = cc._canvas.width;
-            this._winSizeInPoints.height = cc._canvas.height;
-            this._openGLView = openGLView || cc.view;
-            if (cc.eventManager)
-                cc.eventManager.setEnabled(true);
-        };
-        _p.getVisibleSize = function () {
-            return this.getWinSize();
-        };
-        _p.getVisibleOrigin = function () {
-            return cc.p(0, 0);
-        };
-    } else {
-        cc.Director._fpsImage = new Image();
-        cc.Director._fpsImage.addEventListener("load", function () {
-            cc.Director._fpsImageLoaded = true;
-        });
-        if (cc._fpsImage) {
-            cc.Director._fpsImage.src = cc._fpsImage;
-        }
+if (cc._renderType === cc._RENDER_TYPE_CANVAS) {
+    var _p = cc.Director.prototype;
+    _p.setProjection = function (projection) {
+        this._projection = projection;
+        cc.eventManager.dispatchEvent(this._eventProjectionChanged);
+    };
+    _p.setDepthTest = function () {
+    };
+    _p.setClearColor = function (clearColor) {
+        cc.renderer._clearColor = clearColor;
+        cc.renderer._clearFillStyle = 'rgb(' + clearColor.r + ',' + clearColor.g + ',' + clearColor.b +')' ;
+    };
+    _p.setOpenGLView = function (openGLView) {
+        this._winSizeInPoints.width = cc._canvas.width;
+        this._winSizeInPoints.height = cc._canvas.height;
+        this._openGLView = openGLView || cc.view;
+        if (cc.eventManager)
+            cc.eventManager.setEnabled(true);
+    };
+    _p._createStatsLabel = function () {
+        var _t = this;
+        var fontSize = 0;
+        if (_t._winSizeInPoints.width > _t._winSizeInPoints.height)
+            fontSize = 0 | (_t._winSizeInPoints.height / 320 * 24);
+        else
+            fontSize = 0 | (_t._winSizeInPoints.width / 320 * 24);
+        _t._FPSLabel = new cc.LabelTTF("000.0", "Arial", fontSize);
+        _t._SPFLabel = new cc.LabelTTF("0.000", "Arial", fontSize);
+        _t._drawsLabel = new cc.LabelTTF("0000", "Arial", fontSize);
+        var locStatsPosition = cc.DIRECTOR_STATS_POSITION;
+        _t._drawsLabel.setPosition(_t._drawsLabel.width / 2 + locStatsPosition.x, _t._drawsLabel.height * 5 / 2 + locStatsPosition.y);
+        _t._SPFLabel.setPosition(_t._SPFLabel.width / 2 + locStatsPosition.x, _t._SPFLabel.height * 3 / 2 + locStatsPosition.y);
+        _t._FPSLabel.setPosition(_t._FPSLabel.width / 2 + locStatsPosition.x, _t._FPSLabel.height / 2 + locStatsPosition.y);
+    };
+    _p.getVisibleSize = function () {
+        return this.getWinSize();
+    };
+    _p.getVisibleOrigin = function () {
+        return cc.p(0, 0);
+    };
+} else {
+    cc.Director._fpsImage = new Image();
+    cc._addEventListener(cc.Director._fpsImage, "load", function () {
+        cc.Director._fpsImageLoaded = true;
+    });
+    if (cc._fpsImage) {
+        cc.Director._fpsImage.src = cc._fpsImage;
     }
-});
+}
 cc.PRIORITY_NON_SYSTEM = cc.PRIORITY_SYSTEM + 1;
 cc.ListEntry = function (prev, next, callback, target, priority, paused, markedForDeletion) {
     this.prev = prev;
@@ -11475,7 +11439,7 @@ cc.Scheduler = cc.Class.extend({
             isSelector = true;
         }
         if(isSelector === false){
-            if(arguments.length === 4 || arguments.length === 5){
+            if(arguments.length === 5){
                 key = delay;
                 paused = repeat;
                 delay = 0;
@@ -11488,10 +11452,9 @@ cc.Scheduler = cc.Class.extend({
                 delay = 0;
             }
         }
-        if (key === undefined) {
-            key = target.__instanceId + "";
-        }
         cc.assert(target, cc._LogInfos.Scheduler_scheduleCallbackForTarget_3);
+        if(isSelector === false)
+            cc.assert(key, "key should not be empty!");
         var element = this._hashForTimers[target.__instanceId];
         if(!element){
             element = new cc.HashTimerEntry(null, target, 0, null, null, paused, null);
@@ -11819,7 +11782,6 @@ cc.LabelTTF = cc.Sprite.extend({
     _fontSize: 0.0,
     _string: "",
     _originalText: null,
-    _onCacheCanvasMode: true,
     _shadowEnabled: false,
     _shadowOffset: null,
     _shadowOpacity: 0,
@@ -12262,16 +12224,11 @@ cc.LabelTTF = cc.Sprite.extend({
     setTextureRect: function (rect, rotated, untrimmedSize) {
         cc.Sprite.prototype.setTextureRect.call(this, rect, rotated, untrimmedSize, false);
     },
-    setDrawMode: function (onCacheMode) {
-        this._onCacheCanvasMode = onCacheMode;
-    },
     _createRenderCmd: function () {
-        if (cc._renderType === cc.game.RENDER_TYPE_WEBGL)
-            return new cc.LabelTTF.WebGLRenderCmd(this);
-        else if (this._onCacheCanvasMode)
-            return new cc.LabelTTF.CacheCanvasRenderCmd(this);
-        else
+        if (cc._renderType === cc._RENDER_TYPE_CANVAS)
             return new cc.LabelTTF.CanvasRenderCmd(this);
+        else
+            return new cc.LabelTTF.WebGLRenderCmd(this);
     },
     _setFontStyle: function(fontStyle){
         if (this._fontStyle !== fontStyle) {
@@ -12306,7 +12263,7 @@ if (cc.USE_LA88_LABELS)
     cc.LabelTTF._SHADER_PROGRAM = cc.SHADER_POSITION_TEXTURECOLOR;
 else
     cc.LabelTTF._SHADER_PROGRAM = cc.SHADER_POSITION_TEXTUREA8COLOR;
-cc.LabelTTF.__labelHeightDiv = document.createElement("div");
+cc.LabelTTF.__labelHeightDiv = cc.newElement("div");
 cc.LabelTTF.__labelHeightDiv.style.fontFamily = "Arial";
 cc.LabelTTF.__labelHeightDiv.style.position = "absolute";
 cc.LabelTTF.__labelHeightDiv.style.left = "-100px";
@@ -12314,7 +12271,7 @@ cc.LabelTTF.__labelHeightDiv.style.top = "-100px";
 cc.LabelTTF.__labelHeightDiv.style.lineHeight = "normal";
 document.body ?
     document.body.appendChild(cc.LabelTTF.__labelHeightDiv) :
-    window.addEventListener('load', function () {
+    cc._addEventListener(window, 'load', function () {
         this.removeEventListener('load', arguments.callee, false);
         document.body.appendChild(cc.LabelTTF.__labelHeightDiv);
     }, false);
@@ -12366,11 +12323,25 @@ cc.LabelTTF._firsrEnglish = /^[a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]/;
         this._lineWidths = [];
         this._strings = [];
         this._isMultiLine = false;
-        this._status = [];
-        this._renderingIndex = 0;
     };
     var proto = cc.LabelTTF.RenderCmd.prototype;
     proto.constructor = cc.LabelTTF.RenderCmd;
+    proto._getLabelContext = function () {
+        if (this._labelContext)
+            return this._labelContext;
+        var node = this._node;
+        if (!this._labelCanvas) {
+            var locCanvas = cc.newElement("canvas");
+            locCanvas.width = 1;
+            locCanvas.height = 1;
+            var labelTexture = new cc.Texture2D();
+            labelTexture.initWithElement(locCanvas);
+            node.setTexture(labelTexture);
+            this._labelCanvas = locCanvas;
+        }
+        this._labelContext = this._labelCanvas.getContext("2d");
+        return this._labelContext;
+    };
     proto._setFontStyle = function (fontNameOrFontDef, fontSize, fontStyle, fontWeight) {
         if(fontNameOrFontDef instanceof cc.FontDefinition){
             this._fontStyleStr = fontNameOrFontDef._getCanvasFontStr();
@@ -12386,21 +12357,35 @@ cc.LabelTTF._firsrEnglish = /^[a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]/;
     proto._getFontClientHeight = function () {
         return this._fontClientHeight;
     };
-    proto._updateColor = function(){
-        this._setColorsString();
-        this._updateTexture();
+    proto._updateTexture = function () {
+        this._dirtyFlag = this._dirtyFlag & cc.Node._dirtyFlags.textDirty ^ this._dirtyFlag;
+        var node = this._node;
+        var locContext = this._getLabelContext(), locLabelCanvas = this._labelCanvas;
+        var locContentSize = node._contentSize;
+        if (node._string.length === 0) {
+            locLabelCanvas.width = 1;
+            locLabelCanvas.height = locContentSize.height || 1;
+            node._texture && node._texture.handleLoadedTexture();
+            node.setTextureRect(cc.rect(0, 0, 1, locContentSize.height));
+            return true;
+        }
+        locContext.font = this._fontStyleStr;
+        this._updateTTF();
+        var width = locContentSize.width, height = locContentSize.height;
+        var flag = locLabelCanvas.width === width && locLabelCanvas.height === height;
+        locLabelCanvas.width = width;
+        locLabelCanvas.height = height;
+        if (flag) locContext.clearRect(0, 0, width, height);
+        this._drawTTFInCanvas(locContext);
+        node._texture && node._texture.handleLoadedTexture();
+        node.setTextureRect(cc.rect(0, 0, width, height));
+        return true;
     };
-    proto._setColorsString = function () {
-        var locDisplayColor = this._displayedColor, node = this._node,
-            locShadowColor = node._shadowColor || this._displayedColor;
-        var locStrokeColor = node._strokeColor, locFontFillColor = node._textFillColor;
-        var dr = locDisplayColor.r / 255, dg = locDisplayColor.g / 255, db = locDisplayColor.b / 255;
-        this._shadowColorStr = "rgba(" + (0 | (dr * locShadowColor.r)) + "," + (0 | ( dg * locShadowColor.g)) + ","
-            + (0 | (db * locShadowColor.b)) + "," + node._shadowOpacity + ")";
-        this._fillColorStr = "rgba(" + (0 | (dr * locFontFillColor.r)) + "," + (0 | (dg * locFontFillColor.g)) + ","
-            + (0 | (db * locFontFillColor.b)) + ", 1)";
-        this._strokeColorStr = "rgba(" + (0 | (dr * locStrokeColor.r)) + "," + (0 | (dg * locStrokeColor.g)) + ","
-            + (0 | (db * locStrokeColor.b)) + ", 1)";
+    proto._measureConfig = function () {
+        this._getLabelContext().font = this._fontStyleStr;
+    };
+    proto._measure = function (text) {
+        return this._getLabelContext().measureText(text).width;
     };
     proto._updateTTF = function () {
         var node = this._node;
@@ -12433,7 +12418,7 @@ cc.LabelTTF._firsrEnglish = /^[a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]/;
         if (locDimensionsWidth === 0) {
             if (this._isMultiLine)
                 locSize = cc.size(Math.ceil(Math.max.apply(Math, locLineWidth) + locStrokeShadowOffsetX),
-                    Math.ceil((this._fontClientHeight * this._strings.length) + locStrokeShadowOffsetY));
+                        Math.ceil((this._fontClientHeight * this._strings.length) + locStrokeShadowOffsetY));
             else
                 locSize = cc.size(Math.ceil(this._measure(node._string) + locStrokeShadowOffsetX), Math.ceil(this._fontClientHeight + locStrokeShadowOffsetY));
         } else {
@@ -12456,14 +12441,32 @@ cc.LabelTTF._firsrEnglish = /^[a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]/;
         this._anchorPointInPoints.x = (locStrokeShadowOffsetX * 0.5) + ((locSize.width - locStrokeShadowOffsetX) * locAP.x);
         this._anchorPointInPoints.y = (locStrokeShadowOffsetY * 0.5) + ((locSize.height - locStrokeShadowOffsetY) * locAP.y);
     };
-    proto._saveStatus = function () {
+    proto._drawTTFInCanvas = function (context) {
+        if (!context)
+            return;
         var node = this._node;
         var locStrokeShadowOffsetX = node._strokeShadowOffsetX, locStrokeShadowOffsetY = node._strokeShadowOffsetY;
         var locContentSizeHeight = node._contentSize.height - locStrokeShadowOffsetY, locVAlignment = node._vAlignment,
-            locHAlignment = node._hAlignment;
-        var dx = locStrokeShadowOffsetX * 0.5,
-            dy = locContentSizeHeight + locStrokeShadowOffsetY * 0.5;
-        var xOffset = 0, yOffset = 0, OffsetYArray = [];
+            locHAlignment = node._hAlignment, locStrokeSize = node._strokeSize;
+        context.setTransform(1, 0, 0, 1, locStrokeShadowOffsetX * 0.5, locContentSizeHeight + locStrokeShadowOffsetY * 0.5);
+        if (context.font !== this._fontStyleStr)
+            context.font = this._fontStyleStr;
+        context.fillStyle = this._fillColorStr;
+        var xOffset = 0, yOffset = 0;
+        var locStrokeEnabled = node._strokeEnabled;
+        if (locStrokeEnabled) {
+            context.lineWidth = locStrokeSize * 2;
+            context.strokeStyle = this._strokeColorStr;
+        }
+        if (node._shadowEnabled) {
+            var locShadowOffset = node._shadowOffset;
+            context.shadowColor = this._shadowColorStr;
+            context.shadowOffsetX = locShadowOffset.x;
+            context.shadowOffsetY = -locShadowOffset.y;
+            context.shadowBlur = node._shadowBlur;
+        }
+        context.textBaseline = cc.LabelTTF._textBaseline[locVAlignment];
+        context.textAlign = cc.LabelTTF._textAlign[locHAlignment];
         var locContentWidth = node._contentSize.width - locStrokeShadowOffsetX;
         var lineHeight = node.getLineHeight();
         var transformTop = (lineHeight - this._fontClientHeight) / 2;
@@ -12480,8 +12483,11 @@ cc.LabelTTF._firsrEnglish = /^[a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]/;
             else if (locVAlignment === cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
                 yOffset = (lineHeight - transformTop * 2) / 2 + (locContentSizeHeight - lineHeight * locStrLen) / 2;
             for (var i = 0; i < locStrLen; i++) {
+                var line = this._strings[i];
                 var tmpOffsetY = -locContentSizeHeight + (lineHeight * i + transformTop) + yOffset;
-                OffsetYArray.push(tmpOffsetY);
+                if (locStrokeEnabled)
+                    context.strokeText(line, xOffset, tmpOffsetY);
+                context.fillText(line, xOffset, tmpOffsetY);
             }
         } else {
             if (locVAlignment === cc.VERTICAL_TEXT_ALIGNMENT_BOTTOM) {
@@ -12490,23 +12496,10 @@ cc.LabelTTF._firsrEnglish = /^[a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]/;
             } else {
                 yOffset -= locContentSizeHeight * 0.5;
             }
-            OffsetYArray.push(yOffset);
+            if (locStrokeEnabled)
+                context.strokeText(node._string, xOffset, yOffset);
+            context.fillText(node._string, xOffset, yOffset);
         }
-        var tmpStatus = {
-            contextTransform:cc.p(dx,dy),
-            xOffset:xOffset,
-            OffsetYArray:OffsetYArray
-        };
-        this._status.push(tmpStatus);
-    };
-    proto._drawTTFInCanvas = function (context) {
-        if (!context)
-            return;
-        var locStatus = this._status.pop();
-        context.setTransform(1, 0, 0, 1, locStatus.contextTransform.x, locStatus.contextTransform.y);
-        var xOffset = locStatus.xOffset;
-        var yOffsetArray = locStatus.OffsetYArray;
-        this.drawLabels(context, xOffset, yOffsetArray)
     };
     proto._checkWarp = function (strArr, i, maxWidth) {
         var text = strArr[i];
@@ -12561,6 +12554,16 @@ cc.LabelTTF._firsrEnglish = /^[a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]/;
             strArr.splice(i, 0, sText);
         }
     };
+})();
+(function(){
+    cc.LabelTTF.CanvasRenderCmd = function (renderable) {
+        cc.Sprite.CanvasRenderCmd.call(this, renderable);
+        cc.LabelTTF.RenderCmd.call(this);
+    };
+    cc.LabelTTF.CanvasRenderCmd.prototype = Object.create(cc.Sprite.CanvasRenderCmd.prototype);
+    cc.inject(cc.LabelTTF.RenderCmd.prototype, cc.LabelTTF.CanvasRenderCmd.prototype);
+    var proto = cc.LabelTTF.CanvasRenderCmd.prototype;
+    proto.constructor = cc.LabelTTF.CanvasRenderCmd;
     proto.updateStatus = function () {
         var flags = cc.Node._dirtyFlags, locFlag = this._dirtyFlag;
         var colorDirty = locFlag & flags.colorDirty,
@@ -12569,7 +12572,7 @@ cc.LabelTTF._firsrEnglish = /^[a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]/;
             this._updateDisplayColor();
         if (opacityDirty)
             this._updateDisplayOpacity();
-        if(colorDirty || opacityDirty){
+        if(colorDirty){
             this._updateColor();
         }else if(locFlag & flags.textDirty)
             this._updateTexture();
@@ -12594,168 +12597,28 @@ cc.LabelTTF._firsrEnglish = /^[a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]/;
             this._syncDisplayColor();
         if (opacityDirty)
             this._syncDisplayOpacity();
-        if(colorDirty || opacityDirty){
+        if(colorDirty){
             this._updateColor();
         }else if(locFlag & flags.textDirty)
             this._updateTexture();
-        if (cc._renderType === cc.game.RENDER_TYPE_WEBGL || locFlag & flags.transformDirty)
+        if (locFlag & flags.transformDirty)
             this.transform(parentCmd);
     };
-    proto.drawLabels = function (context, xOffset, yOffsetArray) {
-        var node = this._node;
-        if (node._shadowEnabled) {
-            var locShadowOffset = node._shadowOffset;
-            context.shadowColor = this._shadowColorStr;
-            context.shadowOffsetX = locShadowOffset.x;
-            context.shadowOffsetY = -locShadowOffset.y;
-            context.shadowBlur = node._shadowBlur;
-        }
-        var locHAlignment = node._hAlignment,
-            locVAlignment = node._vAlignment,
-            locStrokeSize = node._strokeSize;
-        if (context.font !== this._fontStyleStr)
-            context.font = this._fontStyleStr;
-        context.fillStyle = this._fillColorStr;
-        var locStrokeEnabled = node._strokeEnabled;
-        if (locStrokeEnabled) {
-            context.lineWidth = locStrokeSize * 2;
-            context.strokeStyle = this._strokeColorStr;
-        }
-        context.textBaseline = cc.LabelTTF._textBaseline[locVAlignment];
-        context.textAlign = cc.LabelTTF._textAlign[locHAlignment];
-        var locStrLen = this._strings.length;
-        for (var i = 0; i < locStrLen; i++) {
-            var line = this._strings[i];
-            if (locStrokeEnabled)
-                context.strokeText(line, xOffset, yOffsetArray[i]);
-            context.fillText(line, xOffset, yOffsetArray[i]);
-        }
-        cc.g_NumberOfDraws++;
-    }
-})();
-(function(){
-    cc.LabelTTF.CacheRenderCmd = function (renderable) {
-        cc.LabelTTF.RenderCmd.call(this,renderable);
-        var locCanvas = this._labelCanvas = document.createElement("canvas");
-        locCanvas.width = 1;
-        locCanvas.height = 1;
-        this._labelContext = locCanvas.getContext("2d");
+    proto._setColorsString = function () {
+        var locDisplayColor = this._displayedColor, node = this._node,
+            locShadowColor = node._shadowColor || this._displayedColor;
+        var locStrokeColor = node._strokeColor, locFontFillColor = node._textFillColor;
+        var dr = locDisplayColor.r / 255, dg = locDisplayColor.g / 255, db = locDisplayColor.b / 255;
+        this._shadowColorStr = "rgba(" + (0 | (dr * locShadowColor.r)) + "," + (0 | ( dg * locShadowColor.g)) + ","
+            + (0 | (db * locShadowColor.b)) + "," + node._shadowOpacity + ")";
+        this._fillColorStr = "rgba(" + (0 | (dr * locFontFillColor.r)) + "," + (0 | (dg * locFontFillColor.g)) + ","
+            + (0 | (db * locFontFillColor.b)) + ", 1)";
+        this._strokeColorStr = "rgba(" + (0 | (dr * locStrokeColor.r)) + "," + (0 | (dg * locStrokeColor.g)) + ","
+            + (0 | (db * locStrokeColor.b)) + ", 1)";
     };
-    cc.LabelTTF.CacheRenderCmd.prototype = Object.create( cc.LabelTTF.RenderCmd.prototype);
-    cc.inject(cc.LabelTTF.RenderCmd.prototype, cc.LabelTTF.CacheRenderCmd.prototype);
-    var proto = cc.LabelTTF.CacheRenderCmd.prototype;
-    proto.constructor = cc.LabelTTF.CacheRenderCmd;
-    proto._updateTexture = function () {
-        this._dirtyFlag = this._dirtyFlag & cc.Node._dirtyFlags.textDirty ^ this._dirtyFlag;
-        var node = this._node;
-        var locContentSize = node._contentSize;
-        this._updateTTF();
-        var width = locContentSize.width, height = locContentSize.height;
-        var locContext = this._labelContext, locLabelCanvas = this._labelCanvas;
-        if(!node._texture){
-            var labelTexture = new cc.Texture2D();
-            labelTexture.initWithElement(this._labelCanvas);
-            node.setTexture(labelTexture);
-        }
-        if (node._string.length === 0) {
-            locLabelCanvas.width = 1;
-            locLabelCanvas.height = locContentSize.height || 1;
-            node._texture && node._texture.handleLoadedTexture();
-            node.setTextureRect(cc.rect(0, 0, 1, locContentSize.height));
-            return true;
-        }
-        locContext.font = this._fontStyleStr;
-        var flag = locLabelCanvas.width === width && locLabelCanvas.height === height;
-        locLabelCanvas.width = width;
-        locLabelCanvas.height = height;
-        if (flag) locContext.clearRect(0, 0, width, height);
-        this._saveStatus();
-        this._drawTTFInCanvas(locContext);
-        node._texture && node._texture.handleLoadedTexture();
-        node.setTextureRect(cc.rect(0, 0, width, height));
-        return true;
-    };
-    proto._measureConfig = function () {
-        this._labelContext.font = this._fontStyleStr;
-    };
-    proto._measure = function (text) {
-        return this._labelContext.measureText(text).width;
-    };
-})();
-(function(){
-    cc.LabelTTF.CacheCanvasRenderCmd = function (renderable) {
-        cc.Sprite.CanvasRenderCmd.call(this, renderable);
-        cc.LabelTTF.CacheRenderCmd.call(this);
-    };
-    var proto = cc.LabelTTF.CacheCanvasRenderCmd.prototype = Object.create(cc.Sprite.CanvasRenderCmd.prototype);
-    cc.inject(cc.LabelTTF.CacheRenderCmd.prototype, proto);
-    proto.constructor = cc.LabelTTF.CacheCanvasRenderCmd;
-})();
-(function(){
-    cc.LabelTTF.CanvasRenderCmd = function (renderable) {
-        cc.Sprite.CanvasRenderCmd.call(this, renderable);
-        cc.LabelTTF.RenderCmd.call(this);
-    };
-    cc.LabelTTF.CanvasRenderCmd.prototype = Object.create(cc.Sprite.CanvasRenderCmd.prototype);
-    cc.inject(cc.LabelTTF.RenderCmd.prototype, cc.LabelTTF.CanvasRenderCmd.prototype);
-    var proto = cc.LabelTTF.CanvasRenderCmd.prototype;
-    proto.constructor = cc.LabelTTF.CanvasRenderCmd;
-    proto._measureConfig = function () {};
-    proto._measure = function (text) {
-        var context = cc._renderContext.getContext();
-        context.font = this._fontStyleStr;
-        return context.measureText(text).width;
-    };
-    proto._updateTexture = function () {
-        this._dirtyFlag = this._dirtyFlag & cc.Node._dirtyFlags.textDirty ^ this._dirtyFlag;
-        var node = this._node;
-        var locContentSize = node._contentSize;
-        this._updateTTF();
-        var width = locContentSize.width, height = locContentSize.height;
-        if (node._string.length === 0) {
-            node.setTextureRect(cc.rect(0, 0, 1, locContentSize.height));
-            return true;
-        }
-        this._saveStatus();
-        node.setTextureRect(cc.rect(0, 0, width, height));
-        return true;
-    };
-    proto.rendering = function(ctx) {
-        var scaleX = cc.view.getScaleX(),
-            scaleY = cc.view.getScaleY();
-        var wrapper = ctx || cc._renderContext, context = wrapper.getContext();
-        if (!context)
-            return;
-        var node = this._node;
-        wrapper.computeRealOffsetY();
-        if(this._status.length <= 0)
-            return;
-        var locIndex = (this._renderingIndex >= this._status.length)? this._renderingIndex-this._status.length:this._renderingIndex;
-        var status = this._status[locIndex];
-        this._renderingIndex = locIndex+1;
-        var locHeight = node._rect.height,
-            locX = node._offsetPosition.x,
-            locY = -node._offsetPosition.y - locHeight;
-        var alpha = (this._displayedOpacity / 255);
-        wrapper.setTransform(this._worldTransform, scaleX, scaleY);
-        wrapper.setCompositeOperation(this._blendFuncStr);
-        wrapper.setGlobalAlpha(alpha);
-        wrapper.save();
-        if (node._flippedX) {
-            locX = -locX - node._rect.width;
-            context.scale(-1, 1);
-        }
-        if (node._flippedY) {
-            locY = node._offsetPosition.y;
-            context.scale(1, -1);
-        }
-        var xOffset = status.xOffset + status.contextTransform.x + locX * scaleX;
-        var yOffsetArray = [];
-        var locStrLen = this._strings.length;
-        for (var i = 0; i < locStrLen; i++)
-            yOffsetArray.push(status.OffsetYArray[i] + status.contextTransform.y + locY * scaleY);
-        this.drawLabels(context, xOffset, yOffsetArray);
-        wrapper.restore();
+    proto._updateColor = function(){
+        this._setColorsString();
+        this._updateTexture();
     };
 })();
 var cc = cc || {};
@@ -13007,22 +12870,17 @@ cc.rendererCanvas = {
     },
     clear: function () {
         var viewport = cc._canvas;
+        var ctx = cc._renderContext.getContext();
         var wrapper = cc._renderContext;
-        var ctx = wrapper.getContext();
         ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.clearRect(0, 0, viewport.width, viewport.height);
-        if (this._clearColor.r !== 0 ||
-            this._clearColor.g !== 0 ||
-            this._clearColor.b !== 0) {
-            wrapper.setFillStyle(this._clearFillStyle);
-            wrapper.setGlobalAlpha(this._clearColor.a);
-            ctx.fillRect(0, 0, viewport.width, viewport.height);
-        }
+        if(this._clearColor.a !== 255)
+            ctx.clearRect(0, 0, viewport.width, viewport.height);
+        wrapper.setFillStyle(this._clearFillStyle);
+        wrapper.setGlobalAlpha(this._clearColor.a);
+        ctx.fillRect(0, 0, viewport.width, viewport.height);
     },
     clearRenderCommands: function () {
         this._renderCmds.length = 0;
-        this._cacheInstanceIds.length = 0;
-        this._isCacheToCanvasOn = false;
     },
     pushRenderCommand: function (cmd) {
         if(!cmd._needDraw)
@@ -13038,6 +12896,8 @@ cc.rendererCanvas = {
         }
     }
 };
+if (cc._renderType === cc._RENDER_TYPE_CANVAS)
+    cc.renderer = cc.rendererCanvas;
 (function () {
     cc.CanvasContextWrapper = function (context) {
         this._context = context;
@@ -13142,133 +13002,6 @@ cc.rendererCanvas = {
             this.restore();
         }
     };
-})();
-cc.profiler = (function () {
-    var _inited = _showFPS = false;
-    var _frames = _frameRate = _lastSPF = _accumDt = 0;
-    var _afterProjection = _afterVisitListener = _FPSLabel = _SPFLabel = _drawsLabel = null;
-    var LEVEL_DET_FACTOR = 0.6, _levelDetCycle = 10;
-    var LEVELS = [0, 10, 20, 30];
-    var _fpsCount = [0, 0, 0, 0];
-    var _currLevel = 3, _analyseCount = 0, _totalFPS = 0;
-    var createStatsLabel = function () {
-        var fontSize = 0;
-        var w = cc.winSize.width, h = cc.winSize.height;
-        var locStatsPosition = cc.DIRECTOR_STATS_POSITION;
-        if (w > h)
-            fontSize = 0 | (h / 320 * 24);
-        else
-            fontSize = 0 | (w / 320 * 24);
-        _FPSLabel = new cc.LabelTTF("000.0", "Arial", fontSize);
-        _SPFLabel = new cc.LabelTTF("0.000", "Arial", fontSize);
-        _drawsLabel = new cc.LabelTTF("0000", "Arial", fontSize);
-        _drawsLabel.setPosition(_drawsLabel.width / 2 + locStatsPosition.x, _drawsLabel.height * 5 / 2 + locStatsPosition.y);
-        _SPFLabel.setPosition(_SPFLabel.width / 2 + locStatsPosition.x, _SPFLabel.height * 3 / 2 + locStatsPosition.y);
-        _FPSLabel.setPosition(_FPSLabel.width / 2 + locStatsPosition.x, _FPSLabel.height / 2 + locStatsPosition.y);
-    };
-    var analyseFPS = function (fps) {
-        var lastId = i = LEVELS.length - 1, ratio, average = 0;
-        _analyseCount++;
-        _totalFPS += fps;
-        for (; i >= 0; i--) {
-            if (fps >= LEVELS[i]) {
-                _fpsCount[i]++;
-                break;
-            }
-        }
-        if (_analyseCount >= _levelDetCycle) {
-            average = _totalFPS / _levelDetCycle;
-            for (i = lastId; i >0; i--) {
-                ratio = _fpsCount[i] / _levelDetCycle;
-                if (ratio >= LEVEL_DET_FACTOR && average >= LEVELS[i]) {
-                    if (i != _currLevel) {
-                        _currLevel = i;
-                        profiler.onFrameRateChange && profiler.onFrameRateChange(average.toFixed(2));
-                    }
-                    break;
-                }
-            }
-            _changeCount = 0;
-            _analyseCount = 0;
-            _totalFPS = 0;
-            for (i = lastId; i > 0; i--) {
-                _fpsCount[i] = 0;
-            }
-        }
-    };
-    var afterVisit = function () {
-        _lastSPF = cc.director.getSecondsPerFrame();
-        _frames++;
-        _accumDt += cc.director.getDeltaTime();
-        if (_accumDt > cc.DIRECTOR_FPS_INTERVAL) {
-            _frameRate = _frames / _accumDt;
-            _frames = 0;
-            _accumDt = 0;
-            if (profiler.onFrameRateChange) {
-                analyseFPS(_frameRate);
-            }
-            if (_showFPS) {
-                _SPFLabel.string = _lastSPF.toFixed(3);
-                _FPSLabel.string = _frameRate.toFixed(1);
-                _drawsLabel.string = (0 | cc.g_NumberOfDraws).toString();
-            }
-        }
-        if (_showFPS) {
-            _FPSLabel.visit();
-            _SPFLabel.visit();
-            _drawsLabel.visit();
-        }
-    };
-    var afterProjection = function(){
-        _FPSLabel._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
-        _SPFLabel._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
-        _drawsLabel._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
-    };
-    var profiler = {
-        onFrameRateChange: null,
-        getSecondsPerFrame: function () {
-            return _lastSPF;
-        },
-        getFrameRate: function () {
-            return _frameRate;
-        },
-        setProfileDuration: function (duration) {
-            if (!isNaN(duration) && duration > 0) {
-                _levelDetCycle = duration / cc.DIRECTOR_FPS_INTERVAL;
-            }
-        },
-        resumeProfiling: function () {
-            cc.eventManager.addListener(_afterVisitListener, 1);
-        },
-        stopProfiling: function () {
-            cc.eventManager.removeListener(_afterVisitListener);
-        },
-        isShowingStats: function () {
-            return _showFPS;
-        },
-        showStats: function () {
-            if (!_inited) {
-                this.init();
-            }
-            if (cc.LabelTTF && !_FPSLabel) {
-                createStatsLabel();
-            }
-            if (_FPSLabel) {
-                _showFPS = true;
-            }
-        },
-        hideStats: function () {
-            _showFPS = false;
-        },
-        init: function () {
-            if (!_inited) {
-                _afterVisitListener = cc.eventManager.addCustomListener(cc.Director.EVENT_AFTER_VISIT, afterVisit);
-                _afterProjection = cc.eventManager.addCustomListener(cc.Director.EVENT_PROJECTION_CHANGED, afterProjection);
-                _inited = true;
-            }
-        }
-    };
-    return profiler;
 })();
 cc._LogInfos = {
     ActionManager_addAction: "cc.ActionManager.addAction(): action must be non-null",
@@ -13537,6 +13270,7 @@ cc._initDebugSetting = function (mode) {
             };
     }
 };
+cc._initDebugSetting(cc.game.config[cc.game.CONFIG_KEY.debugMode]);
 cc.HashElement = cc.Class.extend({
     actions:null,
     target:null,
@@ -15722,28 +15456,32 @@ cc.place = function (pos, y) {
 cc.Place.create = cc.place;
 cc.CallFunc = cc.ActionInstant.extend({
     _selectorTarget:null,
+    _callFunc:null,
     _function:null,
     _data:null,
     ctor:function(selector, selectorTarget, data){
         cc.FiniteTimeAction.prototype.ctor.call(this);
-        this.initWithFunction(selector, selectorTarget, data);
+		if(selector !== undefined){
+			if(selectorTarget === undefined)
+				this.initWithFunction(selector);
+			else this.initWithFunction(selector, selectorTarget, data);
+		}
     },
     initWithFunction:function (selector, selectorTarget, data) {
-        if (selector) {
-            this._function = selector;
-        }
-        if (selectorTarget) {
-            this._selectorTarget = selectorTarget;
-        }
-        if (data) {
+	    if (selectorTarget) {
             this._data = data;
-        }
+            this._callFunc = selector;
+            this._selectorTarget = selectorTarget;
+	    }
+	    else if (selector)
+		    this._function = selector;
         return true;
     },
     execute:function () {
-        if (this._function) {
-            this._function.call(this._selectorTarget, this.target, this._data);
-        }
+        if (this._callFunc != null)
+            this._callFunc.call(this._selectorTarget, this.target, this._data);
+        else if(this._function)
+            this._function.call(null, this.target);
     },
     update:function (dt) {
         this.execute();
@@ -15759,8 +15497,12 @@ cc.CallFunc = cc.ActionInstant.extend({
         }
     },
     clone:function(){
-        var action = new cc.CallFunc();
-        action.initWithFunction(this._function, this._selectorTarget, this._data);
+       var action = new cc.CallFunc();
+        if(this._selectorTarget){
+             action.initWithFunction(this._callFunc,  this._selectorTarget, this._data)
+        }else if(this._function){
+             action.initWithFunction(this._function);
+        }
         return action;
     }
 });
@@ -17853,6 +17595,7 @@ cc.Audio = cc.Class.extend({
                 }, 10000);
                 var success = function(){
                     if(!cbCheck){
+                        element.pause();
                         try { element.currentTime = 0;
                             element.volume = 1; } catch (e) {}
                         document.body.removeChild(element);
@@ -17867,6 +17610,7 @@ cc.Audio = cc.Class.extend({
                 };
                 var failure = function(){
                     if(!cbCheck) return;
+                    element.pause();
                     document.body.removeChild(element);
                     element.removeEventListener("canplaythrough", success, false);
                     element.removeEventListener("error", failure, false);
@@ -17880,13 +17624,14 @@ cc.Audio = cc.Class.extend({
                     success();
                     cb(null, audio);
                 };
-                element.addEventListener("canplaythrough", success, false);
-                element.addEventListener("error", failure, false);
+                cc._addEventListener(element, "canplaythrough", success, false);
+                cc._addEventListener(element, "error", failure, false);
                 if(polyfill.USE_EMPTIED_EVENT)
-                    element.addEventListener("emptied", emptied, false);
+                    cc._addEventListener(element, "emptied", emptied, false);
                 element.src = realUrl;
                 document.body.appendChild(element);
                 element.volume = 0;
+                element.play();
             }
         }
     };
@@ -18114,6 +17859,12 @@ cc.Audio = cc.Class.extend({
             }
         }, 150);
     }
+    cc.eventManager.addCustomListener(cc.game.EVENT_HIDE, function () {
+        cc.audioEngine._pausePlaying();
+    });
+    cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
+        cc.audioEngine._resumePlaying();
+    });
 })(window.__audioSupport);
 cc._globalFontSize = cc.ITEM_SIZE;
 cc._globalFontName = "Arial";
