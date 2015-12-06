@@ -1,0 +1,13 @@
+{
+  "project_type": "javascript",
+  "debugMode": 1,
+  "showFPS": true,
+  "frameRate": 60,
+  "id": "effect",
+  "renderMode": 0,
+  "jsList": [
+    "src/SystemConst.js",
+    "src/resource.js",
+    "src/app.js"
+  ]
+}
