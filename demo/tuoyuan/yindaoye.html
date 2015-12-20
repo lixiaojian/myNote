@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>引导页</title>
+    <link href="css/css.css" type="text/css" rel="stylesheet" />
+    <style>
+        .object{
+            position:absolute;
+            display: inline-block;
+            height: 154px;
+            width: 154px;
+        }
+
+        .object img{
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="container" >
+    <div class="bigball"><img src="images/diqiu_03.png" width="625" height="625"></div>
+	<div class="colorbg"></div>
+    <div class="ballcon">
+        <div class="smallbox" id="ball_box"> </div>
+        <div class="arrow">
+        	<a href="javascript:;" id="previous_link" class="previous"></a>
+        	<a href="javascript:;" id="next_link" class="next"></a>
+        </div>
+    </div>
+</div>
+<!--说明：点击下面的左右箭头上面带文字的小圆球可以顺时针或者逆时针转换
+上面的大圆球不用动，-->
+<script src="js/move.js"></script>
+</body>
+</html>

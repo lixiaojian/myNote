@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* CSS Document */
+html, body, div, p, ul, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, form, input, select, button, textarea, iframe, table, th, td { margin:0; padding:0; }
+img { border: 0 none; vertical-align: middle; }
+body, input, select, button, textarea { font-size:12px; font-family:"宋体",arial;}
+.yahei{ font-family:"Microsoft Yahei";}
+.arial{ font-family:arial;}
+.song{font-family:"\5b8b\4f53";}
+li{ list-style-type:none;}
+button {cursor: pointer; border:none;}
+body {color: #000; line-height:24px;height:100%; background:#fff;}
+html{-webkit-text-size-adjust:none;}
+a{ color:#000; text-decoration:none;}
+a{blr:expression(this.onFocus=this.blur());}
+a:hover {text-decoration:none;color:#0e4d9c;  }
+a:focus { outline: none; }
+input:focus,textarea:focus,select:focus{ outline: none; }
+.clear{ height:0; clear:both;}
+.fixed,.warp { display: block; min-height: 1%; }
+*html .fixed,*html .warp { height: 1%; }
+
+
+
+
+/****************首页**/
+input:focus{outline:none;}
+input,button{ border:none;}
+
+.container{ width:100%; height:1000px; margin:0 auto; padding:0px;position:relative;background:url(../images/sybg.jpg) no-repeat top center;}
+.colorbg{ width:100%; height:638px; position:absolute; left:0; top:115px; margin:0px 0px 0px 0px;background:url(../images/colorbg_03.png) no-repeat top center; z-index:2;}
+
+.bigball{ width:1000px; height:638px; margin:0 auto; padding:0px;position:relative;}
+.bigball img{ width:625px; height:625px; float:left; margin:144px 0px 0px 181px;}
+
+.ball{ width:1000px; height:638px; margin:0 auto; padding:0px;position:relative;}
+
+
+.ballcon{ width:1000px; height:1000px; position:absolute; left:50%; top:0px; margin:0px 0px 0px -500px; }
+
+.smallbox{ width:1000px; height:769px; float:left; position:relative;}
+
+.arrow{width:1000px;height:54px; float:left;margin:72px 0px 0px 0px;}
+.previous{display:inline-block;width:50px;height:54px; float:left;margin:0px 0px 0px 421px; cursor:pointer;background:url(../images/jianta_03.png) no-repeat;}
+.next{display:inline-block;width:50px;height:54px;float:right;margin:0px 421px 0px 0px;cursor:pointer;background:url(../images/jianta_05.png) no-repeat;}
+
+
+
+@media only screen and (max-width:1001px){
+	
+	
+	.container{width:1000px; }
+	.colorbg{ width:1000px;}
+
+	}
+
+
+
