@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>chart</title>
+    <link rel="stylesheet" href="stylesheets/chat.css">
+</head>
+<body>
+<ul class="chat-list clear-fix" id="chat_list"></ul>
+<div class="send-msg-form clear-fix">
+    <input class="msg-input pull-left" id="msg_input" type="text">
+    <input class="submit-button pull-left" id="submit_buttom" type="button" value="发送">
+</div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://localhost:3000');
+        var msgInput = document.getElementById('msg_input');
+        var msgList = document.getElementById('chat_list');
+        document.getElementById('submit_buttom').onclick = function(e){
+            socket.emit('chat-msg-server', msgInput.value);
+            msgInput.value = '';
+        };
+        socket.on('chat-msg-client',function(data){
+            console.log(data);
+            var li =document.createElement('li');
+            li.innerHTML = data;
+            msgList.appendChild(li);
+        });
+    </script>
+</body>
+</html>
