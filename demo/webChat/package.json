@@ -11,6 +11,7 @@
     "debug": "^2.2.0",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
+    "node-uuid": "^1.4.7",
     "socket.io": "^1.4.5",
     "supervisor": "^0.9.1"
   }
