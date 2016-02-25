@@ -15,27 +15,20 @@
     };
     //自定义移动类
     function Bar(parent,x,y,a,b){
-        //椭圆中心点x坐标
+        this.uid="move_"+Math.random();
+        this.uid = this.uid.replace(".","");
+        eval(this.uid+"=this;");
         this._x=x;
-        //椭圆的圆心中心点y坐标
         this._y=y;
-        //长轴
         this._a=a;
-        //短轴
         this._b=b;
-        //移动的小球
         this.items=[];
-        //当前的角度参数
         this.dxrad=0.0075;
-        //上一次移动的角度参数
         this.oldDxrad = 0.0075;
-        //父容器
         this.parent=parent;
-        //移动定时器
-        this.timmer = null;
-        //透明度参数
+        this.timmer1 = null;
+		this.timmer2 = null;
         this.opacityBase = 50;
-        this.currFx = 1;
 
     }
     //设置对象位置
@@ -56,30 +49,51 @@
         obj.style.opacity=p/100;
     }
     //根据轨迹运动
-    Bar.prototype.play=function(flag){
-        var type = this.currFx;
-        var speed = 0.007;
-        if(flag !== undefined){
-            type = flag;
-            speed = 0.06;
-        };
-        var me = this;
-        var n = me.items.length;
+    Bar.prototype.play1=function(flag){
+		if(flag = 1){
+			clearTimeout(this.timmer1);
+			clearTimeout(this.timmer2);
+			}
+			flag++;
+        var n = this.items.length;
         var step = 2*Math.PI/n;
         for(var i=0;i<n;i++){
-            me.setPostion(me.items[i],step*i+me.dxrad);
-            me.setAlpha(me.items[i],step*i+me.dxrad);
+            this.setPostion(this.items[i],step*i+this.dxrad);
+            this.setAlpha(this.items[i],step*i+this.dxrad);
         }
-        me.dxrad=me.dxrad+(speed*type);
-        me.timmer = setTimeout(function(){
-            me.play(flag);
-        },16);
-        if(Math.abs(me.dxrad - me.oldDxrad) >= Math.PI && flag !== undefined){
-            clearTimeout(me.timmer);
-            me.oldDxrad = me.dxrad;
-            me.currFx = flag;
+        var oldDxrad = this.dxrad;
+        this.dxrad=this.dxrad+(0.0075*1);
+        this.timmer1 = setTimeout(this.uid+".play1("+flag+")",30);
+        if(Math.abs(this.dxrad - this.oldDxrad) >= step ){
+            //clearTimeout(this.timmer);
+            this.oldDxrad = this.dxrad;
         }
+		
     }
+	
+	    //根据轨迹运动
+    Bar.prototype.play2=function(flag){
+		if(flag = 1){
+			clearTimeout(this.timmer1);
+			clearTimeout(this.timmer2);
+			}
+			flag++;
+        var n = this.items.length;
+        var step = 2*Math.PI/n;
+        for(var i=0;i<n;i++){
+            this.setPostion(this.items[i],step*i+this.dxrad);
+            this.setAlpha(this.items[i],step*i+this.dxrad);
+        }
+        var oldDxrad = this.dxrad;
+        this.dxrad=this.dxrad+(0.0075*(-1));
+        this.timmer2 = setTimeout(this.uid+".play2("+flag+")",30);
+        if(Math.abs(this.dxrad - this.oldDxrad) >= step ){
+           // clearTimeout(this.timmer);
+            this.oldDxrad = this.dxrad;
+        }
+		
+    }
+	
     //生成小球
     Bar.prototype.init=function(imgs){
         for(var i= 1,len=imgs.length;i<=len;i++){
@@ -87,7 +101,7 @@
             var link =document.createElement('a');
             link.href = obj.url;
             link.className = 'object';
-            var img = document.createElement('img');
+            var img = new Image();
             img.src = obj.img;
             link.appendChild(img);
             this.items[i-1]=link;
@@ -95,7 +109,7 @@
             this.setAlpha(link,2*Math.PI*i/len);
             this.parent.appendChild(link);
         }
-        this.play();
+        this.play1(1)
     };
     var bar = new Bar(document.getElementById('ball_box'),420,350,440,240);
     var imgs=[
@@ -109,10 +123,9 @@
     ];
     bar.init(imgs);
     addEvent(document.getElementById('previous_link'),'click',function(){
-
-        bar.play(1);
+        bar.play1(1);
     });
     addEvent(document.getElementById('next_link'),'click',function(){
-        bar.play(-1);
+        bar.play2(1);
     });
 }());
