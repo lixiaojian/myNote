@@ -102,7 +102,14 @@ input, button {
     z-index: 9999;
     opacity: 0;
     -webkit-transform: scale(0.5, 0.5);
+    -moz-transform: scale(0.5, 0.5);
+    -ms-transform: scale(0.5, 0.5);
+    -o-transform: scale(0.5, 0.5);
     transform: scale(0.5, 0.5);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
     transition: all 1s;
 }
 
@@ -126,8 +133,15 @@ input, button {
     z-index: 9999;
     opacity: 0;
     -webkit-transform: translate(20px, 0px);
+    -moz-transform: translate(20px, 0px);
+    -ms-transform: translate(20px, 0px);
+    -o-transform: translate(20px, 0px);
     transform: translate(20px, 0px);
-    transition: all 1s;
+    -webkit-transition:  all 1s;
+    -moz-transition:  all 1s;
+    -ms-transition:  all 1s;
+    -o-transition:  all 1s;
+    transition:  all 1s;
     display: none;
 }
 
@@ -199,7 +213,15 @@ input, button {
     z-index: 9999;
     opacity: 0;
     -webkit-transform: translate(0, -60px);
+    -moz-transform: translate(0, -60px);
+    -ms-transform: translate(0, -60px);
+    -o-transform: translate(0, -60px);
     transform: translate(0, -60px);
+
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
     transition: all 1s;
 }
 
@@ -389,7 +411,14 @@ input, button {
     float: left;
     margin: 0px 0px 0px 0px;
     -webkit-transform: translate(0px, -40px);
+    -moz-transform: translate(0px, -40px);
+    -ms-transform: translate(0px, -40px);
+    -o-transform: translate(0px, -40px);
     transform: translate(0px, -40px);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
     transition: all 1s;
 }
 
@@ -462,6 +491,10 @@ input, button {
 .sec2 ul li:hover .sec221 {
     top: 0px;
     opacity: 1;
+    -webkit-transition-delay: 0.1s;
+    -moz-transition-delay: 0.1s;
+    -ms-transition-delay: 0.1s;
+    -o-transition-delay: 0.1s;
     transition-delay: 0.1s;
 }
 
@@ -474,8 +507,15 @@ input, button {
     height: 242px;
     background: #fff;
     -webkit-transform: translate(0px, 0px);
+    -moz-transform: translate(0px, 0px);
+    -ms-transform: translate(0px, 0px);
+    -o-transform: translate(0px, 0px);
     transform: translate(0px, 0px);
     opacity: 1;
+    -webkit-transition-delay: 0.1s;
+    -moz-transition-delay: 0.1s;
+    -ms-transition-delay: 0.1s;
+    -o-transition-delay: 0.1s;
     transition-delay: 0.1s;
 }
 
@@ -497,25 +537,53 @@ input, button {
 
 .sec2 ul li:nth-child(1) {
     -webkit-transform: translate(-60px, 0px);
+    -moz-transform: translate(-60px, 0px);
+    -ms-transform: translate(-60px, 0px);
+    -o-transform: translate(-60px, 0px);
     transform: translate(-60px, 0px);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
     transition: all 1s;
 }
 
 .sec2 ul li:nth-child(2) {
     -webkit-transform: translate(-60px, 0px);
+    -moz-transform: translate(-60px, 0px);
+    -ms-transform: translate(-60px, 0px);
+    -o-transform: translate(-60px, 0px);
     transform: translate(-60px, 0px);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
     transition: all 1s;
 }
 
 .sec2 ul li:nth-child(3) {
     -webkit-transform: translate(60px, 0px);
+    -moz-transform: translate(60px, 0px);
+    -ms-transform: translate(60px, 0px);
+    -o-transform: translate(60px, 0px);
     transform: translate(60px, 0px);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
     transition: all 1s;
 }
 
 .sec2 ul li:nth-child(4) {
     -webkit-transform: translate(60px, 0px);
+    -moz-transform: translate(60px, 0px);
+    -ms-transform: translate(60px, 0px);
+    -o-transform: translate(60px, 0px);
     transform: translate(60px, 0px);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
     transition: all 1s;
 }
 
@@ -568,7 +636,14 @@ input, button {
     padding: 90px 0px 0px 0px;
     opacity: 0;
     -webkit-transform: translate(0, 100px);
+    -moz-transform: translate(0, 100px);
+    -ms-transform: translate(0, 100px);
+    -o-transform: translate(0, 100px);
     transform: translate(0, 100px);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
     transition: all 1s;
 }
 
@@ -630,6 +705,10 @@ input, button {
 .sec3 ul li:hover .sect3 a span {
     top: 0px;
     opacity: 1;
+    -webkit-transition-delay: 0.1s;
+    -moz-transition-delay: 0.1s;
+    -ms-transition-delay: 0.1s;
+    -o-transition-delay: 0.1s;
     transition-delay: 0.1s;
 }
 
@@ -695,6 +774,10 @@ input, button {
 .sec3 ul li:hover .secc31 {
     top: 0px;
     display: block;
+    -webkit-transition-delay: 0.1s;
+    -moz-transition-delay: 0.1s;
+    -ms-transition-delay: 0.1s;
+    -o-transition-delay: 0.1s;
     transition-delay: 0.1s;
 }
 
@@ -717,6 +800,10 @@ input, button {
     display: inline-block;
     border-radius: 25px;
     -moz-border-radius: 25px;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
     transition: all 1s;
 }
 
@@ -788,13 +875,27 @@ input, button {
 
 .sec4 ul li:nth-child(2n+1) {
     -webkit-transform: translate(20px, 0px);
+    -moz-transform: translate(20px, 0px);
+    -ms-transform: translate(20px, 0px);
+    -o-transform: translate(20px, 0px);
     transform: translate(20px, 0px);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
     transition: all 1s;
 }
 
 .sec4 ul li:nth-child(2n+2) {
     -webkit-transform: translate(-20px, 0px);
+    -moz-transform: translate(-20px, 0px);
+    -ms-transform: translate(-20px, 0px);
+    -o-transform: translate(-20px, 0px);
     transform: translate(-20px, 0px);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
     transition: all 1s;
 }
 
