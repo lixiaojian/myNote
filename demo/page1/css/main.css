@@ -3300,7 +3300,7 @@ button, input[type=file], input[type=button], input[type=reset], input[type=subm
     height: 175px;
     border: 3px solid #fff;
     border-radius: 50%;
-    background: 0 0
+    /*background: 0 0*/
 }
 
 .circle-boxes .circle {
@@ -3378,12 +3378,12 @@ button, input[type=file], input[type=button], input[type=reset], input[type=subm
     padding: 67px 35px 0;
     letter-spacing: 1px;
     text-transform: uppercase;
-    border: 3px solid #fff;
+    border: 3px solid #000;
     border-radius: 50%
 }
 
 .circle-boxes2 .line, .line9 {
-    border-left: 2px dashed #fff
+    border-left: 2px dashed #000
 }
 
 .circle-boxes2 .circle h3 {
@@ -3456,7 +3456,7 @@ button, input[type=file], input[type=button], input[type=reset], input[type=subm
     left: 0;
     height: 1px;
     margin: 1px 210px 0 0;
-    border-top: 2px dashed #fff
+    border-top: 2px dashed #000
 }
 
 .circle-test-holder .line7 {
@@ -3472,7 +3472,7 @@ button, input[type=file], input[type=button], input[type=reset], input[type=subm
     bottom: 0;
     left: 0;
     width: 1px;
-    border-left: 2px dashed #fff
+    border-left: 2px dashed #000
 }
 
 .circle-test-holder .line8 {
@@ -3601,7 +3601,7 @@ button, input[type=file], input[type=button], input[type=reset], input[type=subm
     max-width: 1263px;
     margin: 0 auto 165px;
     padding: 0 15px;
-    color: #fff
+    color: #000
 }
 
 .contact-box.black, .contact-box.black .contact-form .input-box input.placeholder, .contact-box.black .contact-form .input-box textarea.placeholder {
@@ -3673,7 +3673,7 @@ button, input[type=file], input[type=button], input[type=reset], input[type=subm
 .contact-form .input-box {
     position: relative;
     padding: 0 0 5px;
-    border-bottom: 1px solid #fff
+    border-bottom: 1px solid #000
 }
 
 .contact-form .input-box.required:before {
@@ -3730,7 +3730,7 @@ button, input[type=file], input[type=button], input[type=reset], input[type=subm
 }
 
 .contact-form .just-focus .input-box input, .contact-form .just-focus .input-box textarea {
-    background: #303032
+    /*background: #303032*/
 }
 
 .contact-form .just-focus .input-box input::-webkit-input-placeholder, .contact-form .just-focus .input-box textarea::-webkit-input-placeholder {
@@ -3763,10 +3763,10 @@ button, input[type=file], input[type=button], input[type=reset], input[type=subm
     padding: 12px 14px;
     -webkit-transition: height .3s ease-in-out, background .3s ease-in-out;
     transition: height .3s ease-in-out, background .3s ease-in-out;
-    color: #fff;
+    color: #000;
     border: 0;
     outline: 0;
-    background: #19191b;
+    /*background: #19191b;*/
     box-shadow: none
 }
 
@@ -3778,28 +3778,28 @@ button, input[type=file], input[type=button], input[type=reset], input[type=subm
 
 .contact-form input[type=text]::-webkit-input-placeholder, .contact-form input[type=email]::-webkit-input-placeholder, .contact-form input[type=phone]::-webkit-input-placeholder, .contact-form textarea::-webkit-input-placeholder {
     text-transform: uppercase;
-    color: #fff
+    color: #000
 }
 
 .contact-form input[type=text]::-moz-placeholder, .contact-form input[type=email]::-moz-placeholder, .contact-form input[type=phone]::-moz-placeholder, .contact-form textarea::-moz-placeholder {
     text-transform: uppercase;
     opacity: 1;
-    color: #fff
+    color: #000
 }
 
 .contact-form input[type=text]:-moz-placeholder, .contact-form input[type=email]:-moz-placeholder, .contact-form input[type=phone]:-moz-placeholder, .contact-form textarea:-moz-placeholder {
     text-transform: uppercase;
-    color: #fff
+    color: #000
 }
 
 .contact-form input[type=text]:-ms-input-placeholder, .contact-form input[type=email]:-ms-input-placeholder, .contact-form input[type=phone]:-ms-input-placeholder, .contact-form textarea:-ms-input-placeholder {
     text-transform: uppercase;
-    color: #fff
+    color: #000
 }
 
 .contact-form input[type=text].placeholder, .contact-form input[type=email].placeholder, .contact-form input[type=phone].placeholder, .contact-form textarea.placeholder {
     text-transform: uppercase;
-    color: #fff
+    color: #000
 }
 
 .contact-form textarea {
@@ -3892,7 +3892,7 @@ body .fancybox-close:before {
 }
 
 .fancybox-skin {
-    background: #fff !important;
+    background: #000 !important;
     box-shadow: none !important
 }
 
@@ -4061,9 +4061,9 @@ body .fancybox-close:before {
 }
 
 .example-box, .example-box3 {
-    color: #fff;
+    color: #000;
     letter-spacing: 1px;
-    background: #191e23
+    background: #fff
 }
 
 .entry-case .link-back i {
@@ -4419,7 +4419,7 @@ body .fancybox-close:before {
     bottom: 42px;
     left: 60px;
     letter-spacing: .5px;
-    color: #fff
+    color: #000
 }
 
 .post-container .add-sidebar a:hover, .post-section .back-link a:hover {
