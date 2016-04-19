@@ -2734,7 +2734,7 @@ button, input[type=file], input[type=button], input[type=reset], input[type=subm
     -webkit-transition: opacity .3s ease-in-out;
     transition: opacity .3s ease-in-out;
     opacity: 1;
-    color: #fff
+    /*color: #fff*/
 }
 
 .btn-scroll:hover {
@@ -2970,7 +2970,7 @@ button, input[type=file], input[type=button], input[type=reset], input[type=subm
 
 .app-section .link, .title-box {
     letter-spacing: 1px;
-    color: #fff
+    /*color: #fff*/
 }
 
 .gallery-clients .image, .gallery-photos .image {
@@ -3127,7 +3127,7 @@ button, input[type=file], input[type=button], input[type=reset], input[type=subm
     max-width: 1060px;
     margin: 130px auto 163px;
     text-align: center;
-    color: #fff
+    /*color: #fff*/
 }
 
 .graff-box .btn-arrow {
@@ -3211,7 +3211,7 @@ button, input[type=file], input[type=button], input[type=reset], input[type=subm
 
 .graff-box .line4, .graff-box .lines .line {
     width: 1px;
-    border-left: 2px dashed #fff;
+    border-left: 2px dashed #000;
     display: block
 }
 
@@ -4759,8 +4759,8 @@ body.load {
 }
 
 .how-we-work-page {
-    color: #fff;
-    background: #19191b
+    /*color: #fff;*/
+    /*background: #19191b*/
 }
 
 .add-btn-down i {
