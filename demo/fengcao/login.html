@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="header">
+        <ul class="clearfix">
+            <li class="header-left">
+                Hi,欢迎来到蜂巢 <a href="">[登录]</a>
+            </li>
+            <li class="header-right right-last"><a href="">联系我们</a></li>
+            <li class="header-right company-name"><a href="">清讯科技</a></li>
+        </ul>
+    </div>
+    <div class="banner">
+        <h2><img class="logo" src="img/logo.png" alt="信息自助系统"><i class="line"></i><span class="title">信息自助系统</span></h2>
+    </div>
+    <div class="login-text">欢迎您使用蜂巢信息登记系统，请先登录</div>
+    <div class="form-area">
+        <form id="login_form" class="login-form" action="">
+            <div class="filed-con ok">
+                <label class="input-label" for="userName">手机号码/邮箱：</label>
+                <input class="input" id="userName" value="1388888888" placeholder="请输入手机号码/邮箱" type="text">
+                <span data-focus-text="请输入手机号码/邮箱" class="msg">&nbsp;</span>
+            </div>
+            <div class="filed-con error">
+                <label class="input-label" for="password">登录密码：</label>
+                <input class="input" id="password" placeholder="请输入登录密码" type="password">
+                <span data-focus-text="请输入登录密码" class="msg">密码不正确</span>
+            </div>
+            <div class="filed-con focus">
+                <label class="input-label" for="code">验证：</label>
+                <input class="input code-input" id="code" placeholder="请输入验证码" type="text">
+                <img src="img/code.png" class="code-img" alt="">
+                <span data-focus-text="请输入4位验证码" class="msg">&nbsp;</span>
+            </div>
+            <div class="button-box">
+                <label class="input-label">&nbsp;</label>
+                <input class="submit-button" type="submit" value="立即登录">
+                <a href="" class="forget-password">忘记密码？</a>
+            </div>
+        </form>
+    </div>
+    <div class="footer">
+        © 2014-2015 蜂巢有限责任公司 www.fcit.com.cn 所有版权 沪ICP备15006070号
+    </div>
+    <script src="http://cdn.bootcss.com/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('.input',$('#login_form')).on({
+                'focus':function(){
+                    var parent = $(this).parent();
+                    parent.addClass('focus').removeClass('ok').removeClass('error');
+                    var msgSpan = $('.msg',parent);
+                    msgSpan.text(msgSpan.data('focus-text'));
+                },
+                'blur':function(){
+                    var parent = $(this).parent();
+                    parent.removeClass('focus');
+                    var msgSpan = $('.msg',parent);
+                    msgSpan[0].innerHTML = '&nbsp;';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
