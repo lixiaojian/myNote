@@ -30,9 +30,8 @@ module.exports = {
         './resume/scripts/index.js'
     ],
     output: {
-        path: path.join(__dirname, 'build'),
-        publicPath: 'build/',
-        filename: 'app.js'
+        path: path.join(__dirname, 'build/'),
+        filename: 'js/app.js'
     },
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
