@@ -71,7 +71,7 @@ module.exports = {
                     { loader:'less-loader', options: {"sourceMap":true,"modifyVars":theme}}
                 ])
             },
-            {test: /\.(png|jpg)$/,loader: 'url-loader?limit=8192&name=build/images/[hash:8].[name].[ext]'}
+            {test: /\.(png|jpg)$/,loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]'}
         ]
     }
 };
