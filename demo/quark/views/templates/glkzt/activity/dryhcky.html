@@ -1,0 +1,52 @@
+<div class="container-fluid" data-ng-controller="importUserCtr">
+    <h4 class="sub-title">{{modileTitle2}}</h4>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-2">导入状态：</label>
+            <div class="col-sm-2">
+                <select class="form-control" data-ng-model="searchImportedUser.importStatus">
+                    <option value="">请选择</option>
+                    <option value="1">成功</option>
+                    <option value="0">失败</option>
+                </select>
+            </div>
+
+            <label class="control-label col-sm-2">手机号：</label>
+            <div class="col-sm-2">
+                <input type="text" data-ng-model="searchImportedUser.mobile" class="form-control"/>
+            </div>
+        </div>
+    </form>
+    <div class="btn-box clearfix">
+        <a class="btn btn-default pull-right" href="javascript:" data-ui-sref="glkzt.dryh" role="button">返 回</a>
+        <a class="btn btn-default pull-right" href="javascript:" data-ng-click="searchImported()" role="button">查 询</a>
+    </div>
+
+
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>用户id</th>
+            <th>手机号</th>
+            <th>卡卷码</th>
+            <th>面值</th>
+            <th>导入状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="user in importedList">
+            <td>{{user.customerId}}</td>
+            <td>{{user.mobile}}</td>
+            <td>{{user.couponsId}}</td>
+            <td>{{user.val}}</td>
+            <td>{{user.importStatus==1?'成功':'失败' }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--分页-->
+    <div class="clearfix">
+        <div data-pagination data-total-items="page.totalItems" data-ng-model="page.curPage" data-max-size="page.maxSize" data-items-per-page="page.itemsPerPage" data-boundary-links="page.boundaryLinks" data-ng-change="changeImportedPage()"
+             data-previous-text="{{page.previousText}}" data-next-text="{{page.nextText}}" data-first-text="{{page.firstText}}" data-last-text="{{page.lastText}}"></div>
+    </div>
+</div>

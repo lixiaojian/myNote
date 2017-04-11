@@ -1,0 +1,45 @@
+{
+  "userRegister": {
+    "docPath": "/file/e63a3739-25ba-4613-82ea-b7b85bc14fdb.properties",
+    "fullPath": "http://120.27.39.196/upload/file/e63a3739-25ba-4613-82ea-b7b85bc14fdb.properties"
+  },
+  "delegateDoc": {
+    "docPath": "/file/a7f239e8-e916-467b-a220-2853e35e92ef.properties",
+    "fullPath": "http://120.27.39.196/upload/file/a7f239e8-e916-467b-a220-2853e35e92ef.properties"
+  },
+  "experienceDoc": {
+    "docPath": "/img/3-21红包用规则e26f47d5-c25c-4690-a371-02af82adfb4d.jpg",
+    "fullPath": "http://120.27.39.196/upload/img/3-21红包用规则e26f47d5-c25c-4690-a371-02af82adfb4d.jpg"
+  },
+  "counponDoc": {
+    "docPath": "/img/3-21抵扣券使用规则689e8722-71d5-46f1-922b-8c9b011300fb.jpg",
+    "fullPath": "http://120.27.39.196/upload/img/3-21抵扣券使用规则689e8722-71d5-46f1-922b-8c9b011300fb.jpg"
+  },
+  "loopAgreementDocList": [
+    {
+      "agreementId": "AC6DBB5ADB834CBDA24F3681A376B9CE",
+      "agreementCode": "1",
+      "docPath": "/file/30天合同366af9d3-6231-4cca-9631-d20487fd62e8.txt"
+    },
+    {
+      "agreementId": "5843A9A382144D84BE5D69CA738DE307",
+      "agreementCode": "2",
+      "docPath": "/file/90天合同766e99f9-75fc-4f03-a609-5edc34085b7b.txt"
+    },
+    {
+      "agreementId": "9DA73B6E119C493E80D6A90314C1E955",
+      "agreementCode": "3",
+      "docPath": "/file/180天合同0a1bd49a-7b55-47b5-a563-3f47226e90ea.txt"
+    },
+    {
+      "agreementId": "B12C48C97EE34FE59603E55AEDBAEB64",
+      "agreementCode": "4",
+      "docPath": "/file/270天合同ed1a4941-1a1a-4000-a1f4-264463e900e4.txt"
+    },
+    {
+      "agreementId": "86B66A35AFB74FE1BB57C953953D07D9",
+      "agreementCode": "5",
+      "docPath": "/file/ss45735116-f1b5-42ca-a5bd-6defbcd9f3d7.xlsx"
+    }
+  ]
+}

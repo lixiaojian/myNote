@@ -1,0 +1,53 @@
+{
+  "pageSize": 10,
+  "pageNum": 1,
+  "pageSum": 3,
+  "recordList": [
+    {
+      "PAYMENT_NO": "EWDCQW12DQW",
+      "REAL_NAME": "dxl",
+      "IDENTIFICATION_NO": "223334456789765432",
+      "MOBILE": "15000000000",
+      "BANK_NAME":"中国工商银行",
+      "BANK_CARD_NO":"5665433221335323",
+      "AMT":324234,
+      "TX_TIME":"2014-12-21 12:23:10",
+      "BIND_TYPE_NAME": "代付认证"
+    },
+    {
+      "PAYMENT_NO": "EWDCQW12DQW",
+      "REAL_NAME": "dxl",
+      "IDENTIFICATION_NO": "223334456789765432",
+      "MOBILE": "15000000000",
+      "BANK_NAME":"中国工商银行",
+      "BANK_CARD_NO":"5665433221335323",
+      "AMT":324234,
+      "TX_TIME":"2014-12-21 12:23:10",
+      "BIND_TYPE_NAME": "代付认证"
+    },
+    {
+      "PAYMENT_NO": "EWDCQW12DQW",
+      "REAL_NAME": "dxl",
+      "IDENTIFICATION_NO": "223334456789765432",
+      "MOBILE": "15000000000",
+      "BANK_NAME":"中国工商银行",
+      "BANK_CARD_NO":"5665433221335323",
+      "AMT":324234,
+      "TX_TIME":"2014-12-21 12:23:10",
+      "BIND_TYPE_NAME": "代付认证"
+    },
+    {
+      "PAYMENT_NO": "EWDCQW12DQW",
+      "REAL_NAME": "dxl",
+      "IDENTIFICATION_NO": "223334456789765432",
+      "MOBILE": "15000000000",
+      "BANK_NAME":"中国工商银行",
+      "BANK_CARD_NO":"5665433221335323",
+      "AMT":324234,
+      "TX_TIME":"2014-12-21 12:23:10",
+      "BIND_TYPE_NAME": "代付认证"
+    }
+  ],
+  "iTotalRecords": 16,
+  "iTotalDisplayRecords": 16
+}

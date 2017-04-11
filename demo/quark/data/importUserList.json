@@ -1,0 +1,31 @@
+{
+  "pageSize": 10,
+  "pageNum": 1,
+  "pageSum": 2,
+  "recordList": [
+    {
+      "activityNo":27,
+      "importNum": "5000",
+      "importSuccessNum": "4900",
+      "importFailedNum": "100",
+      "activityName": "lklk",
+      "begDate": "2015-09-12",
+      "endDate": "2015-09-12",
+      "operator":"张三",
+      "operateTime":"2015-09-10"
+    },
+    {
+      "activityNo":1001,
+      "importNum": "5000",
+      "importSuccessNum": "4900",
+      "importFailedNum": "100",
+      "activityName": "五一活动",
+      "begDate": "2015-09-12",
+      "endDate": "2015-09-12",
+      "operator":"张三",
+      "operateTime":"2015-09-10"
+    }
+  ],
+  "iTotalRecords": 2,
+  "iTotalDisplayRecords": 2
+}

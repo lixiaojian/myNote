@@ -1,0 +1,45 @@
+{
+  "pageSize": 10,
+  "pageNum": 1,
+  "pageSum": 2,
+  "recordList": [
+    {
+      "id": "89CA1B23D10249AF945724AF7AEDF53E",
+      "mobile": "13523456542",
+      "loginName": "dxl",
+      "idNo": "133245678977654332",
+      "dealNum": 3,
+      "sumBuy": 23432,
+      "sumProfit": 123,
+      "currAsset":422312,
+      "avaibaleAsset":400000,
+      "deadAsset":22312
+    },
+    {
+      "id": "89CA1B23D10249AF945724AF7AEDF53E",
+      "mobile": "13523456542",
+      "loginName": "dxl",
+      "idNo": "133245678977654332",
+      "dealNum": 3,
+      "sumBuy": 23432,
+      "sumProfit": 123,
+      "currAsset":422312,
+      "avaibaleAsset":400000,
+      "deadAsset":22312
+    },
+    {
+      "id": "89CA1B23D10249AF945724AF7AEDF53E",
+      "mobile": "13523456542",
+      "loginName": "dxl",
+      "idNo": "133245678977654332",
+      "dealNum": 3,
+      "sumBuy": 23432,
+      "sumProfit": 123,
+      "currAsset":422312,
+      "avaibaleAsset":400000,
+      "deadAsset":22312
+    }
+  ],
+  "iTotalRecords": 12,
+  "iTotalDisplayRecords": 9
+}

@@ -1,0 +1,25 @@
+{
+  "pageSize": 10,
+  "pageNum": 1,
+  "pageSum": 2,
+  "recordList": [
+    {
+      "smsTemplateId": "1001",
+      "smsCode": "1",
+      "smsContent": "lklkklkllkklklk",
+      "sendType":"sendType1",
+      "operateTime":"2015-10-23 12:03:11",
+      "operator":"张三"
+    },
+    {
+      "smsTemplateId": "1002",
+      "smsCode": "2",
+      "smsContent": "jkjkjkjkkj",
+      "sendType":"sendType2",
+      "operateTime":"2015-10-23 12:03:11",
+      "operator":"杨四"
+    }
+  ],
+  "iTotalRecords": 2,
+  "iTotalDisplayRecords": 2
+}

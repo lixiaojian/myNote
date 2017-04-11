@@ -1,0 +1,36 @@
+{
+  "pageSize": 10,
+  "pageNum": 1,
+  "pageSum": 2,
+  "recordList": [
+    {
+      "id": "1",
+      "loginName": 1,
+      "idNo": "43343344343343343",
+      "createTime": 1437001918615,
+      "channelCode": 1,
+      "bindNum": 0,
+      "isSetQuestion": 1,
+      "isRealName": 1,
+      "customerStatus": 1,
+      "firstDealTime": 1,
+      "mobile": "13443434343",
+      "mobileList": [
+        {
+          "id": "1",
+          "customerCode": 1,
+          "idNo": 1,
+          "idType": 1,
+          "mobile": "1343443443",
+          "oldMobile": 1,
+          "updateTime": 1,
+          "isActive": 1
+        }
+      ],
+      "customerSecurity": null,
+      "bankCardList": []
+    }
+  ],
+  "iTotalRecords": 1,
+  "iTotalDisplayRecords": 1
+}

@@ -1,0 +1,10 @@
+{
+  "resCode": "0000",
+  "resMsg": "操作成功",
+  "resInfo": {
+    "configCode": "1",
+    "pay_for_another_from": "100",
+    "pay_for_another_to": "200",
+    "failed_locked_num": "5"
+  }
+}

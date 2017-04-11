@@ -1,0 +1,210 @@
+{
+  "resCode": "0000",
+  "resMsg": "操作成功",
+  "resInfo": {
+    "mktActivities": {
+      "activityNo": 96,
+      "description": null,
+      "couponsNum": null,
+      "couponsName": null,
+      "productyType": null,
+      "singleUsing": null,
+      "sumUsingNum": null,
+      "lessThanNum": null,
+      "islock": "0",
+      "isExpired": null,
+      "productList": null,
+      "activityName": "鱼鱼",
+      "reciveWays": "100001",
+      "begDate": 1438012800000,
+      "endDate": 1438185600000,
+      "activityLink": "鱼鱼",
+      "activityImg": "鱼",
+      "activeStatus": null,
+      "createDate": 1437753600000,
+      "reciveWayArr": null
+    },
+    "couponsRules": {
+      "couponsRuleNo": 38,
+      "couponsRuleName": "鱼",
+      "activityNo": 96,
+      "totalNum": 76,
+      "dailyNum": 6,
+      "eachNum": 6,
+      "beginTime": "01:00",
+      "endTime": "03:00",
+      "createDate": null
+    },
+    "coupons": [
+      {
+        "couponsId": "910E1649AD664258B0738D986C005B5A",
+        "couponsRuleNo": 38,
+        "couponsType": "2",
+        "parValue": null,
+        "provideRatio": null,
+        "investmentRatio": null,
+        "productType": "1030,1007,1090,1180,1360",
+        "onceusing": "0",
+        "multiusingNum": null,
+        "lessEqlNum": null,
+        "productTypes": [
+          {
+            "productTypeId": "1007",
+            "productTypeName": "财富优加计划7天",
+            "productTypeCode": "1007",
+            "ischecked": "1"
+          },
+          {
+            "productTypeId": "1007",
+            "productTypeName": "财富优加计划7天",
+            "productTypeCode": "1007",
+            "ischecked": "0"
+          },
+          {
+            "productTypeId": "1360",
+            "productTypeName": "财富优加计划360天",
+            "productTypeCode": "1360",
+            "ischecked": "1"
+          },
+          {
+            "productTypeId": "1360",
+            "productTypeName": "财富优加计划360天",
+            "productTypeCode": "1360",
+            "ischecked": "1"
+          },
+          {
+            "productTypeId": "1030",
+            "productTypeName": "财富优加计划30天",
+            "productTypeCode": "1030",
+            "ischecked": "0"
+          },
+          {
+            "productTypeId": "1030",
+            "productTypeName": "财富优加计划30天",
+            "productTypeCode": "1030",
+            "ischecked": "0"
+          },
+          {
+            "productTypeId": "1180",
+            "productTypeName": "财富优加计划180天",
+            "productTypeCode": "1180",
+            "ischecked": "1"
+          },
+          {
+            "productTypeId": "1180",
+            "productTypeName": "财富优加计划180天",
+            "productTypeCode": "1180",
+            "ischecked": "1"
+          },
+          {
+            "productTypeId": "1090",
+            "productTypeName": "财富优加计划90天",
+            "productTypeCode": "1090",
+            "ischecked": "0"
+          },
+          {
+            "productTypeId": "1090",
+            "productTypeName": "财富优加计划90天",
+            "productTypeCode": "1090",
+            "ischecked": "0"
+          }
+        ],
+        "reciveCondType": "1",
+        "useCondType": "1",
+        "effectBegDate": 1437408000000,
+        "effectEndDate": 1438099200000,
+        "couponsImg": null,
+        "couponsDescription": "676",
+        "activeStatus": null,
+        "createDate": null,
+        "couponsValueList": [
+          {
+            "couponsValueId": "CFC82DBAD4574C418A6ECE2981A7479D",
+            "val": 6,
+            "num": 6,
+            "couponsId": null
+          }
+        ]
+      }
+    ],
+    "customerCoupons": [
+      {
+        "userNo": null,
+        "mobile": null,
+        "loginName": null,
+        "idNo": null,
+        "couponNum": 0,
+        "unUseNum": 0,
+        "useNum": 0,
+        "expNum": 0,
+        "lockingNum": 0,
+        "waitingforUseNum":0,
+        "val": 6,
+        "couponsType": "2",
+        "couponsNumbyType": null
+      }
+    ],
+    "productTypes": [
+      {
+        "productTypeId": "1030",
+        "productTypeName": "财富优加计划30天",
+        "productTypeCode": "1030",
+        "ischecked": null
+      },
+      {
+        "productTypeId": "1090",
+        "productTypeName": "财富优加计划90天",
+        "productTypeCode": "1090",
+        "ischecked": null
+      },
+      {
+        "productTypeId": "1180",
+        "productTypeName": "财富优加计划180天",
+        "productTypeCode": "1180",
+        "ischecked": null
+      },
+      {
+        "productTypeId": "1360",
+        "productTypeName": "财富优加计划360天",
+        "productTypeCode": "1360",
+        "ischecked": null
+      },
+      {
+        "productTypeId": "1007",
+        "productTypeName": "财富优加计划7天",
+        "productTypeCode": "1007",
+        "ischecked": null
+      },
+      {
+        "productTypeId": "1030",
+        "productTypeName": "财富优加计划30天",
+        "productTypeCode": "1030",
+        "ischecked": null
+      },
+      {
+        "productTypeId": "1090",
+        "productTypeName": "财富优加计划90天",
+        "productTypeCode": "1090",
+        "ischecked": null
+      },
+      {
+        "productTypeId": "1180",
+        "productTypeName": "财富优加计划180天",
+        "productTypeCode": "1180",
+        "ischecked": null
+      },
+      {
+        "productTypeId": "1360",
+        "productTypeName": "财富优加计划360天",
+        "productTypeCode": "1360",
+        "ischecked": null
+      },
+      {
+        "productTypeId": "1007",
+        "productTypeName": "财富优加计划7天",
+        "productTypeCode": "1007",
+        "ischecked": null
+      }
+    ]
+  }
+}

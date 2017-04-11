@@ -1,0 +1,23 @@
+{
+  "pageSize": 10,
+  "pageNum": 1,
+  "pageSum": 2,
+  "recordList": [
+    {
+      "customerId":"1000000",
+      "mobile": "136717222",
+      "importStauts": "1",
+      "conNo":"123123",
+      "conVal":123
+    },
+    {
+      "customerId":"1000000",
+      "mobile": "136717222",
+      "importStauts": "0",
+      "conNo":"123123",
+      "conVal":123
+    }
+  ],
+  "iTotalRecords": 2,
+  "iTotalDisplayRecords": 2
+}
