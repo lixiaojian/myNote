@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 

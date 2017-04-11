@@ -4,7 +4,25 @@
 
 var path = require('path');
 var webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const fs = require('fs');
+const existsSync = fs.existsSync;
+
+const pkgPath = path.join(__dirname, 'package.json');
+const pkg = existsSync(pkgPath) ? require(pkgPath) : {};
+let theme = {};
+if (pkg.theme && typeof(pkg.theme) === 'string') {
+    let cfgPath = pkg.theme;
+    if (cfgPath.charAt(0) === '.') {
+        cfgPath = path.resolve(__dirname, cfgPath);
+    }
+    const getThemeConfig = require(cfgPath);
+    theme = getThemeConfig();
+} else if (pkg.theme && typeof(pkg.theme) === 'object') {
+    theme = pkg.theme;
+}
 
 module.exports = {
     devtool: 'source-map',
@@ -34,7 +52,9 @@ module.exports = {
                 verbose: true,
                 dry: false
             }
-        )
+        ),
+        //css单独打包
+        new ExtractTextPlugin("css/style.css")
     ],
     module: {
         loaders: [
@@ -43,7 +63,15 @@ module.exports = {
                 loaders: ['babel-loader'],
                 include: path.join(__dirname, 'resume')
             },
-            { test: /\.css$/, loader: 'style-loader!css-loader' },
+            { test: /\.css$/, use: ["style-loader","css-loader"]},
+            {
+                test: /\.less$/,
+                use: ExtractTextPlugin.extract([
+                    'css-loader',
+                    'postcss-loader',
+                    { loader:'less-loader', options: {"sourceMap":true,"modifyVars":theme}}
+                ])
+            },
             {test: /\.(png|jpg)$/,loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]'}
         ]
     }
