@@ -22,20 +22,14 @@ app.use(require('webpack-dev-middleware')(compiler,webpackDevOptions));
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('/',function (req,res) {
-    res.sendFile(path.join(__dirname,'src/login.html'));
-});
-app.get('/userCenter.html',function (req,res) {
-    res.sendFile(path.join(__dirname,'src/userCenter.html'));
-});
-app.get('/test.html',function (req,res) {
-    res.sendFile(path.join(__dirname,'src/test.html'));
+    res.sendFile(path.join(__dirname,'index.html'));
 });
 
 
-app.listen(80,'localhost',function (err) {
+app.listen(8090,'localhost',function (err) {
     if(err){
         console.log(err);
         return;
     }
-    console.log('Listening at http://localhost:80');
+    console.log('Listening at http://localhost:8090');
 });

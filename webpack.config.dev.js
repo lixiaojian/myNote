@@ -26,30 +26,22 @@ module.exports = {
     context: path.join(__dirname),
     devtool:'cheap-module-eval-source-map',
     entry:{
-        login:[
-            './src/js/login.js',
-            hotMiddlewareScript
-        ],
-        userCenter:[
-            './src/js/userCenter.js',
-            hotMiddlewareScript
-        ],
-        test:[
-            './src/js/test.js',
+        index:[
+            './resume/scripts/index.js',
             hotMiddlewareScript
         ]
     },
     output:{
-        filename:'[name]-bundle.js',
-        publicPath:'/build/',
-        path: __dirname + '/build/'
+        filename:'app.js',
+        publicPath:'/build/js/',
+        path: __dirname + '/build/js/'
     },
     module:{
         rules:[
             {
                 test:/\.jsx?$/,
                 include:[
-                    path.resolve(__dirname,'src')
+                    path.resolve(__dirname,'resume')
                 ],
                 use:['react-hot-loader','babel-loader']
             },
@@ -86,10 +78,12 @@ module.exports = {
         new webpack.NoEmitOnErrorsPlugin(),
         //热启动
         new webpack.HotModuleReplacementPlugin(),
+        //css单独打包
+        new ExtractTextPlugin("/build/css/style.css")
         //拷贝文件
-        new CopyWebpackPlugin([{
-            from: __dirname + '/src',
-            to: __dirname + '/build'
-        }])
+        // new CopyWebpackPlugin([{
+        //     from: __dirname + '/src',
+        //     to: __dirname + '/build'
+        // }])
     ]
 };

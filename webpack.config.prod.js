@@ -9,12 +9,12 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     devtool: 'source-map',
     entry: [
-        './src/js/root'
+        './resume/scripts/index.js'
     ],
     output: {
         path: path.join(__dirname, 'build'),
         publicPath: 'build/',
-        filename: 'bundle.js'
+        filename: 'app.js'
     },
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
@@ -40,8 +40,8 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$/,
-                loaders: ['babel'],
-                include: path.join(__dirname, 'src')
+                loaders: ['babel-loader'],
+                include: path.join(__dirname, 'resume')
             },
             { test: /\.css$/, loader: 'style-loader!css-loader' },
             {test: /\.(png|jpg)$/,loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]'}
