@@ -3339,7 +3339,7 @@ samp {
 }
 .main-warpper .ant-layout-content {
   padding: 0 50px;
-  background: url(images/be9069be.body-bg.png) no-repeat center;
+  background: url(build/images/be9069be.body-bg.png) no-repeat center;
   background-size: 100%;
 }
 
