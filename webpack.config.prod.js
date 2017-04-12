@@ -25,7 +25,7 @@ if (pkg.theme && typeof(pkg.theme) === 'string') {
 }
 
 module.exports = {
-    devtool: 'source-map',
+    //devtool: 'source-map',
     entry: [
         './resume/scripts/index.js'
     ],

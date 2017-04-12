@@ -24,6 +24,12 @@ app.use(require('webpack-hot-middleware')(compiler));
 app.get('/',function (req,res) {
     res.sendFile(path.join(__dirname,'index.html'));
 });
+app.get('/mockData/userHeaderMsg.json',function (req,res) {
+    res.sendFile(path.join(__dirname,'/mockData/userHeaderMsg.json'));
+});
+app.get('/mockData/baseMsg.json',function (req,res) {
+    res.sendFile(path.join(__dirname,'/mockData/baseMsg.json'));
+});
 
 
 app.listen(8090,'localhost',function (err) {

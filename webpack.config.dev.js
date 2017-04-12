@@ -79,10 +79,5 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         //css单独打包
         new ExtractTextPlugin("/build/css/style.css")
-        //拷贝文件
-        // new CopyWebpackPlugin([{
-        //     from: __dirname + '/src',
-        //     to: __dirname + '/build'
-        // }])
     ]
 };

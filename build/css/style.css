@@ -2993,6 +2993,126 @@ samp {
   src: local("Helvetica Neue");
   unicode-range: U+30-39;
 }
+.ant-layout {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex: auto;
+      -ms-flex: auto;
+          flex: auto;
+  overflow: auto;
+  background: #e4f3ff;
+}
+.ant-layout.ant-layout-has-sider {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+.ant-layout-header,
+.ant-layout-footer {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+.ant-layout-header {
+  background: #0c8cee;
+  padding: 0;
+  height: 50px;
+  line-height: 50px;
+}
+.ant-layout-footer {
+  padding: 24px 50px;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+}
+.ant-layout-content {
+  -webkit-box-flex: 1;
+  -webkit-flex: auto;
+      -ms-flex: auto;
+          flex: auto;
+  overflow: auto;
+}
+.ant-layout-sider {
+  -webkit-transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  position: relative;
+  background: #595757;
+}
+.ant-layout-sider-has-trigger {
+  padding-bottom: 48px;
+}
+.ant-layout-sider-right {
+  -webkit-box-ordinal-group: 2;
+  -webkit-order: 1;
+      -ms-flex-order: 1;
+          order: 1;
+}
+.ant-layout-sider-trigger {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  bottom: 0;
+  cursor: pointer;
+  height: 48px;
+  line-height: 48px;
+  background: rgba(64, 64, 64, 0.88);
+  color: #fff;
+}
+.ant-layout-sider-zero-width > * {
+  overflow: hidden;
+}
+.ant-layout-sider-zero-width-trigger {
+  position: absolute;
+  top: 50px;
+  right: -36px;
+  text-align: center;
+  width: 36px;
+  height: 42px;
+  line-height: 42px;
+  background: #595757;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  -webkit-transition: background .3s ease;
+  transition: background .3s ease;
+}
+.ant-layout-sider-zero-width-trigger:hover {
+  background: #6a6868;
+}
+.user-header-box {
+  text-align: center;
+}
+.user-header {
+  width: 240px;
+  height: 240px;
+  border: 10px solid #fff;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.user-name {
+  text-align: center;
+  font-size: 48px;
+  padding: 14px 0;
+}
+.job-name {
+  font-size: 22px;
+}
+@font-face {
+  font-family: "Helvetica Neue For Number";
+  src: local("Helvetica Neue");
+  unicode-range: U+30-39;
+}
 .ant-progress {
   display: inline-block;
 }
@@ -3131,107 +3251,69 @@ samp {
     width: 100%;
   }
 }
-@font-face {
-  font-family: "Helvetica Neue For Number";
-  src: local("Helvetica Neue");
-  unicode-range: U+30-39;
+.base-msg {
+  position: relative;
+  margin-top: 50px;
+  padding-top: 76px;
 }
-.ant-layout {
+.base-msg .base-msg-title {
+  position: absolute;
+  padding: 0 20px;
+  font-size: 28px;
+  font-weight: 700;
+  width: 365px;
+  height: 60px;
+  line-height: 60px;
+  background-color: #00a0e9;
+  top: 0;
+  right: -20px;
+}
+.base-msg .base-msg-title:before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 30px solid transparent;
+  border-right: 20px solid #00a0e9;
+  border-bottom: 30px solid transparent;
+  top: 0;
+  left: -20px;
+}
+.base-msg .base-msg-title:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 18px solid #0075a9;
+  border-right: 20px solid transparent;
+  border-bottom: 30px solid transparent;
+  right: 0;
+  bottom: -48px;
+}
+.base-msg .base-msg-detail {
+  padding: 0 40px;
+  font-size: 16px;
+  line-height: 34px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex: auto;
-      -ms-flex: auto;
-          flex: auto;
-  overflow: auto;
-  background: #e4f3ff;
-}
-.ant-layout.ant-layout-has-sider {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
       -ms-flex-direction: row;
           flex-direction: row;
 }
-.ant-layout-header,
-.ant-layout-footer {
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+.base-msg .base-msg-detail .msg-label {
+  font-weight: 500;
+  width: 96px;
+  display: inline-block;
 }
-.ant-layout-header {
-  background: #0c8cee;
-  padding: 0;
-  height: 50px;
-  line-height: 50px;
-}
-.ant-layout-footer {
-  padding: 24px 50px;
-  color: rgba(0, 0, 0, 0.65);
-  font-size: 14px;
-}
-.ant-layout-content {
+.base-msg .base-msg-detail .msg-value {
   -webkit-box-flex: 1;
-  -webkit-flex: auto;
-      -ms-flex: auto;
-          flex: auto;
-  overflow: auto;
-}
-.ant-layout-sider {
-  -webkit-transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-  position: relative;
-  background: #595757;
-}
-.ant-layout-sider-has-trigger {
-  padding-bottom: 48px;
-}
-.ant-layout-sider-right {
-  -webkit-box-ordinal-group: 2;
-  -webkit-order: 1;
-      -ms-flex-order: 1;
-          order: 1;
-}
-.ant-layout-sider-trigger {
-  position: absolute;
-  text-align: center;
-  width: 100%;
-  bottom: 0;
-  cursor: pointer;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(64, 64, 64, 0.88);
-  color: #fff;
-}
-.ant-layout-sider-zero-width > * {
-  overflow: hidden;
-}
-.ant-layout-sider-zero-width-trigger {
-  position: absolute;
-  top: 50px;
-  right: -36px;
-  text-align: center;
-  width: 36px;
-  height: 42px;
-  line-height: 42px;
-  background: #595757;
-  color: #fff;
-  font-size: 18px;
-  border-radius: 0 4px 4px 0;
-  cursor: pointer;
-  -webkit-transition: background .3s ease;
-  transition: background .3s ease;
-}
-.ant-layout-sider-zero-width-trigger:hover {
-  background: #6a6868;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 .main-warpper {
   min-height: 100%;
@@ -3255,92 +3337,8 @@ samp {
   color: #fff;
   padding: 75px 0;
 }
-.main-warpper .user-header-box {
-  text-align: center;
-}
-.main-warpper .user-header {
-  width: 240px;
-  height: 240px;
-  border: 10px solid #fff;
-  border-radius: 50%;
-  overflow: hidden;
-}
-.main-warpper .user-name {
-  text-align: center;
-  font-size: 48px;
-  padding: 14px 0;
-}
-.main-warpper .job-name {
-  font-size: 22px;
-}
-.main-warpper .base-msg {
-  position: relative;
-  margin-top: 50px;
-  padding-top: 76px;
-}
-.main-warpper .base-msg-title {
-  position: absolute;
-  padding: 0 20px;
-  font-size: 28px;
-  font-weight: 700;
-  width: 365px;
-  height: 60px;
-  line-height: 60px;
-  background-color: #00a0e9;
-  top: 0;
-  right: -20px;
-}
-.main-warpper .base-msg-title:before {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-top: 30px solid transparent;
-  border-right: 20px solid #00a0e9;
-  border-bottom: 30px solid transparent;
-  top: 0;
-  left: -20px;
-}
-.main-warpper .base-msg-title:after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-top: 18px solid #0075a9;
-  border-right: 20px solid transparent;
-  border-bottom: 30px solid transparent;
-  right: 0;
-  bottom: -48px;
-}
-.main-warpper .base-msg-detail {
-  padding: 0 40px;
-  font-size: 16px;
-  line-height: 34px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-.main-warpper .base-msg-detail .msg-label {
-  font-weight: 500;
-  width: 96px;
-  display: inline-block;
-}
-.main-warpper .base-msg-detail .msg-value {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
 .main-warpper .ant-layout-content {
   padding: 0 50px;
   background: url(/build/images/be9069be.body-bg.png) no-repeat center;
   background-size: 100%;
 }
-
-/*# sourceMappingURL=style.css.map*/
