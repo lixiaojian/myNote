@@ -2993,6 +2993,87 @@ samp {
   src: local("Helvetica Neue");
   unicode-range: U+30-39;
 }
+.ant-card {
+  background: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+.ant-card:hover {
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  border-color: transparent;
+}
+.ant-card-bordered {
+  border: 1px solid #e9e9e9;
+}
+.ant-card-head {
+  height: 48px;
+  line-height: 48px;
+  background: #fff;
+  border-bottom: 1px solid #e9e9e9;
+  padding: 0 24px;
+}
+.ant-card-head-title {
+  font-size: 16px;
+  display: inline-block;
+  text-overflow: ellipsis;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+}
+.ant-card-extra {
+  position: absolute;
+  right: 24px;
+  top: 14px;
+}
+.ant-card-body {
+  padding: 24px;
+}
+.ant-card-loading .ant-card-body {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.ant-card-loading-block {
+  display: inline-block;
+  margin: 5px 1% 0;
+  height: 14px;
+  border-radius: 2px;
+  background: -webkit-linear-gradient(left, rgba(207, 216, 220, 0.2), rgba(207, 216, 220, 0.4), rgba(207, 216, 220, 0.2));
+  background: linear-gradient(90deg, rgba(207, 216, 220, 0.2), rgba(207, 216, 220, 0.4), rgba(207, 216, 220, 0.2));
+  -webkit-animation: card-loading 1.4s ease infinite;
+          animation: card-loading 1.4s ease infinite;
+  background-size: 600% 600%;
+}
+@-webkit-keyframes card-loading {
+  0%,
+  100% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes card-loading {
+  0%,
+  100% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@font-face {
+  font-family: "Helvetica Neue For Number";
+  src: local("Helvetica Neue");
+  unicode-range: U+30-39;
+}
 .ant-layout {
   display: -webkit-box;
   display: -webkit-flex;
@@ -3315,6 +3396,11 @@ samp {
       -ms-flex: 1;
           flex: 1;
 }
+@media print {
+  body {
+    width: 1190px;
+  }
+}
 .main-warpper {
   min-height: 100%;
   display: -webkit-box;
@@ -3338,7 +3424,33 @@ samp {
   padding: 75px 0;
 }
 .main-warpper .ant-layout-content {
-  padding: 0 50px;
+  min-width: 800px;
+  padding: 50px 26px;
   background: url(/build/images/be9069be.body-bg.png) no-repeat center;
   background-size: 100%;
+}
+.main-warpper .ant-layout-content .ant-card,
+.main-warpper .ant-layout-content .ant-card-head {
+  background-color: transparent;
+  border: none;
+}
+.main-warpper .ant-layout-content .individual-resume-icon {
+  vertical-align: middle;
+  margin-right: 10px;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCNjZBNUM3RDE3QjYxMUU3OEI2MThFQ0YwNTIxQjg2NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCNjZBNUM3RTE3QjYxMUU3OEI2MThFQ0YwNTIxQjg2NyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkI2NkE1QzdCMTdCNjExRTc4QjYxOEVDRjA1MjFCODY3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkI2NkE1QzdDMTdCNjExRTc4QjYxOEVDRjA1MjFCODY3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+usHBIgAABgtJREFUeNq8Wmts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) no-repeat center;
+  background-size: 100%;
+}
+.main-warpper .ant-layout-content .ant-card-head-title {
+  font-weight: 700;
+  font-size: 28px;
+  border-bottom: 1px solid #3f3b3a;
+  line-height: 58px;
+}
+.main-warpper .ant-layout-content .ant-card-body {
+  text-indent: 2em;
+  font-size: 16px;
+  color: #3e3a39;
 }

@@ -1,3 +1,8 @@
+@media print {
+  body{
+    width: 1190px;
+  }
+}
 .main-warpper{
   min-height: 100%;
   display: flex;
@@ -11,8 +16,34 @@
     padding: 75px 0;
   }
   .ant-layout-content{
-    padding: 0 50px;
+    min-width: 800px;
+    padding: 50px 26px;
     background: url("../images/body-bg.png") no-repeat center;
     background-size: 100%;
+
+    .ant-card,.ant-card-head{
+      background-color: transparent;
+      border: none;
+    }
+    .individual-resume-icon{
+      vertical-align: middle;
+      margin-right: 10px;
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: url("../images/icons/individual-resume-icon.png") no-repeat center;
+      background-size: 100%;
+    }
+    .ant-card-head-title{
+      font-weight: 700;
+      font-size: 28px;
+      border-bottom:1px solid #3f3b3a;
+      line-height: 58px;
+    }
+    .ant-card-body{
+      text-indent: 2em;
+      font-size: 16px;
+      color: #3e3a39;
+    }
   }
 }
