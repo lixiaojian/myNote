@@ -74,7 +74,7 @@ module.exports = {
                 ])
             },
             // {test: /\.(jpe?g|png|gif|svg)$/i,loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]'},
-            {test: /\.(jpe?g|png)$/i,loaders: ['url-loader','file-loader?hash=sha512&digest=hex&name=images/[hash].[ext]','image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false']},
+            {test: /\.(jpe?g|png)$/i,loaders: ['url-loader','file-loader?hash=sha512&digest=hex&name=images/[hash].[ext]',{loader:"image-webpack-loader",query: {optimizationLevel :7,interlaced: false}}]},
             {
                 test: /\.json$/,
                 use: 'json-loader'
