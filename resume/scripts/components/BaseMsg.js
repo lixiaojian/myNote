@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { Progress } from 'antd';
+import baseMsg from '../../../mockData/baseMsg.json';
 import '../../styles/baseMsg.less';
 
 export default class BaseMsg extends React.Component{
@@ -13,9 +14,7 @@ export default class BaseMsg extends React.Component{
         };
     }
     componentDidMount(){
-        fetch('/mockData/baseMsg.json').then(resp=>resp.json()).then(data=>{
-            this.setState({msgs:data});
-        })
+        this.setState({msgs:baseMsg});
     };
     render(){
         return(

@@ -62,6 +62,10 @@ module.exports = {
                 use: [
                     {loader:'url-loader',options:{limit:8192,name:'images/[hash:8].[name].[ext]'}}
                 ]
+            },
+            {
+                test: /\.json$/,
+                use: 'json-loader'
             }
         ]
     },

@@ -2,6 +2,7 @@
  * Created by 872458899@qq.com on 2017/4/12.
  */
 import React from "react";
+import headerMsg from '../../../mockData/userHeaderMsg.json';
 import headerImg from '../../images/silder/user-header-img.png';
 import '../../styles/userHeader.less';
 
@@ -11,9 +12,7 @@ export default class UserHeader extends React.Component{
         this.state={};
     }
     componentDidMount(){
-        fetch('/mockData/userHeaderMsg.json').then(resp=>resp.json()).then(data=>{
-            this.setState(data);
-        })
+        this.setState(headerMsg);
     };
     render(){
         let state = this.state;
