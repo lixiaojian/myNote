@@ -73,8 +73,8 @@ module.exports = {
                     { loader:'less-loader', options: {"sourceMap":true,"modifyVars":theme}}
                 ])
             },
-            // {test: /\.(jpe?g|png|gif|svg)$/i,loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]'},
-            {test: /\.(jpe?g|png)$/i,loaders: ['file-loader?hash=sha512&digest=hex&name=images/[hash].[ext]','url-loader','image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false']},
+            {test: /\.(jpe?g|png)$/i,loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]!image-webpack-loader?optimizationLevel=7&interlaced=false'},
+            // {test: /\.(jpe?g|png)$/i,loaders: ['file-loader?hash=sha512&digest=hex&name=images/[hash].[ext]','url-loader','image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false']},
             {
                 test: /\.json$/,
                 use: 'json-loader'
