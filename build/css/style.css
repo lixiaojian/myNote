@@ -3426,7 +3426,7 @@ samp {
 .main-warpper .ant-layout-content {
   min-width: 800px;
   padding: 50px 26px;
-  background: url(data:image/png;base64,bW9kdWxlLmV4cG9ydHMgPSBfX3dlYnBhY2tfcHVibGljX3BhdGhfXyArICJpbWFnZXMvNzljYzc1OWZlMzI0NmEzNmIxMmJmMDRkNDk0ZjAyYWYucG5nIjs=) no-repeat center;
+  background: url(/build/images/c27633f4e13ab7957e607a782eee2c25.png) no-repeat center;
   background-size: 100%;
 }
 .main-warpper .ant-layout-content .ant-card,
@@ -3440,7 +3440,7 @@ samp {
   display: inline-block;
   width: 40px;
   height: 40px;
-  background: url(data:image/png;base64,bW9kdWxlLmV4cG9ydHMgPSBfX3dlYnBhY2tfcHVibGljX3BhdGhfXyArICJpbWFnZXMvZDIzMDI3YWNmOWJmM2FlY2UyY2ZjNTgzYWQxZGNjODAucG5nIjs=) no-repeat center;
+  background: url(/build/images/679d30539e5e20fe2f71e2f7beb92932.png) no-repeat center;
   background-size: 100%;
 }
 .main-warpper .ant-layout-content .ant-card-head-title {
