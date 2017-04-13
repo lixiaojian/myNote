@@ -7,6 +7,7 @@ var webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 const fs = require('fs');
 const existsSync = fs.existsSync;
 
@@ -72,7 +73,8 @@ module.exports = {
                     { loader:'less-loader', options: {"sourceMap":true,"modifyVars":theme}}
                 ])
             },
-            {test: /\.(png|jpg)$/,loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]'},
+            // {test: /\.(jpe?g|png|gif|svg)$/i,loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]'},
+            {test: /\.(jpe?g|png|gif|svg)$/i,loaders: ['file-loader?hash=sha512&digest=hex&name=images/[hash].[ext]','image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false']},
             {
                 test: /\.json$/,
                 use: 'json-loader'
