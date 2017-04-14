@@ -26,7 +26,7 @@ export default class BaseMsg extends React.Component{
                             <div key={'9999'+i} className="base-msg-detail">
                                 <label className="msg-label">{s.label}：</label>
                                 {s.isProgress?
-                                    <span className="msg-value"><Progress percent={s.value} status="active" /></span>
+                                    <span className="msg-value"><Progress  percent={s.value} status="active" /></span>
                                     :<span className="msg-value">{s.value}</span>
                                 }
                             </div>

@@ -22,7 +22,7 @@ export default class Experience extends React.Component{
         super();
         this.state = {
             datas:[],
-            skillColr:["#6899D3","#4284D3","#0E53A7","#04346C"]
+            skillColr:["#c0d1e6","#6e9dd6","#0E53A7","#04346C"]
         };
     }
     componentDidMount(){
@@ -55,7 +55,12 @@ export default class Experience extends React.Component{
                                         )}
                                     </div>
                                 </div>)
-                                :<p>{item.content}</p>)}
+                                    :(item.isList?(<ul className="list-box">
+                                        {item.datas.map((litem,lindex) =>
+                                            <li className="list-item" key={'4444'+lindex}>{litem}</li>
+                                        )}
+                                    </ul>):<p>{item.content}</p>)
+                                )}
                     </Card>
                 ))}
             </div>
