@@ -23,6 +23,7 @@ class MainPage extends React.Component{
                 </Sider>
                 <Layout>
                     <Content>
+                        <a className="download-link" target="_blank" href="/fileDownload/lxj.pdf">简历导出</a>
                         <Experience />
                     </Content>
                 </Layout>

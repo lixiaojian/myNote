@@ -2,6 +2,22 @@
   body{
     width: 1190px;
   }
+  .download-link{
+    display: none;
+  }
+}
+.download-link{
+  position: fixed;
+  right: 20px;
+  top: 10px;
+  display: inline-block;
+  padding: 5px 10px;
+  background: #00a0e9;
+  color: #fff;
+}
+.download-link:hover{
+  color: #fff;
+  background: #00aff9;
 }
 .main-warpper{
   min-height: 100%;
@@ -26,59 +42,6 @@
     .ant-card,.ant-card-head{
       background-color: transparent;
       border: none;
-    }
-    .individual-resume-icon{
-      vertical-align: middle;
-      margin-right: 10px;
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      background: url("../images/icons/individual-resume-icon.png") no-repeat center;
-      background-size: 100%;
-    }
-    .work-exp-icon{
-      vertical-align: middle;
-      margin-right: 10px;
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      background: url("../images/icons/work-exp-icon.png") no-repeat center;
-      background-size: 100%;
-    }
-    .experience-box{
-      display: flex;
-      flex-direction: row;
-      padding: 15px 0;
-      .experience-date-box{
-        width: 200px;
-        font-weight: 700;
-      }
-      .exp-date,.exp-org-name{
-        font-size: 18px;
-        color: #3e3a39;
-        line-height: 40px;
-        font-weight: 700;
-      }
-      .exp-job-title{
-        font-size: 16px;
-        color: #00a0e9;
-      }
-      .experience-desc-box{
-        flex: 1;
-      }
-    }
-    .ant-card-head-title{
-      font-weight: 700;
-      font-size: 28px;
-      border-bottom:1px solid #3f3b3a;
-      line-height: 58px;
-    }
-    .ant-card-body{
-      font-size: 16px;
-      color: #3e3a39;
-      p{
-        text-indent: 2em;
-      }
     }
   }
 }

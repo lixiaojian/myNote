@@ -1,21 +1,66 @@
 [
   {
-    "iconCls":"individual-resume-icon",
+    "iconCls":"individual-resume-icon re-icon",
     "title":"个人简介",
-    "hasLabel":false,
     "content":"毕业于郑州大学，6年开发工作经验，一直在成长中。从事网站的开发与优化，有美丽的幻想，有美好的憧憬。 从学习到工作一直做我喜欢的WEB开发，可以说现在是更为全面学习的时候，每一天我都很开心，有我喜欢的工作和生活。",
     "datas":[
 
     ]
   },
   {
-    "iconCls":"work-exp-icon",
+    "iconCls":"skill-icon re-icon",
+    "title":"掌握技能",
+    "isTag":true,
+    "datas":[
+      {"skillName":"jQuery","degree":2},
+      {"skillName":"zepto","degree":2},
+      {"skillName":"AngularJS","degree":1},
+      {"skillName":"avalon","degree":1},
+      {"skillName":"requireJs","degree":1},
+      {"skillName":"grunt","degree":0},
+      {"skillName":"gulp","degree":1},
+      {"skillName":"webpack","degree":2},
+      {"skillName":"vue","degree":0},
+      {"skillName":"react","degree":2},
+      {"skillName":"bootstrap","degree":2},
+      {"skillName":"nodejs","degree":1},
+      {"skillName":"原生javascript","degree":2},
+      {"skillName":"html5","degree":2},
+      {"skillName":"css3","degree":2},
+      {"skillName":"ES6","degree":2},
+      {"skillName":"浏览器的调试工具","degree":2},
+      {"skillName":"photoshop","degree":1}
+    ]
+  },
+  {
+    "iconCls":"work-exp-icon re-icon",
     "title":"工作经历",
     "hasLabel":true,
-    "content":"毕业于郑州大学，6年开发工作经验，一直在成长中。从事网站的开发与优化，有美丽的幻想，有美好的憧憬。 从学习到工作一直做我喜欢的WEB开发，可以说现在是更为全面学习的时候，每一天我都很开心，有我喜欢的工作和生活。",
     "datas":[
-      {"date":"2003-04 至 2003-04","jobTitle":"高级网页设计师","orgName":"广州遨维互动科技有限公司","workDesc":"在环境学院团学联秘书部担任会议记录、文字整理以及日常公文起草工作具有较好的组 织、管理、协调、沟通能力在通讯社采访部担任记者，并多次撰写新闻稿以及人物采访学联秘书部担任会议记录"},
-      {"date":"2003-04 至 2003-04","jobTitle":"高级网页设计师","orgName":"广州遨维互动科技有限公司","workDesc":"在环境学院团学联秘书部担任会议记录、文字整理以及日常公文起草工作具有较好的组 织、管理、协调、沟通能力在通讯社采访部担任记者，并多次撰写新闻稿以及人物采访学联秘书部担任会议记录"}
+      {"date":"2015-07-06 至 现在","jobTitle":"前端工程师","orgName":"上海聚力传媒技术有限公司","workDesc":"主要是对公司的产品《聚力云》进行开发的迭代，开发内容主要是前端的页面进行开发。"},
+      {"date":"2014-09-29 至 2015-07-06","jobTitle":"前端工程师","orgName":"文思海辉技术有限公司","workDesc":"在该公司主要是以外包的形式工作，被外包到中国平安，主要工作内容为平安的网销寿险产品的官网做前端页面的开发,对平安的一些活动做活动宣传页的开发。"},
+      {"date":"2012-10-02 至 2014-09-28","jobTitle":"java工程师","orgName":"上海微企信息技术股份有限公司","workDesc":"该公司是从上海慧广科技有限公司分离出来，所以工作内容依然是对产品《知新》进行开发和迭代，对公司产品《微上客》的开发和迭代，开发内容包括后台java的开发和前台html页面的开发。"},
+      {"date":"2012-03-01 至 2012-10-01","jobTitle":"java工程师","orgName":"上海慧广科技有限公司","workDesc":"在该公司主要是对公司自己的产品进行开发，对产品《知新》进行开发和迭代，开发内容包括后台java的开发及前台html页面的开发。"},
+      {"date":"2011-07-29 至 2012-02-28","jobTitle":"系统工程师","orgName":"上海鸿冠信息技术有限公司","workDesc":"在该公司主要是以外包的形式工作，被外包到上海电信，主要的工作内容是做基础的数据维护。对一些现有的程序运行状态进行监控，将工单根据不同的内容派发给相应的人进行处理。"}
+    ]
+  },
+  {
+    "iconCls":"educational-icon re-icon",
+    "title":"教育/培训经历",
+    "hasLabel":true,
+    "datas":[
+      {"date":"2011-02-10 至 2011-07-20","jobTitle":"学员","orgName":"安博教育","workDesc":"进行为期6个月的软件开发学习，主要学习语言是java"},
+      {"date":"2008-09-01 至 2011-06-30","jobTitle":"学生","orgName":"郑州大学","workDesc":"在全日制学习软件技术专业的各种课程"}
+    ]
+  },
+  {
+    "iconCls":"project-icon re-icon",
+    "title":"项目经验",
+    "hasLabel":true,
+    "datas":[
+      {"date":"2011-03 至 2014-09","jobTitle":"《知新》","link":"http://www.visionet.com.cn/111/product.html","workDesc":"知新是新一代企业内部社交平台，提供完备的各种沟通、交流、协作的模式和工具，以适应企业内部信息交互的不同场景的需求。主要和组内几个开发人员一起开发各自的模块。我负责的是群组相关模块的开发。"},
+      {"date":"2014-02 至 2014-09","jobTitle":"《微上客》","link":"http://www.visionet.com.cn/117/product.html","workDesc":"微上客是一款实时在线的全渠道智能客服平台，它将原有的各种分散的多种企业客服沟通渠道如微信、微博、邮件、易信、Webchat等整合起来。我在该项目中的主要是做对公众帐号微信的收发、易信的收发、及前台的所有开发功能。"},
+      {"date":"2015-07 至 现在","jobTitle":"《聚力云》","link":"https://www.pptvyun.com","workDesc":"聚力云融合云计算、P2P技术、海量存储、安全策略构建了一套专注视频领域服务的SaaS平台。我在该项目的主责任是对官网进行开发、文档的维护以及用户控制台前面页面的开发"}
     ]
   }
 ]
