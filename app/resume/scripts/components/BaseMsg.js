@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { Progress } from 'antd';
-import baseMsg from '../../../mockData/baseMsg.json';
+import baseMsg from '../../../../mockData/baseMsg.json';
 import '../../styles/baseMsg.less';
 
 export default class BaseMsg extends React.Component{

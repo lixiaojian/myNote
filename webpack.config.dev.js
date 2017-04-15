@@ -26,12 +26,12 @@ module.exports = {
     devtool:'cheap-module-eval-source-map',
     entry:{
         index:[
-            './resume/scripts/index.js',
+            './app/resume/scripts/index.js',
             hotMiddlewareScript
         ]
     },
     output:{
-        filename:'app.js',
+        filename:'[name].js',
         publicPath:'/build/js/',
         path: __dirname + '/build/js/'
     },
@@ -40,7 +40,7 @@ module.exports = {
             {
                 test:/\.jsx?$/,
                 include:[
-                    path.resolve(__dirname,'resume')
+                    path.resolve(__dirname,'app')
                 ],
                 use:['react-hot-loader','babel-loader']
             },
@@ -60,7 +60,7 @@ module.exports = {
             {
                 test: /\.(png|jpg)$/,
                 use: [
-                    {loader:'url-loader',options:{limit:8192,name:'images/[hash:8].[name].[ext]'}}
+                    {loader:'url-loader',options:{limit:8192,name:'images/[hash].[ext]'}}
                 ]
             },
             {

@@ -27,13 +27,15 @@ if (pkg.theme && typeof(pkg.theme) === 'string') {
 
 module.exports = {
     //devtool: 'source-map',
-    entry: [
-        './resume/scripts/index.js'
-    ],
+    entry:{
+        index:[
+            './app/resume/scripts/index.js'
+        ]
+    },
     output: {
         path: path.join(__dirname, 'build/'),
         publicPath:'/build/',
-        filename: 'js/app.js'
+        filename: 'js/[name].js'
     },
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
@@ -55,14 +57,14 @@ module.exports = {
             }
         ),
         //css单独打包
-        new ExtractTextPlugin("css/style.css")
+        new ExtractTextPlugin("css/[name].css")
     ],
     module: {
         loaders: [
             {
                 test: /\.js$/,
                 loaders: ['babel-loader'],
-                include: path.join(__dirname, 'resume')
+                include: path.join(__dirname, 'app')
             },
             { test: /\.css$/, use: ["style-loader","css-loader"]},
             {
@@ -73,10 +75,9 @@ module.exports = {
                     { loader:'less-loader', options: {"sourceMap":true,"modifyVars":theme}}
                 ])
             },
-            // {test: /\.(jpe?g|png)$/i,loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]!image-webpack-loader?optimizationLevel=7&interlaced=false'},
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
-                loaders: ['url-loader?limit=8192&name=images/[hash:8].[name].[ext]',{
+                loaders: ['url-loader?limit=8192&name=images/[hash].[ext]',{
                         loader: 'image-webpack-loader',
                         query: {
                             mozjpeg: {
@@ -96,7 +97,7 @@ module.exports = {
                     }
                 ],
                 exclude: /node_modules/,
-                include: __dirname,
+                include: path.join(__dirname, 'app')
             },
 
             {

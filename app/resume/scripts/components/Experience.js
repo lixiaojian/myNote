@@ -7,7 +7,7 @@ import React from 'react';
 import { Card,Tag,Icon } from 'antd';
 import '../../styles/experience.less';
 
-import Exp from '../../../mockData/experience.json';
+import Exp from '../../../../mockData/experience.json';
 
 class ContentTitle extends React.Component{
     render(){
