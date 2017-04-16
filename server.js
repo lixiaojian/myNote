@@ -24,11 +24,9 @@ app.use(require('webpack-hot-middleware')(compiler));
 app.get('/',function (req,res) {
     res.sendFile(path.join(__dirname,'index.html'));
 });
-app.get('/mockData/userHeaderMsg.json',function (req,res) {
-    res.sendFile(path.join(__dirname,'/mockData/userHeaderMsg.json'));
-});
-app.get('/mockData/baseMsg.json',function (req,res) {
-    res.sendFile(path.join(__dirname,'/mockData/baseMsg.json'));
+
+app.get('/fullpage',function (req,res) {
+    res.sendFile(path.join(__dirname,'react-fullpage.html'));
 });
 
 

@@ -1,0 +1,91 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+h1{
+  font-weight: 900;
+  font-size: 8em;
+  -webkit-text-shadow: 0 .3rem .9rem rgba(0,0,0,.4);
+  text-shadow: 0 0.3rem 0.9rem rgba(0,0,0,.4);
+  letter-spacing: -3px;
+}
+h1,
+.intro p{
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.intro p{
+  text-shadow: -1px 1px 8px rgba(0,0,0,.8);
+}
+#section1 h1{
+  -webkit-text-shadow: none;
+  text-shadow: none;
+}
+#slide1-1 h1{
+  color: #444;
+}
+
+#section2 h1{
+  color: #fff;
+}
+
+.button a.button-purchase:hover {
+  background-color: #3cc63c !important;
+  color: #fff !important;
+}
+.button-purchase{
+  background: #fff !important;
+  color: #000 !important;
+}
+.documentation a{
+  font-size: 13px;
+  margin: 20px 0;
+  padding: 0;
+  color: #222;
+}
+.fp-section{
+  background-color: rgba(53,21,176,.3);
+}
+.fp-section:before{
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-size: 500%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  transform: scale(4);
+  z-index: -1;
+}
+.fp-section.has-show:before{
+  background-size: cover;
+  opacity: .2;
+  transform: scale(1);
+  transition: all 2s;
+}
+.first-section:before{
+  background-image: url("../images/4.jpg");
+}
+.first-section{
+  background-color: rgba(0,158,142,.3);
+}
+.second-section:before{
+  background-image: url("../images/2.jpg");
+}
+.second-section{
+  background-color: rgba(16,71,169,.3);
+}
+.third-section:before{
+  background-image: url("../images/5.jpg");
+}
+.third-section{
+  background-color: rgba(255,165,0,.3);
+}
+.fourth-section:before{
+  background-image: url("../images/1.jpg");
+}
+.fourth-section{
+  background-color: rgba(255,108,0,.3);
+}

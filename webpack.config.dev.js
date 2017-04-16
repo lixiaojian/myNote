@@ -28,6 +28,10 @@ module.exports = {
         index:[
             './app/resume/scripts/index.js',
             hotMiddlewareScript
+        ],
+        fullpage:[
+            './app/full-page/scripts/index.js',
+            hotMiddlewareScript
         ]
     },
     output:{
@@ -70,7 +74,10 @@ module.exports = {
         ]
     },
     resolve:{
-        extensions:['.js','.jsx','.css']
+        extensions:['.js','.jsx','.css'],
+        alias: {
+            'jquery': path.resolve(__dirname, 'vendor/jquery/jquery-1.11.3.min.js')
+        }
     },
     plugins:[
         new webpack.DefinePlugin({
@@ -82,6 +89,9 @@ module.exports = {
         //热启动
         new webpack.HotModuleReplacementPlugin(),
         //css单独打包
-        new ExtractTextPlugin("/build/css/style.css")
+        new ExtractTextPlugin("/build/css/style.css"),
+        new webpack.ProvidePlugin({
+            $: 'jquery'
+        }),
     ]
 };
