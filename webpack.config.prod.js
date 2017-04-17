@@ -105,5 +105,11 @@ module.exports = {
                 use: 'json-loader'
             }
         ]
+    },
+    resolve:{
+        extensions:['.js','.jsx','.css'],
+        alias: {
+            'jquery': path.resolve(__dirname, 'vendor/jquery/jquery-1.11.3.min.js')
+        }
     }
 };
