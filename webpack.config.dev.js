@@ -50,10 +50,21 @@ module.exports = {
             },
             {
                 test:/\.css$/,
-                use:"style-loader!css-loader!postcss-loader"
+                use:[
+                    'style-loader',
+                    'css-loader',
+                    'postcss-loader'
+                ]
             },
             {
-                test: /\.less$/,
+                test:/\.(woff|svg|eot|ttf)$/,
+                use:[{
+                    loader:'url-loader?name=fonts/[name].[md5:hash:hex:7].[ext]'
+                }]
+
+            },
+            {
+                test: /\.less/,
                 use: [
                     'style-loader',
                     'css-loader',
