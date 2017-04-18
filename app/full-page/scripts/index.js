@@ -101,9 +101,34 @@ class MainPage extends React.Component{
                             </div>
                         </div>
                     </div>
-                    <div className="fourth-section section">
+                    <div className="fourth-section section skill-stack">
                         <div className="intro">
-                            <h1>IMPRESS</h1>
+                            <h2>技能栈</h2>
+                            <ul className="skill-stack-warpper clearfix">
+                                <li className="skill-stack-item skill-stack-list">
+                                    <div className="skill-stack-list">
+                                        <div className="skill-stack-box">
+                                            <span>111111111111111</span>
+                                        </div>
+                                        <div className="skill-stack-box">
+                                            <span>222222222222222</span>
+                                        </div>
+                                        <div className="skill-stack-box">
+                                            <span>
+                                            3333333333333333333
+                                            </span>
+                                        </div>
+                                        <div className="skill-stack-box">
+                                            <span>4444444444444444</span>
+                                        </div>
+                                        <div className="skill-stack-box">5555555555555</div>
+                                        <div className="skill-stack-box">666666666666</div>
+                                        <div className="skill-stack-box">777777777777</div>
+                                        <div className="skill-stack-box">8888888888888</div>
+                                    </div>
+                                </li>
+                                <li className="skill-stack-item"></li>
+                            </ul>
                             <p>Take it to the next level!</p>
                         </div>
                     </div>
