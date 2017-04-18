@@ -1,4 +1,5 @@
-@transition-time: 4s;
+@bg-transition-time: 4s;
+@transition-time: 2s;
 
 ul{
   margin: 0;
@@ -50,7 +51,7 @@ ul{
   background-size: cover;
   opacity: .2;
   transform: scale(1);
-  transition: all @transition-time;
+  transition: all @bg-transition-time;
 }
 .first-section:before{
   background-image: url("../images/4.jpg");
@@ -82,6 +83,7 @@ ul{
 .section{
   text-align: center;
   box-sizing: border-box;
+  overflow: hidden;
 
   .user-header-img{
     width: 200px;
@@ -120,7 +122,15 @@ ul{
     display: inline-block;
     transform: translateX(-60vw);
   }
+
+
+}
+.about-me{
+  color: #fff;
+  font-size: 20px;
+
   .about-me-warpper{
+    color: #fff;
     width: 80%;
     margin: 0 auto;
     padding: 20px 0;
@@ -134,6 +144,70 @@ ul{
     float: left;
     flex: 1;
     text-align: center;
+    transition: transform @transition-time cubic-bezier(0.68,0.26,0.3,1.6);
+  }
+  .about-me-value{
+    padding: 10px 0;
+  }
+  .about-me-icon{
+    width: 100px;
+    height: 100px;
+    position: relative;
+    cursor: pointer;
+    font-size: 60px;
+    display: inline-block;
+    line-height: 100px;
+    transition: transform .5s;
+
+    .spinner{
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: inline-block;
+      width: 90px;
+      height: 90px;
+      border: 5px solid #6a93d4;
+      border-right-color: #ffa200;
+      border-bottom-color: #ffa200;
+      border-radius: 50%;
+      transition: transform .5s;
+    }
+    .text-icon-desc{
+      font-size: 20px;
+      font-weight: 700;
+      position: absolute;
+      display: inline-block;
+      width: 90px;
+      height: 90px;
+      left: 5px;
+      top: 5px;
+      background-color: rgba(0,0,0,.4);
+      border-radius: 50%;
+      line-height: 90px;
+      opacity: 0;
+      transition: opacity .5s;
+    }
+  }
+  .about-me-icon:hover{
+    transform: scale(1.2);
+
+    .spinner{
+      transform: rotate(180deg);
+    }
+    .text-icon-desc{
+      opacity: 1;
+    }
+  }
+  .my-birthday,.my-position{
+    transform: translateY(-60vh);
+  }
+  .my-education,.my-state{
+    transform: translateY(80vh);
+  }
+  .about-me-text{
+    padding-top: 10px;
+    transform: scale(0);
+    transition: transform @transition-time;
   }
 }
 
@@ -153,10 +227,20 @@ ul{
     transition: width @transition-time;
   }
   .my-motto{
-    animation: typing @transition-time steps(28, end), blink-caret .5s step-end infinite alternate;
+    animation: typing 4s steps(28, end), blink-caret .5s step-end infinite alternate;
   }
   .job-name,.user-name{
     transform: translate(0);
     transition: transform @transition-time cubic-bezier(0.68,0.26,0.3,1.91);
+  }
+
+  .about-me-item{
+    transform: scale(1);
+  }
+  .my-birthday{
+    transform: translateY(0);
+  }
+  .about-me-text{
+    transform: scale(1);
   }
 }
