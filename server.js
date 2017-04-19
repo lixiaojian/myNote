@@ -29,7 +29,9 @@ app.get('/fullpage',function (req,res) {
     res.sendFile(path.join(__dirname,'react-fullpage.html'));
 });
 
-
+app.get('/vendor/tagcanvas/tagcanvas.min.js',function (req,res) {
+    res.sendFile(path.join(__dirname,'vendor/tagcanvas/tagcanvas.min.js'));
+});
 app.listen(8090,'localhost',function (err) {
     if(err){
         console.log(err);

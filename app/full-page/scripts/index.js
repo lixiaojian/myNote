@@ -7,6 +7,12 @@ import 'fullpage.js';
 import 'normalize-css';
 
 import userHeaderImg from '../images/user-header-img.png';
+import jqueryLogo from '../images/skill-icon/jquery.png';
+import zeptoLogo from '../images/skill-icon/zepto.png';
+import angularLogo from '../images/skill-icon/angular.png';
+import requireLogo from '../images/skill-icon/requirejs.png';
+import gruntLogo from '../images/skill-icon/grunt-logo.png';
+import gulpLogo from '../images/skill-icon/gulp-logo.png';
 
 
 import '../styles/index.less';
@@ -40,7 +46,20 @@ class MainPage extends React.Component{
         }
     };
     componentDidMount(){
+
         $('#myContainer').fullpage(this.state);
+        try {
+            TagCanvas.Start('skill_stack_canvas','skill_stack_icon_list',{
+                depth: 0.8,
+                maxSpeed: 0.1,
+                minSpeed:0.02,
+                freezeActive:true, //当有选中是停止运动
+                initial:0.8,
+                wheelZoom:false, //鼠标滚轮缩放
+                fadeIn:10
+            });
+            TagCanvas.SetSpeed('myCanvas', [0.1, 0.02]);
+        } catch(e) {}
     };
     render(){
         return(
@@ -105,29 +124,34 @@ class MainPage extends React.Component{
                         <div className="intro">
                             <h2>技能栈</h2>
                             <ul className="skill-stack-warpper clearfix">
-                                <li className="skill-stack-item skill-stack-list">
+                                <li className="skill-stack-item">
                                     <div className="skill-stack-list">
-                                        <div className="skill-stack-box">
-                                            <span>111111111111111</span>
+                                        <div className="cricle cricle-3"></div>
+                                        <div className="cricle cricle-3-text"></div>
+                                        <div className="cricle cricle-2"></div>
+                                        <div className="cricle cricle-2-text"></div>
+                                        <div className="cricle cricle-1">
+                                            WEB前端
                                         </div>
-                                        <div className="skill-stack-box">
-                                            <span>222222222222222</span>
-                                        </div>
-                                        <div className="skill-stack-box">
-                                            <span>
-                                            3333333333333333333
-                                            </span>
-                                        </div>
-                                        <div className="skill-stack-box">
-                                            <span>4444444444444444</span>
-                                        </div>
-                                        <div className="skill-stack-box">5555555555555</div>
-                                        <div className="skill-stack-box">666666666666</div>
-                                        <div className="skill-stack-box">777777777777</div>
-                                        <div className="skill-stack-box">8888888888888</div>
                                     </div>
                                 </li>
-                                <li className="skill-stack-item"></li>
+                                <li className="skill-stack-item">
+                                    <div className="skill-stack-list">
+                                        <canvas width="400" height="400" id="skill_stack_canvas">
+                                            <p>您的浏览器暂不支持该页面效果，请更新浏览器版本。</p>
+                                        </canvas>
+                                        <div id="skill_stack_icon_list">
+                                            <ul>
+                                                <li><a href="http://jquery.com/" target="_blank"><img src={jqueryLogo} alt="jquery" /></a></li>
+                                                <li><a href="http://zeptojs.com/" target="_blank"><img src={zeptoLogo} alt="zepto" /></a></li>
+                                                <li><a href="https://angular.io/" target="_blank"><img src={angularLogo} alt="angular" /></a></li>
+                                                <li><a href="http://www.requirejs.cn/" target="_blank"><img src={requireLogo} alt="requirejs" /></a></li>
+                                                <li><a href="https://gruntjs.com/" target="_blank"><img src={gruntLogo} alt="gruntjs" /></a></li>
+                                                <li><a href="http://www.gulpjs.com.cn/" target="_blank"><img src={gulpLogo} alt="gulp" /></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                             <p>Take it to the next level!</p>
                         </div>
@@ -166,7 +190,7 @@ class MainPage extends React.Component{
                     <li data-menuanchor="section3" className="menu-nav-item"><a href="#section3">技能栈</a></li>
                     <li data-menuanchor="section4" className="menu-nav-item"><a href="#section4">工作经历</a></li>
                     <li data-menuanchor="section4" className="menu-nav-item"><a href="#section4">作品集</a></li>
-                    <li data-menuanchor="section4" className="menu-nav-item"><a href="#section4">作品集</a></li>
+                    <li data-menuanchor="section4" className="menu-nav-item"><a href="#section4">我的简历</a></li>
                 </ul>
             </div>
         )

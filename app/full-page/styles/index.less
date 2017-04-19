@@ -223,66 +223,58 @@ ul{
   .skill-stack-list{
     width: 400px;
     height: 400px;
-    border-radius: 50%;
-    //overflow: hidden;
-    display: inline-block;
+    margin: 0 auto;
     position: relative;
-    .skill-stack-box{
-      position: absolute;
-      left: 200px;
-      top: 200px;
-      width: 200px;
-      height: 200px;
-      transform-origin: 0 0;
-      span{
-        display: inline-block;
-      }
-      &:nth-of-type(1){
-        transform: rotate(22.5deg) skew(45deg);
-        &:after{
-          transform-origin:50% 50%;
-          display: inline-block;
-          transform: rotate(5deg) skew(-45deg);
-          left: -3px;
-          top: -87px;
-          content: '';
-          position: absolute;
-          width: 0;
-          height: 0;
-          border-top: 100px solid transparent;
-          border-right: 300px solid red;
-          border-bottom: 100px solid transparent;
-        }
-      }
-      &:nth-of-type(2){
-        background-color: #00a0e9;
-        transform: rotate(67.5deg) skew(45deg);
-      }
-      &:nth-of-type(3){
-        transform: rotate(112.5deg) skew(45deg);
-        background-color: #00a2ae;
-      }
-      &:nth-of-type(4){
-        transform: rotate(157.5deg) skew(45deg);
-        background-color: #00a854;
-      }
-      &:nth-of-type(5){
-        transform: rotate(202.5deg) skew(45deg);
-        background-color: #0000cc;
-      }
-      &:nth-of-type(6){
-        transform: rotate(247.5deg) skew(45deg);
-        background-color: #00af0e;
-      }
-      &:nth-of-type(7){
-        transform: rotate(292.5deg) skew(45deg);
-        background-color: #2aa198;
-      }
 
-      &:nth-of-type(8){
-        transform: rotate(337.5deg) skew(45deg);
-        background-color: #66ab16;
-      }
+    .cricle-3{
+      width: 400px;
+      height: 400px;
+      z-index: 1;
+      background-image: url("../images/skill-stack/cricle3.png");
+      transition: all 3s 5s;
+    }
+    .cricle-3-text{
+      width: 400px;
+      height: 400px;
+      z-index: 4;
+      background-image: url("../images/skill-stack/cricle3_text.png");
+      transform: translate(-50%,-50%) rotate(720deg) scale(.3);
+      transition: all 3s 8s;
+    }
+    .cricle-2{
+      width: 241px;
+      height: 241px;
+      z-index: 2;
+      background-image: url("../images/skill-stack/cricle2.png");
+      transition: all 2s 1s;
+    }
+    .cricle-2-text{
+      width: 241px;
+      height: 241px;
+      z-index: 5;
+      background-image: url("../images/skill-stack/cricle2_text.png");
+      transition: all 2s 3s;
+    }
+    .cricle-1{
+      width: 120px;
+      height: 120px;
+      z-index: 3;
+      background-image: url("../images/skill-stack/cricle1.png");
+      line-height: 120px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      transition: all 1s;
+    }
+    .cricle{
+      left: 50%;
+      top: 50%;
+      position: absolute;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0;
+      transform: translate(-50%,-50%) rotate(720deg) scale(.3);
     }
   }
 
@@ -321,5 +313,11 @@ ul{
   }
   .about-me-text{
     transform: scale(1);
+  }
+  &.skill-stack{
+    .cricle-1,.cricle-2,.cricle-2-text,.cricle-3,.cricle-3-text{
+      transform: translate(-50%,-50%) rotate(0) scale(1);
+      opacity: 1;
+    }
   }
 }
