@@ -13,6 +13,9 @@ import angularLogo from '../images/skill-icon/angular.png';
 import requireLogo from '../images/skill-icon/requirejs.png';
 import gruntLogo from '../images/skill-icon/grunt-logo.png';
 import gulpLogo from '../images/skill-icon/gulp-logo.png';
+import webpackLogo from '../images/skill-icon/webpack.png';
+import vueLogo from '../images/skill-icon/vue.png';
+import reactLogo from  '../images/skill-icon/react.png';
 
 
 import '../styles/index.less';
@@ -42,23 +45,27 @@ class MainPage extends React.Component{
                 if(dom){
                     dom.classList.add('has-show')
                 }
+                console.log(link);
+                if('section3' == link && TagCanvas){
+                    console.log(111111);
+
+                }
             }
         }
     };
     componentDidMount(){
-
         $('#myContainer').fullpage(this.state);
         try {
             TagCanvas.Start('skill_stack_canvas','skill_stack_icon_list',{
                 depth: 0.8,
                 maxSpeed: 0.1,
-                minSpeed:0.02,
+                minSpeed:0.05,
                 freezeActive:true, //当有选中是停止运动
                 initial:0.8,
                 wheelZoom:false, //鼠标滚轮缩放
                 fadeIn:10
             });
-            TagCanvas.SetSpeed('myCanvas', [0.1, 0.02]);
+            TagCanvas.SetSpeed('myCanvas', [0.1, 0.05]);
         } catch(e) {}
     };
     render(){
@@ -148,6 +155,9 @@ class MainPage extends React.Component{
                                                 <li><a href="http://www.requirejs.cn/" target="_blank"><img src={requireLogo} alt="requirejs" /></a></li>
                                                 <li><a href="https://gruntjs.com/" target="_blank"><img src={gruntLogo} alt="gruntjs" /></a></li>
                                                 <li><a href="http://www.gulpjs.com.cn/" target="_blank"><img src={gulpLogo} alt="gulp" /></a></li>
+                                                <li><a href="http://webpack.github.io/" target="_blank"><img src={webpackLogo} alt="webpack" /></a></li>
+                                                <li><a href="https://cn.vuejs.org/" target="_blank"><img src={vueLogo} alt="vue" /></a></li>
+                                                <li><a href="https://facebook.github.io/react/" target="_blank"><img src={reactLogo} alt="react" /></a></li>
                                             </ul>
                                         </div>
                                     </div>
