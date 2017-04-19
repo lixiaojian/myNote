@@ -16,6 +16,7 @@ import gulpLogo from '../images/skill-icon/gulp-logo.png';
 import webpackLogo from '../images/skill-icon/webpack.png';
 import vueLogo from '../images/skill-icon/vue.png';
 import reactLogo from  '../images/skill-icon/react.png';
+import bootstrapLogo from '../images/skill-icon/bootstrap.png';
 
 
 import '../styles/index.less';
@@ -158,6 +159,7 @@ class MainPage extends React.Component{
                                                 <li><a href="http://webpack.github.io/" target="_blank"><img src={webpackLogo} alt="webpack" /></a></li>
                                                 <li><a href="https://cn.vuejs.org/" target="_blank"><img src={vueLogo} alt="vue" /></a></li>
                                                 <li><a href="https://facebook.github.io/react/" target="_blank"><img src={reactLogo} alt="react" /></a></li>
+                                                <li><a href="http://www.bootcss.com/" target="_blank"><img src={bootstrapLogo} alt="bootstrap" /></a></li>
                                             </ul>
                                         </div>
                                     </div>
