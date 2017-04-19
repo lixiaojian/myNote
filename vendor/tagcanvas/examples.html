@@ -11,18 +11,36 @@
             try {
                 TagCanvas.Start('myCanvas','tags',{
                     textColour: '#ff0000',  //字体 颜色
-                    outlineColour: '#ff00ff', //选中的标签边框颜色
-                    bgOutlineThickness:3, //标签的边框宽度（像素），
-                    bgRadius:5, //标签边框的 radius
+//                    outlineColour: '#ff00ff', //选中的标签边框颜色
+//                    bgOutlineThickness:3, //标签的边框宽度（像素），
+//                    bgRadius:5, //标签边框的 radius
 //                    reverse: true,
                     depth: 0.8,
-                    maxSpeed: 0.05,
+                    maxSpeed: 0.1,
+                    minSpeed:0.02,
+                    freezeActive:true, //当有选中是停止运动
+                    initial:0.8,
+                    wheelZoom:false, //鼠标滚轮缩放
+                    fadeIn:10,
+                    scrollPause:true
+                });
+                TagCanvas.SetSpeed('myCanvas', [0.1, 0.02]);
+            } catch(e) {
+                // something went wrong, hide the canvas container
+                document.getElementById('myCanvasContainer').style.display = 'none';
+            }
+
+            try {
+                TagCanvas.Start('myCanvas2','tags2',{
+                    depth: 0.8,
+                    maxSpeed: 0.1,
                     minSpeed:0.02,
                     freezeActive:true, //当有选中是停止运动
                     initial:0.8,
                     wheelZoom:false, //鼠标滚轮缩放
                     fadeIn:10
                 });
+                TagCanvas.SetSpeed('myCanvas', [0.1, 0.02]);
             } catch(e) {
                 // something went wrong, hide the canvas container
                 document.getElementById('myCanvasContainer').style.display = 'none';
@@ -33,7 +51,11 @@
 <body>
 <h1>TagCanvas example page</h1>
 <div id="myCanvasContainer">
-    <canvas width="300" height="300" id="myCanvas">
+    <canvas width="400" height="400" id="myCanvas">
+        <p>Anything in here will be replaced on browsers that support the canvas element</p>
+    </canvas>
+
+    <canvas width="400" height="400" id="myCanvas2">
         <p>Anything in here will be replaced on browsers that support the canvas element</p>
     </canvas>
 </div>
@@ -44,6 +66,13 @@
         <li><a href="/chips">Chips</a></li>
         <li><a href="/salt">Salt</a></li>
         <li><a href="/vinegar">Vinegar</a></li>
+    </ul>
+</div>
+<div id="tags2">
+    <ul>
+        <li><a href="http://www.google.com" target="_blank"><img src="//cdn-img.easyicon.net/png/11915/1191592.gif" alt=""></a></li>
+        <li><a href="/fish"><img src="//cdn-img.easyicon.net/png/11906/1190694.gif" alt=""></a></li>
+        <li><a href="/chips"><img src="//cdn-img.easyicon.net/png/11905/1190574.gif" alt=""></a></li>
     </ul>
 </div>
 </body>
