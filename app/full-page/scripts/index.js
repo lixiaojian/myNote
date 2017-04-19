@@ -17,6 +17,14 @@ import webpackLogo from '../images/skill-icon/webpack.png';
 import vueLogo from '../images/skill-icon/vue.png';
 import reactLogo from  '../images/skill-icon/react.png';
 import bootstrapLogo from '../images/skill-icon/bootstrap.png';
+import nodejsLogo from '../images/skill-icon/nodejs.png';
+import html5Logo from '../images/skill-icon/html5.png';
+import css3Logo from '../images/skill-icon/css3.png';
+import photoshop from '../images/skill-icon/photoshop.png';
+import jsonLogo from '../images/skill-icon/json.png';
+import lessLogo from '../images/skill-icon/less.png';
+import webstormLogo from '../images/skill-icon/webstorm.png';
+import gitLogo from '../images/skill-icon/git.png';
 
 
 import '../styles/index.less';
@@ -160,6 +168,14 @@ class MainPage extends React.Component{
                                                 <li><a href="https://cn.vuejs.org/" target="_blank"><img src={vueLogo} alt="vue" /></a></li>
                                                 <li><a href="https://facebook.github.io/react/" target="_blank"><img src={reactLogo} alt="react" /></a></li>
                                                 <li><a href="http://www.bootcss.com/" target="_blank"><img src={bootstrapLogo} alt="bootstrap" /></a></li>
+                                                <li><a href="https://nodejs.org/" target="_blank"><img src={nodejsLogo} alt="nodejs" /></a></li>
+                                                <li><a href="http://www.w3school.com.cn/html5/index.asp" target="_blank"><img src={html5Logo} alt="HTML5" /></a></li>
+                                                <li><a href="http://www.w3school.com.cn/css3/index.asp" target="_blank"><img src={css3Logo} alt="CSS3" /></a></li>
+                                                <li><a href="http://www.adobe.com/cn/products/cs6/photoshop.html" target="_blank"><img src={photoshop} alt="photoshop" /></a></li>
+                                                <li><a href="http://www.json.org/" target="_blank"><img src={jsonLogo} alt="json" /></a></li>
+                                                <li><a href="http://lesscss.cn/" target="_blank"><img src={lessLogo} alt="less" /></a></li>
+                                                <li><a href="http://www.jetbrains.com/webstorm/" target="_blank"><img src={webstormLogo} alt="webstorm" /></a></li>
+                                                <li><a href="https://git-scm.com/" target="_blank"><img src={gitLogo} alt="git" /></a></li>
                                             </ul>
                                         </div>
                                     </div>
