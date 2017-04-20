@@ -26,7 +26,6 @@ if (pkg.theme && typeof(pkg.theme) === 'string') {
 }
 
 module.exports = {
-    //devtool: 'source-map',
     entry:{
         resume1:[
             './app/resume/scripts/index.js'
@@ -60,7 +59,10 @@ module.exports = {
             }
         ),
         //css单独打包
-        new ExtractTextPlugin("css/[name].css")
+        new ExtractTextPlugin("css/[name].css"),
+        new webpack.ProvidePlugin({
+            $: 'jquery'
+        })
     ],
     module: {
         loaders: [

@@ -103,6 +103,6 @@ module.exports = {
         new ExtractTextPlugin("/build/css/style.css"),
         new webpack.ProvidePlugin({
             $: 'jquery'
-        }),
+        })
     ]
 };
