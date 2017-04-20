@@ -9,13 +9,14 @@ import 'normalize-css';
 import BaseMsg from './baseMsg';
 import AboutMe from './aboutMe';
 import SkillStack from './skillStack';
-import WorkExperience from './workExperience';
+import resume1 from '../images/resume1.png';
+// import WorkExperience from './workExperience';
 
 import '../styles/index.less';
 
 import '../../../font/style.css';
 
-import GameInfo from './test'
+// import GameInfo from './test'
 
 class MainPage extends React.Component{
     constructor(props){
@@ -46,22 +47,22 @@ class MainPage extends React.Component{
     componentDidMount(){
         $('#myContainer').fullpage(this.state);
     };
-    componentWillMount() {
-        this.data = GameInfo.map((game, index) => {
-            return ({
-                date: game.date,
-                component: (
-                    <div className='container' key={index}>
-                        <h1>{ `The Elder Scrolls ${index + 1}:`}</h1>
-                        <h2>{ game.subtitle }</h2>
-                        <hr />
-                        <p>{ game.content}</p>
-                        <hr />
-                    </div>
-                )
-            });
-        });
-    }
+    // componentWillMount() {
+    //     this.data = GameInfo.map((game, index) => {
+    //         return ({
+    //             date: game.date,
+    //             component: (
+    //                 <div className='container' key={index}>
+    //                     <h1>{ `The Elder Scrolls ${index + 1}:`}</h1>
+    //                     <h2>{ game.subtitle }</h2>
+    //                     <hr />
+    //                     <p>{ game.content}</p>
+    //                     <hr />
+    //                 </div>
+    //             )
+    //         });
+    //     });
+    // }
     render(){
         return(
             <div>
@@ -76,13 +77,17 @@ class MainPage extends React.Component{
                         <SkillStack />
                     </div>
                     <div className="third-section section">
-                        <WorkExperience content={this.data}/>
+                        <h2>等待完善</h2>
                     </div>
                     <div className="third-section section">
-                        111111111111111
+                        <h2>等待完善</h2>
                     </div>
                     <div className="third-section section">
-                        111111111111111
+                        <ul className="resume-list">
+                            <li className="resume-item">
+                                <a href="/resume/resume1.html"><img src={resume1} alt="李晓健简历"/></a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <ul className="nav-menu" id="menu">

@@ -28,8 +28,11 @@ if (pkg.theme && typeof(pkg.theme) === 'string') {
 module.exports = {
     //devtool: 'source-map',
     entry:{
-        index:[
+        resume1:[
             './app/resume/scripts/index.js'
+        ],
+        index:[
+            './app/full-page/scripts/index.js'
         ]
     },
     output: {
@@ -76,7 +79,13 @@ module.exports = {
                 ])
             },
             {
-                test: /\.(jpe?g|png|gif|svg)$/i,
+                test:/\.(woff|svg|eot|ttf)$/,
+                use:[{
+                    loader:'url-loader?name=fonts/[name].[md5:hash:hex:7].[ext]'
+                }]
+            },
+            {
+                test: /\.(jpe?g|png|gif)$/i,
                 loaders: ['url-loader?limit=8192&name=images/[hash].[ext]',{
                         loader: 'image-webpack-loader',
                         query: {

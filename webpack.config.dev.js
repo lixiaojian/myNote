@@ -25,7 +25,7 @@ module.exports = {
     context: path.join(__dirname),
     devtool:'cheap-module-eval-source-map',
     entry:{
-        index:[
+        resume1:[
             './app/resume/scripts/index.js',
             hotMiddlewareScript
         ],
