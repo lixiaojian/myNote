@@ -29,8 +29,8 @@ module.exports = {
             './app/resume/scripts/index.js',
             hotMiddlewareScript
         ],
-        fullpage:[
-            './app/full-page/scripts/index.js',
+        index:[
+            './app/index/scripts/index.js',
             hotMiddlewareScript
         ]
     },

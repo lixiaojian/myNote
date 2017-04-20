@@ -10,13 +10,12 @@ import BaseMsg from './baseMsg';
 import AboutMe from './aboutMe';
 import SkillStack from './skillStack';
 import resume1 from '../images/resume1.png';
-// import WorkExperience from './workExperience';
+import WorkExperience from './workExperience';
 
 import '../styles/index.less';
 
 import '../../../font/style.css';
 
-// import GameInfo from './test'
 
 class MainPage extends React.Component{
     constructor(props){
@@ -47,22 +46,6 @@ class MainPage extends React.Component{
     componentDidMount(){
         $('#myContainer').fullpage(this.state);
     };
-    // componentWillMount() {
-    //     this.data = GameInfo.map((game, index) => {
-    //         return ({
-    //             date: game.date,
-    //             component: (
-    //                 <div className='container' key={index}>
-    //                     <h1>{ `The Elder Scrolls ${index + 1}:`}</h1>
-    //                     <h2>{ game.subtitle }</h2>
-    //                     <hr />
-    //                     <p>{ game.content}</p>
-    //                     <hr />
-    //                 </div>
-    //             )
-    //         });
-    //     });
-    // }
     render(){
         return(
             <div>
@@ -77,7 +60,7 @@ class MainPage extends React.Component{
                         <SkillStack />
                     </div>
                     <div className="third-section section">
-                        <h2>等待完善</h2>
+                        <WorkExperience />
                     </div>
                     <div className="third-section section">
                         <h2>等待完善</h2>

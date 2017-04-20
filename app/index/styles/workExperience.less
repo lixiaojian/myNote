@@ -1,0 +1,109 @@
+.work-experience{
+  display: inline-block;
+  max-width: 80%;
+  padding: 50px 0;
+  .experience-item{
+    position: relative;
+    float: left;
+    width: 87px;
+    height: 99px;
+    background-position: center;
+    background-repeat: no-repeat;
+    .experience-text{
+      opacity: 0;
+      transform: scale(0);
+    }
+    &:nth-child(2n){
+      background-image: url("../images/time-line/time-line-step3.png");
+      .experience-text{
+        top: -50px;
+        transform-origin: 50% 100%;
+      }
+    }
+    &:nth-child(2n+1){
+      background-image: url("../images/time-line/time-line-step2.png");
+      .experience-text{
+        top: 100px;
+        transform-origin: 50% 0;
+      }
+    }
+    &:nth-child(2){
+      width: 0;
+      transition: width 1s;
+      .experience-text{
+        transition: all 1s;
+      }
+    }
+    &:nth-child(3){
+      width: 0;
+      transition: width 1s 2s;
+      .experience-text{
+        transition: all 1s 3s;
+      }
+    }
+    &:nth-child(4){
+      width: 0;
+      transition: width 1s 4s;
+      .experience-text{
+        transition: all 1s 5s;
+      }
+    }
+    &:nth-child(5){
+      background-position: 0 2px;
+      width: 0;
+      transition: width 1s 6s;
+      .experience-text{
+        transition: all 1s 7s;
+      }
+    }
+    &:nth-child(6){
+      background-position: 0 2px;
+      width: 0;
+      transition: width 1s 8s;
+      .experience-text{
+        transition: all 1s 9s;
+      }
+    }
+    &:nth-child(7){
+      background-position: 0 4px;
+      width: 0;
+      transition: width 1s 10s;
+      .experience-text{
+        transition: all 1s 11s;
+      }
+    }
+    &:nth-child(2){
+      background-image: url("../images/time-line/time-line-step1.png");
+      background-position: center;
+    }
+    &:first-child{
+      width: 114px;
+      background-image: url("../images/time-line/time-line-start.png");
+    }
+    &:last-child{
+      background-image: url("../images/time-line/time-line-stop.png");
+      background-position: 0 0;
+      width: 0;
+      transition: width 1s 12s;
+    }
+    .experience-text{
+      width: 200px;
+      position: absolute;
+      left: -56px;
+    }
+  }
+}
+.has-show{
+  .experience-item{
+    &:nth-child(2),&:nth-child(3),&:nth-child(4),&:nth-child(5),&:nth-child(6),&:nth-child(7){
+      width: 87px;
+    }
+    &:last-child{
+      width: 97px;
+    }
+    .experience-text{
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}

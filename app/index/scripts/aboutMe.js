@@ -9,7 +9,7 @@ const AboutMe = () => {
     const myMsg = [
         {key:'生日',value:'1987-02-04',cls:'my-birthday',iconCls:'icon-cake'},
         {key:'学历',value:'大专',cls:'my-education',iconCls:'icon-education'},
-        {key:'位置',value:'上海浦东',cls:'my-position',iconCls:'icon-cake'},
+        {key:'位置',value:'上海浦东',cls:'my-position',iconCls:'icon-position'},
         {key:'状态',value:'在职',cls:'my-state',iconCls:'icon-state'}
     ];
     return(
