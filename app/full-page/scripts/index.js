@@ -9,25 +9,24 @@ import 'normalize-css';
 import BaseMsg from './baseMsg';
 import AboutMe from './aboutMe';
 import SkillStack from './skillStack';
-
-
-
+import WorkExperience from './workExperience';
 
 import '../styles/index.less';
 
 import '../../../font/style.css';
 
+import GameInfo from './test'
 
 class MainPage extends React.Component{
     constructor(props){
         super(props);
         this.state={
             menu:'#menu',
-            anchors: ['index', 'section2', 'section3', 'section4'],
+            anchors: ['index', 'section2', 'section3', 'section4','section5','section6'],
             resize:true,
             navigation: true,
             navigationPosition: 'right',
-            navigationTooltips: ['首页', 'secondSlide','3rdPage','4thpage'],
+            navigationTooltips: ['首页', 'secondSlide','3rdPage','4thpage','5thpage','6thpage'],
             slidesNavigation: true,
             scrollingSpeed: 1000,
             autoScrolling: true,
@@ -47,6 +46,22 @@ class MainPage extends React.Component{
     componentDidMount(){
         $('#myContainer').fullpage(this.state);
     };
+    componentWillMount() {
+        this.data = GameInfo.map((game, index) => {
+            return ({
+                date: game.date,
+                component: (
+                    <div className='container' key={index}>
+                        <h1>{ `The Elder Scrolls ${index + 1}:`}</h1>
+                        <h2>{ game.subtitle }</h2>
+                        <hr />
+                        <p>{ game.content}</p>
+                        <hr />
+                    </div>
+                )
+            });
+        });
+    }
     render(){
         return(
             <div>
@@ -61,31 +76,13 @@ class MainPage extends React.Component{
                         <SkillStack />
                     </div>
                     <div className="third-section section">
-                        <div className="slide" id="slide3-1">
-                            <div className="intro">
-                                <h1>TAKE CONTROL</h1>
-                                <p>Totally configurable.</p>
-                                <p>For sections & slides! </p>
-                            </div>
-                        </div>
-                        <div className="slide" id="slide3-2">
-                            <div className="intro">
-                                <h1>GUARRANTEE</h1>
-                                <p>30 days money back guarratee if no domain was activated.</p>
-                            </div>
-                        </div>
-                        <div className="slide" id="slide3-3">
-                            <div className="intro">
-                                <h1>TRUSTED</h1>
-                                <p>Join thoudands of other developers who trusted fullPage.js extensions!</p>
-                            </div>
-                        </div>
-                        <div className="slide" id="slide3-4">
-                            <div className="intro">
-                                <h1>DOCUMENTED</h1>
-                                <p>If fullPage.js is known for one thing it's for its great documentation!</p>
-                            </div>
-                        </div>
+                        <WorkExperience content={this.data}/>
+                    </div>
+                    <div className="third-section section">
+                        111111111111111
+                    </div>
+                    <div className="third-section section">
+                        111111111111111
                     </div>
                 </div>
                 <ul className="nav-menu" id="menu">
@@ -93,8 +90,8 @@ class MainPage extends React.Component{
                     <li data-menuanchor="section2" className="menu-nav-item"><a href="#section2">关于我</a></li>
                     <li data-menuanchor="section3" className="menu-nav-item"><a href="#section3">技能栈</a></li>
                     <li data-menuanchor="section4" className="menu-nav-item"><a href="#section4">工作经历</a></li>
-                    <li data-menuanchor="section4" className="menu-nav-item"><a href="#section4">作品集</a></li>
-                    <li data-menuanchor="section4" className="menu-nav-item"><a href="#section4">我的简历</a></li>
+                    <li data-menuanchor="section5" className="menu-nav-item"><a href="#section5">作品集</a></li>
+                    <li data-menuanchor="section6" className="menu-nav-item"><a href="#section6">我的简历</a></li>
                 </ul>
             </div>
         )

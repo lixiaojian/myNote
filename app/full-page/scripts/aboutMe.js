@@ -18,7 +18,7 @@ const AboutMe = () => {
             <ul className="about-me-box clearfix">
                 {myMsg.map((item,index) =>{
                     return(
-                        <li className={`about-me-item ${item.cls}`}>
+                        <li key={'about-me'+index} className={`about-me-item ${item.cls}`}>
                             <div className="about-me-icon">
                                 <div className="spinner"></div>
                                 <span className={item.iconCls}></span>
