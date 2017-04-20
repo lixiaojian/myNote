@@ -106,7 +106,7 @@
     <tr>
         <td><code>fadeIn</code></td>
         <td><code>0</code></td>
-        <td>Time to fade in tags at start, in milliseconds.</td>
+        <td>开始时，内容淡入的时间（毫秒）</td>
     </tr>
     <tr class="odd">
         <td><code>freezeActive</code></td>
@@ -121,13 +121,12 @@
     <tr class="odd">
         <td><code>frontSelect</code></td>
         <td><code class="keyword">false</code></td>
-        <td>Set to <code>true</code> to prevent selection of tags at back of cloud.</td>
+        <td>防止后面的标签被选中，只能选中前面的</td>
     </tr>
     <tr>
         <td><code>hideTags</code></td>
         <td><code class="keyword">true</code></td>
-        <td>Set to <code>true</code> to automatically hide the tag list element if TagCanvas is started successfully.
-        </td>
+        <td>隐藏标签列表标签</td>
     </tr>
     <tr class="odd">
         <td><code>imageAlign</code></td>
@@ -574,5 +573,330 @@
     <li id="tooltips"><sup>[3]</sup>A description of the tooltip options is on the <a href="2012/03/08/tagcanvas-1.14.html">TagCanvas 1.14 page</a>.</li>
     <li id="weights"><sup>[4]</sup>For more information about the weighting options, see the <a href="tagcanvas-weighted.php">TagCanvas with weighted tags page</a>.</li>
 </ul>
+
+<br>
+<div id="content" style="margin-left: 160px;">
+
+    <h1>TagCanvas function reference</h1>
+    <p><a href="tagcanvas.php">« Return to TagCanvas page</a></p>
+
+    <p>Skip to:</p>
+    <ul class="subnav">
+        <li><a href="#start">Start</a></li>
+        <li><a href="#pause">Pause</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#reload">Reload</a></li>
+        <li><a href="#update">Update</a></li>
+        <li><a href="#tagtofront">TagToFront</a></li>
+        <li><a href="#rotatetag">RotateTag</a></li>
+        <li><a href="#setspeed">SetSpeed</a></li>
+        <li><a href="#delete">Delete</a></li>
+    </ul>
+
+    <p>TagCanvas 2 has several functions, and the way they are called differs
+        slightly between the stand-alone and jQuery versions. The buttons beneath the
+        example cloud below each call one of the functions.</p>
+
+
+    <p>I've set the <code>minSpeed</code> option for this example cloud to make
+        it easier to see the “Pause” and “Resume” buttons
+        working.</p>
+
+    <p>A Javascript function updates some of the tags every 5 seconds so that you can
+        see the effect of the “Reload” and “Update” buttons.
+        “Reload” will reload the list, shuffling the tags again
+        because the <code>shuffleTags</code> option is active. “Update”
+        will reload the tags and change any tags that have been replaced.</p>
+
+    <p>The “TagToFront” and “RotateTag” buttons call their
+        functions with a randomly-chosen tag to move. “RotateTag” is moving
+        the chosen tag to <code>lat: -60, lng: -60</code>, which is near the bottom on
+        the left. “SetSpeed” uses a random direction and speed. I haven't
+        included a “Delete” button because it should be fairly obvious what
+        that does.</p>
+
+    <h2 id="start">Starting the cloud</h2>
+
+    <p>The start functions start or restart the cloud animation. The canvas ID
+        must be provided for the stand-alone version, though the tag list ID and options
+        arguments are optional.</p>
+
+    <p>When the tag list ID is not provided, TagCanvas will use any links it finds
+        inside the canvas element for the tags - though this will not work in IE
+        versions before IE9.</p>
+
+    <pre class="javascript"><span class="co1">// stand-alone version</span>
+TagCanvas.<span class="me1">Start</span><span class="br0">(</span>canvasId<span class="sy0">,</span> tagListId<span class="sy0">,</span> options<span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>The jQuery version gets the canvas from the selector. The options and tag
+        list arguments are both optional, and the tag list selection works in the same
+        was as with the stand-alone version.</p>
+
+    <pre class="javascript"><span class="co1">// jQuery plugin version</span>
+$<span class="br0">(</span>selector<span class="br0">)</span>.<span class="me1">tagcanvas</span><span class="br0">(</span>options<span class="sy0">,</span> tagListId<span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>Calling the start functions again for the same canvas will restart the cloud.
+        The tag list can be updated this way, and many of the options may be changed.</p>
+
+    <h2 id="pause">Pausing the cloud animation</h2>
+
+    <p>The pause functions will stop the cloud animating. The script will continue
+        receiving Javascript timer callbacks, but the animation code will be skipped.
+        Calling the pause function again when a cloud is already paused will have no
+        effect.</p>
+
+    <p>The stand-alone version is paused by calling the <code>TagCanvas.Pause()</code>
+        function, passing in the ID of the canvas to be paused.</p>
+    <pre class="javascript"><span class="co1">// stand-alone version</span>
+TagCanvas.<span class="me1">Pause</span><span class="br0">(</span>canvasId<span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>The jQuery plugin version gets the canvas from the selector again, and uses
+        the same <code>tagcanvas()</code> function, this time with the string "pause"
+        passed in as an argument.</p>
+
+    <pre class="javascript"><span class="co1">// jQuery plugin version</span>
+$<span class="br0">(</span>selector<span class="br0">)</span>.<span class="me1">tagcanvas</span><span class="br0">(</span><span class="st0">"pause"</span><span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>The jQuery selector may match multiple canvases - so you can pause some or
+        all clouds on the page at once.</p>
+
+    <h2 id="resume">Resuming animation when paused</h2>
+
+    <p>The resume functions continue the cloud animation with the same speed and
+        direction as when it was paused. If the cloud is not paused, the resume function
+        will have no effect.</p>
+
+    <p>The stand-alone version works by passing the canvas ID to the
+        <code>TagCanvas.Resume()</code> function.</p>
+
+    <pre class="javascript"><span class="co1">// stand-alone version</span>
+TagCanvas.<span class="me1">Resume</span><span class="br0">(</span>canvasId<span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>The jQuery plugin version works similarly to the pause function, though the
+        string "resume" must be passed to the <code>tagcanvas()</code> function instead
+        of "pause".</p>
+
+    <pre class="javascript"><span class="co1">// jQuery plugin version</span>
+$<span class="br0">(</span>selector<span class="br0">)</span>.<span class="me1">tagcanvas</span><span class="br0">(</span><span class="st0">"resume"</span><span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>This may also be used to resume multiple paused clouds by choosing a selector
+        that includes the relevant canvases.</p>
+
+    <h2 id="reload">Reloading the list of tags</h2>
+
+    <p>The reload function re-reads the list of tags from the same source, replacing
+        the current list. It works in a similar way to calling Start again, but without
+        all of the initialization code being run.</p>
+
+    <pre class="javascript"><span class="co1">// stand-alone version</span>
+TagCanvas.<span class="me1">Reload</span><span class="br0">(</span>canvasId<span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>The jQuery plugin version:</p>
+
+    <pre class="javascript"><span class="co1">// jQuery plugin version</span>
+$<span class="br0">(</span>selector<span class="br0">)</span>.<span class="me1">tagcanvas</span><span class="br0">(</span><span class="st0">"reload"</span><span class="br0">)</span><span class="sy0">;</span></pre>
+    <h2 id="update">Updating the list of tags</h2>
+
+    <p>The update function also reloads the list of tags, but keeps unchanged tags
+        in (or close to) their current positions. This works by comparing the text
+        content (or image source) of the tag and the <code>href</code> attribute. Tag
+        weights and titles are updated without changing the tag positions.</p>
+
+    <pre class="javascript"><span class="co1">// stand-alone version</span>
+TagCanvas.<span class="me1">Update</span><span class="br0">(</span>canvasId<span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>The jQuery plugin version:</p>
+
+    <pre class="javascript"><span class="co1">// jQuery plugin version</span>
+$<span class="br0">(</span>selector<span class="br0">)</span>.<span class="me1">tagcanvas</span><span class="br0">(</span><span class="st0">"update"</span><span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>In version 2.0, Update and the <code>shuffleTags</code> option didn't work
+        well together - this has been fixed in version 2.1.</p>
+
+    <h2 id="tagtofront">Bringing a tag to the front of the cloud</h2>
+
+    <p>The TagToFront function moves a tag to the front of the cloud, bypassing the
+        mouse or drag-based animation. You must specify which tag to bring to the front,
+        using a list of options.</p>
+
+    <pre class="javascript"><span class="co1">// stand-alone version</span>
+TagCanvas.<span class="me1">TagToFront</span><span class="br0">(</span>canvasId<span class="sy0">,</span> <span class="br0">{</span>id<span class="sy0">:</span> <span class="st0">"tag1"</span><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>The jQuery plugin version:</p>
+
+    <pre class="javascript"><span class="co1">// jQuery plugin version</span>
+$<span class="br0">(</span>selector<span class="br0">)</span>.<span class="me1">tagcanvas</span><span class="br0">(</span><span class="st0">"tagtofront"</span><span class="sy0">,</span> <span class="br0">{</span>id<span class="sy0">:</span> <span class="st0">"tag1"</span><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>There are a few options available to pass to the function. You must specify
+        one of <code>id</code>, <code>index</code> or <code>text</code> for TagCanvas
+        to find the tag to be moved.</p>
+
+    <script>
+        window.addEventListener('load', function() {
+            var hdr = document.getElementsByClassName('clickHeader'), i;
+            for(i = 0; i < hdr.length; ++i) {
+                hdr[i].addEventListener('click', function(e) {
+                    var h = e.target, t = h.parentNode.nextElementSibling, d = 'none',
+                        p = '+ Show table', c = 'clickHeader closed';
+                    if(t.getAttribute('data-show')) {
+                        t.removeAttribute('data-show');
+                    } else {
+                        t.setAttribute('data-show', '1');
+                        d = 'block';
+                        p = '- Hide table';
+                        c = 'clickHeader';
+                    }
+                    t.style.display = d;
+                    h.innerHTML = p;
+                    h.className = c;
+                }, false);
+            }
+        }, false);
+    </script>
+    <div class="table centred">
+        <h2 id="tagtofront-options">TagToFront options <span class="clickHeader">- Hide table</span></h2>
+        <div class="clickOpen" data-show="1">
+            <table class="options">
+                <tbody><tr>
+                    <th>Option</th><th>Default</th><th>Description</th>
+                </tr>	<tr class="odd">
+                    <td><code>id</code></td>
+                    <td><code class="keyword">null</code></td>
+                    <td>ID of tag to move to front</td>
+                </tr>	<tr>
+                    <td><code>index</code></td>
+                    <td><code class="keyword">null</code></td>
+                    <td>Array index of tag to move to front</td>
+                </tr>	<tr class="odd">
+                    <td><code>text</code></td>
+                    <td><code class="keyword">null</code></td>
+                    <td>Text content of tag to move to front</td>
+                </tr>	<tr>
+                    <td><code>time</code></td>
+                    <td><code>500</code></td>
+                    <td>Duration of movement in milliseconds</td>
+                </tr>	<tr class="odd">
+                    <td><code>callback</code></td>
+                    <td><code class="keyword">null</code></td>
+                    <td>Function to call after movement has completed</td>
+                </tr>	<tr>
+                    <td><code>active</code></td>
+                    <td><code class="keyword">false</code></td>
+                    <td>If true, highlights the tag while it is in motion</td>
+                </tr></tbody></table>
+            <span class="caption">TagToFront options</span>
+        </div>
+    </div>
+
+    <p>The <code>callback</code> function is passed the relevant
+        <code>TagCanvas</code> and <code>Tag</code> objects as arguments, and is called
+        after the cloud has finished its movement.</p>
+
+    <h2 id="rotatetag">Moving a tag to another position</h2>
+    <p>TagToFront always moves the chosen tag to the front of the cloud - if you
+        want the tag somewhere else, you must use the RotateTag function.</p>
+
+    <pre class="javascript"><span class="co1">// stand-alone version</span>
+TagCanvas.<span class="me1">RotateTag</span><span class="br0">(</span>canvasId<span class="sy0">,</span> <span class="br0">{</span>id<span class="sy0">:</span> <span class="st0">"tag1"</span><span class="sy0">,</span> lat<span class="sy0">:</span> <span class="nu0">30</span><span class="sy0">,</span> lng<span class="sy0">:</span> <span class="sy0">-</span><span class="nu0">45</span><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>The jQuery plugin version:</p>
+
+    <pre class="javascript"><span class="co1">// jQuery plugin version</span>
+$<span class="br0">(</span>selector<span class="br0">)</span>.<span class="me1">tagcanvas</span><span class="br0">(</span><span class="st0">"rotatetag"</span><span class="sy0">,</span> <span class="br0">{</span>id<span class="sy0">:</span> <span class="st0">"tag1"</span><span class="sy0">,</span> lat<span class="sy0">:</span> <span class="nu0">30</span><span class="sy0">,</span> lng<span class="sy0">:</span> <span class="sy0">-</span><span class="nu0">45</span><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>The RotateTag function has a similar list of options, but you must also
+        specify the <code>lat</code> and <code>lng</code> options for the position that
+        you want the tag to be rotated to.</p>
+
+    <div class="table centred">
+        <h2 id="rotatetag-options">RotateTag options <span class="clickHeader">- Hide table</span></h2>
+        <div class="clickOpen" data-show="1">
+            <table class="options">
+                <tbody><tr>
+                    <th>Option</th><th>Default</th><th>Description</th>
+                </tr>	<tr class="odd">
+                    <td><code>id</code></td>
+                    <td><code class="keyword">null</code></td>
+                    <td>ID of tag to move to front</td>
+                </tr>	<tr>
+                    <td><code>index</code></td>
+                    <td><code class="keyword">null</code></td>
+                    <td>Array index of tag to move to front</td>
+                </tr>	<tr class="odd">
+                    <td><code>text</code></td>
+                    <td><code class="keyword">null</code></td>
+                    <td>Text content of tag to move to front</td>
+                </tr>	<tr>
+                    <td><code>time</code></td>
+                    <td><code>500</code></td>
+                    <td>Duration of movement in milliseconds</td>
+                </tr>	<tr class="odd">
+                    <td><code>callback</code></td>
+                    <td><code class="keyword">null</code></td>
+                    <td>Function to call after movement has completed</td>
+                </tr>	<tr>
+                    <td><code>active</code></td>
+                    <td><code class="keyword">false</code></td>
+                    <td>If true, highlights the tag while it is in motion</td>
+                </tr>	<tr class="odd">
+                    <td><code>lat</code></td>
+                    <td><code class="keyword">null</code></td>
+                    <td>Latitude of destination</td>
+                </tr>	<tr>
+                    <td><code>lng</code></td>
+                    <td><code class="keyword">null</code></td>
+                    <td>Longitude of destination</td>
+                </tr></tbody></table>
+            <span class="caption">RotateTag options</span>
+        </div>
+    </div>
+
+    <p>The <code>lat</code> option is the latitude of the destination - the up/down
+        or north/south angle. The angle is in degrees, with 0° in the middle (or
+        equator), 90° at the top (or north pole) and -90° at the bottom (the
+        south pole).</p>
+
+    <p>The <code>lng</code> option is the longitude of the destination - the
+        left/right or east/west angle.* This angle is also in degrees, with 0° at
+        the front, 90° to the right/east, -90° to the left/west and both
+        180° and -180° at the back.</p>
+
+    <p>RotateTag and TagToFront both make use of the <code>animTiming</code> option
+        to control the animation movement over time. The default option of
+        “Smooth” uses a sine function to accelerate and decelerate at the
+        start and end of the movement. The alternative “Linear” option
+        rotates the cloud at a constant rate from start to finish.</p>
+
+    <h2 id="setspeed">Setting the cloud speed and direction</h2>
+    <p>The <code>initial</code> option sets the speed and direction of the cloud
+        movement when TagCanvas starts, but if you want to set it again after that you
+        must use the SetSpeed function.
+
+    </p><pre class="javascript"><span class="co1">// stand-alone version</span>
+TagCanvas.<span class="me1">SetSpeed</span><span class="br0">(</span>canvasId<span class="sy0">,</span> <span class="br0">[</span><span class="nu0">0.5</span><span class="sy0">,</span> <span class="sy0">-</span><span class="nu0">0.25</span><span class="br0">]</span><span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>The jQuery plugin version:</p>
+
+    <pre class="javascript"><span class="co1">// jQuery plugin version</span>
+$<span class="br0">(</span>selector<span class="br0">)</span>.<span class="me1">tagcanvas</span><span class="br0">(</span><span class="st0">"setspeed"</span><span class="sy0">,</span> <span class="br0">[</span><span class="nu0">0.5</span><span class="sy0">,</span> <span class="sy0">-</span><span class="nu0">0.25</span><span class="br0">]</span><span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>The array argument is in the same format as the <code>initial</code> option,
+        a multiple of the <code>maxSpeed</code> option in the X and Y directions. The
+        cloud will maintain the new speed until it is changed by another function call
+        or cursor input.</p>
+
+    <h2 id="delete">Removing the cloud</h2>
+    <p>I added this function to help out people wanting to dynamically add and
+        remove instances of TagCanvas on a page. It is easy enough to remove the canvas
+        element from the DOM, but this leaves an instance of the TagCanvas class active,
+        thus preventing you from reusing the same ID when you try to start it again.</p>
+
+    <pre class="javascript"><span class="co1">// stand-alone version</span>
+TagCanvas.<span class="me1">Delete</span><span class="br0">(</span>canvasId<span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>The jQuery plugin version:</p>
+
+    <pre class="javascript"><span class="co1">// jQuery plugin version</span>
+$<span class="br0">(</span>selector<span class="br0">)</span>.<span class="me1">tagcanvas</span><span class="br0">(</span><span class="st0">"delete"</span><span class="br0">)</span><span class="sy0">;</span></pre>
+    <p>The Delete function destroys the TagCanvas instance, leaving the canvas
+        element intact on the page. What this means is that the contents of the canvas
+        will be frozen at the time that the Delete function was called, no longer
+        animating or accepting input. It is up to you to remove the canvas from the DOM
+        using <code>removeChild()</code> or one of the jQuery functions for removing
+        elements.</p>
+
+    <hr>
+
+    <p>* Does anyone else find it odd that we usually put “left” before
+        “right” and “east” before “west” when left
+        is west and right is east? No, I guess not.</p>
+
+    <p><a href="#content">« Back to top of page</a>
+        <span class="next"><a href="tagcanvas-examples.php">Example pages »</a></span></p>
+</div>
 </body>
 </html>

@@ -16,13 +16,23 @@
 //                    bgRadius:5, //标签边框的 radius
 //                    reverse: true,
                     depth: 0.8,
+                    outlineColour:'transparent',
+                    bgOutlineThickness:0,
                     maxSpeed: 0.1,
                     minSpeed:0.02,
                     freezeActive:true, //当有选中是停止运动
                     initial:0.8,
                     wheelZoom:false, //鼠标滚轮缩放
-                    fadeIn:10,
-                    scrollPause:true
+                    fadeIn:3000,
+                    scrollPause:true,
+                    clickToFront:4,
+                    frontSelect:true
+//                    centreFunc:function (a,s,d,f) {
+//                        console.log(a);
+//                        console.log(s);
+//                        console.log(d);
+//                        console.log(f);
+//                    }
                 });
                 TagCanvas.SetSpeed('myCanvas', [0.1, 0.02]);
             } catch(e) {
@@ -34,7 +44,7 @@
                 TagCanvas.Start('myCanvas2','tags2',{
                     depth: 0.8,
                     maxSpeed: 0.1,
-                    minSpeed:0.02,
+                    minSpeed:0.08,
                     freezeActive:true, //当有选中是停止运动
                     initial:0.8,
                     wheelZoom:false, //鼠标滚轮缩放

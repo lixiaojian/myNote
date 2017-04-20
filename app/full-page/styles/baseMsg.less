@@ -1,0 +1,62 @@
+@transition-time: 2s;
+
+.my-base-msg{
+  .user-header-img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    transform:rotate(360deg) scale(.2);
+  }
+  .my-motto{
+    white-space: nowrap;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    padding: 0 5px;
+    font-size: 18px;
+    border-right: 3px solid;
+    margin: 5px;
+  }
+  .fullpage-line{
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin: 10px;
+    border-top: 2px solid #fff;
+  }
+  .job-name{
+    display: inline-block;
+    transform: translateX(60vw);
+  }
+  .user-name{
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    transform: translateX(-60vw);
+  }
+}
+@keyframes typing {
+  0% { width: 12px; }
+  100%{width: 518px;}
+}
+@keyframes blink-caret { 50% { border-color: transparent; } }
+.has-show{
+  .my-base-msg{
+    .user-header-img{
+      transform:rotate(0) scale(1);
+      transition: transform @transition-time;
+    }
+    .my-motto{
+      animation: typing 4s steps(28, end), blink-caret .5s step-end infinite alternate;
+    }
+    .fullpage-line{
+      width: 60%;
+      transition: width @transition-time;
+    }
+    .job-name,.user-name{
+      transform: translate(0);
+      transition: transform @transition-time cubic-bezier(0.68,0.26,0.3,1.91);
+    }
+  }
+}
