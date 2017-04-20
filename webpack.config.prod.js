@@ -31,7 +31,7 @@ module.exports = {
             './app/resume/scripts/index.js'
         ],
         index:[
-            './app/full-page/scripts/index.js'
+            './app/index/scripts/index.js'
         ]
     },
     output: {
@@ -87,7 +87,7 @@ module.exports = {
                 }]
             },
             {
-                test: /\.(jpe?g|png|gif)$/i,
+                test: /\.(jpe?g|png)$/i,
                 loaders: ['url-loader?limit=8192&name=images/[hash].[ext]',{
                         loader: 'image-webpack-loader',
                         query: {
