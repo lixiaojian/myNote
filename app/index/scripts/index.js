@@ -10,7 +10,7 @@ import BaseMsg from './baseMsg';
 import AboutMe from './aboutMe';
 import SkillStack from './skillStack';
 import resume1 from '../images/resume1.png';
-import WorkExperience from './workExperience';
+import WorkExperience2 from './workExperience2';
 
 import '../styles/index.less';
 
@@ -60,7 +60,7 @@ class MainPage extends React.Component{
                         <SkillStack />
                     </div>
                     <div className="third-section section">
-                        <WorkExperience />
+                        <WorkExperience2 />
                     </div>
                     <div className="third-section section">
                         <h2>等待完善</h2>

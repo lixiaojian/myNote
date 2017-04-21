@@ -25,7 +25,7 @@ import jsonLogo from '../images/skill-icon/json.png';
 import lessLogo from '../images/skill-icon/less.png';
 import webstormLogo from '../images/skill-icon/webstorm.png';
 import gitLogo from '../images/skill-icon/git.png';
-// import svnLogo from '../images/skill-icon/svn.png';
+import svnLogo from '../images/skill-icon/svn.png';
 
 export default class SkillStack extends React.Component{
     constructor(){
@@ -49,8 +49,8 @@ export default class SkillStack extends React.Component{
                 {name:'JSON',link:'http://www.json.org/',img:jsonLogo},
                 {name:'LESS',link:'http://lesscss.cn/',img:lessLogo},
                 {name:'webstorm',link:'http://www.jetbrains.com/webstorm/',img:webstormLogo},
-                {name:'GIT',link:'https://git-scm.com/',img:gitLogo}
-                // {name:'SVN',link:'https://tortoisesvn.net/',img:svnLogo}
+                {name:'GIT',link:'https://git-scm.com/',img:gitLogo},
+                {name:'SVN',link:'https://tortoisesvn.net/',img:svnLogo}
             ]
         }
     }
