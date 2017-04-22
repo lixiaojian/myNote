@@ -67,7 +67,7 @@ export default class SkillStack extends React.Component{
                 outlineColour:'transparent',
                 frontSelect:true
             });
-            TagCanvas.SetSpeed('myCanvas', [0.1, 0.05]);
+            TagCanvas.SetSpeed('skill_stack_canvas', [0.1, 0.05]);
         } catch(e) {}
     }
     render(){
