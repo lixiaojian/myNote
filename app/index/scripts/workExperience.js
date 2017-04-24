@@ -71,9 +71,7 @@ export default class WorkExperience extends React.Component {
         const parentBox = step_box.parentElement;
         setTimeout(() => {
             this.setState({clientWidth:parentBox.clientWidth,clientHeight:parentBox.clientHeight});
-            console.log(parentBox.clientHeight);
             this.changeDate(1);
-            console.log((this.state.clientHeight - 230)/2 +200);
         },0);
         document.addEventListener('keyup',this.keyUp.bind(this));
 
