@@ -71,7 +71,9 @@ export default class WorkExperience extends React.Component {
         const parentBox = step_box.parentElement;
         setTimeout(() => {
             this.setState({clientWidth:parentBox.clientWidth,clientHeight:parentBox.clientHeight});
+            console.log(parentBox.clientHeight);
             this.changeDate(1);
+            console.log((this.state.clientHeight - 230)/2 +200);
         },0);
         document.addEventListener('keyup',this.keyUp.bind(this));
 
@@ -94,7 +96,7 @@ export default class WorkExperience extends React.Component {
                                 <div key={index} className={`timeList_item step ${this.state.currIndex === index?'avtive':''}`}>
                                     <div onClick={() => this.changeDate(index)} className="circle">{item.month}/{item.day}</div>
                                     <h2 className="timeList_item_title">{item.action} : {item.companyName}</h2>
-                                    <div className="list_show">
+                                    <div className="list_show" style={{top:`-${(this.state.clientHeight - 230 -200)/2 +200}px`}}>
                                         <div className="company-logo-box">
                                             <img src={item.companyIcon} className="company-logo"/>
                                         </div>
