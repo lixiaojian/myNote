@@ -26,7 +26,7 @@ module.exports = {
     devtool:'cheap-module-eval-source-map',
     entry:{
         resume1:[
-            './app/resume/scripts/index.js',
+            './app/resume1/scripts/index.js',
             hotMiddlewareScript
         ],
         index:[

@@ -28,7 +28,7 @@ if (pkg.theme && typeof(pkg.theme) === 'string') {
 module.exports = {
     entry:{
         resume1:[
-            './app/resume/scripts/index.js'
+            './app/resume1/scripts/index.js'
         ],
         index:[
             './app/index/scripts/index.js'
