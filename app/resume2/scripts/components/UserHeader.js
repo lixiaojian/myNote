@@ -26,7 +26,7 @@ export default class UserHeader extends React.Component{
         this.setState(headerMsg);
     };
     changeMainNav(e,index){
-        e.preventDefault();
+        // e.preventDefault();
         this.setState({currIndex:index});
     };
     render(){
