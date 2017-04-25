@@ -28,6 +28,9 @@ app.get('/',function (req,res) {
 app.get('/resume/resume1.html',function (req,res) {
     res.sendFile(path.join(__dirname,'/resume/resume1.html'));
 });
+app.get('/resume/resume2.html',function (req,res) {
+    res.sendFile(path.join(__dirname,'/resume/resume2.html'));
+});
 
 app.listen(8090,'localhost',function (err) {
     if(err){

@@ -29,6 +29,10 @@ module.exports = {
             './app/resume1/scripts/index.js',
             hotMiddlewareScript
         ],
+        resume2:[
+            './app/resume2/scripts/index.js',
+            hotMiddlewareScript
+        ],
         index:[
             './app/index/scripts/index.js',
             hotMiddlewareScript
