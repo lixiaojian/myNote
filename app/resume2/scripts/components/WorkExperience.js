@@ -25,6 +25,7 @@ export default class WorkExperience extends React.Component{
                                 <div className="item-header">
                                     <span>{item.jobTitle}</span>
                                     <span className="time-warrper">{item.date}</span>
+                                    <span className="company-name">{item.orgName}</span>
                                 </div>
                                 <p>{item.workDesc}</p>
                             </li>
