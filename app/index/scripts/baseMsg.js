@@ -2,7 +2,7 @@
  * Created by xiaojianli on 2017/4/20.
  */
 import React from 'react';
-import userHeaderImg from '../images/user-header-img.png';
+import userHeaderImg from '../../common/images/user-header-img.png';
 import '../styles/baseMsg.less';
 
 const BaseMsg = () =>{

@@ -3,7 +3,7 @@
  */
 import React from "react";
 import ReactDOM from "react-dom";
-import '../../../common/reset.less';
+import '../../common/styles/reset.less';
 import '../styles/index.less';
 
 import UserHeader from './components/UserHeader';
