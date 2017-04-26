@@ -1,22 +1,9 @@
-[
-  {"title":"基本信息","msgs":[
+{"title":"基本信息","msgs":[
     {"label":"生日","value":"1987年2月4日"},
-    {"label":"毕业学校","value":"郑州大学"},
-    {"label":"学历","value":"大专"},
     {"label":"贯籍","value":"河南"},
-    {"label":"专业","value":"软件技术"},
     {"label":"现居","value":"上海浦东"},
-    {"label":"个人网站","value":"www.xiaojianli.cn"}
-  ]},
-  {"title":"联系方式","msgs":[
-    {"label":"手机","value":"1381761****"},
-    {"label":"邮箱","value":"376127890@qq.com"},
-    {"label":"地址","value":"上海市浦东新区唐陆公路唐镇路3271弄2号202"}
-  ]},
-  {"title":"掌握编程语言","msgs":[
-    {"label":"javascript","value":85,"isProgress":true},
-    {"label":"html","value":90,"isProgress":true},
-    {"label":"css","value":80,"isProgress":true},
-    {"label":"java","value":60,"isProgress":true}
-  ]}
-]
+    {"label":"学历","value":"大专"},
+    {"label":"专业","value":"软件技术"},
+    {"label":"毕业学校","value":"郑州大学"},
+    {"label":"个人网站","value":"http://www.xiaojianli.cn","isLink":true}
+]}

@@ -12,8 +12,8 @@ export default class UserHeader extends React.Component{
         super(props);
         this.state={
             mainNav:[
-                {text:'首页',link:'#/'},
-                {text:'个人技能',link:'#/'},
+                {text:'关于我',link:'#about_me'},
+                {text:'个人技能',link:'#skill'},
                 {text:'工作经验',link:'#/'},
                 {text:'教育经历',link:'#/'},
                 {text:'联系方式',link:'#/'},
@@ -25,10 +25,10 @@ export default class UserHeader extends React.Component{
     componentDidMount(){
         this.setState(headerMsg);
     };
-    changeMainNav(e,index){
-        // e.preventDefault();
+    changeMainNav(index){
         this.setState({currIndex:index});
     };
+
     render(){
         let state = this.state;
         return (
@@ -37,7 +37,7 @@ export default class UserHeader extends React.Component{
                 <div className="job-name">{state.jobTitle}</div>
                 <ul className="main-nav clearfix">
                     {this.state.mainNav.map((item,index) => {
-                        return <li className="main-nav-item"><a onClick={e => {this.changeMainNav(e,index)}} className={this.state.currIndex === index?'active':''} href={item.link}>{item.text}</a></li>
+                        return <li key={index} className="main-nav-item"><a onClick={() => this.changeMainNav(index)} className={this.state.currIndex === index?'active':''} href={item.link}>{item.text}</a></li>
                     })}
                 </ul>
             </div>

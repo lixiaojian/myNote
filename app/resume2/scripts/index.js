@@ -6,17 +6,20 @@ import ReactDOM from "react-dom";
 import '../../common/styles/reset.less';
 import '../styles/index.less';
 
-import UserHeader from './components/UserHeader';
-import ModuleTitle from './components/ModuleTitle';
 
+import UserHeader from './components/UserHeader';
+import AboutMe from './components/AboutMe';
+import MySkill from './components/MySkill';
 class MainPage extends React.Component{
     render(){
         return(
             <div className="resume2">
                 <UserHeader />
-                <ModuleTitle title="关于我"/>
+                <AboutMe />
+                <MySkill />
             </div>
         )
     }
 }
+
 ReactDOM.render(<MainPage/>,document.getElementById('app'));

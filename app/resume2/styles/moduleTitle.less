@@ -10,6 +10,30 @@
     line-height: 50px;
     margin: 0 100px;
     text-align: center;
+    position: relative;
+
+    &:before{
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      left: -25px;
+      top: 0;
+      border-left: 25px solid transparent;
+      border-right: 0px solid transparent;
+      border-bottom: 50px solid #2f4152;
+    }
+    &:after{
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      right: -25px;
+      top: 0;
+      border-left: 0px solid transparent;
+      border-right: 25px solid transparent;
+      border-top: 50px solid #2f4152;
+    }
   }
 
   .title-line{
