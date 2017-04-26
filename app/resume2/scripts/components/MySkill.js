@@ -14,11 +14,9 @@ export default class MySkill extends React.Component{
             skills:skill.msgs
         }
     }
-
     componentDidMount(){
         let skills = this.state.skills;
         skills.push({label:'photoshop',value:20,isProgress:true})
-        console.log(skills);
         this.setState({skills})
     };
     render(){

@@ -11,7 +11,7 @@ export default class ModuleTitle extends React.Component{
     render(){
         return(
             <div className="module-title">
-                <div className="title-text">{this.props.title}</div>
+                {this.props.radius?<div className="m-title radius-title-text">{this.props.title}</div>:<div className="m-title title-text">{this.props.title}</div>}
                 <div className="title-line"></div>
             </div>
         )

@@ -3,7 +3,6 @@
  */
 import React from "react";
 import headerMsg from '../../../../mockData/userHeaderMsg.json';
-import headerImg from '../../../resume1/images/silder/user-header-img.png';
 
 import '../../styles/pageTitle.less';
 
@@ -14,7 +13,7 @@ export default class UserHeader extends React.Component{
             mainNav:[
                 {text:'关于我',link:'#about_me'},
                 {text:'个人技能',link:'#skill'},
-                {text:'工作经验',link:'#/'},
+                {text:'工作经验',link:'#work_experience'},
                 {text:'教育经历',link:'#/'},
                 {text:'联系方式',link:'#/'},
             ],

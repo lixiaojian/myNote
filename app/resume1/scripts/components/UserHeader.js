@@ -3,7 +3,7 @@
  */
 import React from "react";
 import headerMsg from '../../../../mockData/userHeaderMsg.json';
-import headerImg from '../../images/silder/user-header-img.png';
+import headerImg from '../../../common/images/user-header-img.png';
 import '../../styles/userHeader.less';
 
 export default class UserHeader extends React.Component{
