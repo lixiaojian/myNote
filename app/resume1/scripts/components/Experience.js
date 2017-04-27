@@ -8,6 +8,8 @@ import { Card,Tag,Icon } from 'antd';
 import '../../styles/experience.less';
 
 import indeividual from '../../../../mockData/individualResume.json';
+import skills from '../../../../mockData/skills.json';
+import workExp from '../../../../mockData/wordExperience.json';
 import Exp from '../../../../mockData/experience.json';
 
 class ContentTitle extends React.Component{
@@ -27,7 +29,7 @@ export default class Experience extends React.Component{
         };
     }
     componentDidMount(){
-        Exp.unshift(indeividual);
+        Exp.unshift(indeividual,skills,workExp);
         this.setState({datas:Exp});
     };
     render(){

@@ -1,0 +1,25 @@
+{
+  "iconCls":"skill-icon re-icon",
+  "title":"掌握技能",
+  "isTag":true,
+  "datas":[
+    {"skillName":"jQuery","degree":2},
+    {"skillName":"zepto","degree":2},
+    {"skillName":"AngularJS","degree":1},
+    {"skillName":"avalon","degree":1},
+    {"skillName":"requireJs","degree":1},
+    {"skillName":"grunt","degree":0},
+    {"skillName":"gulp","degree":1},
+    {"skillName":"webpack","degree":2},
+    {"skillName":"vue","degree":0},
+    {"skillName":"react","degree":2},
+    {"skillName":"bootstrap","degree":2},
+    {"skillName":"nodejs","degree":1},
+    {"skillName":"原生javascript","degree":2},
+    {"skillName":"html5","degree":2},
+    {"skillName":"css3","degree":2},
+    {"skillName":"ES6","degree":2},
+    {"skillName":"浏览器的调试工具","degree":2},
+    {"skillName":"photoshop","degree":1}
+  ]
+}
