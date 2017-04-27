@@ -30,6 +30,9 @@ module.exports = {
         resume1:[
             './app/resume1/scripts/index.js'
         ],
+        resume2:[
+            './app/resume2/scripts/index.js'
+        ],
         index:[
             './app/index/scripts/index.js'
         ]
