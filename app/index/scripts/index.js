@@ -24,11 +24,11 @@ class MainPage extends React.Component{
         super(props);
         this.state={
             menu:'#menu',
-            anchors: ['index', 'section2', 'section3', 'section4','section5','section6'],
+            anchors: ['index', 'aboutme', 'skillstack', 'workexp','productions','resume'],
             resize:true,
             navigation: true,
             navigationPosition: 'right',
-            navigationTooltips: ['首页', 'secondSlide','3rdPage','4thpage','5thpage','6thpage'],
+            navigationTooltips: ['首页', '我的简介','我的技能','工作经历','我的作品','我的简历'],
             slidesNavigation: true,
             scrollingSpeed: 1000,
             autoScrolling: true,
