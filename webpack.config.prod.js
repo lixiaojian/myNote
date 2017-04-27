@@ -2,11 +2,12 @@
  * Created by xiaojianli on 2017/3/6.
  */
 
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const fs = require('fs');
 const existsSync = fs.existsSync;
@@ -63,6 +64,11 @@ module.exports = {
         ),
         //css单独打包
         new ExtractTextPlugin("css/[name].css"),
+        //css压缩
+        new OptimizeCssAssetsPlugin({
+            cssProcessorOptions: { discardComments: {removeAll: true } },
+            canPrint: false
+        }),
         new webpack.ProvidePlugin({
             $: 'jquery'
         })
