@@ -13,9 +13,11 @@ export default class UserHeader extends React.Component{
             mainNav:[
                 {text:'关于我',link:'#about_me'},
                 {text:'个人技能',link:'#skill'},
-                {text:'工作经验',link:'#work_experience'},
-                {text:'教育经历',link:'#/'},
-                {text:'联系方式',link:'#/'},
+                {text:'工作经历',link:'#work_experience'},
+                {text:'教育经历',link:'#edu_experience'},
+                {text:'项目经历',link:'#project_experience'},
+                {text:'自我评价',link:'#evaluation_myself'},
+                {text:'联系我',link:'#evaluation_myself'}
             ],
             currIndex:0
         };

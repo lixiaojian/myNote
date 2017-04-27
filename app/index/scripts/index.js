@@ -9,9 +9,11 @@ import 'normalize-css';
 import BaseMsg from './baseMsg';
 import AboutMe from './aboutMe';
 import SkillStack from './skillStack';
-import resume1 from '../images/resume1.png';
+import resume1 from '../images/resume/resume1.png';
+import resume2 from '../images/resume/resume2.png';
 import WorkExperience from './workExperience';
 
+import '../../common/styles/reset.less';
 import '../styles/index.less';
 
 import '../../../font/style.css';
@@ -69,6 +71,9 @@ class MainPage extends React.Component{
                         <ul className="resume-list">
                             <li className="resume-item">
                                 <a href="/resume/resume1.html"><img src={resume1} alt="李晓健简历"/></a>
+                            </li>
+                            <li className="resume-item">
+                                <a href="/resume/resume2.html"><img src={resume2} alt="李晓健简历"/></a>
                             </li>
                         </ul>
                     </div>

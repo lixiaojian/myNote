@@ -1,0 +1,9 @@
+{
+  "iconCls":"educational-icon re-icon",
+  "title":"教育/培训经历",
+  "hasLabel":true,
+  "datas":[
+    {"date":"2011-02-10 至 2011-07-20","jobTitle":"学员","orgName":"安博教育","workDesc":"进行为期6个月的软件开发学习，主要学习语言是java"},
+    {"date":"2008-09-01 至 2011-06-30","jobTitle":"学生","orgName":"郑州大学","workDesc":"在全日制学习软件技术专业的各种课程"}
+  ]
+}

@@ -10,7 +10,9 @@ import '../../styles/experience.less';
 import indeividual from '../../../../mockData/individualResume.json';
 import skills from '../../../../mockData/skills.json';
 import workExp from '../../../../mockData/wordExperience.json';
-import Exp from '../../../../mockData/experience.json';
+import eduExp from '../../../../mockData/educationExperience.json';
+import projectExp from '../../../../mockData/projectExperience.json';
+import evaluations from '../../../../mockData/evaluation.json';
 
 class ContentTitle extends React.Component{
     render(){
@@ -29,8 +31,7 @@ export default class Experience extends React.Component{
         };
     }
     componentDidMount(){
-        Exp.unshift(indeividual,skills,workExp);
-        this.setState({datas:Exp});
+        this.setState({datas:[indeividual,skills,workExp,eduExp,projectExp,evaluations]});
     };
     render(){
         return (
