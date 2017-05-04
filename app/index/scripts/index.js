@@ -80,11 +80,11 @@ class MainPage extends React.Component{
                 </div>
                 <ul className="nav-menu" id="menu">
                     <li data-menuanchor="index" className="active menu-nav-item"><a href="#index">首页</a></li>
-                    <li data-menuanchor="section2" className="menu-nav-item"><a href="#section2">关于我</a></li>
-                    <li data-menuanchor="section3" className="menu-nav-item"><a href="#section3">技能栈</a></li>
-                    <li data-menuanchor="section4" className="menu-nav-item"><a href="#section4">工作经历</a></li>
-                    <li data-menuanchor="section5" className="menu-nav-item"><a href="#section5">作品集</a></li>
-                    <li data-menuanchor="section6" className="menu-nav-item"><a href="#section6">我的简历</a></li>
+                    <li data-menuanchor="section2" className="menu-nav-item"><a href="#aboutme">关于我</a></li>
+                    <li data-menuanchor="section3" className="menu-nav-item"><a href="#skillstack">技能栈</a></li>
+                    <li data-menuanchor="section4" className="menu-nav-item"><a href="#workexp">工作经历</a></li>
+                    <li data-menuanchor="section5" className="menu-nav-item"><a href="#productions">作品集</a></li>
+                    <li data-menuanchor="section6" className="menu-nav-item"><a href="#resume">我的简历</a></li>
                 </ul>
             </div>
         )
