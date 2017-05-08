@@ -73,7 +73,7 @@ export default class SkillStack extends React.Component{
     render(){
         return (
             <div className="skill-stack">
-                <h2>技能栈</h2>
+                {/*<h2>技能栈</h2>*/}
                 <ul className="skill-stack-warpper clearfix">
                     <li className="skill-stack-item">
                         <div className="skill-stack-list">
@@ -88,7 +88,7 @@ export default class SkillStack extends React.Component{
                     </li>
                     <li className="skill-stack-item">
                         <div className="skill-stack-list">
-                            <canvas width="400" height="400" id="skill_stack_canvas">
+                            <canvas width="500" height="500" id="skill_stack_canvas">
                                 <p>您的浏览器暂不支持该页面效果，请更新浏览器版本。</p>
                             </canvas>
                             <div id="skill_stack_icon_list">

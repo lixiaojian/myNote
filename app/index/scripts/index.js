@@ -29,7 +29,7 @@ class MainPage extends React.Component{
             navigation: true,
             navigationPosition: 'right',
             navigationTooltips: ['首页', '我的简介','我的技能','工作经历','我的简历'],
-            slidesNavigation: true,
+            slidesNavigation: false,
             scrollingSpeed: 1000,
             autoScrolling: true,
             scrollBar: false,
@@ -64,7 +64,7 @@ class MainPage extends React.Component{
                     <div className="third-section section">
                         <WorkExperience />
                     </div>
-                    <div className="third-section section">
+                    <div className="five-section section">
                         <ul className="resume-list">
                             <li className="resume-item">
                                 <a href="/resume/resume1.html"><img src={resume1} alt="李晓健简历"/></a>
@@ -77,10 +77,10 @@ class MainPage extends React.Component{
                 </div>
                 <ul className="nav-menu" id="menu">
                     <li data-menuanchor="index" className="active menu-nav-item"><a href="#index">首页</a></li>
-                    <li data-menuanchor="section2" className="menu-nav-item"><a href="#aboutme">关于我</a></li>
-                    <li data-menuanchor="section3" className="menu-nav-item"><a href="#skillstack">技能栈</a></li>
-                    <li data-menuanchor="section4" className="menu-nav-item"><a href="#workexp">工作经历</a></li>
-                    <li data-menuanchor="section6" className="menu-nav-item"><a href="#resume">我的简历</a></li>
+                    <li data-menuanchor="aboutme" className="menu-nav-item"><a href="#aboutme">关于我</a></li>
+                    <li data-menuanchor="skillstack" className="menu-nav-item"><a href="#skillstack">技能栈</a></li>
+                    <li data-menuanchor="workexp" className="menu-nav-item"><a href="#workexp">工作经历</a></li>
+                    <li data-menuanchor="resume" className="menu-nav-item"><a href="#resume">我的简历</a></li>
                 </ul>
             </div>
         )

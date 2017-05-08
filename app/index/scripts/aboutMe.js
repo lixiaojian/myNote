@@ -14,7 +14,7 @@ const AboutMe = () => {
     ];
     return(
         <div className="about-me">
-            <h2>关于我</h2>
+            {/*<h2>关于我</h2>*/}
             <ul className="about-me-box clearfix">
                 {myMsg.map((item,index) =>{
                     return(
