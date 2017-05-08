@@ -24,11 +24,11 @@ class MainPage extends React.Component{
         super(props);
         this.state={
             menu:'#menu',
-            anchors: ['index', 'aboutme', 'skillstack', 'workexp','productions','resume'],
+            anchors: ['index', 'aboutme', 'skillstack', 'workexp','resume'],
             resize:true,
             navigation: true,
             navigationPosition: 'right',
-            navigationTooltips: ['首页', '我的简介','我的技能','工作经历','我的作品','我的简历'],
+            navigationTooltips: ['首页', '我的简介','我的技能','工作经历','我的简历'],
             slidesNavigation: true,
             scrollingSpeed: 1000,
             autoScrolling: true,
@@ -65,9 +65,6 @@ class MainPage extends React.Component{
                         <WorkExperience />
                     </div>
                     <div className="third-section section">
-                        <h2>等待完善</h2>
-                    </div>
-                    <div className="third-section section">
                         <ul className="resume-list">
                             <li className="resume-item">
                                 <a href="/resume/resume1.html"><img src={resume1} alt="李晓健简历"/></a>
@@ -83,7 +80,6 @@ class MainPage extends React.Component{
                     <li data-menuanchor="section2" className="menu-nav-item"><a href="#aboutme">关于我</a></li>
                     <li data-menuanchor="section3" className="menu-nav-item"><a href="#skillstack">技能栈</a></li>
                     <li data-menuanchor="section4" className="menu-nav-item"><a href="#workexp">工作经历</a></li>
-                    <li data-menuanchor="section5" className="menu-nav-item"><a href="#productions">作品集</a></li>
                     <li data-menuanchor="section6" className="menu-nav-item"><a href="#resume">我的简历</a></li>
                 </ul>
             </div>
