@@ -86,7 +86,7 @@ module.exports = {
                 use: ExtractTextPlugin.extract([
                     'css-loader',
                     'postcss-loader',
-                    { loader:'less-loader', options: {"sourceMap":true,"modifyVars":theme}}
+                    { loader:'less-loader', options: {"sourceMap":false,"modifyVars":theme}}
                 ])
             },
             {

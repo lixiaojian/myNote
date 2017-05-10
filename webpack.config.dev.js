@@ -71,7 +71,7 @@ module.exports = {
                 test: /\.less/,
                 use: [
                     'style-loader',
-                    'css-loader',
+                    { loader:'css-loader', options: {"sourceMap":true}},
                     'postcss-loader',
                     { loader:'less-loader', options: {"sourceMap":true,"modifyVars":theme}}
                 ]
