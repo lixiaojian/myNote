@@ -43,7 +43,9 @@ module.exports = {
         filename: 'js/[name].js'
     },
     plugins: [
+        //根据模块调用次数，给模块分配ids，常被调用的ids分配更短的id，使得ids可预测，降低文件大小，该模块推荐使用
         new webpack.optimize.OccurrenceOrderPlugin(),
+        //定义变量，一般用于开发环境log或者全局变量
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
