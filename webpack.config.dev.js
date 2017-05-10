@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 
@@ -96,7 +95,7 @@ module.exports = {
     },
     plugins:[
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV':JSON.stringify(process.env.NODE_ENV),
+            'process.env.NODE_ENV':JSON.stringify('development'),
             __DEV__:true
         }),
         //遇到编译错误不停止服务
@@ -104,7 +103,7 @@ module.exports = {
         //热启动
         new webpack.HotModuleReplacementPlugin(),
         //css单独打包
-        new ExtractTextPlugin("/build/css/style.css"),
+        new ExtractTextPlugin(''),
         new webpack.ProvidePlugin({
             $: 'jquery'
         })
