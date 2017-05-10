@@ -41,7 +41,6 @@ class MainPage extends React.Component{
                 if(dom){
                     dom.classList.add('has-show')
                 }
-                console.log(link);
             }
         }
     };
