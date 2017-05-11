@@ -3,6 +3,7 @@
  */
 import React from "react";
 import {render} from "react-dom";
+
 import 'fullpage.js';
 import 'normalize-css';
 
