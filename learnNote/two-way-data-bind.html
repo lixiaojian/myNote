@@ -18,14 +18,11 @@
     {{ text }}
     <div>
         <div>
-            <span>{{name}}</span>
             <input type="text" v-model="name">
         </div>
         {{name}}
     </div>
-    {{text}} xxx {{name}}
-    <br>
-    {{name}}
+    {{name}} xxxxx{{text}}
 </div>
 
 <script>
@@ -85,27 +82,28 @@
                     node.removeAttribute('v-model');
                 }
             };
-            new Watcher(vm, node, name, 'input');
-        }
-        // 节点类型为text
-        if (node.nodeType === 3) {
+            new Watcher(vm, node, [name], 'input');
+        }else if (node.nodeType === 3) {
+            // 节点类型为text
             var keys = (node.nodeValue.match(reg));
             if(keys && keys.length>0){
+                var nsmes = [];
                 for(var m= 0,mlen=keys.length;m<mlen;m++){
                     var name = keys[m].substr(2,keys[m].length-4).trim();
-                    new Watcher(vm, node, name, 'text');
+                    nsmes.push(name)
                 }
+                new Watcher(vm, node, nsmes, 'text');
             }
         }
     }
-    function Watcher (vm, node, name, nodeType) {
+    function Watcher (vm, node, names, nodeType) {
         Dep.target = this;
-        this.name = name;
+        this.names = names;
+        this.values = [];
         this.node = node;
         this.html = node.nodeValue;
         this.vm = vm;
         this.nodeType = nodeType;
-        this.dataMap={};
         this.update();
         Dep.target = null;
     }
@@ -113,22 +111,23 @@
         update: function () {
             this.get();
             if (this.nodeType == 'text') {
-                var nodeValue = '';
+                var nodeValue = this.html;
                 //可以在{{}} 里加空格
-                for(key in this.dataMap){
-                    var reg = new RegExp('{{(\\s)*'+key+'(\\s)*}}','g');
-                    nodeValue = this.html.replace(reg,this.value);
+                for(var i=0,len=this.names.length;i<len;i++){
+                    var reg = new RegExp('{{(\\s)*'+this.names[i]+'(\\s)*}}','g');
+                    nodeValue = nodeValue.replace(reg,this.values[i]);
                 }
                 this.node.nodeValue = nodeValue;
             }
             if (this.nodeType == 'input') {
-                this.node.value = this.value;
+                this.node.value = this.values[0];
             }
         },
         // 获取data中的属性值
         get: function () {
-            this.value = this.vm[this.name]; // 触发相应属性的get
-            this.dataMap[this.name] = this.value;
+            for(var i= 0,len=this.names.length;i<len;i++){
+                this.values[i] = this.vm[this.names[i]]; // 触发相应属性的get
+            }
         }
     }
     function Dep () {
