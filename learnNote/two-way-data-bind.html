@@ -21,7 +21,9 @@
             <span>{{name}}</span>
             <input type="text" v-model="name">
         </div>
+        {{name}}
     </div>
+    {{text}} xxx {{name}}
     <br>
     {{name}}
 </div>
@@ -62,7 +64,7 @@
         return flag;
     }
     function compile (node, vm) {
-        var reg = /\{\{(.*)\}\}/;
+        var reg = /(\{\{)(.*?)(\}\})/g;
         if(node.childNodes && node.childNodes.length>0){
             for(var i=0,len =node.childNodes.length;i<len;i++ ){
                 compile(node.childNodes[i],vm);
@@ -87,10 +89,12 @@
         }
         // 节点类型为text
         if (node.nodeType === 3) {
-            if (reg.test(node.nodeValue)) {
-                var name = RegExp.$1; // 获取匹配到的字符串
-                name = name.trim();
-                new Watcher(vm, node, name, 'text');
+            var keys = (node.nodeValue.match(reg));
+            if(keys && keys.length>0){
+                for(var m= 0,mlen=keys.length;m<mlen;m++){
+                    var name = keys[m].substr(2,keys[m].length-4).trim();
+                    new Watcher(vm, node, name, 'text');
+                }
             }
         }
     }
@@ -98,8 +102,10 @@
         Dep.target = this;
         this.name = name;
         this.node = node;
+        this.html = node.nodeValue;
         this.vm = vm;
         this.nodeType = nodeType;
+        this.dataMap={};
         this.update();
         Dep.target = null;
     }
@@ -107,7 +113,13 @@
         update: function () {
             this.get();
             if (this.nodeType == 'text') {
-                this.node.nodeValue = this.value;
+                var nodeValue = '';
+                //可以在{{}} 里加空格
+                for(key in this.dataMap){
+                    var reg = new RegExp('{{(\\s)*'+key+'(\\s)*}}','g');
+                    nodeValue = this.html.replace(reg,this.value);
+                }
+                this.node.nodeValue = nodeValue;
             }
             if (this.nodeType == 'input') {
                 this.node.value = this.value;
@@ -116,6 +128,7 @@
         // 获取data中的属性值
         get: function () {
             this.value = this.vm[this.name]; // 触发相应属性的get
+            this.dataMap[this.name] = this.value;
         }
     }
     function Dep () {
@@ -144,10 +157,14 @@
         el: 'app',
         data: {
             text: 'hello world',
-            name:'123'
+            name:'123',
+            user:{
+                info:{
+                    key:123
+                }
+            }
         }
     });
-    console.log(vm);
 </script>
 </body>
 </html>
