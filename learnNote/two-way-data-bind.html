@@ -23,15 +23,19 @@
         {{name}}
     </div>
     {{name}} xxxxx{{text}}
+    <div>{{user.info.key}}</div>
 </div>
 
 <script>
     function observe (obj, vm) {
         Object.keys(obj).forEach(function (key) {
-            defineReactive(vm, key, obj[key]);
+            defineReactive(vm, key, obj[key],vm);
         });
     }
-    function defineReactive (obj, key, val) {
+    function defineReactive (obj, key, val,vm) {
+//        if(typeof val === 'object'){
+//            return observe(val,vm)
+//        }
         var dep = new Dep();
         Object.defineProperty(obj, key, {
             get: function () {
@@ -126,7 +130,17 @@
         // 获取data中的属性值
         get: function () {
             for(var i= 0,len=this.names.length;i<len;i++){
-                this.values[i] = this.vm[this.names[i]]; // 触发相应属性的get
+                var name = this.names[i];
+                if(name && name.indexOf('.')>0){
+                    var nameArr = name.split('.');
+                    var value =  JSON.parse(JSON.stringify(this.vm.data));
+                    for(var j=0,jlen=nameArr.length;j<jlen;j++){
+                        value = value[nameArr[j]]
+                    }
+                    this.values[i] = value;
+                }else{
+                    this.values[i] = this.vm[this.names[i]]; // 触发相应属性的get
+                }
             }
         }
     }
@@ -159,7 +173,7 @@
             name:'123',
             user:{
                 info:{
-                    key:123
+                    key:432
                 }
             }
         }
