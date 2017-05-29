@@ -58,7 +58,7 @@ Compile.prototype = {
                 var dir = attrName.substring(2);
                 // 事件指令
                 if (me.isEventDirective(dir)) {
-                    // compileUtil.eventHandler(node, me.$vm, exp, dir);
+                    compileUtil.eventHandler(node, me.$vm, exp, dir);
                     // 普通指令
                 } else {
                     compileUtil[dir] && compileUtil[dir](node, me.$vm, exp);
