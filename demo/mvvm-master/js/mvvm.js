@@ -9,19 +9,18 @@ function MVVM(options) {
         me._proxyData(key);
     });
 
-    observe(data, this);
+    observe(data);
 
     this.$compile = new Compile(options.el || document.body, this)
 }
 
 MVVM.prototype = {
-    $watch: function(key, cb, options) {
+    $watch: function(key, cb) {
         new Watcher(this, key, cb);
     },
 
-    _proxyData: function(key, setter, getter) {
+    _proxyData: function(key) {
         var me = this;
-        setter = setter || 
         Object.defineProperty(me, key, {
             configurable: false,
             enumerable: true,

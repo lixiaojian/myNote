@@ -116,10 +116,6 @@ var compileUtil = {
         });
     },
 
-    // class: function(node, vm, exp) {
-    //     this.bind(node, vm, exp, 'class');
-    // },
-
     bind: function(node, vm, exp, dir) {
         var updaterFn = updater[dir + 'Updater'];
 

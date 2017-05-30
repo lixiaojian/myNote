@@ -1,23 +1,15 @@
-function Watcher(vm, expOrFn, cb) {
+function Watcher(vm, exp, cb) {
+    //属性的监听回调
     this.cb = cb;
     this.vm = vm;
-    this.expOrFn = expOrFn;
     this.depIds = {};
-
-    if (typeof expOrFn === 'function') {
-        this.getter = expOrFn;
-    } else {
-        this.getter = this.parseGetter(expOrFn);
-    }
-
+    //触发属性的getter方法
+    this.getter = this.parseGetter(exp);
     this.value = this.get();
 }
 
 Watcher.prototype = {
     update: function() {
-        this.run();
-    },
-    run: function() {
         var value = this.get();
         var oldVal = this.value;
         if (value !== oldVal) {
@@ -26,10 +18,9 @@ Watcher.prototype = {
         }
     },
     addDep: function(dep) {
-        // 1. 每次调用run()的时候会触发相应属性的getter
+        // 1. 每次调用update()的时候会触发相应属性的getter
         // getter里面会触发dep.depend()，继而触发这里的addDep
-        // 2. 假如相应属性的dep.id已经在当前watcher的depIds里，说明不是一个新的属性，仅仅是改变了其值而已
-        // 则不需要将当前watcher添加到该属性的dep里
+        // 2. 假如相应属性的dep.id已经在当前watcher的depIds里，说明不是一个新的属性，仅仅是改变了其值而已 则不需要将当前watcher添加到该属性的dep里
         // 3. 假如相应属性是新的属性，则将当前watcher添加到新属性的dep里
         // 如通过 vm.child = {name: 'a'} 改变了 child.name 的值，child.name 就是个新属性
         // 则需要将当前watcher(child.name)加入到新的 child.name 的dep里
@@ -51,12 +42,10 @@ Watcher.prototype = {
         Dep.target = null;
         return value;
     },
-
+    //如果监听的是对象属性，就触发该对象属性的所有父级属性的getter方法
     parseGetter: function(exp) {
-        if (/[^\w.$]/.test(exp)) return; 
-
+        if (/[^\w.$]/.test(exp)) return;
         var exps = exp.split('.');
-
         return function(obj) {
             for (var i = 0, len = exps.length; i < len; i++) {
                 if (!obj) return;

@@ -7,15 +7,12 @@ Observer.prototype = {
     walk: function(data) {
         var me = this;
         Object.keys(data).forEach(function(key) {
-            me.convert(key, data[key]);
+            me.defineReactive(me.data,key, data[key]);
         });
     },
-    convert: function(key, val) {
-        this.defineReactive(this.data, key, val);
-    },
-
     defineReactive: function(data, key, val) {
         var dep = new Dep();
+        //处理val是对象的情况
         var childObj = observe(val);
 
         Object.defineProperty(data, key, {
@@ -41,7 +38,7 @@ Observer.prototype = {
     }
 };
 
-function observe(value, vm) {
+function observe(value) {
     if (!value || typeof value !== 'object') {
         return;
     }
@@ -50,32 +47,25 @@ function observe(value, vm) {
 };
 
 
+//事件订阅
 var uid = 0;
-
 function Dep() {
     this.id = uid++;
     this.subs = [];
 }
 
 Dep.prototype = {
-    addSub: function(sub) {
-        this.subs.push(sub);
+    addSub: function(watcher) {
+        this.subs.push(watcher);
     },
 
     depend: function() {
         Dep.target.addDep(this);
     },
 
-    removeSub: function(sub) {
-        var index = this.subs.indexOf(sub);
-        if (index != -1) {
-            this.subs.splice(index, 1);
-        }
-    },
-
     notify: function() {
-        this.subs.forEach(function(sub) {
-            sub.update();
+        this.subs.forEach(function(watcher) {
+            watcher.update();
         });
     }
 };
