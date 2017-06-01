@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Observer Test</title>
+</head>
+<body>
+
+<input type="text" id="text">
+
+<div id="div"></div>
+
+<div id="div2"></div>
+
+
+<div>
+    <span id="qq">123456</span>
+
+    <div id="ww">98765</div>
+</div>
+
+
+<script src="Observer.js"></script>
+<script>
+    var workmate = ['张三','李四']
+    var arr2 = [4]
+    var obj = {
+        name:'lxj',
+        age:30,
+        company:{
+            department:'云部门'
+        }
+    };
+
+    var input = document.getElementById('text')
+
+    var div = document.getElementById('div')
+
+    var div2 = document.getElementById('div2');
+
+    input.onkeyup = function () {
+        var value = this.value;
+        obj.company.department = this.value;
+    }
+
+    function objOnchange() {
+        div.innerHTML = '姓名：'+obj.name+' ;部门：'+obj.company.department
+        input.value = obj.company.department;
+    }
+
+    function arrayOnchange() {
+        div2.innerHTML = workmate.join(';')
+    }
+
+
+    objOnchange();
+    arrayOnchange();
+    new Observer(obj,objOnchange);
+
+    new Observer(workmate,arrayOnchange);
+</script>
+</body>
+</html>
