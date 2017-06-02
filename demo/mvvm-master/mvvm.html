@@ -19,6 +19,15 @@
     <p>{{array}}</p>
     <p v-html="child.htmlStr"></p>
     <button v-on:click="clickBtn">change model</button>
+    <div>{{arr}}</div>
+</div>
+
+<div >
+    <p>{{someStr}}</p>
+    <div>
+        <span v-html="htmlStr"></span>
+
+    </div>
 </div>
 
 <script src="./src/Observer.js"></script>
@@ -30,8 +39,8 @@
     var vm = new MVVM({
         el: '#mvvm-app',
         data: {
+            arr:[1,2],
             someStr: 'hello ',
-            className: 'btn',
             htmlStr: '<span style="color: #f00;">red</span>',
             child: {
                 someStr: 'World xxxxxx!'

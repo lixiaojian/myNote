@@ -8,7 +8,7 @@ class Compile{
 
         if (this.$el) {
             this.$fragment = this.node2Fragment(this.$el);
-            this.init();
+            this.compileElement(this.$fragment);
             this.$el.appendChild(this.$fragment);
         }
     }
@@ -22,10 +22,6 @@ class Compile{
             fragment.appendChild(child);
         }
         return fragment;
-    }
-
-    init(){
-        this.compileElement(this.$fragment);
     }
 
     compileElement(el){

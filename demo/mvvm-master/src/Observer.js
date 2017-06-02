@@ -14,10 +14,6 @@ class Dep {
         this.subs.push(watcher);
     }
 
-    depend() {
-        Dep.target.addDep(this);
-    }
-
     notify() {
         this.subs.forEach(watcher => {
             watcher.update();
@@ -41,24 +37,23 @@ class Observer {
     defineReactive(data, key, value) {
         var dep = new Dep();
         //处理val是对象的情况
-        var childObj = observe(value);
-
+        observe(value);
         Object.defineProperty(data, key, {
             enumerable: true, // 可枚举
             configurable: false, // 不能再define
-            get: function () {
+            get: () => {
                 if (Dep.target) {
-                    dep.depend();
+                    Dep.target.addDep(dep);
                 }
                 return value;
             },
-            set: function (newVal) {
+            set: newVal => {
                 if (newVal === value) {
                     return;
                 }
                 value = newVal;
                 // 新的值是object的话，进行监听
-                childObj = observe(newVal);
+                observe(newVal);
                 // 通知订阅者
                 dep.notify();
             }
