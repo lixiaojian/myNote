@@ -21,15 +21,10 @@ export default class WorkExperience extends React.Component {
             {isYear:true,year:'2011'},
             {year:'2011',month:'07',day:'29',companyIcon:hongguanLogo,companyName:'上海鸿冠信息科技股份有限公司',jobName:'系统工程师',action:'入职'},
             {isYear:true,year:'2012'},
-            {year:'2012',month:'02',day:'28',companyIcon:hongguanLogo,companyName:'上海鸿冠信息科技股份有限公司',jobName:'',action:'离职'},
-            {year:'2012',month:'03',day:'01',companyIcon:dneLogo,companyName:'上海慧广科技有限公司',jobName:'JAVA开发工程师',action:'入职'},
-            {year:'2012',month:'11',day:'01',companyIcon:dneLogo,companyName:'上海慧广科技有限公司',jobName:'',action:'合同转出'},
-            {year:'2012',month:'11',day:'01',companyIcon:visionetLogo,companyName:'上海微企信息技术股份有限公司',jobName:'JAVA开发工程师',action:'合同转入'},
+            {year:'2012',month:'03',day:'01',companyIcon:dneLogo,companyName:'上海微企信息技术股份有限公司',jobName:'JAVA开发工程师',action:'入职'},
             {isYear:true,year:'2014'},
-            {year:'2014',month:'08',day:'28',companyIcon:visionetLogo,companyName:'上海微企信息技术股份有限公司',jobName:'',action:'离职'},
             {year:'2014',month:'09',day:'29',companyIcon:wensiLogo,companyName:'文思海辉技术有限公司',jobName:'WEB前端开发工程师',action:'入职'},
             {isYear:true,year:'2015'},
-            {year:'2015',month:'07',day:'06',companyIcon:wensiLogo,companyName:'文思海辉技术有限公司',jobName:'',action:'离职'},
             {year:'2015',month:'07',day:'07',companyIcon:juliLogo,companyName:'上海聚力传媒技术有限公司',jobName:'WEB前端开发工程师',action:'入职'}
         ]
       };
