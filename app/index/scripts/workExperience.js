@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import hongguanLogo from '../images/company-logo/hongguan.png';
-import dneLogo from '../images/company-logo/dne.png';
 import visionetLogo from '../images/company-logo/weiqi.png';
 import wensiLogo from '../images/company-logo/wensi.png';
 import juliLogo from '../images/company-logo/juli.png';
@@ -21,7 +20,7 @@ export default class WorkExperience extends React.Component {
             {isYear:true,year:'2011'},
             {year:'2011',month:'07',day:'29',companyIcon:hongguanLogo,companyName:'上海鸿冠信息科技股份有限公司',jobName:'系统工程师',action:'入职'},
             {isYear:true,year:'2012'},
-            {year:'2012',month:'03',day:'01',companyIcon:dneLogo,companyName:'上海微企信息技术股份有限公司',jobName:'JAVA开发工程师',action:'入职'},
+            {year:'2012',month:'03',day:'01',companyIcon:visionetLogo,companyName:'上海微企信息技术股份有限公司',jobName:'JAVA开发工程师',action:'入职'},
             {isYear:true,year:'2014'},
             {year:'2014',month:'09',day:'29',companyIcon:wensiLogo,companyName:'文思海辉技术有限公司',jobName:'WEB前端开发工程师',action:'入职'},
             {isYear:true,year:'2015'},
