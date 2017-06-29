@@ -7,28 +7,26 @@
 <body>
 
 <div id="mvvm-app">
-    {{child.someStr}}{{someStr}}
-    <div></div>
-    12222
+    {{child.someStr}}
     <br>
     <input type="text" v-model="someStr">
+
     <input type="text" v-model="child.someStr">
-    <p class="abc">
+    <p>
         {{someStr}}
     </p>
-    <p>{{array}}</p>
+
     <p v-html="child.htmlStr"></p>
+
+    <p v-html="htmlStr"></p>
+
+    <p v-text="htmlStr"></p>
+
     <button v-on:click="clickBtn">change model</button>
     <div>{{arr}}</div>
+    {{child.xxx}}
 </div>
 
-<div >
-    <p>{{someStr}}</p>
-    <div>
-        <span v-html="htmlStr"></span>
-
-    </div>
-</div>
 
 <script src="./src/Observer.js"></script>
 <script src="./src/Watcher.js"></script>
@@ -43,19 +41,20 @@
             someStr: 'hello ',
             htmlStr: '<span style="color: #f00;">red</span>',
             child: {
-                someStr: 'World xxxxxx!'
+                someStr: 'World xxxxxx!',
+                xxx:'4444'
             }
         },
         methods: {
             clickBtn: function(e) {
-                var randomStrArr = ['childOne', 'childTwo', 'childThree'];
-                this.child.someStr = randomStrArr[parseInt(Math.random() * 3)];
+                this.child.someStr = "通过事件改变";
             }
         }
     });
 
-    vm.$watch('child.someStr', function() {
+    vm.$watch('child.someStr', function(newValue,oldValue) {
         console.log(arguments);
+        console.log(this);
     });
 </script>
 
