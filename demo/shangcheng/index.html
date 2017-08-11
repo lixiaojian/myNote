@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone = no" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="style/weui.css" />
+    <link rel="stylesheet" type="text/css" href="style/swiper.css">
+    <!--<link rel="stylesheet" type="text/css" href="style.css">-->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<section class="group-buy" id="tmpl_add_group">
+</section>
+<div id="up">
+    <span class="up-icon"></span>
+</div>
+<!--分享-->
+<div id="share-shadow">
+    <div class="jiantou"></div>
+    <div class="content">
+        <p>你想尽快成团吗？</p>
+        <p>动动手指点击右上角“…”，</p>
+        <p>邀请您的小伙伴一起来参团吧~</p>
+    </div>
+</div>
+<script type="text/html" id="tpl_add_group">
+    <!-- 轮播图start -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <!--% for (var i=0; i < o.promotionInstance.promotionRuleGroup.titleImages.length; i++) { %-->
+            <div class="swiper-slide"><img src="{%=app.filePath+o.promotionInstance.promotionRuleGroup.titleImages[i] %}" alt=""></div>
+            <!--% } %-->
+        </div>
+        <!-- 分页器 -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <!-- 轮播图end -->
+
+    <div class="group-buy-wrapper">
+        <!-- 团拼信息 -->
+        <div class="group-buy-content">
+            <p class="title">{%=o.promotionInstance.title %}</p>
+            <p class="content">{%=o.promotionInstance.description  %}</p>
+            <p class="info" layout="row" layout-align="space-between center">
+                    <span class="pay-money no-wrap" flex="70">
+                        <span class="price">￥{%=app.tools.toThousands(o.addGroupDetail.price) %}</span>
+                        |
+                        <!--% if (o.promotionInstance.promotionRuleGroup.promotionRuleGroupExts&&o.promotionInstance.promotionRuleGroup.promotionRuleGroupExts.length>0) { %-->
+                        <s class="price-gray">￥{%=app.tools.toThousands(o.promotionInstance.promotionRuleGroup.promotionRuleGroupExts[0].originalPrice) %}</s>
+                        <!--% } %-->
+                        <span class="btn-count">{%=o.addGroupDetail.level %}人团</span>
+                    </span>
+                <span class="pay-info no-wrap" flex="25" layout="column" layout-align="space-between start">
+                        <!--% if (o.addGroupDetail.groupNo) { %-->
+                        <span class="group-num">团号：{%=o.addGroupDetail.groupNo %}</span>
+                    <!--% } %-->
+                    </span>
+
+            </p>
+            <!-- 已成团标志 -->
+            <!--% if (o.addGroupDetail.status=="SUCEESS"||o.addGroupDetail.status=="success") { %-->
+            <i class="iconfont icon-pintuanchenggong"></i>
+            <!--% } %-->
+        </div>
+
+        <!--参团人员 start-->
+        <div class="member-imgs-bg">
+            <div class="groupInfo">
+                <!-- 参团标题 -->
+                <div class="title" layout="row" layout-align="space-between center">
+                    <div id="CountMsg" class="HotDate">
+                            <span class="hot-date">
+                                <!--% if (o.addGroupDetail.status!="success") { %-->
+                                <!--% if (o.addGroupDetail.surplusSecond) { %-->
+                                        <i class="iconfont icon-shalou"></i>
+                                        <span class="font-orange"> </span>
+                                <!--% }else{ %-->
+                                        已结束
+                                <!--% } %-->
+                                <!--% }else{ %-->
+                                   团长人气太高，团满了
+                                <!--% } %-->
+                            </span>
+                    </div>
+                </div>
+
+                <!-- 参团成员 -->
+                <div class="item-member-info">
+                    <!--% if (o.addGroupDetail.level > 5) { %-->
+                    <div class="member-imgs" style="height:26vw;" layout="row" layout-align="start center">
+                        <!--% } else { %-->
+                        <div class="member-imgs" style="height:13vw;" layout="row" layout-align="center center">
+                            <!--% } %-->
+
+                            <!--团长-->
+                            <div class="member-img group-master" flex="20">
+                                <span class="member-name">团</span>
+                                <img src="{%=app.filePath+o.addGroupDetail.CAPTAIN.avatarId %}" onerror="this.src='../../../images/avatar05.png'" class="active"/>
+                            </div>
+
+                            <!--成团-->
+                            <!--% if (o.addGroupDetail.status=="SUCEESS"||o.addGroupDetail.status=="success") { %-->
+                            <!--% for (var i=0; i < o.addGroupDetail.list.length; i++) { %-->
+                            <div class="member-img" flex="20">
+                                <img src="{%=app.filePath+o.addGroupDetail.list[i].avatarId %}" onerror="this.src='../../../images/avatar05.png'" />
+                                <span></span>
+                            </div>
+                            <!--% } %-->
+                            <!--不成团-->
+                            <!--% }else { %-->
+                            <!--% for (var i=0; i < o.addGroupDetail.list.length; i++) { %-->
+                            <div class="member-img" flex="20">
+                                <img src="{%=app.filePath+o.addGroupDetail.list[i].avatarId %}" onerror="this.src='../../../images/avatar05.png'" />
+                            </div>
+                            <!--% } %-->
+
+                            <!--% for (var i=0; i < o.addGroupDetail.level-o.addGroupDetail.len; i++) { %-->
+                            <div class="member-img" flex="20">
+                                <img src="../../../images/undefindFace.png" />
+                            </div>
+                            <!--% } %-->
+
+                            <!--% } %-->
+
+                        </div>
+                    </div>
+
+                    <!--% if(o.addGroupDetail.level > 10) { %-->
+                    <div class="more-group showmore" onclick="morePartner()">
+                        <span class="ftc-main">展开</span> <i class="iconfont icon-arrow-down"></i>
+                    </div>
+                    <!--% } %-->
+
+
+                    <div class="groupFoot" layout="column" layout-align="center stretch">
+                        <div class="tip">
+                            <!--% if (o.addGroupDetail.status=="success") { %-->
+                            这个团已经挤不下了，去别处看看吧
+                            <!--% }else if(o.addGroupDetail.status=="processing"){ %-->
+                            <!--% if (o.addGroupDetail.type==1) { %-->
+                            恭喜你开团成功，快邀请小伙伴一起来参团吧
+                            <!--% }else if(o.addGroupDetail.type==2){ %-->
+                            恭喜你开团成功，快邀请小伙伴一起来参团吧
+                            <!--% }else if(o.addGroupDetail.type==3){ %-->
+                            <span>还差<span class="font-purple">{%=o.addGroupDetail.level-o.addGroupDetail.len %}</span>人即可成团，快来加入我们吧！</span>
+                            <!--% } %-->
+                            <!--% }else{ %-->
+                            已经超过拼团时间了
+                            <!--% } %-->
+                        </div>
+                        <div class="cellContrl">
+                            <!--% if (o.addGroupDetail.status=="SUCEESS"||o.addGroupDetail.status=="success") { %-->
+                            <a class="group-buy-category" onclick="goGroupList()">快去别的团抢占先机</a>
+                            <!--% }else if (o.addGroupDetail.status=="processing"){ %-->
+                            <!--% if (o.addGroupDetail.type==1) { %-->
+                            <a class="group-buy-category" onclick="share()">邀请小伙伴参团</a>
+                            <!--% }else if(o.addGroupDetail.type==2){ %-->
+                            <a class="group-buy-category" href="javascript:app.group.alreadyGroupPay({%=o.addGroupDetail.price %} )">立即支付</a>
+                            <!--% }else if(o.addGroupDetail.type==3){ %-->
+                            <a class="group-buy-category" onclick="app.group.joinGroup({%=o.addGroupDetail.level %},{%=o.addGroupDetail.price %})">来抱团</a>
+                            <!--% } %-->
+                            <!--% }else{ %-->
+                            <a class="group-buy-category" onclick="goGroupList()">快去别的团抢占先机</a>
+                            <!--% } %-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 活动内容 -->
+            <div class="promotion-content">
+                <!--% if(o.promotionInstance.source=="mwb") { %-->
+                <!--% if(o.promotionInstance.promotionDetailInfo&&o.promotionInstance.promotionDetailInfo.length>0) { %-->
+                <div class="activityTableBox">
+                    <span class="">{%# o.promotionInstance.promotionDetailInfo %}</span>
+                </div>
+                <!--% } %-->
+                <!--% }else{ %-->
+                <!--% if(o.promotionInstance.promotionRuleGroup.promotionRuleGroupContentExts.length>0) { %-->
+                <div class="promotion-item">
+                    <p class="detail-text">活动内容</p>
+                    <!--% for (var i=0; i < o.promotionInstance.promotionRuleGroup.promotionRuleGroupContentExts.length; i++) { %-->
+                    <div class="product-info" layout="row" layout-align="space-between center">
+                        <span class="product-name">{%=o.promotionInstance.promotionRuleGroup.promotionRuleGroupContentExts[i].itemName %}</span>
+                        <span class="product-time">{%=o.promotionInstance.promotionRuleGroup.promotionRuleGroupContentExts[i].itemContent %}</span>
+                        <span class="product-money">￥{%=app.tools.toThousands(o.promotionInstance.promotionRuleGroup.promotionRuleGroupContentExts[i].itemPrice )%}</span>
+                    </div>
+                    <!--% } %-->
+                </div>
+                <!--% if(o.promotionInstance.htmlContent) { %-->
+                <div class="advertorial" onclick="location.href='#advertorial'">
+                    查看图文详情 <span class="iconfont icon-you pull-right"></span>
+                </div>
+                <!--% } %-->
+                <!--% } %-->
+                <!--% } %-->
+            </div>
+
+            <!-- 适用门店 -->
+            <div class="buy-gifts-stores">
+                <div class="rule-title" layout="row" layout-align="space-between center">
+                    <span>适用门店</span>
+                </div>
+                <div class="storeList">
+                    <!--% for (var i=0; i <o.storeList.length; i++) { %-->
+                    <div class="store-info storeCell" layout="row" layout-align="space-between center">
+                        <div class="item" onclick="openLocation(this)" flex="90" layout="row" layout-align="start center">
+                            <div class="store-item" layout="column" layout-align="center start">
+                                <span class="store-name">{%=o.storeList[i].storeName%}</span>
+                                <span class="store-address">{%=o.storeList[i].address%}</span>
+                            </div>
+                            <div style="display: none;">
+                                <span class="store-latitude">{%=o.storeList[i].latitude%}</span>
+                                <span class="store-longitude">{%=o.storeList[i].longitude%}</span>
+                            </div>
+                        </div>
+                        <span class="store-mobile text-center" flex="10">
+                            <a href="tel:{%=o.storeList[i].mobile%}"><i class="iconfont  icon-dianhua1 telephone2"></i></a>
+                        </span>
+                    </div>
+                    <!--% } %-->
+                </div>
+                <!--% if (o.storeList.length>2) { %-->
+                <div class="seeAllStore">
+                    <div class="more" layout="row" layout-align="center center">
+                        <div>查看全部门店</div>
+                        <div> <i class="iconfont icon-you"></i></div>
+                    </div>
+                    <div class="much" layout="row" layout-align="center center">
+                        <div>收起</div>
+                        <div> <i class="iconfont icon-you"></i></div>
+                    </div>
+                </div>
+                <!--% } %-->
+            </div>
+
+            <!-- 活动详情 -->
+            <div class="group-buy-detail">
+                <div class="wrapper">
+                    <!--% if(o.promotionInstance.mwbOld) { %-->
+                    <div style="width:100%;overflow: hidden;">{%#o.promotionInstance.promotionDetailInfo %}</div>
+                    <div style="height: 15vw;"></div>
+                    <!--% }else{ %-->
+                    <div class="pro-detail">
+                        <div class="detail-item">
+                            <p class="detail-text">活动有效期</p>
+                            <p class="detail-content">{%=app.tools.toDate(o.promotionInstance.startDate,"yyyy-MM-dd") %}至{%=app.tools.toDate(o.promotionInstance.endDate,"yyyy-MM-dd") %}</p>
+                        </div>
+
+                        <!--% if (o.promotionInstance.validTime) { %-->
+                        <div class="detail-item">
+                            <p class="detail-text">优惠券有效期</p>
+                            <p class="detail-content">
+                                {%=app.tools.couponDate(o.promotionInstance.validTime) %}
+                            </p>
+                        </div>
+                        <!--% }%-->
+
+                        <!-- 预约信息 -->
+                        <!--% if(o.promotionInstance.groupInfo.appoint.list.length>0) { %-->
+                        <div class="detail-item">
+                            <p class="detail-text">{%=o.promotionInstance.groupInfo.appoint.title %}</p>
+                            <!--% for (var i in o.promotionInstance.groupInfo.appoint.list) { %-->
+                            <p class="detail-content">{%=o.promotionInstance.groupInfo.appoint.list[i].content %}</p>
+                            <!--% }%-->
+                        </div>
+                        <!--% }%-->
+
+                        <!-- 适用人群 -->
+                        <!--% if(o.promotionInstance.groupInfo.suit.list.length>0) { %-->
+                        <div class="detail-item">
+                            <p class="detail-text">{%=o.promotionInstance.groupInfo.suit.title %}</p>
+                            <!--% for (var i in o.promotionInstance.groupInfo.suit.list) { %-->
+                            <p class="detail-content">{%=o.promotionInstance.groupInfo.suit.list[i].content %}</p>
+                            <!--% }%-->
+                        </div>
+                        <!--% }%-->
+
+                        <!-- 规则提醒 -->
+                        <!--% if(o.promotionInstance.groupInfo.rule.list.length>0) { %-->
+                        <div class="detail-item">
+                            <p class="detail-text">{%=o.promotionInstance.groupInfo.rule.title %}</p>
+                            <!--% for (var i in o.promotionInstance.groupInfo.rule.list) { %-->
+                            <p class="detail-content">{%=o.promotionInstance.groupInfo.rule.list[i].content %}</p>
+                            <!--% }%-->
+                        </div>
+                        <!--% }%-->
+
+                        <div class="detail-item">
+                            <p class="detail-text">温馨提示</p>
+                            <p class="detail-content">· 如果需要发票，请您在消费时向商户咨询；</p>
+                            <p class="detail-content">· 活动图片由商户提供，若侵害到您的权益请联系我们，若情况属实，我们将第一时间删除所有相关图片；</p>
+                        </div>
+                    </div>
+                    <!--% } %-->
+                </div>
+            </div>
+
+            <!-- 图文详情-->
+            <!--% if(o.promotionInstance.htmlContent) { %-->
+            <div class="jsonHtml">
+                <p id="advertorial" class="advertorial-title">图文详情</p>
+                {%#o.promotionInstance.htmlContent%}
+            </div>
+            <!--% } %-->
+
+            <!-- 二维码 -->
+            <div class="code">
+                <div class="code-box">
+                    <div class="code-text">
+                        <span>—— 长按识别图中二维码关注商户公众号 ——</span>
+                    </div>
+                    <div class="code-info">
+                        <img src="../../../images/code.jpg" onerror="this.src='../../../images/code.jpg'" class="code-img" />
+                    </div>
+                </div>
+            </div>
+
+            <a href="javascript:app.group.goRegistered()" class="btn">
+                <span class="save-btn">申请合作
+                    <i class="iconfont icon-xiao47"></i>
+                </span>
+            </a>
+
+            <div class="btn-group">
+                <div class="wrappers" layout="row" layout-align="space-around center">
+                    <span class="detail-order">
+                        <p class="icon"><i class="iconfont  icon-goumaijilu01"></i></p>
+                        <p class="title">消费记录</p>
+                    </span>
+                    <span class="share-order" onclick="share()">
+                        <p class="icon"><i class="iconfont  icon-fenxiang"></i></p>
+                        <p class="title">邀请好友</p>
+                    </span>
+                    <span onclick="app.group.goBuy()">
+                        <p class="icon"><i class="iconfont  icon-pintuan"></i></p>
+                        <p class="title">我要开团</p>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+</script>
+
+<script type="text/javascript" src="js/swiper.jquery.min.js"></script>
+<script src="js/golbal.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/app.api.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/tmpl.js"></script>
+<script src="main.index.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/convertor.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

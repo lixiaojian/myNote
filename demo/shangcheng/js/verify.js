@@ -1,0 +1,1 @@
+var V=function(){function n(n){return!r(n)}var t=function(n){return!!/^0?1[3|4|5|7|8][0-9]\d{8}$/.test(n)},r=function(n){return!n||""==function(n){trimLeft=/^\s+/,trimRight=/\s+$/,n=n?function(t){return null==t?"":n.call(t)}:function(n){return null==n?"":n.toString().replace(trimLeft,"").replace(trimRight,"")}}(n)};return{mobilePhone:t,isBlank:r,isNotBlank:n}}();

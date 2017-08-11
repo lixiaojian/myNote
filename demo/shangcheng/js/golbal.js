@@ -1,0 +1,1 @@
+$(function(){$(window).scroll(function(){$(window).scrollTop()<400?$("#up").css("display","none"):$("#up").css("display","block")}),$("#up").click(function(){$("html,body").animate({scrollTop:0},100)})});
