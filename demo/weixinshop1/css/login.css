@@ -1,0 +1,43 @@
+header{
+    text-align: center;
+    padding: 1rem 0;
+}
+input{
+    font-size: .35rem;
+}
+.header-img{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    display: inline-block;
+}
+.mui-input-group{
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: .35rem;
+}
+.mui-input-group .mui-input-row .mui-input-code{
+    width: 45%;
+}
+.mui-input-row .mui-btn.get-code-btn{
+    width: auto;
+    margin: 6px .2rem 6px 0;
+    padding: 5px 10px;
+}
+.web-content .login-btn{
+    margin-top: .75rem;
+    width: 100%;
+    background-color: #a63a90;
+    border-color: #a63a90;
+}
+.mui-input-row label{
+    width: 28%;
+}
+.mui-input-row label~input{
+    width: 72%;
+}
+.link{
+    float: right;
+    margin-top: .38rem;
+    font-size: .35rem;
+}

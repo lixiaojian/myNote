@@ -1,0 +1,108 @@
+section{
+    background-color: #ffffff;
+    padding: .2rem;
+    margin-bottom: .24rem;
+    font-size: .3rem;
+}
+.product-title{
+    font-size: .38rem;
+}
+.sub-title{
+    padding: .2rem 0;
+    color: #979797;
+}
+.market-price{
+    text-decoration: line-through;
+    font-size: .38rem;
+    color: #7d3692;
+}
+.buyer-number{
+    float: right;
+    padding: 0;
+}
+.group-box{
+    color: #fff;
+    line-height: .7rem;
+    text-align: center;
+    margin-top: .4rem;
+    padding: .4rem 0;
+    border-top: 2px solid #dfdfdf;
+}
+.group-item{
+    padding: 0 .1rem;
+}
+.group{
+    border-radius: .1rem;
+}
+.group.one-peple{
+    background-color: #8e51a1;
+    background: -webkit-linear-gradient(#8e51a1 0,#8e51a1 50%,#854399 50%,#854399 100%); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#8e51a1 50%, #854399 100%); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#8e51a1 50%, #854399 100%); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#8e51a1 0,#8e51a1 50%,#854399 50%,#854399 100%); /* 标准的语法 */
+}
+.group.three-peple{
+    background-color: #4085c5;
+    background: -webkit-linear-gradient(#4085c5 0,#4085c5 50%,#307bc1 50%,#307bc1 100%); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#4085c5 0,#4085c5 50%,#307bc1 50%,#307bc1 100%); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#4085c5 0,#4085c5 50%,#307bc1 50%,#307bc1 100%); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#4085c5 0,#4085c5 50%,#307bc1 50%,#307bc1 100%); /* 标准的语法 */
+}
+.group.five-peple{
+    background-color: #25aca5;
+    background: -webkit-linear-gradient(#25aca5 0,#25aca5 50%,#13a59e 50%,#13a59e 100%); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#25aca5 0,#25aca5 50%,#13a59e 50%,#13a59e 100%); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#25aca5 0,#25aca5 50%,#13a59e 50%,#13a59e 100%); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#25aca5 0,#25aca5 50%,#13a59e 50%,#13a59e 100%); /* 标准的语法 */
+}
+.price{
+    font-size: .38rem;
+}
+.normal-text{
+    padding: .18rem 0;
+}
+.group-status-box{
+    padding-top: .12rem;
+    color: #b8b8b8;
+}
+.group-status{
+    display: inline-block;
+    width: 2.3rem;
+}
+.group-member-tag{
+    border: 1px solid #b8b8b8;
+    border-radius: .04rem;
+    padding: .05rem;
+}
+.mui-table-view .mui-media-object{
+    line-height: 1.2rem;
+    max-width: 1.2rem;
+    height: 1.2rem;
+}
+.mui-media-body{
+    height: 1.2rem;
+    padding-top: .2rem;
+}
+.group-list .mui-table-view-cell.mui-media{
+    background-color: #f7f7f7;
+    margin-bottom: .14rem;
+}
+.group-list .mui-table-view-cell:after,.group-list .mui-table-view:before,.group-list .mui-table-view:after{
+    height: 0;
+}
+
+.group-full-flag{
+    position: absolute;
+    width: 1.11rem;
+    height: 1.11rem;
+    border-radius: 50%;
+    top: .3rem;
+    right: .3rem;
+
+}
+.get-more-link{
+    border: 0;
+    display: inline-block;
+    margin-top: .2rem;
+    color: #854399;
+}

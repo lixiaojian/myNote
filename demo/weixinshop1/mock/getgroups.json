@@ -1,0 +1,7 @@
+{
+  "code":0,
+  "groups":[
+    {"owner":"张三","header":"images/detail/user-head.png","status":"已成团","maxMember":"5人团"},
+    {"owner":"李四","header":"images/detail/user-head.png","status":"未成团","maxMember":"5人团"}
+  ]
+}
