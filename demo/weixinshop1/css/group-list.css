@@ -18,7 +18,6 @@
 }
 .mui-segmented-control.mui-segmented-control-inverted{
     -webkit-box-shadow:0 .01rem .1rem #999;
-    -moz-box-shadow:0 .01rem .1rem #999;
     box-shadow:0 .01rem .1rem #999;
 }
 .mui-table-view-cell>a:not(.mui-btn){

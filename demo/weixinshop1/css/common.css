@@ -15,6 +15,17 @@ input[type=text]{
     line-height: 1.25;
     height: .8rem;
 }
+.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{
+    color: #7d3692;
+}
+.mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
+    width: .56rem;
+    height: .56rem;
+    top: .14rem;
+}
+.mui-checkbox input[type=checkbox]:before, .mui-radio input[type=radio]:before{
+    font-size: .56rem;
+}
 .web-content{
     padding: 0 .3rem;
 }

@@ -42,22 +42,16 @@ p{
 .group.one-peple{
     background-color: #8e51a1;
     background: -webkit-linear-gradient(#8e51a1 0,#8e51a1 50%,#854399 50%,#854399 100%); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(#8e51a1 50%, #854399 100%); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(#8e51a1 50%, #854399 100%); /* Firefox 3.6 - 15 */
     background: linear-gradient(#8e51a1 0,#8e51a1 50%,#854399 50%,#854399 100%); /* 标准的语法 */
 }
 .group.three-peple{
     background-color: #4085c5;
     background: -webkit-linear-gradient(#4085c5 0,#4085c5 50%,#307bc1 50%,#307bc1 100%); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(#4085c5 0,#4085c5 50%,#307bc1 50%,#307bc1 100%); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(#4085c5 0,#4085c5 50%,#307bc1 50%,#307bc1 100%); /* Firefox 3.6 - 15 */
     background: linear-gradient(#4085c5 0,#4085c5 50%,#307bc1 50%,#307bc1 100%); /* 标准的语法 */
 }
 .group.five-peple{
     background-color: #25aca5;
     background: -webkit-linear-gradient(#25aca5 0,#25aca5 50%,#13a59e 50%,#13a59e 100%); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(#25aca5 0,#25aca5 50%,#13a59e 50%,#13a59e 100%); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(#25aca5 0,#25aca5 50%,#13a59e 50%,#13a59e 100%); /* Firefox 3.6 - 15 */
     background: linear-gradient(#25aca5 0,#25aca5 50%,#13a59e 50%,#13a59e 100%); /* 标准的语法 */
 }
 .price{
@@ -253,7 +247,6 @@ p{
     display: inline-block;
     text-align: center;
     -webkit-box-shadow: 0 0 0 1px #fff;
-    -moz-box-shadow: 0 0 0 1px #fff;
     box-shadow: 0 0 0 1px #fff;
     position: absolute;
     border-radius: 50%;
@@ -263,7 +256,6 @@ p{
 }
 .group-owner img{
     -webkit-box-shadow: 0 0 0 2px #d24eef;
-    -moz-box-shadow: 0 0 0 2px #d24eef;
     box-shadow: 0 0 0 2px #d24eef;
 }
 .group-member img{
