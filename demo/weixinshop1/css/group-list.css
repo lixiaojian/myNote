@@ -1,0 +1,62 @@
+.mui-segmented-control{
+   background-color: #fff;
+    font-size: .32rem;
+}
+.mui-card{
+    font-size: .3rem;
+}
+.mui-segmented-control .mui-control-item{
+    line-height: .9rem;
+}
+.mui-control-content{
+    height: 100%;
+    height: calc(100vh - 1.2rem);
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+    color: #8c359f;
+    border-color: #8c359f;
+}
+.mui-segmented-control.mui-segmented-control-inverted{
+    -webkit-box-shadow:0 .01rem .1rem #999;
+    -moz-box-shadow:0 .01rem .1rem #999;
+    box-shadow:0 .01rem .1rem #999;
+}
+.mui-table-view-cell>a:not(.mui-btn){
+    padding: .3rem .2rem;
+}
+.mui-table-view .mui-media-object{
+    line-height: 1rem;
+    width: 1rem;
+    height: 1rem;
+    max-width: 1rem;
+    border-radius: 50%;
+    margin-top: .1rem;
+}
+.group-status-box{
+    padding: .1rem 0;
+    color: #bbbbbb;
+    font-size: .26rem;
+}
+.group-member-tag{
+    padding-left: .3rem;
+}
+.group-member{
+    color: #ee9608;
+}
+.group-full-flag{
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    position: absolute;
+    right: .36rem;
+    top: 50%;
+    transform: translate(0,-50%);
+}
+.price-box{
+    color: #7f3994;
+}
+.old-price{
+    color: #a1a1a1;
+    padding-left: .1rem;
+    text-decoration: line-through;
+}

@@ -22,6 +22,7 @@ input[type=text]{
     color: #556373;
 }
 .go-to-top{
+    z-index: 100;
     background-color: #7d3692;
     width: .9rem;
     height: .9rem;
