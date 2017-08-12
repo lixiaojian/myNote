@@ -20,4 +20,10 @@
         docEl.style.fontSize = parseInt(BASE_FONT_SIZE * (clientWidth / DESIGNS_WIDTH)) + 'px';
     };
     calculate_size();
+    //返回顶部
+    setTimeout(function () {
+        mui('body').on('tap','.go-to-top',function () {
+            mui.scrollTo(0,500);
+        })
+    },2000);
 }());

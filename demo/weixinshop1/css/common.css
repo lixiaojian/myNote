@@ -21,3 +21,19 @@ input[type=text]{
 .link{
     color: #556373;
 }
+.go-to-top{
+    background-color: #7d3692;
+    width: .9rem;
+    height: .9rem;
+    border-radius: 50%;
+    text-align: center;
+    line-height: .9rem;
+    position: fixed;
+    right: .24rem;
+    bottom: .24rem;
+    color: #fff;
+}
+.go-to-top .mui-icon-arrowthinup{
+    font-weight: 700;
+    font-size: .4rem;
+}
