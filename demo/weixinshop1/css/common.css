@@ -2,6 +2,19 @@ body{
     line-height: 1.25;
     background-color: #f5f5f5;
 }
+.mui-input-group .mui-input-row{
+    height: .8rem;
+}
+.mui-input-row label{
+    padding: .22rem 15px;
+}
+.mui-btn{
+    font-size: .35rem;
+}
+input[type=text]{
+    line-height: 1.25;
+    height: .8rem;
+}
 .web-content{
     padding: 0 .3rem;
 }

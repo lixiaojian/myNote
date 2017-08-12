@@ -17,12 +17,12 @@ input{
     font-size: .35rem;
 }
 .mui-input-group .mui-input-row .mui-input-code{
-    width: 45%;
+    width: 46%;
 }
 .mui-input-row .mui-btn.get-code-btn{
     width: auto;
-    margin: 6px .2rem 6px 0;
-    padding: 5px 10px;
+    margin: .1rem .2rem .1rem 0;
+    padding: .1rem .2rem;
 }
 .web-content .login-btn{
     margin-top: .75rem;

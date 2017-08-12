@@ -7,8 +7,13 @@ mui('body').on('tap','.get-code-btn',function(){
 })
 //点击登录
 mui('body').on('tap','.login-btn',function(){
-    var phone = mui('#phone')[0].value;
-    var code = mui('#code')[0].value;
+    var phoneInput = mui('#phone')[0];
+    var codeInput = mui('#code')[0];
+    //防止提交时弹出键盘
+    phoneInput.blur();
+    codeInput.blur();
+    var phone = phoneInput.value;
+    var code = codeInput.value;
     if(!phone || !code){
         mui.toast('手机号码或验证码不能为空',{ duration:'long', type:'div' });
     }else{
