@@ -203,3 +203,82 @@ p{
 .apply-join-link .mui-icon-compose{
     font-size: .4rem;
 }
+
+.group-price{
+    text-decoration: none;
+}
+.single-price{
+    text-decoration: line-through;
+}
+.success-tag{
+    margin-left: .1rem;
+    font-size: .28rem;
+    color: #979797;
+    padding: 0 .05rem;
+}
+.group-detal-box{
+    position: relative;
+}
+.success-flag{
+    width: 2rem;
+    position: absolute;
+    top: .6rem;
+    right: .45rem;
+}
+.group-number{
+    font-size: .28rem;
+    color: #979797;
+    line-height: .5rem;
+}
+.group-member-list{
+    background-color: #f7f7f7;
+    padding: .24rem 0;
+    list-style-type: none;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-around;
+    justify-content:space-around;
+}
+.group-member{
+    position: relative;
+}
+.group-owner:after{
+    content: '团';
+    color: #fff;
+    background-color: #d24eef;
+    font-size: .26rem;
+    width: .36rem;
+    height: .36rem;
+    line-height: .36rem;
+    display: inline-block;
+    text-align: center;
+    -webkit-box-shadow: 0 0 0 1px #fff;
+    -moz-box-shadow: 0 0 0 1px #fff;
+    box-shadow: 0 0 0 1px #fff;
+    position: absolute;
+    border-radius: 50%;
+    top: 0;
+    right: -.1rem;
+    font-weight: 200;
+}
+.group-owner img{
+    -webkit-box-shadow: 0 0 0 2px #d24eef;
+    -moz-box-shadow: 0 0 0 2px #d24eef;
+    box-shadow: 0 0 0 2px #d24eef;
+}
+.group-member img{
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+}
+.go-to-other{
+    display: inline-block;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    background-color: #9a4eab;
+    padding: .26rem 0;
+    border-radius: .06rem;
+    margin: .1rem 0;
+    font-size: .32rem;
+}
