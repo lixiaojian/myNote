@@ -1,0 +1,51 @@
+.mui-card-content{
+    font-size: .3rem;
+    display: -webkit-flex;
+    display: flex;
+    padding: .3rem .2rem;
+}
+.activity-img{
+    width: 2.68rem;
+    height: 1.66rem;
+}
+.activity-img img{
+    width: 2.68rem;
+    height: 1.66rem;
+}
+.activity-content{
+    height: 1.66rem;
+    -webkit-flex: 1;
+    flex: 1;
+    padding-left: .2rem;
+}
+.activity-name{
+    font-size: .32rem;
+    line-height: .4rem;
+}
+.activity-desc{
+    line-height: .3rem;
+    margin: .2rem 0;
+    font-size: .22rem;
+    color: #999;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.grous-status{
+    color: #999;
+    font-size: .28rem;
+}
+.join-groups{
+    padding-left: .2rem;
+}
+.last-number,.groups-number{
+    font-weight: 700;
+    padding: 0 .05rem;
+}
+.last-number{
+    color: #ee9608;
+}
+.groups-number{
+    color: #7f3994;
+}
