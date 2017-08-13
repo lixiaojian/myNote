@@ -1,0 +1,71 @@
+.warpper{
+    font-size: .3rem;
+}
+.mui-control-content{
+    height: 100%;
+    height: calc(100vh - 1.2rem);
+}
+.mui-card-content{
+    padding: .2rem .3rem;
+}
+.order-msg{
+    padding-top: .2rem;
+    margin-top: .2rem;
+}
+.order-number{
+    color: #333;
+}
+.product-img{
+    max-width: 1.84rem;
+    max-height: 1.84rem;
+    display: inline-block;
+}
+.product-name{
+    display: inline-block;
+    padding-left: .36rem;
+    font-size: .32rem;
+}
+.product-img,.product-name{
+    vertical-align: middle;
+}
+.buy-date{
+    font-size: .22rem;
+    color: #999;
+    line-height: .4rem;
+}
+
+.money-box{
+    font-size: .22rem;
+    color: #999;
+}
+.money{
+    font-size: .3rem;
+    color: #7f3994;
+}
+.group-member-tag{
+    font-size: .22rem;
+    padding-right: .4rem;
+}
+.order-status{
+    color: #fe9500;
+    text-align: right;
+}
+
+.order-cancel{
+    color: #999;
+    text-align: right;
+}
+.order-compalte{
+    color: #333;
+    text-align: right;
+}
+.mui-btn{
+    font-size: .24rem;
+    margin-left: .15rem;
+    color: #999;
+}
+.pay-btn{
+    background-color: #9a4faa;
+    color: #fff;
+    border-color: #9a4faa;
+}

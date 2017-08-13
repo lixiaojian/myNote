@@ -2,6 +2,20 @@ body{
     line-height: 1.25;
     background-color: #f5f5f5;
 }
+.line-top{
+    position: relative;
+}
+.line-top:before {
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+    top: -1px;
+}
 .mui-input-group .mui-input-row{
     height: .8rem;
 }
@@ -26,11 +40,45 @@ input[type=text]{
 .mui-checkbox input[type=checkbox]:before, .mui-radio input[type=radio]:before{
     font-size: .56rem;
 }
+
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+    color: #8c359f;
+    border-color: #8c359f;
+}
+.mui-segmented-control.mui-segmented-control-inverted{
+    -webkit-box-shadow:0 .01rem .1rem #999;
+    box-shadow:0 .01rem .1rem #999;
+    z-index: 100;
+}
+.mui-table-view-cell>a:not(.mui-btn){
+    padding: .3rem .2rem;
+}
+.mui-segmented-control .mui-control-item {
+    line-height: .9rem;
+}
+.mui-segmented-control {
+    background-color: #fff;
+    font-size: .32rem;
+}
+.mui-card{
+    margin: .2rem;
+    font-size: .3rem;
+}
+.mui-card-header{
+    font-size: .32rem;
+    padding: .2rem .3rem;
+}
+.mui-card-footer{
+    padding: .2rem .3rem;
+}
 .web-content{
     padding: 0 .3rem;
 }
 .link{
     color: #556373;
+}
+.group-member{
+    color: #ee9608;
 }
 .go-to-top{
     z-index: 100;

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="edge"/>
+    <title>我的订单</title>
+    <link rel="stylesheet" href="lib/mui/css/mui.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/order.css">
+</head>
+<body>
+<div class="warpper">
+    <div id="sliderSegmentedControl" class="mui-segmented-control mui-segmented-control-inverted bg-white">
+        <a class="mui-control-item mui-active" href="#all">
+            全部
+        </a>
+        <a class="mui-control-item" href="#waitingpay">
+            待付款
+        </a>
+        <a class="mui-control-item" href="#waitingsend">
+            待收货
+        </a>
+        <a class="mui-control-item" href="#complate">
+            完成
+        </a>
+    </div>
+    <div id="all" class="mui-control-content mui-active">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="mui-card">
+                    <div class="mui-card-header order-number">团号：56121</div>
+                    <div class="mui-card-content">
+                        <div>
+                            <img src="images/detail/banner1.png" class="product-img" alt="">
+                            <span class="product-name class='mui-ellipsis'">0修复.粉黛眉</span>
+                        </div>
+                        <div class="order-msg line-top">
+                            <span class="buy-date">2017-08-10</span>
+                            <div class="mui-pull-right">
+                                <span class="group-member-tag"><span class="group-member">5</span>人团</span>
+                                <span class="money-box">需付款<span class="money">￥1,980.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mui-card-footer">
+                        <a href="" class="mui-btn">取消</a>
+                        <a href="" class="mui-btn pay-btn">支付</a>
+                    </div>
+                </div>
+                <div class="mui-card">
+                    <div class="mui-card-header order-number">团号：56122</div>
+                    <div class="mui-card-content">
+                        <div>
+                            <img src="images/detail/banner1.png" class="product-img" alt="">
+                            <span class="product-name class='mui-ellipsis'">0修复.粉黛眉</span>
+                        </div>
+                        <div class="order-msg line-top">
+                            <span class="buy-date">2017-08-10</span>
+                            <div class="mui-pull-right">
+                                <span class="group-member-tag"><span class="group-member">3</span>人团</span>
+                                <span class="money-box">已付款<span class="money">￥2,980.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mui-card-footer mui-text-right">
+                        <span class="order-status">商品配送中</span>
+                    </div>
+                </div>
+                <div class="mui-card">
+                    <div class="mui-card-header order-number">团号：56123</div>
+                    <div class="mui-card-content">
+                        <div>
+                            <img src="images/detail/banner1.png" class="product-img" alt="">
+                            <span class="product-name class='mui-ellipsis'">0修复.粉黛眉</span>
+                        </div>
+                        <div class="order-msg line-top">
+                            <span class="buy-date">2017-08-10</span>
+                            <div class="mui-pull-right">
+                                <span class="group-member-tag"><span class="group-member">3</span>人团</span>
+                                <span class="money-box">应付款<span class="money">￥2,980.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mui-card-footer mui-text-right">
+                        <span class="order-cancel">订单已取消</span>
+                    </div>
+                </div>
+                <div class="mui-card">
+                    <div class="mui-card-header order-number">团号：56124</div>
+                    <div class="mui-card-content">
+                        <div>
+                            <img src="images/detail/banner1.png" class="product-img" alt="">
+                            <span class="product-name class='mui-ellipsis'">0修复.粉黛眉</span>
+                        </div>
+                        <div class="order-msg line-top">
+                            <span class="buy-date">2017-08-10</span>
+                            <div class="mui-pull-right">
+                                <span class="group-member-tag"><span class="group-member">1</span>人团</span>
+                                <span class="money-box">已付款<span class="money">￥3,980.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mui-card-footer mui-text-right">
+                        <span class="order-compalte">订单已完成</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="waitingpay" class="mui-control-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="mui-card">
+                    <div class="mui-card-header order-number">团号：56121</div>
+                    <div class="mui-card-content">
+                        <div>
+                            <img src="images/detail/banner1.png" class="product-img" alt="">
+                            <span class="product-name class='mui-ellipsis'">0修复.粉黛眉</span>
+                        </div>
+                        <div class="order-msg line-top">
+                            <span class="buy-date">2017-08-10</span>
+                            <div class="mui-pull-right">
+                                <span class="group-member-tag"><span class="group-member">5</span>人团</span>
+                                <span class="money-box">需付款<span class="money">￥1,980.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mui-card-footer">
+                        <a href="" class="mui-btn">取消</a>
+                        <a href="" class="mui-btn pay-btn">支付</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="waitingsend" class="mui-control-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="mui-card">
+                    <div class="mui-card-header order-number">团号：56122</div>
+                    <div class="mui-card-content">
+                        <div>
+                            <img src="images/detail/banner1.png" class="product-img" alt="">
+                            <span class="product-name class='mui-ellipsis'">0修复.粉黛眉</span>
+                        </div>
+                        <div class="order-msg line-top">
+                            <span class="buy-date">2017-08-10</span>
+                            <div class="mui-pull-right">
+                                <span class="group-member-tag"><span class="group-member">3</span>人团</span>
+                                <span class="money-box">已付款<span class="money">￥2,980.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mui-card-footer mui-text-right">
+                        <span class="order-status">商品配送中</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="complate" class="mui-control-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="mui-card">
+                    <div class="mui-card-header order-number">团号：56124</div>
+                    <div class="mui-card-content">
+                        <div>
+                            <img src="images/detail/banner1.png" class="product-img" alt="">
+                            <span class="product-name class='mui-ellipsis'">0修复.粉黛眉</span>
+                        </div>
+                        <div class="order-msg line-top">
+                            <span class="buy-date">2017-08-10</span>
+                            <div class="mui-pull-right">
+                                <span class="group-member-tag"><span class="group-member">1</span>人团</span>
+                                <span class="money-box">已付款<span class="money">￥3,980.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mui-card-footer mui-text-right">
+                        <span class="order-compalte">订单已完成</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/common.js"></script>
+<script src="lib/mui/js/mui.min.js"></script>
+<script src="js/order.js"></script>
+</body>
+</html>
