@@ -13,7 +13,8 @@
     var DESIGNS_WIDTH=750;
     var calculate_size = function () {
         var docEl = document.documentElement,
-            clientWidth = window.screen.width
+            clientWidth = window.screen.width;
+        clientWidth = clientWidth > 700?700:clientWidth;
         if (!clientWidth){
             return;
         }
