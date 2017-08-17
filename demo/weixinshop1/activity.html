@@ -100,5 +100,13 @@
 </div>
 <script src="js/common.js"></script>
 <script src="lib/mui/js/mui.min.js"></script>
+<script>
+    mui('body').on('tap','.mui-content>.mui-card>a',function () {
+        var href = this.getAttribute('href');
+        if(href){
+            location.href = href;
+        }
+    })
+</script>
 </body>
 </html>
